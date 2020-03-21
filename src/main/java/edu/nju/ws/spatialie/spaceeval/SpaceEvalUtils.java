@@ -77,7 +77,7 @@ public class SpaceEvalUtils {
         add(new ImmutableTriple<>(MEASURE,"",""));    // 1
     }};
 
-     static Map<String, String> invalidCharFixedMap = new HashMap<String, String>() {{
+    static Map<String, String> invalidCharFixedMap = new HashMap<String, String>() {{
         put("â€“", "—");
         put("â€”", "–");
         put("â€˜", "‘");
@@ -87,7 +87,7 @@ public class SpaceEvalUtils {
     }};
 
 
-     //计算元素之间的最大距离
+    //计算元素之间的最大距离
     static int calcElementDistance(Span...elements) {
 
         int start = 0x7ffffff, end = 0;
@@ -115,8 +115,28 @@ public class SpaceEvalUtils {
         if (endIndex < 0) {
             endIndex = - endIndex - 1;
         }
+
+        if (endIndex - startIndex == -1) {
+            System.out.println();
+        }
+
         return endIndex - startIndex;
     }
+
+    static int calElementNumBetweenElements(List<Span> allElements, List<Span> elements) {
+        List<Span> sortedElements = elements.stream().filter(o -> o.start != -1).sorted().collect(Collectors.toList());
+        if (elements.isEmpty())
+            return -1;
+        Span minElement = sortedElements.get(0), maxElement = sortedElements.get(sortedElements.size()-1);
+        int startIndex = Collections.binarySearch(allElements, minElement);
+        int endIndex = Collections.binarySearch(allElements, maxElement);
+
+        if (startIndex < 0 || endIndex < 0) {
+            return -1;
+        }
+        return endIndex - startIndex;
+    }
+
 
 
     // 检验是否有sentence不含任何关系
@@ -262,12 +282,63 @@ public class SpaceEvalUtils {
     }
 
 
-    // 计算一个link的跨越长度
-    private static void CalMaxDistanceOfLink(String srcDir, String linkType, String [] elementType) {
-        CalMaxDistanceOfLink(srcDir, linkType, elementType, "");
+    private static void checkMaxElementNumMapBetweenElements(String srcDir) {
+        Map<Integer, Integer> countMap = new TreeMap<>();
+        Map<Integer, Double>  percentMap= new TreeMap<>();
+        Map<Integer, Integer>  sumMap= new TreeMap<>();
+
+        List<File> files = FileUtil.listFiles(srcDir);
+        String [][] typePairs = {{TRAJECTOR, LANDMARK}, {TRAJECTOR, TRIGGER}, {LANDMARK, TRIGGER}, {MOVER, TRIGGER}};
+        for (File file: files) {
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            List<Span> allElements = spaceEvalDoc.getElements().stream().filter(o -> o.start >= 0).collect(Collectors.toList());
+            Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
+            List<BratEvent> allLinks = spaceEvalDoc.getAllLinks();
+            for (BratEvent link : allLinks) {
+                for (String [] pair: typePairs) {
+                    if (pair[0].equals(TRAJECTOR) && pair[1].equals(LANDMARK) && (link.hasRole(TRIGGER) || link.hasRole(VAL)))
+                        continue;
+                    List<Span> elementList1 = link.getRoleIds(pair[0]).stream().map(elementMap::get).collect(Collectors.toList());
+                    List<Span> elementList2 = link.getRoleIds(pair[1]).stream().map(elementMap::get).collect(Collectors.toList());
+                    for (Span element1: elementList1) {
+                        for (Span element2: elementList2) {
+                            int num = calElementNumBetweenElements(allElements, Arrays.asList(element1, element2));
+                            int count = countMap.getOrDefault(num, 0);
+                            countMap.put(num, count + 1);
+                        }
+                    }
+                }
+            }
+
+        }
+        int sum = 0;
+
+        for (Integer key: countMap.keySet()) {
+            sum += countMap.get(key);
+            sumMap.put(key, sum);
+        }
+        for (Integer key: sumMap.keySet()) {
+            percentMap.put(key, 1.0*sumMap.get(key)/sum);
+        }
+        System.out.println(countMap);
+        System.out.println(sumMap);
+        System.out.println(percentMap);
+
+        System.out.println();
     }
 
-    private static void CalMaxDistanceOfLink(String srcDir, String linkType, String [] elementType, String redundantRole) {
+
+
+
+    // 计算一个link的跨越长度
+    private static Map<Integer, Integer> CalMaxDistanceOfLink(String srcDir, String linkType, String [] elementType) {
+        return CalMaxDistanceOfLink(srcDir, linkType, elementType, "");
+    }
+
+    private static Map<Integer, Integer> CalMaxDistanceOfLink(String srcDir, String linkType, String [] elementType, String redundantRole) {
+
+        Map<Integer, Integer> map = new TreeMap<>();
+
         List<File> files = FileUtil.listFiles(srcDir);
         Set<String> elementTypeSet = new HashSet<>(Arrays.asList(elementType));
         int maxDistance = 0;
@@ -294,34 +365,75 @@ public class SpaceEvalUtils {
                         elements.add(role);
                     }
                 }
-                maxDistance = Math.max(maxDistance, calElementTokenLevelDistance(tokens, elements));
-                if (maxDistance == 95) {
-                    System.out.println();
-                }
+
+
+                int distance = calElementTokenLevelDistance(tokens, elements);
+
+                if (distance < 0)
+                    continue;
+
+                int count = map.getOrDefault(distance, 0);
+                map.put(distance, count + 1);
+                maxDistance = Math.max(maxDistance, distance);
             }
         }
         System.out.println(linkType + " " + Arrays.toString(elementType) + ":" + maxDistance);
+        System.out.println(map);
+        return map;
+    }
+
+
+    private static void mergeCountMap(Map<Integer, Integer> map1, Map<Integer, Integer> map2) {
+        for (Map.Entry<Integer, Integer> entry : map2.entrySet()) {
+            int count = map1.getOrDefault(entry.getKey(), 0);
+            map1.put(entry.getKey(), entry.getValue() + count);
+        }
     }
 
     // 计算所有link的最大跨越长度
     private static void checkMaxDistanceOfLink(String srcDir) {
-        CalMaxDistanceOfLink(srcDir, MOVELINK, new String[] {"mover", "trigger"});
-        CalMaxDistanceOfLink(srcDir, QSLINK, new String[] {"trajector", "trigger"});
-        CalMaxDistanceOfLink(srcDir, QSLINK, new String[] {"landmark", "trigger"});
-        CalMaxDistanceOfLink(srcDir, QSLINK, new String[] {"trajector", "landmark"});
+
+        Map<Integer, Integer> countMap = new TreeMap<>();
+        Map<Integer, Double>  percentMap= new TreeMap<>();
+        Map<Integer, Integer>  sumMap= new TreeMap<>();
+
+        mergeCountMap(countMap, CalMaxDistanceOfLink(srcDir, MOVELINK, new String[] {"mover", "trigger"}));
+        mergeCountMap(countMap, CalMaxDistanceOfLink(srcDir, QSLINK, new String[] {"trajector", "trigger"}));
+        mergeCountMap(countMap, CalMaxDistanceOfLink(srcDir, QSLINK, new String[] {"landmark", "trigger"}));
+        mergeCountMap(countMap, CalMaxDistanceOfLink(srcDir, QSLINK, new String[] {"trajector", "landmark"}));
+
         CalMaxDistanceOfLink(srcDir, QSLINK, new String[] {"trajector", "landmark"}, "trigger");
         CalMaxDistanceOfLink(srcDir, QSLINK, new String[] {"trajector", "landmark", "trigger"});
-        CalMaxDistanceOfLink(srcDir, OLINK, new String[] {"trajector", "trigger"});
-        CalMaxDistanceOfLink(srcDir, OLINK, new String[] {"landmark", "trigger"});
-        CalMaxDistanceOfLink(srcDir, OLINK, new String[] {"trajector", "landmark"});
+
+        mergeCountMap(countMap, CalMaxDistanceOfLink(srcDir, OLINK, new String[] {"trajector", "trigger"}));
+        mergeCountMap(countMap, CalMaxDistanceOfLink(srcDir, OLINK, new String[] {"landmark", "trigger"}));
+        mergeCountMap(countMap, CalMaxDistanceOfLink(srcDir, OLINK, new String[] {"trajector", "landmark"}));
+
         CalMaxDistanceOfLink(srcDir, OLINK, new String[] {"trajector", "landmark"}, "trigger");
         CalMaxDistanceOfLink(srcDir, OLINK, new String[] {"trajector", "landmark", "trigger"});
-        CalMaxDistanceOfLink(srcDir, MEASURELINK, new String[] {"trajector", "val"});
-        CalMaxDistanceOfLink(srcDir, MEASURELINK, new String[] {"landmark", "val"});
-        CalMaxDistanceOfLink(srcDir, MEASURELINK, new String[] {"trajector", "landmark"});
+
+        mergeCountMap(countMap, CalMaxDistanceOfLink(srcDir, MEASURELINK, new String[] {"trajector", "val"}));
+        mergeCountMap(countMap, CalMaxDistanceOfLink(srcDir, MEASURELINK, new String[] {"landmark", "val"}));
+        mergeCountMap(countMap, CalMaxDistanceOfLink(srcDir, MEASURELINK, new String[] {"trajector", "landmark"}));
+
         CalMaxDistanceOfLink(srcDir, MEASURELINK, new String[] {"trajector", "landmark"}, "val");
         CalMaxDistanceOfLink(srcDir, MEASURELINK, new String[] {"trajector", "landmark", "val"});
+
+        int sum = 0;
+
+        for (Integer key: countMap.keySet()) {
+            sum += countMap.get(key);
+            sumMap.put(key, sum);
+        }
+        for (Integer key: sumMap.keySet()) {
+            percentMap.put(key, 1.0*sumMap.get(key)/sum);
+        }
+        System.out.println(countMap);
+        System.out.println(sumMap);
+        System.out.println(percentMap);
+
         System.out.println();
+
     }
 
 
@@ -494,8 +606,8 @@ public class SpaceEvalUtils {
 //        SpaceEvalUtils.checkLinkPattern("data/SpaceEval2015/raw_data/training++");
 //        SpaceEvalUtils.checkLinkPattern("data/SpaceEval2015/raw_data/gold++");
 
-//        SpaceEvalUtils.checkMaxDistanceOfLink("data/SpaceEval2015/raw_data/training++");
-//        SpaceEvalUtils.checkMaxDistanceOfLink("data/SpaceEval2015/raw_data/gold++");
+        SpaceEvalUtils.checkMaxDistanceOfLink("data/SpaceEval2015/raw_data/training++");
+        SpaceEvalUtils.checkMaxDistanceOfLink("data/SpaceEval2015/raw_data/gold++");
 //        SpaceEvalUtils.checkQSAndOLinkTrigger("data/SpaceEval2015/raw_data/training++",
 //                "data/SpaceEval2015/raw_data/gold++");
 
@@ -508,8 +620,11 @@ public class SpaceEvalUtils {
 //        SpaceEvalUtils.checkInvalidToken("data/SpaceEval2015/raw_data/training++");
 //        SpaceEvalUtils.checkInvalidToken("data/SpaceEval2015/raw_data/gold++");
 
-        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/training++");
-        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/gold++");
+//        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/training++");
+//        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/gold++");
+
+        SpaceEvalUtils.checkMaxElementNumMapBetweenElements("data/SpaceEval2015/raw_data/training++");
+        SpaceEvalUtils.checkMaxElementNumMapBetweenElements("data/SpaceEval2015/raw_data/gold++");
 
     }
 }

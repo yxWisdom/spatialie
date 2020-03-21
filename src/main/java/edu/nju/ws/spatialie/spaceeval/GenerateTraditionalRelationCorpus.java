@@ -19,20 +19,35 @@ public class GenerateTraditionalRelationCorpus {
     // 生成传统关系抽取格式的语料
     public static void main(String [] args) {
 
+//        GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
+//
+//        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/training++",
+//                "data/SpaceEval2015/processed_data/openNRE", "train", false);
+//
+//        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
+//                "data/SpaceEval2015/processed_data/openNRE", "val", false);
+//
+//        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
+//                "data/SpaceEval2015/processed_data/openNRE", "test", false);
+
+
         GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
 
-        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/training++",
+        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/training++",
                 "data/SpaceEval2015/processed_data/openNRE", "train", false);
 
-        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
+        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
                 "data/SpaceEval2015/processed_data/openNRE", "val", false);
 
-        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
+        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
                 "data/SpaceEval2015/processed_data/openNRE", "test", false);
+
     }
     //    public static void get
-    private final static int moveLinkDistanceLimit = 25;
-    private final static int nonMoveLinkDistanceLimit = 25;
+    private final static int moveLinkDistanceLimit = 12;
+    private final static int nonMoveLinkDistanceLimit = 12;
+
+    private final static int internalElementNumLimit = 4;
 //    private final static int binaryNonMoveLinkDistanceLimit = 15;
 
     private final static String NONE="None";
@@ -63,6 +78,51 @@ public class GenerateTraditionalRelationCorpus {
         return jsonObject.toJSONString();
     }
 
+    private static List<String> getQSAndOLinkWithoutTrigger(String srcDir, String...linkTypes) {
+        List<File> files = FileUtil.listFiles(srcDir);
+        List<String> linkLines = new ArrayList<>();
+        Set<String> linkTypeSet = new HashSet<>(Arrays.asList(linkTypes));
+        for (File file : files) {
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            List<List<Span>> sentences = spaceEvalDoc.getSentences();
+            List<Span> allElements = spaceEvalDoc.getElements().stream().filter(o -> o.start >= 0).collect(Collectors.toList());
+            List<BratEvent> links = spaceEvalDoc.getAllLinks().stream().filter(o -> linkTypeSet.contains(o.getType()))
+                    .collect(Collectors.toList());
+
+            Set<Triple<String, String, String>> goldTriples = new HashSet<>();
+            for (BratEvent link : links) {
+                Collection<String> trajectors = link.getRoleIds(TRAJECTOR), landmarks = link.getRoleIds(LANDMARK);
+                if (!link.hasRole(VAL) && !link.hasRole(TRIGGER)) {
+                    if (link.hasRole(TRAJECTOR) && link.hasRole(LANDMARK)) {
+                        trajectors.forEach(trajector -> landmarks.forEach(landmark ->
+                                goldTriples.add(new ImmutableTriple<>(trajector, LOCATED_IN, landmark))));
+                    }
+                }
+            }
+            for (List<Span> tokensInSentence : sentences) {
+                int start = tokensInSentence.get(0).start;
+                int end = tokensInSentence.get(tokensInSentence.size() - 1).end;
+                List<Span> elementsInSentence = spaceEvalDoc.getElementsInSentence(start, end);
+                for (Span trajector : elementsInSentence) {
+                    for (Span landmark : elementsInSentence) {
+                        if (trajector.equals(landmark)) continue;
+                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(trajector, landmark));
+                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(trajector, landmark));
+                        if (goldTriples.contains(new ImmutableTriple<>(trajector.id, LOCATED_IN, landmark.id))) {
+                            linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark));
+                        } else if (trajectorTypes.contains(trajector.label) && landmarkTypes.contains(landmark.label) &&
+                                distance < nonMoveLinkDistanceLimit && elementNum < internalElementNumLimit) {
+                            linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark));
+                        }
+                    }
+                }
+            }
+
+        }
+        return linkLines;
+    }
+
+
 
     private static List<String> getQSAndOLinkWithTrigger(String srcDir, String...linkTypes) {
         List<File> files = FileUtil.listFiles(srcDir);
@@ -71,6 +131,7 @@ public class GenerateTraditionalRelationCorpus {
         for (File file : files) {
             SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
             List<List<Span>> sentences = spaceEvalDoc.getSentences();
+            List<Span> allElements = spaceEvalDoc.getElements().stream().filter(o -> o.start >= 0).collect(Collectors.toList());
             List<BratEvent> links = spaceEvalDoc.getAllLinks().stream().filter(o -> linkTypeSet.contains(o.getType()))
                     .collect(Collectors.toList());
 
@@ -107,18 +168,22 @@ public class GenerateTraditionalRelationCorpus {
 
                 for (Span trigger : triggers) {
                     for (Span trajector : elementsInSentence) {
+                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(trigger, trajector));
                         int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(trajector, trigger));
                         if (goldTriples.contains(new ImmutableTriple<>(trajector.id, TRAJECTOR, trigger.id))) {
                             linkLines.add(getRelLine(TRAJECTOR, tokensInSentence, trajector, trigger));
-                        } else if (trajectorTypes.contains(trajector.label) && distance < nonMoveLinkDistanceLimit) {
+                        } else if (trajectorTypes.contains(trajector.label) && distance < nonMoveLinkDistanceLimit
+                                && elementNum < internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, trajector, trigger));
                         }
                     }
                     for (Span landmark : elementsInSentence) {
+                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(trigger, landmark));
                         int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(landmark, trigger));
                         if (goldTriples.contains(new ImmutableTriple<>(landmark.id, LANDMARK, trigger.id)))
                             linkLines.add(getRelLine(LANDMARK, tokensInSentence, landmark, trigger));
-                        else if (landmarkTypes.contains(landmark.label) && distance < nonMoveLinkDistanceLimit)
+                        else if (landmarkTypes.contains(landmark.label) && distance < nonMoveLinkDistanceLimit
+                                && elementNum < internalElementNumLimit)
                             linkLines.add(getRelLine(NONE, tokensInSentence, landmark, trigger));
                     }
                 }
@@ -126,11 +191,12 @@ public class GenerateTraditionalRelationCorpus {
                 for (Span trajector : elementsInSentence) {
                     for (Span landmark : elementsInSentence) {
                         if (trajector.equals(landmark)) continue;
+                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(trajector, landmark));
                         int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(trajector, landmark));
                         if (goldTriples.contains(new ImmutableTriple<>(trajector.id, LOCATED_IN, landmark.id))) {
                             linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark));
                         } else if (trajectorTypes.contains(trajector.label) && landmarkTypes.contains(landmark.label) &&
-                                distance < nonMoveLinkDistanceLimit) {
+                                distance < nonMoveLinkDistanceLimit && elementNum < internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark));
                         }
                     }
@@ -150,6 +216,7 @@ public class GenerateTraditionalRelationCorpus {
             SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
             List<List<Span>> sentences = spaceEvalDoc.getSentences();
             List<BratEvent> links = spaceEvalDoc.getMoveLink();
+            List<Span> allElements = spaceEvalDoc.getElements().stream().filter(o -> o.start >= 0).collect(Collectors.toList());
             Set<Pair<String, String>> goldPairs = new HashSet<>();
             for (BratEvent link: links) {
                 if (link.hasRole(MOVER) && link.hasRole(TRIGGER)) {
@@ -170,9 +237,11 @@ public class GenerateTraditionalRelationCorpus {
                         if (mover.equals(trigger))
                             continue;
                         int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(mover, trigger));
+                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(mover, trigger));
                         if (goldPairs.contains(new ImmutablePair<>(mover.id, trigger.id))) {
                             linkLines.add(getRelLine(MOVER, tokensInSentence, mover, trigger));
-                        } else if (moverTypes.contains(mover.label) && distance < moveLinkDistanceLimit) {
+                        } else if (moverTypes.contains(mover.label) && distance < moveLinkDistanceLimit
+                                && elementNum < internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, mover, trigger));
                         }
                     }
@@ -202,6 +271,23 @@ public class GenerateTraditionalRelationCorpus {
         if (shuffle) {
             Collections.shuffle(allLinkLines);
         }
-        FileUtil.writeFile(targetFilePath + "/" + "AllLink/" + mode + ".txt", allLinkLines);
+
+        String dirname = targetFilePath + "/AllLink_" + moveLinkDistanceLimit + "_" + internalElementNumLimit + "/";
+        FileUtil.createDir(dirname);
+        FileUtil.writeFile(dirname + mode + ".txt", allLinkLines);
     }
+
+
+    private static void run_no_trigger(String srcDir, String targetFilePath, String mode, boolean shuffle) {
+        List<String> no_trigger_links = getQSAndOLinkWithoutTrigger(srcDir, QSLINK, OLINK);
+
+        if (shuffle) {
+            Collections.shuffle(no_trigger_links);
+        }
+
+        String dirname = targetFilePath + "/noTriggerLinks_" + moveLinkDistanceLimit + "_" + internalElementNumLimit + "/";
+        FileUtil.createDir(dirname);
+        FileUtil.writeFile(dirname + mode + ".txt", no_trigger_links);
+    }
+
 }
