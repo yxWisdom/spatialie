@@ -1,12 +1,14 @@
 package edu.nju.ws.spatialie.spaceeval;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sun.org.apache.bcel.internal.generic.LAND;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.utils.FileUtil;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
+import org.javatuples.Tuple;
 
 import java.io.File;
 import java.util.*;
@@ -19,28 +21,28 @@ public class GenerateTraditionalRelationCorpus {
     // 生成传统关系抽取格式的语料
     public static void main(String [] args) {
 
-//        GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
-//
-//        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/training++",
-//                "data/SpaceEval2015/processed_data/openNRE", "train", false);
-//
-//        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
-//                "data/SpaceEval2015/processed_data/openNRE", "val", false);
-//
-//        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
-//                "data/SpaceEval2015/processed_data/openNRE", "test", false);
-
-
         GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
 
-        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/training++",
+        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/training++",
                 "data/SpaceEval2015/processed_data/openNRE", "train", false);
 
-        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
+        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
                 "data/SpaceEval2015/processed_data/openNRE", "val", false);
 
-        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
+        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
                 "data/SpaceEval2015/processed_data/openNRE", "test", false);
+
+
+//        GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
+//
+//        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/training++",
+//                "data/SpaceEval2015/processed_data/openNRE", "train", false);
+//
+//        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
+//                "data/SpaceEval2015/processed_data/openNRE", "val", false);
+//
+//        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
+//                "data/SpaceEval2015/processed_data/openNRE", "test", false);
 
     }
     //    public static void get
@@ -52,6 +54,51 @@ public class GenerateTraditionalRelationCorpus {
 
     private final static String NONE="None";
     private final static String LOCATED_IN = "LocatedIn";
+
+
+    private static Set<Triple<String, String, String>> getGoldTriples(List<BratEvent> links, String ...types) {
+        Set<Triple<String, String, String>> goldTriples = new HashSet<>();
+        Set<String> typeSet = new HashSet<>(Arrays.asList(types));
+        for (BratEvent link: links) {
+            if (typeSet.contains(MOVELINK) && link.hasRole(MOVER) && link.hasRole(TRIGGER)) {
+                Collection<String> movers = link.getRoleIds(MOVER), triggers = link.getRoleIds(TRIGGER);
+                movers.forEach(mover -> triggers.forEach(trigger->
+                        goldTriples.add(new ImmutableTriple<>(mover, MOVER,trigger))));
+            }
+
+            if (typeSet.contains(OLINK) || typeSet.contains(QSLINK) ||  typeSet.contains(MEASURELINK)) {
+                Collection<String> trajectors = link.getRoleIds(TRAJECTOR), landmarks = link.getRoleIds(LANDMARK);
+                if (link.hasRole(VAL) || link.hasRole(TRIGGER)) {
+                    String trigger = link.hasRole(VAL) ? link.getRoleId(VAL) : link.getRoleId(TRIGGER);
+                    if (link.hasRole(TRAJECTOR)) {
+                        trajectors.forEach(trajector -> goldTriples.add(new ImmutableTriple<>(trajector, TRAJECTOR, trigger)));
+                    }
+                    if (link.hasRole(LANDMARK)) {
+                        landmarks.forEach(landmark -> goldTriples.add(new ImmutableTriple<>(landmark, LANDMARK, trigger)));
+                    }
+                } else {
+                    if (link.hasRole(TRAJECTOR) && link.hasRole(LANDMARK)) {
+                        trajectors.forEach(trajector -> landmarks.forEach(landmark ->
+                                goldTriples.add(new ImmutableTriple<>(trajector, LOCATED_IN, landmark))));
+                    }
+                }
+            }
+        }
+        return goldTriples;
+    }
+
+    private static boolean inGoldTriple(Set<Triple<String, String, String>> triples, String head, String tail) {
+        return inGoldTriple(triples, head, tail, TRAJECTOR, LANDMARK, MOVER, LOCATED_IN);
+    }
+
+    private static boolean inGoldTriple(Set<Triple<String, String, String>> triples, String head, String tail, String ...types) {
+        for (String type: types) {
+            if (triples.contains(new ImmutableTriple<>(head, type, tail))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     private static String getRelLine(String relation, List<Span> tokens, Span head, Span tail) {
@@ -123,7 +170,6 @@ public class GenerateTraditionalRelationCorpus {
     }
 
 
-
     private static List<String> getQSAndOLinkWithTrigger(String srcDir, String...linkTypes) {
         List<File> files = FileUtil.listFiles(srcDir);
         List<String> linkLines = new ArrayList<>();
@@ -135,25 +181,7 @@ public class GenerateTraditionalRelationCorpus {
             List<BratEvent> links = spaceEvalDoc.getAllLinks().stream().filter(o -> linkTypeSet.contains(o.getType()))
                     .collect(Collectors.toList());
 
-            Set<Triple<String, String, String>> goldTriples = new HashSet<>();
-            for (BratEvent link : links) {
-                Collection<String> trajectors = link.getRoleIds(TRAJECTOR), landmarks = link.getRoleIds(LANDMARK);
-                if (link.hasRole(VAL) || link.hasRole(TRIGGER)) {
-                    String trigger = link.hasRole(VAL) ? link.getRoleId(VAL) : link.getRoleId(TRIGGER);
-                    if (link.hasRole(TRAJECTOR)) {
-                        trajectors.forEach(trajector -> goldTriples.add(new ImmutableTriple<>(trajector, TRAJECTOR, trigger)));
-                    }
-                    if (link.hasRole(LANDMARK)) {
-                        landmarks.forEach(landmark -> goldTriples.add(new ImmutableTriple<>(landmark, LANDMARK, trigger)));
-                    }
-                } else {
-                    if (link.hasRole(TRAJECTOR) && link.hasRole(LANDMARK)) {
-                        trajectors.forEach(trajector -> landmarks.forEach(landmark ->
-                                goldTriples.add(new ImmutableTriple<>(trajector, LOCATED_IN, landmark))));
-                    }
-                }
-            }
-
+            Set<Triple<String, String, String>> goldTriples = getGoldTriples(links, OLINK, QSLINK, MOVELINK);
             for (List<Span> tokensInSentence : sentences) {
                 int start = tokensInSentence.get(0).start;
                 int end = tokensInSentence.get(tokensInSentence.size() - 1).end;
@@ -167,24 +195,19 @@ public class GenerateTraditionalRelationCorpus {
                         .collect(Collectors.toList());
 
                 for (Span trigger : triggers) {
-                    for (Span trajector : elementsInSentence) {
-                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(trigger, trajector));
-                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(trajector, trigger));
-                        if (goldTriples.contains(new ImmutableTriple<>(trajector.id, TRAJECTOR, trigger.id))) {
-                            linkLines.add(getRelLine(TRAJECTOR, tokensInSentence, trajector, trigger));
-                        } else if (trajectorTypes.contains(trajector.label) && distance < nonMoveLinkDistanceLimit
+                    for (Span element: elementsInSentence) {
+                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(trigger, element));
+                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(element, trigger));
+                        if (inGoldTriple(goldTriples, element.id, trigger.id, TRAJECTOR)) {
+                            linkLines.add(getRelLine(TRAJECTOR, tokensInSentence, element, trigger));
+                        } else if (inGoldTriple(goldTriples, element.id, trigger.id, LANDMARK)){
+                            linkLines.add(getRelLine(LANDMARK, tokensInSentence, element, trigger));
+                        } else if (!inGoldTriple(goldTriples, element.id, trigger.id)
+                                && trajectorTypes.contains(element.label)
+                                && distance < nonMoveLinkDistanceLimit
                                 && elementNum < internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, trajector, trigger));
+                            linkLines.add(getRelLine(NONE, tokensInSentence, element, trigger));
                         }
-                    }
-                    for (Span landmark : elementsInSentence) {
-                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(trigger, landmark));
-                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(landmark, trigger));
-                        if (goldTriples.contains(new ImmutableTriple<>(landmark.id, LANDMARK, trigger.id)))
-                            linkLines.add(getRelLine(LANDMARK, tokensInSentence, landmark, trigger));
-                        else if (landmarkTypes.contains(landmark.label) && distance < nonMoveLinkDistanceLimit
-                                && elementNum < internalElementNumLimit)
-                            linkLines.add(getRelLine(NONE, tokensInSentence, landmark, trigger));
                     }
                 }
 
@@ -195,14 +218,14 @@ public class GenerateTraditionalRelationCorpus {
                         int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(trajector, landmark));
                         if (goldTriples.contains(new ImmutableTriple<>(trajector.id, LOCATED_IN, landmark.id))) {
                             linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark));
-                        } else if (trajectorTypes.contains(trajector.label) && landmarkTypes.contains(landmark.label) &&
+                        } else if (!inGoldTriple(goldTriples,trajector.id,landmark.id) &&
+                                trajectorTypes.contains(trajector.label) && landmarkTypes.contains(landmark.label) &&
                                 distance < nonMoveLinkDistanceLimit && elementNum < internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark));
                         }
                     }
                 }
             }
-
         }
         return linkLines;
     }
@@ -217,14 +240,8 @@ public class GenerateTraditionalRelationCorpus {
             List<List<Span>> sentences = spaceEvalDoc.getSentences();
             List<BratEvent> links = spaceEvalDoc.getMoveLink();
             List<Span> allElements = spaceEvalDoc.getElements().stream().filter(o -> o.start >= 0).collect(Collectors.toList());
-            Set<Pair<String, String>> goldPairs = new HashSet<>();
-            for (BratEvent link: links) {
-                if (link.hasRole(MOVER) && link.hasRole(TRIGGER)) {
-                    Collection<String> movers = link.getRoleIds(MOVER), triggers = link.getRoleIds(TRIGGER);
-                    movers.forEach(mover -> triggers.forEach(trigger->
-                            goldPairs.add(new ImmutablePair<>(mover, trigger))));
-                }
-            }
+
+            Set<Triple<String, String, String>> goldTriples = getGoldTriples(links, OLINK, QSLINK, MOVELINK);
             for (List<Span> tokensInSentence : sentences) {
                 int start = tokensInSentence.get(0).start;
                 int end = tokensInSentence.get(tokensInSentence.size() - 1).end;
@@ -238,9 +255,11 @@ public class GenerateTraditionalRelationCorpus {
                             continue;
                         int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(mover, trigger));
                         int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(mover, trigger));
-                        if (goldPairs.contains(new ImmutablePair<>(mover.id, trigger.id))) {
+                        if (goldTriples.contains(new ImmutableTriple<>(mover.id, MOVER,trigger.id))) {
                             linkLines.add(getRelLine(MOVER, tokensInSentence, mover, trigger));
-                        } else if (moverTypes.contains(mover.label) && distance < moveLinkDistanceLimit
+                        } else if (!inGoldTriple(goldTriples, mover.id,trigger.id, MOVER)
+                                && moverTypes.contains(mover.label)
+                                && distance < moveLinkDistanceLimit
                                 && elementNum < internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, mover, trigger));
                         }
@@ -267,6 +286,7 @@ public class GenerateTraditionalRelationCorpus {
         List<String> allLinkLines = new ArrayList<>();
         allLinkLines.addAll(nonMoveLinkLines);
         allLinkLines.addAll(moveLinkLines);
+        allLinkLines = allLinkLines.stream().distinct().collect(Collectors.toList());
 
         if (shuffle) {
             Collections.shuffle(allLinkLines);
