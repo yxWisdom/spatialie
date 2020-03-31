@@ -1,0 +1,254 @@
+T1	Place 1012 1045	Palacio de         Comunicaciones
+A1	form T1 NAM
+T2	Place 1067 1111	Nuestra Señora de las         Comunicaciones
+A2	form T2 NAM
+T3	Place 1113 1139	Our Lady of Communications
+A3	form T3 NAM
+T4	Place 1175 1183	building
+A4	form T4 NOM
+T5	Place 1221 1227	office
+A5	form T5 NOM
+T6	Place 1299 1318	Plaza de la Cibeles
+A6	form T6 NAM
+T7	Place 1364 1376	headquarters
+A7	form T7 NOM
+T8	Place 1451 1459	district
+A8	form T8 NOM
+T9	Place 1461 1467	Madrid
+A9	form T9 NAM
+T10	Place 1490 1494	here
+A10	form T10 NOM
+T11	Place 1560 1568	district
+A11	form T11 NOM
+T12	Place 1594 1601	offices
+A12	form T12 NOM
+T13	Place 1605 1613	branches
+A13	form T13 NOM
+T14	Place 1661 1670	companies
+A14	form T14 NOM
+T15	Place 1684 1692	ministry
+A15	form T15 NOM
+T16	Place 1708 1727	Plaza de la Lealtad
+A16	form T16 NAM
+T17	Place 1741 1758	Bolsa de Comercio
+A17	form T17 NAM
+T18	Place 1760 1775	Stock E xchange
+A18	form T18 NAM
+T19	Place 1837 1842	first
+A19	form T19 NOM
+T20	Place 1869 1876	museums
+A20	form T20 NOM
+T21	Place 1877 1881	here
+A21	form T21 NOM
+T22	Place 198 217	Plaza de la Cibeles
+A22	form T22 NAM
+T23	Place 259 263	trio
+A23	form T23 NOM
+T24	Place 271 278	museums
+A24	form T24 NOM
+T25	Place 284 288	area
+A25	form T25 NOM
+T26	Place 318 324	plazas
+A26	form T26 NOM
+T27	Place 40 54	Puerta del Sol
+A27	form T27 NAM
+T28	Place 460 469	Big Three
+A28	form T28 NOM
+T29	Place 502 513	Retiro Park
+A29	form T29 NOM
+T30	Place 62 66	city
+A30	form T30 NOM
+T31	Place 679 698	Plaza de la Cibeles
+A31	form T31 NAM
+T32	Place 82 91	expansion
+A32	form T32 NOM
+T33	Place 932 937	Spain
+A33	form T33 NAM
+T34	Place 968 976	building
+A34	form T34 NOM
+T35	Place 984 989	plaza
+A35	form T35 NOM
+T36	Path 1247 1255	ceilings
+A36	form T36 NOM
+T37	Path 1269 1277	walkways
+A37	form T37 NOM
+T38	Path 136 151	Calle de Alcalá
+A38	form T38 NAM
+T39	Path 1506 1521	calle de Alcalá
+A39	form T39 NAM
+T40	Path 164 180	Gran         Vía
+A40	form T40 NAM
+T41	Path 1797 1812	Paseo del Prado
+A41	form T41 NAM
+T42	Path 226 241	Paseo del Prado
+A42	form T42 NAM
+T43	Path 255 257	it
+A43	form T43 NOM
+T44	Path 300 310	boulevards
+A44	form T44 NOM
+T45	SpatialEntity 1532 1541	buildings
+A45	form T45 NOM
+T46	SpatialEntity 1821 1824	you
+A46	form T46 NOM
+T47	SpatialEntity 338 347	fountains
+A47	form T47 NOM
+T48	SpatialEntity 471 479	visitors
+A48	form T48 NOM
+T49	SpatialEntity 732 740	fountain
+A49	form T49 NOM
+T50	SpatialEntity 828 835	chariot
+A50	form T50 NOM
+T51	SpatialEntity 880 888	ensemble
+A51	form T51 NOM
+T52	SpatialEntity 916 924	fountain
+A52	form T52 NOM
+T53	Event 615 622	traffic
+T54	Event 815 822	settled
+T55	Motion 152 158	merges
+A53	motion_type T55 path
+A54	motion_class T55 reach
+A55	motion_sense T55 fictive
+T56	Motion 1778 1785	Heading
+A56	motion_type T56 path
+A57	motion_class T56 follow
+A58	motion_sense T56 literal
+T57	Motion 185 190	leads
+A59	motion_type T57 path
+A60	motion_class T57 reach
+A61	motion_sense T57 fictive
+T58	Motion 436 443	hitting
+A62	motion_type T58 path
+A63	motion_class T58 reach
+A64	motion_sense T58 literal
+T59	Motion 492 498	repair
+A65	motion_type T59 path
+A66	motion_class T59 reach
+A67	motion_sense T59 literal
+T60	Motion 836 842	pulled
+A68	motion_type T60 manner
+A69	motion_class T60 move
+A70	motion_sense T60 fictive
+T61	SpatialSignal 1229 1233	with
+A71	semantic_type T61 topological
+T62	SpatialSignal 1260 1268	overhead
+A72	semantic_type T62 directional
+T63	SpatialSignal 1292 1298	facing
+A73	semantic_type T63 directional
+T64	SpatialSignal 1495 1497	on
+A74	semantic_type T64 topological
+T65	SpatialSignal 1542 1544	in
+A75	semantic_type T65 topological
+T66	SpatialSignal 1569 1576	contain
+A76	semantic_type T66 topological
+T67	SpatialSignal 1698 1700	on
+A77	semantic_type T67 topological
+T68	SpatialSignal 242 246	with
+A78	semantic_type T68 topological
+T69	SpatialSignal 32 39	West of
+A79	semantic_type T69 directional
+T70	SpatialSignal 823 825	in
+A80	semantic_type T70 topological
+T71	SpatialSignal 925 927	in
+A81	semantic_type T71 topological
+T72	SpatialSignal 977 979	on
+A82	semantic_type T72 topological
+T73	MotionSignal 159 163	with
+A83	MS_type T73 path
+T74	MotionSignal 1786 1790	down
+A84	MS_type T74 path
+T75	MotionSignal 191 193	to
+A85	MS_type T75 path
+T76	MotionSignal 499 501	to
+A86	MS_type T76 path
+T77	MotionSignal 843 855	by two lions
+A87	MS_type T77 manner
+T78	Measure 1701 1707	nearby
+#79	AnnotatorNotes T78	 NEAR
+T79	TLINK 1221 1227	office
+A88	QS_type E1 EQ
+E1	TLINK:T79 trajector:T5 landmark:T4
+T80	TLINK 271 278	museums
+A89	QS_type E2 EC
+E2	TLINK:T80 trajector:T24 landmark:T43
+T81	TLINK 300 310	boulevards
+A90	QS_type E3 IN
+E3	TLINK:T81 trajector:T44 landmark:T25
+T82	TLINK 318 324	plazas
+A91	QS_type E4 IN
+E4	TLINK:T82 trajector:T26 landmark:T25
+T83	TLINK 338 347	fountains
+A92	QS_type E5 IN
+E5	TLINK:T83 trajector:T47 landmark:T25
+T84	TLINK 823 825	in
+A93	QS_type E6 IN
+E6	TLINK:T84 trajector:T54 landmark:T50 trigger:T70
+T85	TLINK 925 927	in
+A94	QS_type E7 IN
+E7	TLINK:T85 trajector:T52 landmark:T33 trigger:T71
+T86	TLINK 977 979	on
+A95	QS_type E8 EC
+E8	TLINK:T86 trajector:T34 landmark:T35 trigger:T72
+T87	TLINK 1229 1233	with
+A96	QS_type E9 NTPP
+E9	TLINK:T87 trajector:T36 landmark:T5 trigger:T61
+T88	TLINK 1229 1233	with
+A97	QS_type E10 TPP
+E10	TLINK:T88 trajector:T37 landmark:T5 trigger:T61
+T89	TLINK 1495 1497	on
+A98	QS_type E11 EC
+E11	TLINK:T89 trajector:T34 landmark:T39 trigger:T64
+T90	TLINK 1542 1544	in
+A99	QS_type E12 IN
+E12	TLINK:T90 trajector:T45 landmark:T11 trigger:T65
+T91	TLINK 1569 1576	contain
+A100	QS_type E13 IN
+E13	TLINK:T91 trajector:T12 landmark:T45 trigger:T66
+T92	TLINK 1569 1576	contain
+A101	QS_type E14 IN
+E14	TLINK:T92 trajector:T13 landmark:T45 trigger:T66
+T93	TLINK 1569 1576	contain
+A102	QS_type E15 IN
+E15	TLINK:T93 trajector:T14 landmark:T45 trigger:T66
+T94	TLINK 1569 1576	contain
+A103	QS_type E16 IN
+E16	TLINK:T94 trajector:T15 landmark:T45 trigger:T66
+T95	TLINK 1698 1700	on
+A104	QS_type E17 EC
+E17	TLINK:T95 trajector:T17 landmark:T16 trigger:T67
+T96	TLINK 242 246	with
+A105	QS_type E18 EC
+E18	TLINK:T96 trajector:T24 landmark:T42 trigger:T68
+T97	TLINK 1869 1876	museums
+A106	QS_type E19 IN
+E19	TLINK:T97 trajector:T20 landmark:T21
+T98	OLINK 32 39	West of
+A107	O_type E20 WEST
+A108	frame_type E20 ABSOLUTE
+A109	projective E20 ABSOLUTE
+E20	OLINK:T98 trajector:T32 landmark:T27 trigger:T69
+T99	OLINK 1292 1298	facing
+A110	O_type E21 FRONT_FACE
+A111	frame_type E21 INTRINSIC
+A112	projective E21 INTRINSIC
+E21	OLINK:T99 trajector:T6 landmark:T7 trigger:T63 referencePt:T7
+T100	MLINK 152 158	merges
+A113	goal_reached E22 yes
+E22	MLINK:T100 goal:T40 mover:T38 motion_signalID:T73 trigger:T55
+T101	MLINK 1778 1785	Heading
+E23	MLINK:T101 mover:T46 motion_signalID:T74 trigger:T56 pathID:T41
+T102	MLINK 185 190	leads
+A115	goal_reached E24 yes
+E24	MLINK:T102 goal:T22 mover:T38 motion_signalID:T75 trigger:T57
+T103	MLINK 185 190	leads
+A116	goal_reached E25 yes
+E25	MLINK:T103 goal:T42 mover:T38 motion_signalID:T75 trigger:T57
+T104	MLINK 436 443	hitting
+A117	goal_reached E26 yes
+E26	MLINK:T104 goal:T28 mover:T48 trigger:T58
+T105	MLINK 492 498	repair
+A118	goal_reached E27 yes
+E27	MLINK:T105 goal:T29 mover:T48 motion_signalID:T76 trigger:T59
+T106	MLINK 836 842	pulled
+E28	MLINK:T106 mover:T50 motion_signalID:T77 trigger:T60
+T107	DLINK 1701 1707	nearby
+E29	DLINK:T107 trajector:T16 landmark:T11 val:T78

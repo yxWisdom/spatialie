@@ -1,0 +1,317 @@
+T1	Null 287 290	the
+#1	AnnotatorNotes T1	PLACE the location across the border from the '... people across the border.'
+T2	Place 1113 1119	cities
+A1	form T2 NOM
+T3	Place 115 124	Guatemala
+A2	form T3 NAM
+T4	Place 1182 1190	pyramids
+A3	form T4 NOM
+T5	Place 1195 1202	palaces
+A4	form T5 NOM
+T6	Place 1252 1263	Tikal ruins
+A5	form T6 NAM
+T7	Place 1283 1301	lake of Peten-Itza
+#7	AnnotatorNotes T7	possibly a SPATIAL_FUNCTION?
+A6	form T7 NAM
+T8	Place 130 136	Mexico
+A7	form T8 NAM
+T9	Place 1321 1326	hotel
+A8	form T9 NOM
+T10	Place 1344 1348	lake
+A9	form T10 NOM
+T11	Place 1392 1396	Here
+A10	form T11 NOM
+T12	Place 1594 1600	bottom
+A11	form T12 NOM
+T13	Place 1725 1729	lake
+A12	form T13 NOM
+T14	Place 2105 2116	settlements
+A13	form T14 NOM
+T15	Place 388 395	Chiapas
+A14	form T15 NAM
+T16	Place 600 604	town
+A15	form T16 NOM
+T17	Place 726 735	Guatemala
+A16	form T17 NAM
+T18	Place 875 889	ruins of Tikal
+#18	AnnotatorNotes T18	SPATIAL_FUNCTION?
+A17	form T18 NAM
+T19	Path 1131 1140	peninsula
+A18	form T19 NOM
+T20	Path 174 190	Usumacinta River
+A19	form T20 NAM
+T21	Path 291 297	border
+A20	form T21 NOM
+T22	Path 532 536	road
+A21	form T22 NOM
+T23	Path 573 577	road
+A22	form T23 NOM
+R15	midIDs Arg1:T23 Arg2:T16
+T24	Null 96 99	and
+#24	AnnotatorNotes T24	SPATIAL_ENTITY The set subsuming [Gregg,se], [Brooks,se], and [I,se] in 'Gregg, Brooks, and I crossed into Guatemala from Mexico ...'
+T25	SpatialEntity 100 101	I
+A23	form T25 NOM
+T26	SpatialEntity 1218 1224	jungle
+A24	form T26 NOM
+T27	SpatialEntity 1229 1237	tourists
+A25	form T27 NOM
+T28	SpatialEntity 1307 1308	I
+A26	form T28 NOM
+T29	SpatialEntity 1397 1398	I
+A27	form T29 NOM
+T30	SpatialEntity 1410 1415	group
+A28	form T30 NOM
+T31	SpatialEntity 1464 1470	bottom
+A29	form T31 NOM
+T32	SpatialEntity 1571 1579	sediment
+A30	form T32 NOM
+T33	SpatialEntity 1694 1704	vegetation
+A31	form T33 NOM
+T34	SpatialEntity 2081 2087	Mayans
+A32	form T34 NOM
+T35	SpatialEntity 273 279	people
+A33	form T35 NOM
+T36	SpatialEntity 378 384	person
+A34	form T36 NOM
+T37	SpatialEntity 557 558	I
+A35	form T37 NOM
+T38	SpatialEntity 626 628	me
+A36	form T38 NOM
+T39	SpatialEntity 638 643	Gregg
+A37	form T39 NAM
+T40	SpatialEntity 648 654	Brooks
+A38	form T40 NAM
+T41	SpatialEntity 677 679	we
+A39	form T41 NOM
+T42	SpatialEntity 775 785	rainforest
+A40	form T42 NOM
+T43	SpatialEntity 81 86	Gregg
+A41	form T43 NAM
+T44	SpatialEntity 858 859	I
+A42	form T44 NOM
+T45	SpatialEntity 88 94	Brooks
+A43	form T45 NAM
+T46	SpatialEntity 236 237	I
+A44	form T46 NOM
+T47	SpatialEntity 331 333	me
+A45	form T47 NOM
+T48	SpatialEntity 497 499	me
+A46	form T48 NOM
+T49	SpatialEntity 584 585	I
+A47	form T49 NOM
+T50	Event 1264 1267	sit
+T51	Event 1309 1315	stayed
+T52	Event 1439 1447	drilling
+T53	Event 516 524	attacked
+T54	Event 618 625	allowed
+T55	Event 632 636	camp
+T56	Motion 102 109	crossed
+A48	motion_type T56 path
+A49	motion_class T56 reach
+A50	motion_sense T56 literal
+T57	Motion 1399 1402	met
+A51	motion_type T57 path
+A52	motion_class T57 hit
+A53	motion_sense T57 literal
+T58	Motion 140 146	riding
+A54	motion_type T58 compound
+A55	motion_class T58 cross
+A56	motion_sense T58 literal
+T59	Motion 2091 2098	abandon
+A57	motion_type T59 path
+A58	motion_class T59 leave
+A59	motion_sense T59 literal
+T60	Motion 559 563	rode
+A60	motion_type T60 compound
+A61	motion_class T60 follow
+A62	motion_sense T60 literal
+T61	Motion 655 664	continued
+A63	motion_type T61 manner
+A64	motion_class T61 move
+A65	motion_sense T61 literal
+T62	Motion 680 690	split ways
+A66	motion_type T62 path
+A67	motion_class T62 detach
+A68	motion_sense T62 literal
+T63	Motion 833 839	Riding
+A69	motion_type T63 manner
+A70	motion_class T63 move
+A71	motion_sense T63 literal
+T64	Motion 860 867	arrived
+A72	motion_type T64 path
+A73	motion_class T64 reach
+A74	motion_sense T64 literal
+T65	SpatialSignal 1120 1126	across
+A75	semantic_type T65 topological
+T66	SpatialSignal 1207 1214	covered
+A76	semantic_type T66 dir_top
+T67	SpatialSignal 1316 1318	in
+A77	semantic_type T67 topological
+T68	SpatialSignal 1327 1338	overlooking
+A78	semantic_type T68 directional
+T69	SpatialSignal 1580 1582	on
+A79	semantic_type T69 dir_top
+T70	SpatialSignal 1710 1720	surrounded
+A80	semantic_type T70 directional
+T71	SpatialSignal 280 286	across
+A81	semantic_type T71 directional
+T72	SpatialSignal 385 387	in
+A82	semantic_type T72 topological
+T73	SpatialSignal 525 527	on
+A83	semantic_type T73 dir_top
+T74	SpatialSignal 605 610	where
+A84	semantic_type T74 topological
+T75	SpatialSignal 758 765	covered
+A85	semantic_type T75 dir_top
+T76	MotionSignal 110 114	into
+A86	MS_type T76 path
+T77	MotionSignal 125 129	from
+A87	MS_type T77 path
+T78	MotionSignal 147 162	in a small boat
+A88	MS_type T78 manner
+T79	MotionSignal 163 169	across
+A89	MS_type T79 path
+T80	MotionSignal 665 671	by van
+A90	MS_type T80 manner
+T81	MotionSignal 868 870	at
+A91	MS_type T81 path
+T82	Measure 1268 1272	near
+#83	AnnotatorNotes T82	 NEAR
+T83	TLINK 525 527	on
+A92	QS_type E1 EC
+E1	TLINK:T83 trajector:T53 landmark:T22 trigger:T73
+T84	TLINK 605 610	where
+A93	QS_type E2 IN
+E2	TLINK:T84 trajector:T55 landmark:T16 trigger:T74
+T85	TLINK 1439 1447	drilling
+A94	QS_type E3 PO
+E3	TLINK:T85 trajector:T52 landmark:T31
+T86	TLINK 1580 1582	on
+A95	QS_type E4 EC
+E4	TLINK:T86 trajector:T32 landmark:T12 trigger:T69
+T87	TLINK 385 387	in
+A96	QS_type E5 IN
+E5	TLINK:T87 trajector:T36 landmark:T15 trigger:T72
+T88	TLINK 758 765	covered
+A97	QS_type E6 EC
+E6	TLINK:T88 trajector:T42 landmark:T17 trigger:T75
+T89	TLINK 1120 1126	across
+A98	QS_type E7 IN
+E7	TLINK:T89 trajector:T2 landmark:T19 trigger:T65
+T90	TLINK 1207 1214	covered
+A99	QS_type E8 EC
+E8	TLINK:T90 trajector:T27 landmark:T4 trigger:T66
+T91	TLINK 1207 1214	covered
+A100	QS_type E9 EC
+E9	TLINK:T91 trajector:T26 landmark:T4 trigger:T66
+T92	TLINK 1207 1214	covered
+A101	QS_type E10 EC
+E10	TLINK:T92 trajector:T27 landmark:T5 trigger:T66
+T93	TLINK 1207 1214	covered
+A102	QS_type E11 EC
+E11	TLINK:T93 trajector:T26 landmark:T5 trigger:T66
+T94	TLINK 1316 1318	in
+A103	QS_type E12 IN
+E12	TLINK:T94 trajector:T51 landmark:T9 trigger:T67
+T95	TLINK 1399 1402	met
+A104	QS_type E13 IN
+E13	TLINK:T95 trajector:T57 landmark:T11
+T96	TLINK 605 610	where
+A105	QS_type E14 IN
+E14	TLINK:T96 trajector:T54 landmark:T16 trigger:T74
+T97	OLINK 1327 1338	overlooking
+A106	O_type E15 ABOVE
+A107	frame_type E15 INTRINSIC
+A108	projective E15 INTRINSIC
+E15	OLINK:T97 trajector:T9 landmark:T10 trigger:T68 referencePt:T10
+T98	OLINK 1710 1720	surrounded
+A109	O_type E16 AROUND
+A110	frame_type E16 RELATIVE
+A111	projective E16 RELATIVE
+E16	OLINK:T98 trajector:T33 landmark:T13 trigger:T70
+T99	OLINK 280 286	across
+A112	O_type E17 ACROSS
+A113	frame_type E17 RELATIVE
+A114	projective E17 RELATIVE
+E17	OLINK:T99 trajector:T35 landmark:T21 trigger:T71 referencePt:T1
+T100	OLINK 525 527	on
+A115	O_type E18 ABOVE
+A116	frame_type E18 INTRINSIC
+A117	projective E18 INTRINSIC
+E18	OLINK:T100 trajector:T53 landmark:T22 trigger:T73 referencePt:T22
+T101	OLINK 758 765	covered
+A118	O_type E19 ABOVE
+A119	frame_type E19 INTRINSIC
+A120	projective E19 INTRINSIC
+E19	OLINK:T101 trajector:T42 landmark:T17 trigger:T75 referencePt:T17
+T102	OLINK 1207 1214	covered
+A121	O_type E20 ABOVE
+A122	frame_type E20 INTRINSIC
+A123	projective E20 INTRINSIC
+E20	OLINK:T102 trajector:T26 landmark:T4 trigger:T66 referencePt:T4
+T103	OLINK 1207 1214	covered
+A124	O_type E21 ABOVE
+A125	frame_type E21 INTRINSIC
+A126	projective E21 INTRINSIC
+E21	OLINK:T103 trajector:T27 landmark:T4 trigger:T66 referencePt:T4
+T104	OLINK 1580 1582	on
+A127	O_type E22 ABOVE
+A128	frame_type E22 INTRINSIC
+A129	projective E22 INTRINSIC
+E22	OLINK:T104 trajector:T32 landmark:T12 trigger:T69 referencePt:T12
+T105	OLINK 115 124	Guatemala
+A130	O_type E23 ACROSS
+A131	frame_type E23 RELATIVE
+A132	projective E23 RELATIVE
+E23	OLINK:T105 trajector:T3 landmark:T20 referencePt:T8
+T106	OLINK 1207 1214	covered
+A133	O_type E24 ABOVE
+A134	frame_type E24 INTRINSIC
+A135	projective E24 INTRINSIC
+E24	OLINK:T106 trajector:T26 landmark:T5 trigger:T66 referencePt:T5
+T107	OLINK 1207 1214	covered
+A136	O_type E25 ABOVE
+A137	frame_type E25 INTRINSIC
+A138	projective E25 INTRINSIC
+E25	OLINK:T107 trajector:T27 landmark:T5 trigger:T66 referencePt:T5
+T108	MLINK 102 109	crossed
+A139	goal_reached E26 yes
+E26	MLINK:T108 goal:T3 mover:T43 motion_signalID2:T77 motion_signalID:T76 trigger:T56 source:T8
+T109	MLINK 102 109	crossed
+A140	goal_reached E27 yes
+E27	MLINK:T109 goal:T3 mover:T25 motion_signalID2:T77 motion_signalID:T76 trigger:T56 source:T8
+T110	MLINK 860 867	arrived
+A141	goal_reached E28 yes
+E28	MLINK:T110 goal:T18 mover:T44 motion_signalID:T81 trigger:T64
+T111	MLINK 1399 1402	met
+A142	goal_reached E29 yes
+E29	MLINK:T111 goal:T30 mover:T29 trigger:T57
+T112	MLINK 2091 2098	abandon
+E30	MLINK:T112 mover:T34 trigger:T59 source:T14
+T113	MLINK 102 109	crossed
+A144	goal_reached E31 yes
+E31	MLINK:T113 goal:T3 mover:T45 motion_signalID2:T77 motion_signalID:T76 trigger:T56 source:T8
+T114	MLINK 140 146	riding
+E32	MLINK:T114 goal:T3 mover:T45 midPoint:T20 motion_signalID2:T79 motion_signalID:T78 trigger:T58 source:T8
+T115	MLINK 140 146	riding
+E33	MLINK:T115 goal:T3 mover:T43 midPoint:T20 motion_signalID2:T79 motion_signalID:T78 trigger:T58 source:T8
+T116	MLINK 140 146	riding
+E34	MLINK:T116 goal:T3 mover:T25 midPoint:T20 motion_signalID2:T79 motion_signalID:T78 trigger:T58 source:T8
+T117	MLINK 559 563	rode
+E35	MLINK:T117 mover:T37 trigger:T60 pathID:T23
+T118	MLINK 655 664	continued
+E36	MLINK:T118 mover:T40 motion_signalID:T80 trigger:T61
+T119	MLINK 655 664	continued
+E37	MLINK:T119 mover:T39 motion_signalID:T80 trigger:T61
+T120	MLINK 833 839	Riding
+E38	MLINK:T120 mover:T44 trigger:T63
+T121	DLINK 1268 1272	near
+E39	DLINK:T121 trajector:T50 landmark:T7 val:T82
+R16	coreference Arg1:T43 Arg2:T24
+#84	AnnotatorNotes R16	SUBCOREFERENCE
+R17	coreference Arg1:T45 Arg2:T24
+#85	AnnotatorNotes R17	SUBCOREFERENCE
+R18	coreference Arg1:T25 Arg2:T24
+#86	AnnotatorNotes R18	SUBCOREFERENCE
+R19	coreference Arg1:T41 Arg2:T24
+#87	AnnotatorNotes R19	SPLITCOREFERENCE

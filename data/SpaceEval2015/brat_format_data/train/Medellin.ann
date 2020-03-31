@@ -1,0 +1,193 @@
+T1	Null 79 87	Colombia
+#1	AnnotatorNotes T1	PLACE end of 'I rode in quite happily ...'
+T2	Place 1152 1160	Medellin
+A1	form T2 NAM
+T3	Place 1260 1269	Argentina
+A2	form T3 NAM
+T4	Place 143 151	Medellin
+A3	form T4 NAM
+T5	Place 1431 1439	Medellin
+A4	form T5 NAM
+T6	Place 1470 1479	mountains
+A5	form T6 NOM
+T7	Place 1540 1549	mountains
+A6	form T7 NOM
+T8	Place 1558 1564	Bogota
+A7	form T8 NAM
+T9	Place 338 343	parks
+#9	AnnotatorNotes T9	amount=many;
+A8	form T9 NOM
+T10	Place 398 406	Medellin
+#10	AnnotatorNotes T10	amount=most;
+A9	form T10 NAM
+T11	Place 490 498	Medellin
+A10	form T11 NAM
+T12	Place 594 602	Medellin
+A11	form T12 NAM
+T13	Place 779 787	Medellin
+A12	form T13 NAM
+T14	Place 826 830	home
+A13	form T14 NOM
+T15	Place 884 892	Medellin
+A14	form T15 NAM
+T16	Place 957 961	town
+A15	form T16 NOM
+T17	Place 61 65	city
+A16	form T17 NOM
+T18	Place 69 77	Medellin
+A17	form T18 NAM
+T19	Place 424 428	city
+A18	form T19 NOM
+T20	Place 464 466	it
+A19	form T20 NOM
+T21	Place 532 534	it
+A20	form T21 NOM
+T22	Place 655 659	city
+A21	form T22 NOM
+T23	Place 868 870	it
+A22	form T23 NOM
+T24	Path 1456 1460	road
+A23	form T24 NOM
+R3	midIDs Arg1:T24 Arg2:T7
+T25	Path 1490 1512	Magdalena river valley
+A24	form T25 NAM
+T26	Path 201 206	roads
+#26	AnnotatorNotes T26	amount=a number of
+A25	form T26 NOM
+T27	SpatialEntity 1441 1442	I
+A26	form T27 NOM
+T28	SpatialEntity 247 248	I
+A27	form T28 NOM
+T29	SpatialEntity 282 287	local
+A28	form T29 NOM
+T30	SpatialEntity 289 294	Lucho
+A29	form T30 NAM
+T31	SpatialEntity 296 299	who
+A30	form T31 NOM
+T32	SpatialEntity 307 309	me
+A31	form T32 NOM
+T33	SpatialEntity 47 48	I
+A32	form T33 NOM
+T34	SpatialEntity 817 819	me
+A33	form T34 NOM
+T35	SpatialEntity 894 895	I
+A34	form T35 NOM
+T36	SpatialEntity 925 937	firefighters
+A35	form T36 NOM
+T37	SpatialEntity 939 942	who
+A36	form T37 NOM
+T38	SpatialEntity 950 952	me
+A37	form T38 NOM
+T39	SpatialEntity 388 394	people
+A38	form T39 NOM
+T40	SpatialEntity 413 415	me
+A39	form T40 NOM
+T41	SpatialEntity 446 447	I
+A40	form T41 NOM
+T42	SpatialEntity 507 510	you
+A41	form T42 NOM
+T43	SpatialEntity 565 566	I
+A42	form T43 NOM
+T44	SpatialEntity 628 629	I
+A43	form T44 NOM
+T45	SpatialEntity 707 709	me
+A44	form T45 NOM
+T46	SpatialEntity 789 790	I
+A45	form T46 NOM
+T47	SpatialEntity 998 1000	me
+A46	form T47 NOM
+T48	SpatialEntity 1094 1095	I
+A47	form T48 NOM
+T49	SpatialEntity 1637 1638	I
+A48	form T49 NOM
+T50	Event 170 178	ciclovia
+T51	Event 896 902	stayed
+T52	Motion 1423 1430	Leaving
+A49	motion_type T52 path
+A50	motion_class T52 leave
+A51	motion_sense T52 literal
+T53	Motion 1443 1451	followed
+A52	motion_type T53 path
+A53	motion_class T53 follow
+A54	motion_sense T53 literal
+T54	Motion 249 253	rode
+A55	motion_type T54 compound
+A56	motion_class T54 reach
+A57	motion_sense T54 literal
+T55	Motion 300 306	showed
+A58	motion_type T55 compound
+A59	motion_class T55 reach
+A60	motion_sense T55 literal
+T56	Motion 49 56	entered
+A61	motion_type T56 path
+A62	motion_class T56 reach
+A63	motion_sense T56 literal
+T57	Motion 823 825	go
+A64	motion_type T57 path
+A65	motion_class T57 reach
+A66	motion_sense T57 literal
+T58	Motion 943 949	showed
+A67	motion_type T58 compound
+A68	motion_class T58 move_internal
+A69	motion_sense T58 literal
+T59	SpatialSignal 140 142	in
+A70	semantic_type T59 topological
+T60	SpatialSignal 183 188	where
+A71	semantic_type T60 topological
+T61	SpatialSignal 881 883	In
+A72	semantic_type T61 topological
+T62	SpatialSignal 395 397	in
+A73	semantic_type T62 topological
+T63	MotionSignal 1461 1465	over
+A74	MS_type T63 path
+T64	MotionSignal 1481 1485	into
+A75	MS_type T64 path
+T65	MotionSignal 1523 1527	back
+A76	MS_type T65 path
+T66	MotionSignal 1528 1530	up
+A77	MS_type T66 path
+T67	MotionSignal 1531 1535	into
+A78	MS_type T67 path
+T68	MotionSignal 1550 1557	towards
+A79	MS_type T68 path
+T69	MotionSignal 254 256	in
+A80	MS_type T69 path
+T70	MotionSignal 310 316	around
+A81	MS_type T70 path
+T71	MotionSignal 317 319	to
+A82	MS_type T71 path
+T72	MotionSignal 973 988	in a fire truck
+A83	MS_type T72 manner
+T73	TLINK 140 142	in
+A84	QS_type E1 IN
+E1	TLINK:T73 trajector:T50 landmark:T4 trigger:T59
+T74	TLINK 183 188	where
+A85	QS_type E2 IN
+E2	TLINK:T74 trajector:T26 landmark:T4 trigger:T60
+T75	TLINK 881 883	In
+A86	QS_type E3 IN
+E3	TLINK:T75 trajector:T51 landmark:T15 trigger:T61
+T76	TLINK 395 397	in
+A87	QS_type E4 IN
+E4	TLINK:T76 trajector:T39 landmark:T10 trigger:T62
+T77	MLINK 49 56	entered
+A88	goal_reached E5 yes
+E5	MLINK:T77 goal:T18 mover:T33 trigger:T56
+T78	MLINK 249 253	rode
+A89	goal_reached E6 yes
+E6	MLINK:T78 goal:T1 mover:T28 motion_signalID:T69 trigger:T54
+T79	MLINK 300 306	showed
+A90	goal_reached E7 yes
+E7	MLINK:T79 goal:T9 mover:T30 motion_signalID2:T70 motion_signalID:T71 trigger:T55
+T80	MLINK 943 949	showed
+E8	MLINK:T80 mover:T37 motion_signalID:T72 ground:T16 trigger:T58
+T81	MLINK 1423 1430	Leaving
+E9	MLINK:T81 mover:T27 trigger:T52 source:T5
+T82	MLINK 1443 1451	followed
+A93	goal_reached E10 yes
+E10	MLINK:T82 goal:T8 midPoint:T6 motion_signalID3:T66 motion_signalID2:T64 motion_signalID:T65 motion_signalID5:T67 motion_signalID4:T68 motion_signalID6:T63 trigger:T53 pathID:T24 mover:T27
+T83	MLINK 823 825	go
+A94	goal_reached E11 yes
+E11	MLINK:T83 goal:T14 mover:T34 trigger:T57
+R10	coreference Arg1:T1 Arg2:T18
+#73	AnnotatorNotes R10	COREFERENCE

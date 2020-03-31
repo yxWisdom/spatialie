@@ -15,8 +15,6 @@ public class GenerateNERCorpus {
         int maxLength = 0;
         List<String> lines = new ArrayList<>();
 
-
-
         for (File file: files) {
             SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
             List<Span> elements = spaceEvalDoc.getElementsOfNERTask();
@@ -53,7 +51,7 @@ public class GenerateNERCorpus {
         GenerateNERCorpus.run("data/SpaceEval2015/raw_data/training++",
                 "data/SpaceEval2015/processed_data/ner/train.txt");
         GenerateNERCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/ner/dev.txt");
+                "data/SpaceEval2015/processed_data/ner/dev_all.txt");
         GenerateNERCorpus.run("data/SpaceEval2015/raw_data/gold++",
                 "data/SpaceEval2015/processed_data/ner/test.txt");
         System.out.println(GenerateNERCorpus.lengths);

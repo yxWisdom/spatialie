@@ -1,0 +1,357 @@
+T2	Null 1552 1555	the
+#1	AnnotatorNotes T2	PLACE beginning of '... sailing across the Caribbean ...'
+T3	Place 101 109	Colombia
+A1	form T3 NAM
+T4	Place 1028 1037	Australia
+A2	form T4 NAM
+T5	Place 1039 1046	England
+A3	form T5 NAM
+T6	Place 1052 1063	Netherlands
+A4	form T6 NAM
+T7	Place 1065 1071	Canada
+A5	form T7 NAM
+T8	Place 1073 1085	South Africa
+A6	form T8 NAM
+T9	Place 1087 1096	Singapore
+A7	form T9 NAM
+T10	Place 1106 1110	U.S.
+A8	form T10 NAM
+T11	Place 1201 1217	San Blas Islands
+A9	form T11 NAM
+T12	Place 1255 1262	islands
+A10	form T12 NOM
+T13	Place 1304 1311	islands
+A11	form T13 NOM
+T14	Place 1378 1385	islands
+A12	form T14 NOM
+T15	Place 1556 1565	Caribbean
+A13	form T15 NAM
+T16	Place 1581 1600	Cartagena, Colombia
+A14	form T16 NAM
+T17	Place 1612 1616	stop
+A15	form T17 NOM
+T18	Place 1620 1633	South America
+A16	form T18 NAM
+T19	Place 173 181	Colombia
+A17	form T19 NAM
+T20	Place 183 188	Colon
+A18	form T20 NAM
+T21	Place 194 198	city
+A19	form T21 NOM
+T22	Place 242 247	point
+A20	form T22 NOM
+T23	Place 279 285	marina
+A21	form T23 NOM
+T24	Place 324 330	school
+A22	form T24 NOM
+T25	Place 353 357	club
+A23	form T25 NOM
+T26	Place 460 468	Colombia
+A24	form T26 NAM
+T27	Place 473 479	Panama
+A25	form T27 NAM
+T28	Place 587 592	Colon
+A26	form T28 NAM
+T29	Place 694 702	Colombia
+A27	form T29 NAM
+T30	Place 728 734	marina
+A28	form T30 NOM
+T31	Place 90 96	Panama
+A29	form T31 NAM
+T32	Place 137 141	city
+T33	Place 145 150	Colon
+T34	Path 1423 1428	level
+A32	form T34 NOM
+T35	Path 673 676	run
+A33	form T35 NOM
+T36	Path 76 81	roads
+A34	form T36 NOM
+T37	Null 978 982	were
+#36	AnnotatorNotes T37	SPATIAL_ENTITY The set subsuming [We,se9] and [travelers,se12] in 'We were soon joined by 12 other youn travelers from ...'
+T38	SpatialEntity 1013 1022	travelers
+A35	form T38 NOM
+T39	SpatialEntity 111 112	I
+A36	form T39 NOM
+T40	SpatialEntity 1141 1142	I
+A37	form T40 NOM
+T41	SpatialEntity 1167 1176	travelers
+A38	form T41 NOM
+T42	SpatialEntity 1178 1180	We
+A39	form T42 NOM
+T43	SpatialEntity 1225 1227	we
+A40	form T43 NOM
+T44	SpatialEntity 1274 1286	Kuna Indians
+A41	form T44 NOM
+T45	SpatialEntity 1330 1335	boats
+A42	form T45 NOM
+T46	SpatialEntity 1479 1483	they
+A43	form T46 NOM
+T47	SpatialEntity 1495 1500	water
+A44	form T47 NOM
+T48	SpatialEntity 1567 1569	we
+A45	form T48 NOM
+T49	SpatialEntity 268 269	I
+A46	form T49 NOM
+T50	SpatialEntity 379 385	yachts
+A47	form T50 NOM
+T51	SpatialEntity 442 451	travelers
+A48	form T51 NOM
+T52	SpatialEntity 482 485	You
+A49	form T52 NOM
+T53	SpatialEntity 546 549	you
+A50	form T53 NOM
+T54	SpatialEntity 613 618	yacht
+A51	form T54 NOM
+T55	SpatialEntity 624 636	Golden Eagle
+A52	form T55 NAM
+T56	SpatialEntity 656 660	boat
+A53	form T56 NOM
+T57	SpatialEntity 707 708	I
+A54	form T57 NOM
+T58	SpatialEntity 758 763	boats
+A55	form T58 NOM
+T59	SpatialEntity 911 912	I
+A56	form T59 NOM
+T60	SpatialEntity 931 935	boat
+A57	form T60 NOM
+T61	SpatialEntity 975 977	We
+A58	form T61 NOM
+T62	Null 387 390	for
+#61	AnnotatorNotes T62	SPATIAL_ENTITY The mover for m2 'take'.  Subsumes 'yachts' and 'travelers' in ' yachts, for the same price as a plane ticket, take backpacking travelers...'
+T63	SpatialEntity 366 367	I
+A59	form T63 NOM
+T64	SpatialEntity 595 596	I
+A60	form T64 NOM
+T65	SpatialEntity 766 767	I
+A61	form T65 NOM
+T66	SpatialEntity 873 875	me
+A62	form T66 NOM
+T67	SpatialEntity 876 877	I
+A63	form T67 NOM
+T68	SpatialEntity 1344 1346	us
+A64	form T68 NOM
+T69	Event 113 118	spent
+T70	Event 1228 1236	anchored
+T71	Event 1386 1389	sit
+T72	Event 230 234	held
+T73	Event 299 312	presentations
+T74	Event 565 570	spent
+#73	AnnotatorNotes T74	The author probably meant 'spend', not 'spent'.
+T75	Event 713 720	staying
+T76	Event 736 744	sleeping
+T77	Motion 1181 1187	sailed
+A65	motion_type T77 compound
+A66	motion_class T77 reach
+A67	motion_sense T77 literal
+T78	Motion 1313 1319	canoed
+A68	motion_type T78 compound
+A69	motion_class T78 hit
+A70	motion_sense T78 literal
+T79	Motion 1537 1544	sailing
+A71	motion_type T79 compound
+A72	motion_class T79 cross
+A73	motion_sense T79 literal
+T80	Motion 1570 1577	arrived
+A74	motion_type T80 path
+A75	motion_class T80 reach
+A76	motion_sense T80 literal
+T81	Motion 270 274	left
+A77	motion_type T81 path
+A78	motion_class T81 leave
+A79	motion_sense T81 literal
+T82	Motion 425 429	take
+A80	motion_type T82 compound
+A81	motion_class T82 move
+A82	motion_sense T82 literal
+T83	Motion 502 505	get
+A83	motion_type T83 manner
+A84	motion_class T83 move
+A85	motion_sense T83 literal
+T84	Motion 661 667	making
+A86	motion_type T84 path
+A87	motion_class T84 follow
+A88	motion_sense T84 literal
+T85	Motion 679 685	headed
+A89	motion_type T85 path
+A90	motion_class T85 move
+A91	motion_sense T85 literal
+T86	Motion 920 923	get
+A92	motion_type T86 path
+A93	motion_class T86 reach
+A94	motion_sense T86 literal
+T87	Motion 988 994	joined
+A95	motion_type T87 compound
+A96	motion_class T87 reach
+A97	motion_sense T87 literal
+T88	SpatialSignal 1147 1157	surrounded
+#87	AnnotatorNotes T88	by
+A98	semantic_type T88 dir_top
+T89	SpatialSignal 1219 1224	where
+A99	semantic_type T89 topological
+T90	SpatialSignal 1237 1244	between
+A100	semantic_type T90 directional
+T91	SpatialSignal 130 132	in
+A101	semantic_type T91 topological
+T92	SpatialSignal 1413 1418	above
+A102	semantic_type T92 directional
+T93	SpatialSignal 1489 1494	under
+A103	semantic_type T93 dir_top
+T94	SpatialSignal 1617 1619	in
+A104	semantic_type T94 topological
+T95	SpatialSignal 199 204	where
+A105	semantic_type T95 topological
+T96	SpatialSignal 235 237	at
+A106	semantic_type T96 topological
+T97	SpatialSignal 313 315	at
+A107	semantic_type T97 topological
+T98	SpatialSignal 584 586	in
+A108	semantic_type T98 topological
+T99	SpatialSignal 721 723	in
+A109	semantic_type T99 topological
+T100	SpatialSignal 745 747	on
+A110	semantic_type T100 topological
+T101	SpatialSignal 82 89	between
+A111	semantic_type T101 dir_top
+T102	MotionSignal 1194 1196	to
+A112	MS_type T102 path
+T103	MotionSignal 1320 1322	up
+A113	MS_type T103 path
+T104	MotionSignal 1323 1325	to
+A114	MS_type T104 path
+T105	MotionSignal 1545 1551	across
+A115	MS_type T105 path
+T106	MotionSignal 1578 1580	in
+A116	MS_type T106 path
+T107	MotionSignal 452 459	between
+A117	MS_type T107 path
+T108	MotionSignal 513 517	ride
+A118	MS_type T108 manner
+T109	MotionSignal 518 532	on a freighter
+A119	MS_type T109 manner
+T110	MotionSignal 673 676	run
+A120	MS_type T110 manner
+T111	MotionSignal 686 693	towards
+A121	MS_type T111 path
+T112	MotionSignal 924 926	on
+A122	MS_type T112 path
+T113	MotionSignal 379 385	yachts
+A123	MS_type T113 manner
+T114	Measure 1390 1412	less then a half meter
+#114	AnnotatorNotes T114	meters lt0.5
+T115	Measure 605 612	65 foot
+#116	AnnotatorNotes T115	feet 65
+T116	TLINK 235 237	at
+A124	QS_type E1 EQ
+E1	TLINK:T116 trajector:T72 landmark:T22 trigger:T96
+T117	TLINK 1489 1494	under
+A125	QS_type E2 IN
+E2	TLINK:T117 trajector:T46 landmark:T47 trigger:T93
+T118	TLINK 1617 1619	in
+A126	QS_type E3 IN
+E3	TLINK:T118 trajector:T17 landmark:T18 trigger:T94
+T119	TLINK 1219 1224	where
+A127	QS_type E4 IN
+E4	TLINK:T119 trajector:T70 landmark:T11 trigger:T89
+T120	TLINK 199 204	where
+A128	QS_type E5 IN
+E5	TLINK:T120 trajector:T72 landmark:T21 trigger:T95
+T121	TLINK 313 315	at
+A129	QS_type E6 IN
+E6	TLINK:T121 trajector:T73 landmark:T24 trigger:T97
+T122	TLINK 313 315	at
+A130	QS_type E7 IN
+E7	TLINK:T122 trajector:T73 landmark:T25 trigger:T97
+T123	TLINK 584 586	in
+A131	QS_type E8 IN
+E8	TLINK:T123 trajector:T74 landmark:T28 trigger:T98
+T124	TLINK 721 723	in
+A132	QS_type E9 IN
+E9	TLINK:T124 trajector:T75 landmark:T30 trigger:T99
+T125	TLINK 745 747	on
+A133	QS_type E10 IN
+E10	TLINK:T125 trajector:T76 landmark:T58 trigger:T100
+T126	TLINK 1147 1157	surrounded
+A134	QS_type E11 DC
+E11	TLINK:T126 trajector:T41 landmark:T40 trigger:T88
+T127	TLINK 82 89	between
+A135	QS_type E12 EC
+E12	TLINK:T127 trajector:T36 landmark:T31 trigger:T101
+T128	TLINK 82 89	between
+A136	QS_type E13 EC
+E13	TLINK:T128 trajector:T36 landmark:T3 trigger:T101
+T129	TLINK 130 132	in
+A137	QS_type E14 IN
+E14	TLINK:T129 trajector:T69 landmark:T33 trigger:T91
+T130	TLINK 1581 1600	Cartagena, Colombia
+A138	QS_type E15 EC
+E15	TLINK:T130 trajector:T16 landmark:T15
+T131	OLINK 1147 1157	surrounded
+A139	O_type E16 SURROUND
+A140	frame_type E16 INTRINSIC
+A141	projective E16 INTRINSIC
+E16	OLINK:T131 trajector:T41 landmark:T40 trigger:T88 referencePt:T40
+T132	OLINK 1413 1418	above
+A142	O_type E17 ABOVE
+A143	frame_type E17 INTRINSIC
+A144	projective E17 INTRINSIC
+E17	OLINK:T132 trajector:T71 landmark:T34 trigger:T92 referencePt:T34
+T133	OLINK 1489 1494	under
+A145	O_type E18 BELOW
+A146	frame_type E18 INTRINSIC
+A147	projective E18 INTRINSIC
+E18	OLINK:T133 trajector:T46 landmark:T47 trigger:T93 referencePt:T47
+T134	OLINK 1237 1244	between
+A148	O_type E19 BETWEEN
+A149	frame_type E19 RELATIVE
+A150	projective E19 RELATIVE
+E19	OLINK:T134 trajector:T70 landmark:T12 trigger:T90 referencePt:T70
+T135	OLINK 82 89	between
+A151	O_type E20 ACROSS
+A152	frame_type E20 RELATIVE
+A153	projective E20 RELATIVE
+E20	OLINK:T135 trajector:T31 landmark:T36 trigger:T101 referencePt:T3
+T136	OLINK 1552 1555	the
+A154	O_type E21 ACROSS
+A155	frame_type E21 RELATIVE
+A156	projective E21 RELATIVE
+E21	OLINK:T136 trajector:T2 landmark:T15 referencePt:T16
+T137	MLINK 270 274	left
+E22	MLINK:T137 mover:T49 trigger:T81 source:T23
+T138	MLINK 425 429	take
+A158	goal_reached E23 yes
+E23	MLINK:T138 goal:T27 mover:T62 motion_signalID2:T107 motion_signalID:T113 trigger:T82 source:T26
+T139	MLINK 1570 1577	arrived
+A159	goal_reached E24 yes
+E24	MLINK:T139 goal:T16 mover:T48 motion_signalID:T106 trigger:T80
+T140	MLINK 502 505	get
+E25	MLINK:T140 mover:T52 motion_signalID2:T109 motion_signalID:T108 trigger:T83
+T141	MLINK 679 685	headed
+A161	goal_reached E26 uncertain
+E26	MLINK:T141 goal:T29 mover:T55 motion_signalID:T111 trigger:T85
+T142	MLINK 661 667	making
+E27	MLINK:T142 mover:T56 trigger:T84 pathID:T35
+T143	MLINK 988 994	joined
+A163	goal_reached E28 yes
+E28	MLINK:T143 goal:T61 mover:T38 trigger:T87
+T144	MLINK 1181 1187	sailed
+A164	goal_reached E29 yes
+E29	MLINK:T144 goal:T11 mover:T42 motion_signalID:T102 trigger:T77
+T145	MLINK 920 923	get
+A165	goal_reached E30 yes
+E30	MLINK:T145 goal:T60 mover:T59 motion_signalID:T112 trigger:T86
+T146	MLINK 1313 1319	canoed
+A166	goal_reached E31 yes
+E31	MLINK:T146 goal:T45 mover:T44 motion_signalID2:T104 motion_signalID:T103 trigger:T78
+T147	MLINK 1537 1544	sailing
+A167	goal_reached E32 yes
+E32	MLINK:T147 goal:T16 mover:T48 midPoint:T15 motion_signalID:T105 trigger:T79 source:T2
+R10	coreference Arg1:T42 Arg2:T37
+#117	AnnotatorNotes R10	SPLITCOREFERENCE
+R11	coreference Arg1:T61 Arg2:T37
+#118	AnnotatorNotes R11	SUBCOREFERENCE
+R12	coreference Arg1:T38 Arg2:T37
+#119	AnnotatorNotes R12	SUBCOREFERENCE
+R13	coreference Arg1:T50 Arg2:T62
+#120	AnnotatorNotes R13	SUBCOREFERENCE
+R14	coreference Arg1:T51 Arg2:T62
+#121	AnnotatorNotes R14	SUBCOREFERENCE

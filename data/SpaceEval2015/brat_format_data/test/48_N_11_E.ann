@@ -1,0 +1,173 @@
+T1	Null 243 247	some
+#1	AnnotatorNotes T1	PLACE Goal for 'stopped' in 'stopped about 500 m away from the confluence'
+T2	Null 188 192	some
+#2	AnnotatorNotes T2	PLACE MidPoint for 'a short trip through Augsburg and some smaller villages'.  Subsumes 'Augsburg' and 'villages'
+T3	Null 184 187	and
+#3	AnnotatorNotes T3	PLACE Source for 'a short trip through Augsburg and some smaller villages'
+T4	Null 193 200	smaller
+#4	AnnotatorNotes T4	PLACE Goal for 'a short trip through Augsburg and some smaller villages'
+T5	Place 101 111	confluence
+A1	form T5 NOM
+T6	Place 175 183	Augsburg
+A2	form T6 NAM
+T7	Place 201 209	villages
+A3	form T7 NOM
+T8	Place 226 231	point
+A4	form T8 NOM
+T9	Place 326 336	confluence
+A5	form T9 NOM
+T10	Place 343 347	here
+A6	form T10 NOM
+T11	Place 418 423	zeros
+A7	form T11 NOM
+T12	Place 47 53	Munich
+A8	form T12 NAM
+T13	Place 477 483	Munich
+A9	form T13 NAM
+T14	Path 135 142	highway
+A10	form T14 NOM
+T15	Path 254 259	roads
+A11	form T15 NOM
+T16	Path 280 287	meadows
+A12	form T16 NOM
+T17	Path 379 383	Alps
+A13	form T17 NAM
+T18	Path 492 505	Bavarian Alps
+A14	form T18 NAM
+T19	Null 56 65	convinced
+#19	AnnotatorNotes T19	SPATIAL_ENTITY Subsuming mover for 'our easter holiday trip to Munich' and 'I convinced the family to visit this beautiful confluence'
+T20	SpatialEntity 234 236	We
+A15	form T20 NOM
+T21	SpatialEntity 348 350	we
+A16	form T21 NOM
+T22	SpatialEntity 452 454	we
+A17	form T22 NOM
+T23	SpatialEntity 512 514	we
+A18	form T23 NOM
+T24	SpatialEntity 54 55	I
+A19	form T24 NOM
+T25	SpatialEntity 70 76	family
+A20	form T25 NOM
+T26	Event 520 526	skiing
+T27	Motion 126 130	left
+A21	motion_type T27 path
+A22	motion_class T27 deviate
+A23	motion_sense T27 literal
+T28	Motion 162 166	trip
+A24	motion_type T28 path
+A25	motion_class T28 cross
+A26	motion_sense T28 literal
+T29	Motion 213 217	come
+A27	motion_type T29 path
+A28	motion_class T29 reach
+A29	motion_sense T29 literal
+T30	Motion 237 242	drove
+A30	motion_type T30 compound
+A31	motion_class T30 follow
+A32	motion_sense T30 literal
+T31	Motion 292 299	stopped
+A33	motion_type T31 path
+A34	motion_class T31 reach
+A35	motion_sense T31 literal
+T32	Motion 39 43	trip
+A36	motion_type T32 path
+A37	motion_class T32 reach
+A38	motion_sense T32 literal
+T33	Motion 390 397	dancing
+A39	motion_type T33 compound
+A40	motion_class T33 reach
+A41	motion_sense T33 literal
+T34	Motion 469 473	trip
+A42	motion_type T34 path
+A43	motion_class T34 reach
+A44	motion_sense T34 literal
+T35	Motion 80 85	visit
+A45	motion_type T35 path
+A46	motion_class T35 reach
+A47	motion_sense T35 literal
+T36	SpatialSignal 260 265	along
+A48	semantic_type T36 dir_top
+T37	SpatialSignal 312 321	away from
+A49	semantic_type T37 topological
+T38	SpatialSignal 506 511	where
+A50	semantic_type T38 topological
+T39	MotionSignal 167 174	through
+A51	MS_type T39 path
+T40	MotionSignal 218 220	to
+A52	MS_type T40 path
+T41	MotionSignal 398 405	towards
+A53	MS_type T41 path
+T42	MotionSignal 44 46	to
+A54	MS_type T42 path
+T43	MotionSignal 474 476	to
+A55	MS_type T43 path
+T44	Measure 300 311	about 500 m
+#45	AnnotatorNotes T44	meters ~500
+T45	TLINK 348 350	we
+A56	QS_type E1 IN
+E1	TLINK:T45 trajector:T21 landmark:T10
+T46	TLINK 193 200	smaller
+A57	QS_type E2 EC
+E2	TLINK:T46 trajector:T4 landmark:T2
+T47	TLINK 184 187	and
+A58	QS_type E3 EC
+E3	TLINK:T47 trajector:T3 landmark:T2
+T48	TLINK 260 265	along
+A59	QS_type E4 EC
+E4	TLINK:T48 trajector:T15 landmark:T16 trigger:T36
+T49	TLINK 312 321	away from
+A60	QS_type E5 DC
+E5	TLINK:T49 trajector:T1 landmark:T9 trigger:T37
+T50	TLINK 506 511	where
+A61	QS_type E6 IN
+E6	TLINK:T50 trajector:T26 landmark:T18 trigger:T38
+T51	OLINK 184 187	and
+A62	O_type E7 ACROSS
+A63	frame_type E7 RELATIVE
+A64	projective E7 RELATIVE
+E7	OLINK:T51 trajector:T3 landmark:T2 referencePt:T4
+T52	OLINK 260 265	along
+A65	O_type E8 BESIDE
+A66	frame_type E8 INTRINSIC
+A67	projective E8 INTRINSIC
+E8	OLINK:T52 trajector:T16 landmark:T15 trigger:T36 referencePt:T15
+T53	MLINK 39 43	trip
+A68	goal_reached E9 yes
+E9	MLINK:T53 goal:T12 mover:T19 motion_signalID:T42 trigger:T32
+T54	MLINK 80 85	visit
+A69	goal_reached E10 yes
+E10	MLINK:T54 goal:T5 mover:T19 trigger:T35
+T55	MLINK 126 130	left
+E11	MLINK:T55 trigger:T27 source:T14
+T56	MLINK 162 166	trip
+A71	goal_reached E12 yes
+E12	MLINK:T56 goal:T4 midPoint:T2 motion_signalID:T39 trigger:T28 source:T3
+T57	MLINK 213 217	come
+A72	goal_reached E13 yes
+E13	MLINK:T57 goal:T8 motion_signalID:T40 trigger:T29
+T58	MLINK 237 242	drove
+E14	MLINK:T58 mover:T20 trigger:T30 pathID:T15
+T59	MLINK 292 299	stopped
+A74	goal_reached E15 yes
+E15	MLINK:T59 goal:T1 mover:T20 trigger:T31
+T60	MLINK 390 397	dancing
+A75	goal_reached E16 uncertain
+E16	MLINK:T60 goal:T11 mover:T21 motion_signalID:T41 trigger:T33
+T61	MLINK 469 473	trip
+A76	goal_reached E17 yes
+E17	MLINK:T61 goal:T13 mover:T22 motion_signalID:T43 trigger:T34
+T62	MLINK 469 473	trip
+A77	goal_reached E18 yes
+E18	MLINK:T62 goal:T18 mover:T22 motion_signalID:T43 trigger:T34
+T63	DLINK 300 311	about 500 m
+E19	DLINK:T63 trajector:T1 landmark:T9 val:T44
+R16	coreference Arg1:T10 Arg2:T1
+#46	AnnotatorNotes R16	COREFERENCE
+R17	coreference Arg1:T19 Arg2:T24
+#47	AnnotatorNotes R17	SPLITCOREFERENCE
+R18	coreference Arg1:T19 Arg2:T25
+#48	AnnotatorNotes R18	SPLITCOREFERENCE
+R19	coreference Arg1:T2 Arg2:T6
+#49	AnnotatorNotes R19	SPLITCOREFERENCE
+R20	coreference Arg1:T2 Arg2:T7
+#50	AnnotatorNotes R20	SPLITCOREFERENCE

@@ -1,0 +1,212 @@
+T1	Place 1036 1042	oceans
+A1	form T1 NOM
+T2	Place 1212 1224	Punta Arenas
+A2	form T2 NAM
+T3	Place 1236 1248	Punta Arenas
+A3	form T3 NAM
+T4	Place 1311 1314	tip
+A4	form T4 NOM
+T5	Place 1318 1331	South America
+A5	form T5 NAM
+T6	Place 1345 1348	one
+A6	form T6 NOM
+T7	Place 1361 1367	cities
+A7	form T7 NOM
+T8	Place 458 464	places
+A8	form T8 NOM
+T9	Place 75 79	cafe
+A9	form T9 NOM
+T10	Place 83 102	Punta Arenas, Chile
+A10	form T10 NAM
+T11	Place 861 866	ocean
+A11	form T11 NOM
+T12	Path 1261 1266	shore
+A12	form T12 NOM
+T13	Path 1274 1294	Straight of Magellan
+A13	form T13 NAM
+T14	Path 1375 1380	coast
+A14	form T14 NOM
+T15	Path 1458 1468	coastlines
+A15	form T15 NOM
+T16	Path 1571 1576	level
+A16	form T16 NOM
+T17	Path 178 183	level
+A17	form T17 NOM
+T18	Path 206 211	level
+A18	form T18 NOM
+T19	Path 515 520	coast
+A19	form T19 NOM
+T20	Path 587 594	beaches
+A20	form T20 NOM
+T21	Path 320 322	it
+A21	form T21 NOM
+T22	SpatialEntity 1204 1205	I
+A22	form T22 NOM
+T23	SpatialEntity 1386 1387	I
+A23	form T23 NOM
+T24	SpatialEntity 1469 1470	I
+A24	form T24 NOM
+T25	SpatialEntity 465 466	I
+A25	form T25 NOM
+T26	SpatialEntity 47 48	I
+A26	form T26 NOM
+T27	SpatialEntity 699 705	sheets
+A27	form T27 NOM
+T28	SpatialEntity 600 601	I
+A28	form T28 NOM
+T29	SpatialEntity 1184 1185	I
+A29	form T29 NOM
+T30	SpatialEntity 1424 1425	I
+A30	form T30 NOM
+T31	Event 115 120	doing
+T32	Event 1249 1253	sits
+T33	Event 125 133	searches
+T34	Event 52 59	sitting
+T35	Motion 1049 1053	rise
+A31	motion_type T35 manner
+A32	motion_class T35 move
+A33	motion_sense T35 intrinsic_change
+T36	Motion 1393 1400	visited
+A34	motion_type T36 path
+A35	motion_class T36 reach
+A36	motion_sense T36 literal
+T37	Motion 1476 1483	visited
+A37	motion_type T37 path
+A38	motion_class T37 reach
+A39	motion_sense T37 literal
+T38	Motion 1577 1581	rise
+A40	motion_type T38 compound
+A41	motion_class T38 move
+A42	motion_sense T38 literal
+T39	Motion 1577 1581	rise
+A43	motion_type T39 compound
+A44	motion_class T39 move
+A45	motion_sense T39 literal
+T40	Motion 1577 1581	rise
+A46	motion_type T40 compound
+A47	motion_class T40 move
+A48	motion_sense T40 literal
+T41	Motion 184 188	rise
+A49	motion_type T41 path
+A50	motion_class T41 move
+A51	motion_sense T41 literal
+T42	Motion 224 229	risen
+A52	motion_type T42 compound
+A53	motion_class T42 move
+A54	motion_sense T42 intrinsic_change
+T43	Motion 472 479	visited
+A55	motion_type T43 path
+A56	motion_class T43 reach
+A57	motion_sense T43 literal
+T44	Motion 571 576	erode
+A58	motion_type T44 manner
+A59	motion_class T44 move
+A60	motion_sense T44 intrinsic_change
+T45	Motion 709 713	melt
+A61	motion_type T45 manner
+A62	motion_class T45 move
+A63	motion_sense T45 intrinsic_change
+T46	Motion 873 877	rise
+A64	motion_type T46 manner
+A65	motion_class T46 move
+A66	motion_sense T46 intrinsic_change
+T47	SpatialSignal 1209 1211	in
+A67	semantic_type T47 topological
+T48	SpatialSignal 1254 1256	on
+A68	semantic_type T48 dir_top
+T49	SpatialSignal 1267 1269	of
+A69	semantic_type T49 topological
+T50	SpatialSignal 1295 1297	on
+A70	semantic_type T50 topological
+T51	SpatialSignal 1315 1317	of
+A71	semantic_type T51 topological
+T52	SpatialSignal 1368 1370	on
+A72	semantic_type T52 topological
+T53	SpatialSignal 495 500	along
+A73	semantic_type T53 directional
+T54	SpatialSignal 60 62	in
+A74	semantic_type T54 topological
+T55	SpatialSignal 80 82	in
+A75	semantic_type T55 topological
+T56	Measure 1539 1545	1 foot
+#57	AnnotatorNotes T56	feet 1
+T57	Measure 1547 1554	10 foot
+#59	AnnotatorNotes T57	feet 10
+T58	Measure 1559 1566	80 foot
+#61	AnnotatorNotes T58	feet 80
+T59	Measure 273 281	one inch
+#63	AnnotatorNotes T59	inches 1
+T60	Measure 878 885	80 feet
+#65	AnnotatorNotes T60	feet 80
+T61	TLINK 60 62	in
+A76	QS_type E1 IN
+E1	TLINK:T61 trajector:T34 landmark:T9 trigger:T54
+T62	TLINK 80 82	in
+A77	QS_type E2 IN
+E2	TLINK:T62 trajector:T9 landmark:T10 trigger:T55
+T63	TLINK 1368 1370	on
+A78	QS_type E3 IN
+E3	TLINK:T63 trajector:T7 landmark:T14 trigger:T52
+T64	TLINK 115 120	doing
+A79	QS_type E4 IN
+E4	TLINK:T64 trajector:T31 landmark:T9
+T65	TLINK 125 133	searches
+A80	QS_type E5 IN
+E5	TLINK:T65 trajector:T33 landmark:T9
+T66	TLINK 1209 1211	in
+A81	QS_type E6 IN
+E6	TLINK:T66 trajector:T22 landmark:T2 trigger:T47
+T67	TLINK 1254 1256	on
+A82	QS_type E7 EC
+E7	TLINK:T67 trajector:T32 landmark:T12 trigger:T48
+T68	TLINK 1267 1269	of
+A83	QS_type E8 EC
+E8	TLINK:T68 trajector:T12 landmark:T13 trigger:T49
+T69	TLINK 1315 1317	of
+A84	QS_type E9 TPP
+E9	TLINK:T69 trajector:T4 landmark:T5 trigger:T51
+T70	TLINK 1295 1297	on
+A85	QS_type E10 EC
+E10	TLINK:T70 trajector:T32 landmark:T12 trigger:T50
+T71	OLINK 1254 1256	on
+A86	O_type E11 ABOVE
+A87	frame_type E11 INTRINSIC
+A88	projective E11 INTRINSIC
+E11	OLINK:T71 trajector:T32 landmark:T12 trigger:T48 referencePt:T12
+T72	OLINK 1295 1297	on
+A89	O_type E12 ABOVE
+A90	frame_type E12 INTRINSIC
+A91	projective E12 INTRINSIC
+E12	OLINK:T72 trajector:T32 landmark:T4 trigger:T50 referencePt:T4
+T73	OLINK 495 500	along
+A92	O_type E13 ALONG
+A93	frame_type E13 INTRINSIC
+A94	projective E13 INTRINSIC
+E13	OLINK:T73 trajector:T8 landmark:T19 trigger:T53 referencePt:T19
+T74	MLINK 184 188	rise
+E14	MLINK:T74 mover:T17 trigger:T41
+T75	MLINK 224 229	risen
+E15	MLINK:T75 mover:T18 trigger:T42
+T76	MLINK 1577 1581	rise
+E16	MLINK:T76 mover:T16 trigger:T39
+T77	MLINK 1577 1581	rise
+E17	MLINK:T77 mover:T16 trigger:T40
+T78	MLINK 1577 1581	rise
+E18	MLINK:T78 mover:T16 trigger:T38
+T79	MLINK 472 479	visited
+A100	goal_reached E19 yes
+E19	MLINK:T79 goal:T8 mover:T25 trigger:T43
+T80	MLINK 571 576	erode
+E20	MLINK:T80 mover:T20 trigger:T44
+T81	MLINK 709 713	melt
+E21	MLINK:T81 mover:T27 trigger:T45
+T82	MLINK 873 877	rise
+E22	MLINK:T82 mover:T11 trigger:T46
+T83	MLINK 1049 1053	rise
+E23	MLINK:T83 mover:T1 trigger:T35
+T84	MLINK 1393 1400	visited
+A105	goal_reached E24 yes
+E24	MLINK:T84 goal:T7 mover:T23 trigger:T36
+T85	MLINK 1476 1483	visited
+A106	goal_reached E25 yes
+E25	MLINK:T85 goal:T15 mover:T24 trigger:T37

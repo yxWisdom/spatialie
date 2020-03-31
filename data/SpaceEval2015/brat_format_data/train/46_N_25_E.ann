@@ -1,0 +1,92 @@
+T1	Place 104 111	Romania
+A1	form T1 NAM
+T2	Place 141 146	point
+A2	form T2 NOM
+T3	Place 306 311	point
+A3	form T3 NOM
+T4	Place 389 396	station
+A4	form T4 NOM
+T5	Place 414 419	point
+A5	form T5 NOM
+T6	Place 557 562	point
+A6	form T6 NOM
+T7	Place 563 570	46N 24E
+A7	form T7 NAM
+T8	Place 93 100	upstate
+A8	form T8 NOM
+T9	Path 362 367	ridge
+A9	form T9 NOM
+T10	Path 536 541	roads
+A10	form T10 NOM
+T11	SpatialEntity 258 260	We
+A11	form T11 NOM
+T12	SpatialEntity 276 279	car
+A12	form T12 NOM
+T13	SpatialEntity 434 438	dogs
+A13	form T13 NOM
+T14	SpatialEntity 453 455	us
+A14	form T14 NOM
+T15	SpatialEntity 507 509	we
+A15	form T15 NOM
+T16	Event 267 271	park
+T17	Motion 119 124	visit
+A16	motion_type T17 path
+A17	motion_class T17 reach
+A18	motion_sense T17 literal
+T18	Motion 341 345	walk
+A19	motion_type T18 compound
+A20	motion_class T18 reach
+A21	motion_sense T18 literal
+T19	Motion 439 443	came
+A22	motion_type T19 path
+A23	motion_class T19 reach
+A24	motion_sense T19 literal
+T20	Motion 521 526	drive
+A25	motion_type T20 compound
+A26	motion_class T20 move
+A27	motion_sense T20 literal
+T21	Motion 74 83	excursion
+A28	motion_type T21 path
+A29	motion_class T21 reach
+A30	motion_sense T21 literal
+T22	SpatialSignal 292 301	away from
+A31	semantic_type T22 topological
+T23	MotionSignal 346 348	to
+A32	MS_type T23 path
+T24	MotionSignal 527 529	on
+A33	MS_type T24 path
+T25	MotionSignal 542 553	to the west
+A34	MS_type T25 path
+T26	MotionSignal 554 556	to
+A35	MS_type T26 path
+T27	MotionSignal 84 88	into
+A36	MS_type T27 path
+T28	Measure 280 291	appr. 950 m
+#29	AnnotatorNotes T28	meters ~950
+T29	Measure 397 404	not far
+#31	AnnotatorNotes T29	 NEAR
+T30	TLINK 93 100	upstate
+A37	QS_type E1 TPP
+E1	TLINK:T30 trajector:T8 landmark:T1
+T31	TLINK 292 301	away from
+A38	QS_type E2 DC
+E2	TLINK:T31 trajector:T16 landmark:T3 trigger:T22
+T32	MLINK 74 83	excursion
+A39	goal_reached E3 yes
+E3	MLINK:T32 goal:T8 mover:T21 motion_signalID:T27 trigger:T21
+T33	MLINK 119 124	visit
+A40	goal_reached E4 yes
+E4	MLINK:T33 goal:T2 mover:T17 trigger:T17
+T34	MLINK 341 345	walk
+A41	goal_reached E5 yes
+E5	MLINK:T34 goal:T9 mover:T11 motion_signalID:T23 trigger:T18
+T35	MLINK 439 443	came
+A42	goal_reached E6 yes
+E6	MLINK:T35 goal:T14 mover:T13 trigger:T19
+T36	MLINK 521 526	drive
+A43	goal_reached E7 yes
+E7	MLINK:T36 goal:T6 mover:T15 motion_signalID3:T26 motion_signalID2:T25 motion_signalID:T24 trigger:T20 pathID:T10
+T37	DLINK 397 404	not far
+E8	DLINK:T37 trajector:T4 landmark:T5 val:T29
+T38	DLINK 280 291	appr. 950 m
+E9	DLINK:T38 trajector:T16 landmark:T3 val:T28

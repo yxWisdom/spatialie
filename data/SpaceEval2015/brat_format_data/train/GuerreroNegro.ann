@@ -1,0 +1,280 @@
+T1	Null 958 965	looking
+#1	AnnotatorNotes T1	PLACE Whatever the beach is looking across at in 'We celebrated Christmas Eve and morning on a beach looking across Concepcion Bay,...'
+T2	Place 1307 1312	areas
+A1	form T2 NOM
+T3	Place 1325 1331	Loreto
+A2	form T3 NAM
+T4	Place 145 149	Baja
+A3	form T4 NAM
+T5	Place 1490 1505	Baja California
+A4	form T5 NAM
+T6	Place 224 228	Baja
+A5	form T6 NAM
+T7	Place 322 331	mountains
+A6	form T7 NOM
+T8	Place 369 378	volcanoes
+A7	form T8 NOM
+T9	Place 425 432	forests
+A8	form T9 NOM
+T10	Place 441 456	Baja California
+A9	form T10 NAM
+T11	Place 460 463	one
+A10	form T11 NOM
+T12	Place 471 477	places
+A11	form T12 NOM
+T13	Place 485 490	world
+A12	form T13 NOM
+T14	Place 552 559	Holland
+A13	form T14 NAM
+T15	Place 561 568	England
+A14	form T15 NAM
+T16	Place 574 587	United States
+A15	form T16 NAM
+T17	Place 593 599	Mexico
+A16	form T17 NAM
+T18	Place 611 620	peninsula
+A17	form T18 NOM
+T19	Place 87 101	Guerrero Negro
+A18	form T19 NAM
+T20	Place 877 893	University ITESM
+A19	form T20 NAM
+T21	Place 897 905	Cerétaro
+A20	form T21 NAM
+T22	Place 952 957	beach
+A21	form T22 NOM
+T23	Place 973 987	Concepcion Bay
+A22	form T23 NAM
+T24	Place 1105 1109	town
+#24	AnnotatorNotes T24	SPATIAL_FUNCTION
+A23	form T24 NOM
+T25	Place 1113 1119	Loreto
+A24	form T25 NAM
+T26	Place 157 161	town
+#26	AnnotatorNotes T26	SPATIAL_FUNCTION
+A25	form T26 NOM
+T27	Place 165 178	Santa Rosalia
+A26	form T27 NAM
+T28	Place 194 198	town
+#28	AnnotatorNotes T28	SF or META?
+A27	form T28 NOM
+T29	Null 798 801	two
+#29	AnnotatorNotes T29	SPATIAL_ENTITY [Aaron,se7] and [Rick,se8] in '... I rode with two Mexican cyclists, Aaron and Rick ...'
+T30	Null 802 809	Mexican
+#30	AnnotatorNotes T30	SPATIAL_ENTITY [I,se5] and [cyclists,se6] in 'I rode with tow Mexican cyclists...'
+T31	SpatialEntity 1089 1090	I
+A28	form T31 NOM
+T32	SpatialEntity 1127 1128	I
+A29	form T32 NOM
+T33	SpatialEntity 1142 1150	director
+A30	form T33 NOM
+T34	SpatialEntity 121 122	I
+A31	form T34 NOM
+T35	SpatialEntity 1357 1358	I
+A32	form T35 NOM
+T36	SpatialEntity 1388 1396	students
+A33	form T36 NOM
+T37	SpatialEntity 241 255	United Staters
+A34	form T37 NAM
+T38	SpatialEntity 284 285	I
+A35	form T38 NOM
+T39	SpatialEntity 505 513	tourists
+A36	form T39 NOM
+T40	SpatialEntity 538 546	cyclists
+A37	form T40 NOM
+T41	SpatialEntity 648 655	Cylists
+A38	form T41 NOM
+T42	SpatialEntity 723 726	one
+A39	form T42 NOM
+T43	SpatialEntity 727 728	I
+A40	form T43 NOM
+T44	SpatialEntity 786 787	I
+A41	form T44 NOM
+T45	SpatialEntity 810 818	cyclists
+#45	AnnotatorNotes T45	amount=2
+A42	form T45 NOM
+T46	SpatialEntity 820 825	Áaron
+A43	form T46 NAM
+T47	SpatialEntity 830 834	Rick
+A44	form T47 NAM
+T48	SpatialEntity 907 909	We
+A45	form T48 NOM
+T49	Null 793 797	with
+#49	AnnotatorNotes T49	SPATIAL_ENTITY The subsuming mover for 'I rode with two Mexican cyclists'
+T50	SpatialEntity 526 527	I
+A46	form T50 NOM
+T51	SpatialEntity 995 997	we
+A47	form T51 NOM
+T52	SpatialEntity 1064 1066	me
+A48	form T52 NOM
+T53	SpatialEntity 1398 1399	I
+A49	form T53 NOM
+T54	SpatialEntity 1507 1508	I
+A50	form T54 NOM
+T55	Event 1013 1019	shared
+T56	Event 1045 1054	proceeded
+T57	Event 1058 1063	teach
+T58	Event 1471 1480	obtaining
+T59	Event 910 920	celebrated
+T60	Event 998 1004	cooked
+T61	Motion 1129 1132	met
+A51	motion_type T61 path
+A52	motion_class T61 hit
+A53	motion_sense T61 literal
+T62	Motion 123 128	biked
+A54	motion_type T62 compound
+A55	motion_class T62 cross
+A56	motion_sense T62 literal
+T63	Motion 1374 1378	meet
+A57	motion_type T63 path
+A58	motion_class T63 hit
+A59	motion_sense T63 literal
+T64	Motion 291 297	ridden
+A60	motion_type T64 compound
+A61	motion_class T64 move
+A62	motion_sense T64 literal
+T65	Motion 514 524	congregate
+A63	motion_type T65 compound
+A64	motion_class T65 reach
+A65	motion_sense T65 literal
+T66	Motion 600 606	biking
+A66	motion_type T66 compound
+A67	motion_class T66 move
+A68	motion_sense T66 literal
+T67	Motion 729 733	meet
+A69	motion_type T67 path
+A70	motion_class T67 hit
+A71	motion_sense T67 literal
+T68	Motion 788 792	rode
+A72	motion_type T68 compound
+A73	motion_class T68 move
+A74	motion_sense T68 literal
+T69	Motion 79 86	Leaving
+A75	motion_type T69 path
+A76	motion_class T69 leave
+A77	motion_sense T69 literal
+T70	SpatialSignal 1098 1100	in
+A78	semantic_type T70 topological
+T71	SpatialSignal 1121 1126	where
+A79	semantic_type T71 topological
+T72	SpatialSignal 1313 1324	surrounding
+A80	semantic_type T72 dir_top
+T73	SpatialSignal 1487 1489	in
+A81	semantic_type T73 topological
+T74	SpatialSignal 233 240	full of
+A82	semantic_type T74 topological
+T75	SpatialSignal 478 480	in
+A83	semantic_type T75 topological
+T76	SpatialSignal 491 496	where
+A84	semantic_type T76 topological
+T77	SpatialSignal 894 896	in
+A85	semantic_type T77 topological
+T78	SpatialSignal 947 949	on
+A86	semantic_type T78 dir_top
+T79	SpatialSignal 966 972	across
+A87	semantic_type T79 directional
+T80	SpatialSignal 989 994	where
+A88	semantic_type T80 topological
+T81	MotionSignal 138 144	across
+A89	MS_type T81 path
+T82	MotionSignal 150 152	to
+A90	MS_type T82 path
+T83	MotionSignal 306 311	south
+A91	MS_type T83 path
+T84	TLINK 233 240	full of
+A92	QS_type E1 IN
+E1	TLINK:T84 trajector:T37 landmark:T6 trigger:T74
+T85	TLINK 478 480	in
+A93	QS_type E2 IN
+E2	TLINK:T85 trajector:T12 landmark:T13 trigger:T75
+T86	TLINK 1313 1324	surrounding
+A94	QS_type E3 EC
+E3	TLINK:T86 trajector:T2 landmark:T3 trigger:T72
+T87	TLINK 1487 1489	in
+A95	QS_type E4 IN
+E4	TLINK:T87 trajector:T58 landmark:T5 trigger:T73
+T88	TLINK 491 496	where
+A96	QS_type E5 IN
+E5	TLINK:T88 trajector:T65 landmark:T12 trigger:T76
+T89	TLINK 947 949	on
+A97	QS_type E6 IN
+E6	TLINK:T89 trajector:T59 landmark:T22 trigger:T78
+T90	TLINK 989 994	where
+A98	QS_type E7 IN
+E7	TLINK:T90 trajector:T60 landmark:T22 trigger:T80
+T91	TLINK 989 994	where
+A99	QS_type E8 IN
+E8	TLINK:T91 trajector:T55 landmark:T22 trigger:T80
+T92	TLINK 989 994	where
+A100	QS_type E9 IN
+E9	TLINK:T92 trajector:T56 landmark:T22 trigger:T80
+T93	TLINK 989 994	where
+A101	QS_type E10 IN
+E10	TLINK:T93 trajector:T57 landmark:T22 trigger:T80
+T94	TLINK 1121 1126	where
+A102	QS_type E11 IN
+E11	TLINK:T94 trajector:T61 landmark:T25 trigger:T71
+T95	TLINK 1098 1100	in
+A103	QS_type E12 IN
+E12	TLINK:T95 trajector:T31 landmark:T25 trigger:T70
+T96	TLINK 894 896	in
+A104	QS_type E13 IN
+E13	TLINK:T96 trajector:T20 landmark:T21 trigger:T77
+T97	OLINK 966 972	across
+A105	O_type E14 ACROSS
+A106	frame_type E14 RELATIVE
+A107	projective E14 RELATIVE
+E14	OLINK:T97 trajector:T22 landmark:T23 trigger:T79 referencePt:T1
+T98	OLINK 1313 1324	surrounding
+A108	O_type E15 SURROUND
+A109	frame_type E15 INTRINSIC
+A110	projective E15 INTRINSIC
+E15	OLINK:T98 trajector:T2 landmark:T3 trigger:T72 referencePt:T3
+T99	OLINK 947 949	on
+A111	O_type E16 ABOVE
+A112	frame_type E16 INTRINSIC
+A113	projective E16 INTRINSIC
+E16	OLINK:T99 trajector:T59 landmark:T22 trigger:T78 referencePt:T22
+T100	OLINK 87 101	Guerrero Negro
+A114	O_type E17 ACROSS
+A115	frame_type E17 RELATIVE
+A116	projective E17 RELATIVE
+E17	OLINK:T100 trajector:T19 landmark:T4 referencePt:T27
+T101	MLINK 79 86	Leaving
+E18	MLINK:T101 mover:T34 trigger:T69 source:T19
+T102	MLINK 123 128	biked
+A118	goal_reached E19 yes
+E19	MLINK:T102 goal:T27 mover:T34 midPoint:T4 motion_signalID2:T82 motion_signalID:T81 trigger:T62 source:T19
+T103	MLINK 291 297	ridden
+E20	MLINK:T103 mover:T38 motion_signalID:T83 trigger:T64
+T104	MLINK 514 524	congregate
+A120	goal_reached E21 yes
+E21	MLINK:T104 goal:T10 mover:T39 trigger:T65
+T105	MLINK 600 606	biking
+E22	MLINK:T105 mover:T40 ground:T18 trigger:T66
+T106	MLINK 729 733	meet
+A122	goal_reached E23 yes
+E23	MLINK:T106 goal:T42 mover:T43 trigger:T67
+T107	MLINK 1129 1132	met
+A123	goal_reached E24 yes
+E24	MLINK:T107 goal:T33 mover:T32 trigger:T61
+T108	MLINK 1374 1378	meet
+A124	goal_reached E25 yes
+E25	MLINK:T108 goal:T36 mover:T35 trigger:T63
+T109	MLINK 788 792	rode
+E26	MLINK:T109 mover:T49 trigger:T68
+R1	coreference Arg1:T45 Arg2:T29
+#84	AnnotatorNotes R1	SPLITCOREFERENCE
+R2	coreference Arg1:T46 Arg2:T29
+#85	AnnotatorNotes R2	SUBCOREFERENCE
+R3	coreference Arg1:T47 Arg2:T29
+#86	AnnotatorNotes R3	SUBCOREFERENCE
+R4	coreference Arg1:T45 Arg2:T30
+#87	AnnotatorNotes R4	SUBCOREFERENCE
+R5	coreference Arg1:T44 Arg2:T30
+#88	AnnotatorNotes R5	SUBCOREFERENCE
+R6	coreference Arg1:T48 Arg2:T30
+#89	AnnotatorNotes R6	SPLITCOREFERENCE
+R7	coreference Arg1:T44 Arg2:T49
+#90	AnnotatorNotes R7	SUBCOREFERENCE
+R8	coreference Arg1:T45 Arg2:T49
+#91	AnnotatorNotes R8	SUBCOREFERENCE

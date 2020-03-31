@@ -1,0 +1,552 @@
+T1	Null 305 308	for
+#1	AnnotatorNotes T1	PLACE Source for 'Soon after disembarking'
+T2	Null 450 452	it
+#2	AnnotatorNotes T2	PLACE 'I was glad to be away'
+T3	Null 2636 2640	will
+#3	AnnotatorNotes T3	PLACE Goal for 'cars will stop for them'
+T4	Null 317 319	of
+#4	AnnotatorNotes T4	PLACE Source for 'I crossed the Danube for the 3rd of 4 times in 2 days'
+T5	Null 309 312	the
+#5	AnnotatorNotes T5	PLACE Goal for 'I crossed the Danube for the 3rd of 4 times in 2 days'
+T6	Null 88 91	the
+#6	AnnotatorNotes T6	PLACE Source for 'I forded two drainage ditches'
+T7	Null 76 77	–
+#7	AnnotatorNotes T7	PLACE Goal for 'I forded two drainage ditches'
+T8	Null 2233 2240	changed
+#8	AnnotatorNotes T8	PLACE Source for 'I changed and set off'
+T9	Null 989 993	rich
+#9	AnnotatorNotes T9	PLACE Source for 'you pass through rich farmland'
+T10	Null 1003 1006	and
+#10	AnnotatorNotes T10	PLACE Goal for 'you pass through rich farmland'
+T11	Null 1007 1011	then
+#11	AnnotatorNotes T11	PLACE Source for 'you pass through ... rolling hills'
+T12	Null 1012 1019	rolling
+#12	AnnotatorNotes T12	PLACE Goal for 'you pass through ... rolling hills'
+T13	Null 62 69	further
+#13	AnnotatorNotes T13	PLACE The first point in 'The second point is further north'
+T14	Place 1061 1066	point
+A1	form T14 NOM
+T15	Place 1125 1129	home
+A2	form T15 NOM
+T16	Place 1168 1176	villages
+A3	form T16 NOM
+T17	Place 1223 1230	village
+#17	AnnotatorNotes T17	'nearest'
+A4	form T17 NOM
+T18	Place 1279 1285	hamlet
+A5	form T18 NOM
+T19	Place 1289 1297	Sălăgeni
+A6	form T19 NAM
+T20	Place 1473 1479	fields
+A7	form T20 NOM
+T21	Place 1633 1641	Sălăgeni
+A8	form T21 NAM
+T22	Place 164 169	point
+A9	form T22 NOM
+T23	Place 1808 1813	point
+A10	form T23 NOM
+T24	Place 1839 1846	village
+A11	form T24 NOM
+T25	Place 1968 1973	point
+A12	form T25 NOM
+T26	Place 1993 1999	swamps
+A13	form T26 NOM
+T27	Place 2060 2065	point
+A14	form T27 NOM
+T28	Place 2067 2074	Romania
+A15	form T28 NAM
+T29	Place 2223 2227	home
+A16	form T29 NOM
+T30	Place 2298 2305	Romania
+A17	form T30 NAM
+T31	Place 2386 2388	It
+A18	form T31 NOM
+T32	Place 2416 2418	it
+A19	form T32 NOM
+T33	Place 2442 2456	Western Europe
+A20	form T33 NAM
+T34	Place 2658 2667	crossings
+A21	form T34 NOM
+T35	Place 2697 2704	Romania
+A22	form T35 NAM
+T36	Place 276 282	Tulcea
+A23	form T36 NAM
+T37	Place 443 449	Galaţi
+A24	form T37 NAM
+T38	Place 475 479	area
+A25	form T38 NOM
+T39	Place 53 58	point
+A26	form T39 NOM
+T40	Place 554 560	fields
+A27	form T40 NOM
+T41	Place 565 572	gardens
+A28	form T41 NOM
+T42	Place 611 617	fields
+A29	form T42 NOM
+T43	Place 798 804	Galaţi
+A30	form T43 NAM
+T44	Place 826 831	place
+A31	form T44 NOM
+T45	Place 849 855	blocks
+A32	form T45 NOM
+T46	Place 92 104	Danube delta
+A33	form T46 NAM
+T47	Place 994 1002	farmland
+A34	form T47 NOM
+T48	Null 59 61	is
+#48	AnnotatorNotes T48	PATH Ground for 'I am sure I could have gone round'
+T49	Path 1020 1025	hills
+A35	form T49 NOM
+T50	Path 127 142	Moldovan border
+A36	form T50 NAM
+T51	Path 1327 1333	border
+A37	form T51 NOM
+T52	Path 1350 1356	border
+A38	form T52 NOM
+T53	Path 1870 1877	ditches
+A39	form T53 NOM
+T54	Path 1880 1883	one
+A40	form T54 NOM
+T55	Path 206 210	zone
+A41	form T55 NOM
+T56	Path 2100 2103	way
+A42	form T56 NOM
+T57	Path 221 227	border
+A43	form T57 NOM
+T58	Path 2515 2531	Bulgarian border
+A44	form T58 NAM
+T59	Path 298 304	Danube
+A45	form T59 NOM
+T60	Path 785 790	roads
+A46	form T60 NOM
+T61	Null 294 297	the
+#61	AnnotatorNotes T61	SPATIAL_ENTITY Mover for 'Soon after disembarking and heading north for Galaţi'.  Represents the narrator.
+T62	Null 313 316	3rd
+#62	AnnotatorNotes T62	SPATIAL_ENTITY Mover for 'it was only just possible to keep driving for more than half an hour'.  Represents the narrator.
+T63	SpatialEntity 1027 1028	I
+A47	form T63 NOM
+T64	SpatialEntity 1087 1088	I
+A48	form T64 NOM
+T65	SpatialEntity 1148 1149	I
+A49	form T65 NOM
+T66	SpatialEntity 1193 1199	people
+A50	form T66 NOM
+T67	SpatialEntity 1261 1262	I
+A51	form T67 NOM
+T68	SpatialEntity 1375 1376	I
+A52	form T68 NOM
+T69	SpatialEntity 1444 1447	men
+A53	form T69 NOM
+T70	SpatialEntity 1455 1461	cattle
+A54	form T70 NOM
+T71	SpatialEntity 1509 1511	me
+A55	form T71 NOM
+T72	SpatialEntity 1651 1653	me
+A56	form T72 NOM
+T73	SpatialEntity 1764 1769	ducks
+A57	form T73 NOM
+T74	SpatialEntity 1771 1775	hens
+A58	form T74 NOM
+T75	SpatialEntity 1780 1787	turkeys
+A59	form T75 NOM
+T76	SpatialEntity 1848 1849	I
+A60	form T76 NOM
+T77	SpatialEntity 1896 1897	I
+A61	form T77 NOM
+T78	SpatialEntity 1906 1907	I
+A62	form T78 NOM
+T79	SpatialEntity 1953 1954	I
+A63	form T79 NOM
+T80	SpatialEntity 1983 1988	reeds
+A64	form T80 NOM
+T81	SpatialEntity 2109 2110	I
+A65	form T81 NOM
+T82	SpatialEntity 2133 2136	man
+A66	form T82 NOM
+T83	SpatialEntity 2139 2141	we
+A67	form T83 NOM
+T84	SpatialEntity 2231 2232	I
+A68	form T84 NOM
+T85	SpatialEntity 2356 2361	flags
+A69	form T85 NOM
+T86	SpatialEntity 2374 2383	buildings
+A70	form T86 NOM
+T87	SpatialEntity 2505 2507	me
+A71	form T87 NOM
+T88	SpatialEntity 2631 2635	cars
+A72	form T88 NOM
+T89	SpatialEntity 284 285	I
+A73	form T89 NOM
+T90	SpatialEntity 582 587	crops
+A74	form T90 NOM
+T91	SpatialEntity 732 733	I
+A75	form T91 NOM
+T92	SpatialEntity 748 750	it
+A76	form T92 NOM
+T93	SpatialEntity 869 878	factories
+A77	form T93 NOM
+T94	SpatialEntity 928 929	I
+A78	form T94 NOM
+T95	SpatialEntity 972 975	you
+A79	form T95 NOM
+T96	Event 1040 1044	camp
+T97	Event 1254 1259	dance
+T98	Event 1263 1269	camped
+T99	Event 1483 1488	graze
+T100	Event 2111 2118	chatted
+T101	Event 2482 2490	demanded
+T102	Event 501 507	floods
+T103	Event 541 546	lying
+T104	Motion 1119 1124	drive
+A80	motion_type T104 compound
+A81	motion_class T104 reach
+A82	motion_sense T104 literal
+T105	Motion 1150 1155	drove
+A83	motion_type T105 compound
+A84	motion_class T105 move_internal
+A85	motion_sense T105 literal
+T106	Motion 1200 1207	walking
+A86	motion_type T106 compound
+A87	motion_class T106 reach
+A88	motion_sense T106 literal
+T107	Motion 1448 1454	taking
+A89	motion_type T107 path
+A90	motion_class T107 reach
+A91	motion_sense T107 literal
+T108	Motion 1788 1794	wander
+A92	motion_type T108 compound
+A93	motion_class T108 move
+A94	motion_sense T108 literal
+T109	Motion 1850 1856	forded
+A95	motion_type T109 compound
+A96	motion_class T109 cross
+A97	motion_sense T109 literal
+T110	Motion 1919 1923	gone
+A98	motion_type T110 path
+A99	motion_class T110 move_external
+A100	motion_sense T110 literal
+T111	Motion 1942 1944	go
+A101	motion_type T111 path
+A102	motion_class T111 move
+A103	motion_sense T111 literal
+T112	Motion 2048 2052	walk
+A104	motion_type T112 compound
+A105	motion_class T112 reach
+A106	motion_sense T112 literal
+T113	Motion 2217 2222	drive
+A107	motion_type T113 compound
+A108	motion_class T113 reach
+A109	motion_sense T113 literal
+T114	Motion 2245 2252	set off
+A110	motion_type T114 path
+A111	motion_class T114 leave
+A112	motion_sense T114 literal
+T115	Motion 250 255	visit
+A113	motion_type T115 path
+A114	motion_class T115 reach
+A115	motion_sense T115 literal
+T116	Motion 258 265	Driving
+A116	motion_type T116 compound
+A117	motion_class T116 leave
+A118	motion_sense T116 literal
+T117	Motion 2641 2645	stop
+A119	motion_type T117 path
+A120	motion_class T117 reach
+A121	motion_sense T117 literal
+T118	Motion 286 293	crossed
+A122	motion_type T118 path
+A123	motion_class T118 cross
+A124	motion_sense T118 literal
+T119	Motion 408 420	disembarking
+#119	AnnotatorNotes T119	Narrator is the implied mover
+A125	motion_type T119 path
+A126	motion_class T119 leave
+A127	motion_sense T119 literal
+T120	Motion 425 432	heading
+#120	AnnotatorNotes T120	Narrator is the implied mover
+A128	motion_type T120 path
+A129	motion_class T120 reach
+A130	motion_sense T120 literal
+T121	Motion 684 691	driving
+A131	motion_type T121 manner
+A132	motion_class T121 move
+A133	motion_sense T121 literal
+T122	Motion 734 737	got
+A134	motion_type T122 path
+A135	motion_class T122 detach
+A136	motion_sense T122 literal
+T123	Motion 770 777	driving
+A137	motion_type T123 compound
+A138	motion_class T123 follow
+A139	motion_sense T123 literal
+T124	Motion 951 957	Moving
+A140	motion_type T124 path
+A141	motion_class T124 move
+A142	motion_sense T124 literal
+T125	Motion 976 980	pass
+A143	motion_type T125 path
+A144	motion_class T125 cross
+A145	motion_sense T125 literal
+T126	SpatialSignal 1980 1982	in
+A146	semantic_type T126 topological
+T127	SpatialSignal 2093 2095	On
+A147	semantic_type T127 topological
+T128	SpatialSignal 211 216	along
+A148	semantic_type T128 dir_top
+T129	SpatialSignal 2362 2364	on
+#129	AnnotatorNotes T129	The distinction of above/beside/both is not clear
+A149	semantic_type T129 dir_top
+T130	SpatialSignal 2508 2510	at
+A150	semantic_type T130 topological
+T131	SpatialSignal 2655 2657	at
+A151	semantic_type T131 topological
+T132	SpatialSignal 547 549	in
+A152	semantic_type T132 topological
+T133	SpatialSignal 604 606	in
+A153	semantic_type T133 topological
+T134	SpatialSignal 70 75	north
+#134	AnnotatorNotes T134	'further'
+A154	semantic_type T134 directional
+T135	SpatialSignal 78 87	away from
+A155	semantic_type T135 topological
+T136	SpatialSignal 945 949	away
+A156	semantic_type T136 topological
+T137	MotionSignal 1156 1163	through
+A157	MS_type T137 path
+T138	MotionSignal 1208 1210	to
+A158	MS_type T138 path
+T139	MotionSignal 1462 1465	out
+A159	MS_type T139 path
+T140	MotionSignal 1466 1468	to
+A160	MS_type T140 path
+T141	MotionSignal 1795 1801	around
+A161	MS_type T141 path
+T142	MotionSignal 1924 1929	round
+A162	MS_type T142 path
+T143	MotionSignal 1945 1951	direct
+A163	MS_type T143 path
+T144	MotionSignal 2053 2055	to
+A164	MS_type T144 path
+T145	MotionSignal 266 270	away
+A165	MS_type T145 path
+T146	MotionSignal 271 275	from
+A166	MS_type T146 path
+T147	MotionSignal 433 438	north
+A167	MS_type T147 path
+T148	MotionSignal 439 442	for
+A168	MS_type T148 path
+T149	MotionSignal 738 742	away
+A169	MS_type T149 path
+T150	MotionSignal 743 747	from
+A170	MS_type T150 path
+T151	MotionSignal 778 780	on
+A171	MS_type T151 path
+T152	MotionSignal 966 971	north
+#152	AnnotatorNotes T152	'further'
+A172	MS_type T152 path
+T153	MotionSignal 981 988	through
+A173	MS_type T153 path
+T154	Measure 1048 1053	close
+#155	AnnotatorNotes T154	 NEAR
+T155	Measure 109 119	very close
+#157	AnnotatorNotes T155	 NEAR
+T156	Measure 1270 1274	near
+#159	AnnotatorNotes T156	 NEAR
+T157	Measure 1307 1317	few metres
+#161	AnnotatorNotes T157	meters few
+T158	Measure 1825 1829	1 km
+#163	AnnotatorNotes T158	kilometers 1
+T159	Measure 1884 1894	waist high
+#165	AnnotatorNotes T159	 'waist high'
+T160	TLINK 78 87	away from
+A174	QS_type E1 DC
+E1	TLINK:T160 trajector:T39 landmark:T46 trigger:T135
+T161	TLINK 211 216	along
+A175	QS_type E2 EC
+E2	TLINK:T161 trajector:T55 landmark:T57 trigger:T128
+T162	TLINK 945 949	away
+A176	QS_type E3 DC
+E3	TLINK:T162 trajector:T94 landmark:T2 trigger:T136
+T163	TLINK 1003 1006	and
+A177	QS_type E4 EC
+E4	TLINK:T163 trajector:T10 landmark:T47
+T164	TLINK 989 993	rich
+A178	QS_type E5 EC
+E5	TLINK:T164 trajector:T9 landmark:T47
+T165	TLINK 1012 1019	rolling
+A179	QS_type E6 EC
+E6	TLINK:T165 trajector:T12 landmark:T49
+T166	TLINK 1007 1011	then
+A180	QS_type E7 EC
+E7	TLINK:T166 trajector:T11 landmark:T49
+T167	TLINK 1254 1259	dance
+A181	QS_type E8 IN
+E8	TLINK:T167 trajector:T97 landmark:T17
+T168	TLINK 1483 1488	graze
+A182	QS_type E9 IN
+E9	TLINK:T168 trajector:T99 landmark:T20
+T169	TLINK 76 77	–
+A183	QS_type E10 EC
+E10	TLINK:T169 trajector:T7 landmark:T53
+T170	TLINK 309 312	the
+A184	QS_type E11 EC
+E11	TLINK:T170 trajector:T5 landmark:T59
+T171	TLINK 88 91	the
+A185	QS_type E12 EC
+E12	TLINK:T171 trajector:T6 landmark:T53
+T172	TLINK 1980 1982	in
+A186	QS_type E13 IN
+E13	TLINK:T172 trajector:T25 landmark:T80 trigger:T126
+T173	TLINK 1980 1982	in
+A187	QS_type E14 IN
+E14	TLINK:T173 trajector:T25 landmark:T26 trigger:T126
+T174	TLINK 2093 2095	On
+A188	QS_type E15 NTPP
+E15	TLINK:T174 trajector:T100 landmark:T56 trigger:T127
+T175	TLINK 2362 2364	on
+A189	QS_type E16 EC
+E16	TLINK:T175 trajector:T85 landmark:T86 trigger:T129
+T176	TLINK 2508 2510	at
+A190	QS_type E17 IN
+E17	TLINK:T176 trajector:T101 landmark:T58 trigger:T130
+T177	TLINK 2655 2657	at
+A191	QS_type E18 EC
+E18	TLINK:T177 trajector:T117 landmark:T34 trigger:T131
+T178	TLINK 317 319	of
+A192	QS_type E19 EC
+E19	TLINK:T178 trajector:T4 landmark:T59
+T179	TLINK 501 507	floods
+A193	QS_type E20 IN
+E20	TLINK:T179 trajector:T102 landmark:T38
+T180	TLINK 547 549	in
+A194	QS_type E21 IN
+E21	TLINK:T180 trajector:T103 landmark:T41 trigger:T132
+T181	TLINK 547 549	in
+A195	QS_type E22 IN
+E22	TLINK:T181 trajector:T103 landmark:T40 trigger:T132
+T182	TLINK 604 606	in
+A196	QS_type E23 IN
+E23	TLINK:T182 trajector:T90 landmark:T42 trigger:T133
+T183	TLINK 849 855	blocks
+A197	QS_type E24 IN
+E24	TLINK:T183 trajector:T45 landmark:T43
+T184	TLINK 869 878	factories
+A198	QS_type E25 IN
+E25	TLINK:T184 trajector:T93 landmark:T43
+T185	OLINK 70 75	north
+A199	O_type E26 NORTH
+A200	frame_type E26 ABSOLUTE
+A201	projective E26 ABSOLUTE
+E26	OLINK:T185 trajector:T39 landmark:T13 trigger:T134
+T186	OLINK 211 216	along
+A202	O_type E27 BESIDE
+A203	frame_type E27 INTRINSIC
+A204	projective E27 INTRINSIC
+E27	OLINK:T186 trajector:T55 landmark:T57 trigger:T128 referencePt:T57
+T187	OLINK 317 319	of
+A205	O_type E28 ACROSS
+A206	frame_type E28 RELATIVE
+A207	projective E28 RELATIVE
+E28	OLINK:T187 trajector:T4 landmark:T59 referencePt:T5
+T188	OLINK 989 993	rich
+A208	O_type E29 ACROSS
+A209	frame_type E29 RELATIVE
+A210	projective E29 RELATIVE
+E29	OLINK:T188 trajector:T9 landmark:T47 referencePt:T10
+T189	OLINK 1007 1011	then
+A211	O_type E30 ACROSS
+A212	frame_type E30 RELATIVE
+A213	projective E30 RELATIVE
+E30	OLINK:T189 trajector:T11 landmark:T49 referencePt:T12
+T190	OLINK 88 91	the
+A214	O_type E31 ACROSS
+A215	frame_type E31 RELATIVE
+A216	projective E31 RELATIVE
+E31	OLINK:T190 trajector:T6 landmark:T53 referencePt:T7
+T191	OLINK 2362 2364	on
+A217	O_type E32 ABOVE
+A218	frame_type E32 INTRINSIC
+A219	projective E32 INTRINSIC
+E32	OLINK:T191 trajector:T85 landmark:T86 trigger:T129 referencePt:T86
+T192	MLINK 1448 1454	taking
+A220	goal_reached E33 yes
+E33	MLINK:T192 goal:T20 mover:T69 motion_signalID2:T140 motion_signalID:T139 trigger:T107
+T193	MLINK 1448 1454	taking
+A221	goal_reached E34 yes
+E34	MLINK:T193 goal:T20 mover:T70 motion_signalID2:T140 motion_signalID:T139 trigger:T107
+T194	MLINK 734 737	got
+E35	MLINK:T194 mover:T91 motion_signalID2:T150 motion_signalID:T149 trigger:T122 source:T92
+T195	MLINK 770 777	driving
+E36	MLINK:T195 mover:T91 motion_signalID:T151 trigger:T123 pathID:T60
+T196	MLINK 951 957	Moving
+E37	MLINK:T196 mover:T95 motion_signalID:T152 trigger:T124
+T197	MLINK 976 980	pass
+A225	goal_reached E38 yes
+E38	MLINK:T197 goal:T12 mover:T95 midPoint:T49 motion_signalID:T153 trigger:T125 source:T11
+T198	MLINK 976 980	pass
+A226	goal_reached E39 yes
+E39	MLINK:T198 goal:T10 mover:T95 midPoint:T47 motion_signalID:T153 trigger:T125 source:T9
+T199	MLINK 1119 1124	drive
+A227	goal_reached E40 yes
+E40	MLINK:T199 goal:T15 mover:T64 trigger:T104
+T200	MLINK 1150 1155	drove
+E41	MLINK:T200 mover:T65 motion_signalID:T137 ground:T16 trigger:T105
+T201	MLINK 1200 1207	walking
+A229	goal_reached E42 uncertain
+E42	MLINK:T201 goal:T17 mover:T66 motion_signalID:T138 trigger:T106
+T202	MLINK 1850 1856	forded
+A230	goal_reached E43 yes
+E43	MLINK:T202 goal:T7 mover:T76 midPoint:T53 trigger:T109 source:T6
+T203	MLINK 1788 1794	wander
+E44	MLINK:T203 mover:T73 motion_signalID:T141 trigger:T108
+T204	MLINK 1942 1944	go
+E45	MLINK:T204 mover:T78 motion_signalID:T143 trigger:T111
+T205	MLINK 1919 1923	gone
+E46	MLINK:T205 mover:T78 motion_signalID:T142 ground:T48 trigger:T110
+T206	MLINK 2048 2052	walk
+A234	goal_reached E47 yes
+E47	MLINK:T206 goal:T27 mover:T79 motion_signalID:T144 trigger:T112
+T207	MLINK 2217 2222	drive
+A235	goal_reached E48 yes
+E48	MLINK:T207 goal:T29 mover:T84 trigger:T113
+T208	MLINK 2245 2252	set off
+E49	MLINK:T208 mover:T84 trigger:T114 source:T8
+T209	MLINK 2641 2645	stop
+A237	goal_reached E50 yes
+E50	MLINK:T209 goal:T3 mover:T88 trigger:T117
+T210	MLINK 684 691	driving
+E51	MLINK:T210 mover:T62 trigger:T121
+T211	MLINK 1788 1794	wander
+E52	MLINK:T211 mover:T74 motion_signalID:T141 trigger:T108
+T212	MLINK 1788 1794	wander
+E53	MLINK:T212 mover:T75 motion_signalID:T141 trigger:T108
+T213	MLINK 250 255	visit
+A241	goal_reached E54 yes
+E54	MLINK:T213 goal:T22 trigger:T115
+T214	MLINK 258 265	Driving
+E55	MLINK:T214 mover:T89 motion_signalID2:T146 motion_signalID:T145 trigger:T116 source:T36
+T215	MLINK 286 293	crossed
+A243	goal_reached E56 yes
+E56	MLINK:T215 goal:T5 mover:T89 midPoint:T59 trigger:T118 source:T4
+T216	MLINK 408 420	disembarking
+E57	MLINK:T216 mover:T61 trigger:T119 source:T1
+T217	DLINK 109 119	very close
+E58	DLINK:T217 trajector:T39 landmark:T6 val:T155
+T218	DLINK 1048 1053	close
+E59	DLINK:T218 trajector:T96 landmark:T14 val:T154
+T219	DLINK 1307 1317	few metres
+E60	DLINK:T219 trajector:T98 landmark:T51 val:T157
+T220	DLINK 1270 1274	near
+E61	DLINK:T220 trajector:T98 landmark:T18 val:T156
+T221	DLINK 1825 1829	1 km
+E62	DLINK:T221 trajector:T23 landmark:T24 val:T158
+T222	DLINK 1884 1894	waist high
+E63	DLINK:T222 trajector:T54 landmark:T54 val:T159
+R37	coreference Arg1:T2 Arg2:T37
+#166	AnnotatorNotes R37	COREFERENCE
+R38	coreference Arg1:T48 Arg2:T53
+#167	AnnotatorNotes R38	COREFERENCE
+R39	coreference Arg1:T62 Arg2:T89
+#168	AnnotatorNotes R39	COREFERENCE
+R40	coreference Arg1:T61 Arg2:T89
+#169	AnnotatorNotes R40	COREFERENCE

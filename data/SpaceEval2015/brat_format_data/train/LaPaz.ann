@@ -1,0 +1,329 @@
+T1	Null 1393 1396	and
+#1	AnnotatorNotes T1	PLACE end of 'I biked across sections of Mexicon ...'
+T2	Null 1382 1386	with
+#2	AnnotatorNotes T2	PLACE beginning of 'I biked across sections of Mexicon ...'
+T3	Null 780 785	world
+#3	AnnotatorNotes T3	PLACE end of '... crossing sections of the desert by moonlight.'
+T4	Null 809 812	and
+#4	AnnotatorNotes T4	PLACE beginning of '... crossing sections of the desert by moonlight.'
+T5	Null 798 802	salt
+#5	AnnotatorNotes T5	PLACE end of '... and biked across the Atacama Desert ...'
+T6	Null 790 797	largest
+#6	AnnotatorNotes T6	PLACE beginning of '... and biked across the Atacama Desert ...'
+T7	Null 785 789	â€™s
+#7	AnnotatorNotes T7	PLACE end of 'I crossed the world's largest salt flat'
+T8	Null 776 779	the
+#8	AnnotatorNotes T8	PLACE beginning of 'I crossed the world's largest salt flat'
+T9	Null 694 696	is
+#9	AnnotatorNotes T9	PLACE goal location for 'a friend ... flying in ...'
+T10	Place 1060 1076	Southern Bolivia
+A1	form T10 NAM
+T11	Place 1115 1119	flat
+A2	form T11 NOM
+T12	Place 1157 1171	Atacama Desert
+A3	form T12 NAM
+T13	Place 1175 1180	Chile
+A4	form T13 NAM
+T14	Place 1224 1242	Northern Argentina
+A5	form T14 NAM
+T15	Place 1363 1371	sections
+A6	form T15 NOM
+T16	Place 1375 1381	Mexico
+A7	form T16 NAM
+T17	Place 362 368	La Paz
+A8	form T17 NAM
+T18	Place 439 457	Northern Argentina
+A9	form T18 NAM
+T19	Place 72 78	La Paz
+A10	form T19 NAM
+T20	Place 803 807	flat
+A11	form T20 NOM
+T21	Place 830 844	Atacama Desert
+A12	form T21 NAM
+T22	Place 855 863	sections
+A13	form T22 NOM
+T23	Place 871 877	desert
+A14	form T23 NOM
+T24	Place 940 945	point
+A15	form T24 NOM
+T25	Path 925 930	roads
+A16	form T25 NOM
+R3	midIDs Arg1:T25 Arg2:T24
+T26	Null 1272 1276	with
+#26	AnnotatorNotes T26	SPATIAL_ENTITY The set subsuming [Brooks,se10], [Gregg,se11], and [Tom,se19] in 'I caught up with Brooks Gregg (and another cyclist Tom).'
+T27	Null 1336 1339	and
+#27	AnnotatorNotes T27	SPATIAL_ENTITY The set subsuming only [Gregg,se11] and [Brooks,se10] in 'Remember Gregg and Brooks?'
+T28	SpatialEntity 1142 1148	Wouter
+A17	form T28 NAM
+T29	SpatialEntity 1250 1251	I
+A18	form T29 NOM
+T30	SpatialEntity 1260 1261	I
+A19	form T30 NOM
+T31	SpatialEntity 1277 1283	Brooks
+A20	form T31 NAM
+T32	SpatialEntity 1288 1293	Gregg
+A21	form T32 NAM
+T33	SpatialEntity 1307 1314	cyclist
+A22	form T33 NOM
+T34	SpatialEntity 1315 1318	Tom
+A23	form T34 NAM
+T35	SpatialEntity 1348 1349	I
+A24	form T35 NOM
+T36	SpatialEntity 1387 1391	them
+A25	form T36 NOM
+T37	SpatialEntity 1411 1415	them
+A26	form T37 NOM
+T38	SpatialEntity 370 371	I
+A27	form T38 NOM
+T39	SpatialEntity 427 428	I
+A28	form T39 NOM
+T40	SpatialEntity 459 460	I
+A29	form T40 NOM
+T41	SpatialEntity 54 55	I
+A30	form T41 NOM
+T42	SpatialEntity 656 657	I
+A31	form T42 NOM
+T43	SpatialEntity 683 689	friend
+A32	form T43 NOM
+T44	SpatialEntity 690 693	who
+A33	form T44 NOM
+T45	SpatialEntity 720 722	me
+A34	form T45 NOM
+T46	SpatialEntity 766 767	I
+A35	form T46 NOM
+T47	SpatialEntity 1330 1335	Gregg
+A36	form T47 NAM
+T48	SpatialEntity 1340 1346	Brooks
+A37	form T48 NAM
+T49	Null 694 696	is
+#49	AnnotatorNotes T49	SPATIAL_ENTITY Subsuming mover for 'a friend who is flying in to bike with me'
+T50	Null 62 63	a
+#50	AnnotatorNotes T50	SPATIAL_ENTITY Subsuming mover for 'the worldâ€™s largest salt flat (biked partially with Wouter'
+T51	SpatialEntity 86 87	I
+A38	form T51 NOM
+T52	SpatialEntity 133 134	I
+A39	form T52 NOM
+T53	SpatialEntity 414 415	I
+A40	form T53 NOM
+T54	SpatialEntity 600 601	I
+A41	form T54 NOM
+T55	Event 1214 1220	biking
+T56	Event 56 61	spent
+T57	Event 88 94	talked
+T58	Event 907 915	services
+T59	Event 953 958	carry
+T60	Motion 1121 1126	biked
+A42	motion_type T60 compound
+A43	motion_class T60 move_internal
+A44	motion_sense T60 literal
+T61	Motion 1262 1271	caught up
+A45	motion_type T61 path
+A46	motion_class T61 hit
+A47	motion_sense T61 literal
+T62	Motion 1350 1355	biked
+A48	motion_type T62 compound
+A49	motion_class T62 cross
+A50	motion_sense T62 literal
+T63	Motion 1402 1405	ran
+A51	motion_type T63 path
+A52	motion_class T63 hit
+A53	motion_sense T63 literal
+T64	Motion 382 389	started
+A54	motion_type T64 compound
+A55	motion_class T64 move
+A56	motion_sense T64 literal
+T65	Motion 471 480	traveling
+A57	motion_type T65 path
+A58	motion_class T65 move
+A59	motion_sense T65 literal
+T66	Motion 676 680	meet
+A60	motion_type T66 manner
+A61	motion_class T66 hit
+A62	motion_sense T66 literal
+T67	Motion 697 703	flying
+A63	motion_type T67 compound
+A64	motion_class T67 reach
+A65	motion_sense T67 literal
+T68	Motion 710 714	bike
+A66	motion_type T68 manner
+A67	motion_class T68 move
+A68	motion_sense T68 literal
+T69	Motion 768 775	crossed
+A69	motion_type T69 path
+A70	motion_class T69 cross
+A71	motion_sense T69 literal
+T70	Motion 813 818	biked
+A72	motion_type T70 compound
+A73	motion_class T70 cross
+A74	motion_sense T70 literal
+T71	Motion 846 854	crossing
+A75	motion_type T71 path
+A76	motion_class T71 cross
+A77	motion_sense T71 literal
+T72	SpatialSignal 1078 1087	including
+A78	semantic_type T72 topological
+T73	SpatialSignal 1172 1174	of
+A79	semantic_type T73 topological
+T74	SpatialSignal 1182 1191	including
+A80	semantic_type T74 topological
+T75	SpatialSignal 1244 1249	where
+A81	semantic_type T75 topological
+T76	SpatialSignal 1372 1374	of
+A82	semantic_type T76 topological
+T77	SpatialSignal 436 438	in
+A83	semantic_type T77 topological
+T78	SpatialSignal 69 71	in
+A84	semantic_type T78 topological
+T79	SpatialSignal 80 85	where
+A85	semantic_type T79 topological
+T80	SpatialSignal 864 866	of
+A86	semantic_type T80 topological
+T81	SpatialSignal 916 918	on
+A87	semantic_type T81 directional
+T82	SpatialSignal 933 935	at
+A88	semantic_type T82 topological
+T83	MotionSignal 1356 1362	across
+A89	MS_type T83 path
+T84	MotionSignal 1406 1410	into
+A90	MS_type T84 path
+T85	MotionSignal 357 361	From
+A91	MS_type T85 path
+T86	MotionSignal 390 396	biking
+A92	MS_type T86 manner
+T87	MotionSignal 397 402	south
+A93	MS_type T87 path
+T88	MotionSignal 704 706	in
+A94	MS_type T88 path
+T89	MotionSignal 819 825	across
+A95	MS_type T89 path
+T90	TLINK 69 71	in
+A96	QS_type E1 IN
+E1	TLINK:T90 trajector:T56 landmark:T19 trigger:T78
+T91	TLINK 80 85	where
+A97	QS_type E2 IN
+E2	TLINK:T91 trajector:T57 landmark:T19 trigger:T79
+T92	TLINK 1372 1374	of
+A98	QS_type E3 IN
+E3	TLINK:T92 trajector:T15 landmark:T16 trigger:T76
+T93	TLINK 436 438	in
+A99	QS_type E4 IN
+E4	TLINK:T93 trajector:T39 landmark:T18 trigger:T77
+T94	TLINK 864 866	of
+A100	QS_type E5 IN
+E5	TLINK:T94 trajector:T22 landmark:T23 trigger:T80
+T95	TLINK 933 935	at
+A101	QS_type E6 IN
+E6	TLINK:T95 trajector:T59 landmark:T24 trigger:T82
+T96	TLINK 1078 1087	including
+A102	QS_type E7 IN
+E7	TLINK:T96 trajector:T11 landmark:T10 trigger:T72
+T97	TLINK 1172 1174	of
+A103	QS_type E8 IN
+E8	TLINK:T97 trajector:T12 landmark:T13 trigger:T73
+T98	TLINK 1182 1191	including
+A104	QS_type E9 IN
+E9	TLINK:T98 trajector:T55 landmark:T12 trigger:T74
+T99	TLINK 1244 1249	where
+A105	QS_type E10 IN
+E10	TLINK:T99 trajector:T29 landmark:T14 trigger:T75
+T100	TLINK 1382 1386	with
+A106	QS_type E11 EC
+E11	TLINK:T100 trajector:T2 landmark:T15
+T101	TLINK 1393 1396	and
+A107	QS_type E12 EC
+E12	TLINK:T101 trajector:T1 landmark:T15
+T102	TLINK 776 779	the
+A108	QS_type E13 EC
+E13	TLINK:T102 trajector:T8 landmark:T20
+T103	TLINK 785 789	â€™s
+A109	QS_type E14 EC
+E14	TLINK:T103 trajector:T7 landmark:T20
+T104	TLINK 790 797	largest
+A110	QS_type E15 EC
+E15	TLINK:T104 trajector:T6 landmark:T21
+T105	TLINK 798 802	salt
+A111	QS_type E16 EC
+E16	TLINK:T105 trajector:T5 landmark:T21
+T106	TLINK 809 812	and
+A112	QS_type E17 EC
+E17	TLINK:T106 trajector:T4 landmark:T22
+T107	TLINK 780 785	world
+A113	QS_type E18 EC
+E18	TLINK:T107 trajector:T3 landmark:T22
+T108	OLINK 916 918	on
+A114	O_type E19 ALONG
+A115	frame_type E19 INTRINSIC
+A116	projective E19 INTRINSIC
+E19	OLINK:T108 trajector:T58 landmark:T25 trigger:T81 referencePt:T25
+T109	OLINK 1382 1386	with
+A117	O_type E20 ACROSS
+A118	frame_type E20 RELATIVE
+A119	projective E20 RELATIVE
+E20	OLINK:T109 trajector:T2 landmark:T15 referencePt:T1
+T110	OLINK 776 779	the
+A120	O_type E21 ACROSS
+A121	frame_type E21 RELATIVE
+A122	projective E21 RELATIVE
+E21	OLINK:T110 trajector:T8 landmark:T20 referencePt:T7
+T111	OLINK 790 797	largest
+A123	O_type E22 ACROSS
+A124	frame_type E22 RELATIVE
+A125	projective E22 RELATIVE
+E22	OLINK:T111 trajector:T6 landmark:T21 referencePt:T5
+T112	OLINK 809 812	and
+A126	O_type E23 ACROSS
+A127	frame_type E23 RELATIVE
+A128	projective E23 RELATIVE
+E23	OLINK:T112 trajector:T4 landmark:T22 referencePt:T3
+T113	MLINK 382 389	started
+E24	MLINK:T113 mover:T38 motion_signalID3:T87 motion_signalID2:T86 motion_signalID:T85 trigger:T64 source:T17
+T114	MLINK 471 480	traveling
+E25	MLINK:T114 mover:T40 trigger:T65
+T115	MLINK 1350 1355	biked
+A131	goal_reached E26 yes
+E26	MLINK:T115 goal:T1 mover:T35 midPoint:T15 motion_signalID:T83 trigger:T62 source:T2
+T116	MLINK 1402 1405	ran
+A132	goal_reached E27 yes
+E27	MLINK:T116 goal:T37 mover:T35 motion_signalID:T84 trigger:T63
+T117	MLINK 676 680	meet
+A133	goal_reached E28 yes
+E28	MLINK:T117 goal:T43 mover:T42 trigger:T66
+T118	MLINK 697 703	flying
+A134	goal_reached E29 yes
+E29	MLINK:T118 goal:T9 mover:T44 motion_signalID:T88 trigger:T67
+T119	MLINK 768 775	crossed
+A135	goal_reached E30 yes
+E30	MLINK:T119 goal:T7 mover:T46 midPoint:T20 trigger:T69 source:T8
+T120	MLINK 813 818	biked
+A136	goal_reached E31 yes
+E31	MLINK:T120 goal:T5 mover:T46 midPoint:T21 motion_signalID:T89 trigger:T70 source:T6
+T121	MLINK 846 854	crossing
+A137	goal_reached E32 yes
+E32	MLINK:T121 goal:T3 mover:T46 midPoint:T22 trigger:T71 source:T4
+T122	MLINK 1262 1271	caught up
+A138	goal_reached E33 yes
+E33	MLINK:T122 goal:T26 mover:T30 trigger:T61
+T123	MLINK 710 714	bike
+E34	MLINK:T123 mover:T49 trigger:T68
+T124	MLINK 1121 1126	biked
+E35	MLINK:T124 mover:T50 ground:T11 trigger:T60
+R4	coreference Arg1:T31 Arg2:T26
+#90	AnnotatorNotes R4	SUBCOREFERENCE
+R5	coreference Arg1:T32 Arg2:T26
+#91	AnnotatorNotes R5	SUBCOREFERENCE
+R6	coreference Arg1:T34 Arg2:T26
+#92	AnnotatorNotes R6	SUBCOREFERENCE
+R7	coreference Arg1:T36 Arg2:T27
+#93	AnnotatorNotes R7	SPLITCOREFERENCE
+R8	coreference Arg1:T47 Arg2:T27
+#94	AnnotatorNotes R8	SUBCOREFERENCE
+R9	coreference Arg1:T48 Arg2:T27
+#95	AnnotatorNotes R9	SUBCOREFERENCE
+R10	coreference Arg1:T43 Arg2:T49
+#96	AnnotatorNotes R10	SUBCOREFERENCE
+R11	coreference Arg1:T45 Arg2:T49
+#97	AnnotatorNotes R11	SUBCOREFERENCE
+R12	coreference Arg1:T28 Arg2:T50
+#98	AnnotatorNotes R12	SUBCOREFERENCE
+R13	coreference Arg1:T41 Arg2:T50
+#99	AnnotatorNotes R13	SUBCOREFERENCE

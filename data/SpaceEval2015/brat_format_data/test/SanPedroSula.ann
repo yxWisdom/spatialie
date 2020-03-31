@@ -1,0 +1,163 @@
+T1	Place 1159 1165	school
+A1	form T1 NOM
+T2	Place 1167 1178	El Progreso
+A2	form T2 NAM
+T3	Place 1217 1223	school
+A3	form T3 NOM
+T4	Place 131 142	El Salvador
+A4	form T4 NAM
+T5	Place 1362 1376	San Pedro Sula
+A5	form T5 NAM
+T6	Place 1403 1410	station
+A6	form T6 NOM
+T7	Place 1510 1518	Honduras
+A7	form T7 NAM
+T8	Place 1577 1596	Santa Rosa de Copan
+A8	form T8 NAM
+T9	Place 225 233	Honduras
+A9	form T9 NAM
+T10	Place 275 281	places
+A10	form T10 NOM
+T11	Place 326 331	parts
+A11	form T11 NOM
+T12	Place 335 342	Chiapas
+A12	form T12 NAM
+T13	Place 349 355	region
+A13	form T13 NOM
+T14	Place 82 96	San Pedro Sula
+A14	form T14 NAM
+T15	Path 422 427	sides
+A15	form T15 NOM
+T16	Path 435 439	road
+A16	form T16 NOM
+T17	SpatialEntity 1139 1140	I
+A17	form T17 NOM
+T18	SpatialEntity 1180 1181	I
+A18	form T18 NOM
+T19	SpatialEntity 1243 1251	children
+A19	form T19 NOM
+T20	SpatialEntity 1253 1256	who
+A20	form T20 NOM
+T21	SpatialEntity 1290 1292	me
+A21	form T21 NOM
+T22	SpatialEntity 1386 1388	me
+A22	form T22 NOM
+T23	SpatialEntity 143 144	I
+A23	form T23 NOM
+T24	SpatialEntity 1619 1620	I
+A24	form T24 NOM
+T25	SpatialEntity 282 283	I
+A25	form T25 NOM
+T26	SpatialEntity 403 409	people
+A26	form T26 NOM
+T27	SpatialEntity 688 689	I
+A27	form T27 NOM
+T28	SpatialEntity 713 719	family
+A28	form T28 NOM
+T29	SpatialEntity 735 740	house
+A29	form T29 NOM
+T30	SpatialEntity 654 655	I
+A30	form T30 NOM
+T31	SpatialEntity 921 923	me
+A31	form T31 NOM
+T32	SpatialEntity 1025 1026	I
+A32	form T32 NOM
+T33	SpatialEntity 1056 1057	I
+A33	form T33 NOM
+T34	SpatialEntity 1123 1125	me
+A34	form T34 NOM
+T35	SpatialEntity 1306 1307	I
+A35	form T35 NOM
+T36	SpatialEntity 1457 1458	I
+A36	form T36 NOM
+T37	SpatialEntity 1485 1487	me
+A37	form T37 NOM
+T38	Event 1265 1271	recess
+T39	Event 1389 1393	stay
+T40	Event 1621 1627	stayed
+T41	Event 690 695	spent
+T42	Event 724 729	lived
+T43	Motion 1141 1148	visited
+A38	motion_type T43 path
+A39	motion_class T43 reach
+A40	motion_sense T43 literal
+T44	Motion 1203 1209	biking
+A41	motion_type T44 compound
+A42	motion_class T44 move_external
+A43	motion_sense T44 literal
+T45	Motion 1273 1276	run
+A44	motion_type T45 compound
+A45	motion_class T45 leave
+A46	motion_sense T45 literal
+T46	Motion 289 294	biked
+A47	motion_type T46 compound
+A48	motion_class T46 move_internal
+A49	motion_sense T46 literal
+T47	Motion 410 417	walking
+A50	motion_type T47 compound
+A51	motion_class T47 follow
+A52	motion_sense T47 literal
+T48	Motion 70 76	Biking
+A53	motion_type T48 compound
+A54	motion_class T48 move
+A55	motion_sense T48 literal
+T49	SpatialSignal 1262 1264	at
+A56	semantic_type T49 topological
+T50	SpatialSignal 1394 1396	at
+A57	semantic_type T50 topological
+T51	SpatialSignal 1613 1618	where
+A58	semantic_type T51 topological
+T52	SpatialSignal 262 264	in
+A59	semantic_type T52 topological
+T53	SpatialSignal 332 334	of
+A60	semantic_type T53 topological
+T54	SpatialSignal 428 430	of
+A61	semantic_type T54 topological
+T55	SpatialSignal 730 732	in
+A62	semantic_type T55 topological
+T56	MotionSignal 1210 1212	by
+A63	MS_type T56 path
+T57	MotionSignal 1277 1280	out
+A64	MS_type T57 path
+T58	MotionSignal 128 130	to
+A65	MS_type T58 path
+T59	MotionSignal 77 81	from
+A66	MS_type T59 path
+T60	TLINK 262 264	in
+A67	QS_type E1 IN
+E1	TLINK:T60 trajector:T46 landmark:T10 trigger:T52
+T61	TLINK 428 430	of
+A68	QS_type E2 TPP
+E2	TLINK:T61 trajector:T15 landmark:T16 trigger:T54
+T62	TLINK 332 334	of
+A69	QS_type E3 IN
+E3	TLINK:T62 trajector:T11 landmark:T12 trigger:T53
+T63	TLINK 1262 1264	at
+A70	QS_type E4 IN
+E4	TLINK:T63 trajector:T20 landmark:T38 trigger:T49
+T64	TLINK 1394 1396	at
+A71	QS_type E5 IN
+E5	TLINK:T64 trajector:T39 landmark:T6 trigger:T50
+T65	TLINK 1613 1618	where
+A72	QS_type E6 IN
+E6	TLINK:T65 trajector:T40 landmark:T8 trigger:T51
+T66	TLINK 730 732	in
+A73	QS_type E7 IN
+E7	TLINK:T66 trajector:T42 landmark:T29 trigger:T55
+T67	TLINK 690 695	spent
+A74	QS_type E8 IN
+E8	TLINK:T67 trajector:T41 landmark:T29
+T68	MLINK 70 76	Biking
+A75	goal_reached E9 yes
+E9	MLINK:T68 goal:T4 mover:T23 motion_signalID2:T58 motion_signalID:T59 trigger:T48 source:T14
+T69	MLINK 289 294	biked
+E10	MLINK:T69 mover:T25 ground:T10 trigger:T46
+T70	MLINK 410 417	walking
+E11	MLINK:T70 mover:T26 trigger:T47 pathID:T15
+T71	MLINK 1141 1148	visited
+A78	goal_reached E12 yes
+E12	MLINK:T71 goal:T1 mover:T17 trigger:T43
+T72	MLINK 1203 1209	biking
+E13	MLINK:T72 mover:T18 motion_signalID:T56 ground:T3 trigger:T44
+T73	MLINK 1273 1276	run
+E14	MLINK:T73 mover:T19 motion_signalID:T57 trigger:T45 source:T38

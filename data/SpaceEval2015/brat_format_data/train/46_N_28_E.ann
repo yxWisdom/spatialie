@@ -1,0 +1,54 @@
+T1	Place 103 108	point
+A1	form T1 NOM
+T2	Place 114 119	point
+A2	form T2 NOM
+T3	Place 167 172	point
+A3	form T3 NOM
+T4	Place 40 46	Galaţi
+A4	form T4 NAM
+T5	Place 79 84	hotel
+A5	form T5 NOM
+T6	Path 199 205	street
+A6	form T6 NOM
+T7	SpatialEntity 17 19	we
+A7	form T7 NOM
+T8	Motion 137 143	access
+A8	motion_type T8 path
+A9	motion_class T8 reach
+A10	motion_sense T8 literal
+T9	Motion 32 36	trip
+A11	motion_type T9 path
+A12	motion_class T9 leave
+A13	motion_sense T9 literal
+T10	Motion 51 56	takes
+A14	motion_type T10 path
+A15	motion_class T10 move
+A16	motion_sense T10 literal
+T11	SpatialSignal 187 194	next to
+A17	semantic_type T11 dir_top
+T12	MotionSignal 37 39	in
+A18	MS_type T12 path
+T13	MotionSignal 70 74	from
+A19	MS_type T13 path
+T14	MotionSignal 85 87	to
+A20	MS_type T14 path
+T15	Measure 182 186	35 m
+#16	AnnotatorNotes T15	meters 35
+T16	TLINK 187 194	next to
+A21	QS_type E1 DC
+E1	TLINK:T16 trajector:T3 landmark:T6 trigger:T11
+T17	OLINK 187 194	next to
+A22	O_type E2 BESIDE
+A23	frame_type E2 RELATIVE
+A24	projective E2 RELATIVE
+E2	OLINK:T17 trajector:T3 landmark:T6 trigger:T11
+T18	MLINK 32 36	trip
+E3	MLINK:T18 mover:T7 motion_signalID:T12 trigger:T9 source:T4
+T19	MLINK 51 56	takes
+A26	goal_reached E4 uncertain
+E4	MLINK:T19 goal:T1 mover:T7 motion_signalID2:T14 motion_signalID:T13 trigger:T10 source:T5
+T20	MLINK 137 143	access
+A27	goal_reached E5 yes
+E5	MLINK:T20 goal:T2 trigger:T8
+T21	DLINK 182 186	35 m
+E6	DLINK:T21 trajector:T3 landmark:T6 val:T15

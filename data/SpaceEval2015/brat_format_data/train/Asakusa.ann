@@ -1,0 +1,144 @@
+T1	Place 1069 1074	heart
+A1	form T1 NOM
+T2	Place 1078 1085	Asakusa
+A2	form T2 NOM
+T3	Place 1099 1106	Sensoji
+A3	form T3 NAM
+T4	Place 1134 1155	Asakusa Kannon temple
+A4	form T4 NAM
+T5	Place 1183 1189	temple
+A5	form T5 NOM
+T6	Place 1401 1404	Edo
+A6	form T6 NAM
+T7	Place 1459 1466	Asakusa
+A7	form T7 NAM
+T8	Place 1564 1572	theaters
+A8	form T8 NOM
+T9	Place 1594 1598	here
+A9	form T9 NOM
+T10	Place 1641 1646	Japan
+A10	form T10 NAM
+T11	Place 1711 1718	Asakusa
+A11	form T11 NAM
+T12	Place 1743 1751	Fun City
+A12	form T12 NAM
+T13	Place 1763 1768	place
+A13	form T13 NOM
+T14	Place 1772 1777	Japan
+A14	form T14 NAM
+T15	Place 1796 1799	bar
+A15	form T15 NOM
+T16	Place 1819 1826	Asakusa
+A16	form T16 NAM
+T17	Place 1905 1909	here
+A17	form T17 NOM
+T18	Place 1974 1980	temple
+A18	form T18 NOM
+T19	Place 2004 2009	halls
+A19	form T19 NOM
+T20	Place 2021 2029	theaters
+A20	form T20 NOM
+T21	Place 2031 2039	cabarets
+A21	form T21 NOM
+T22	Place 2058 2062	dens
+A22	form T22 NOM
+T23	Place 2077 2082	holes
+A23	form T23 NOM
+T24	Place 2259 2266	Sensoji
+A24	form T24 NAM
+T25	Place 2310 2312	it
+A25	form T25 NOM
+T26	Place 2390 2395	there
+A26	form T26 NOM
+T27	Place 24 31	Asakusa
+A27	form T27 NAM
+T28	Place 39 44	heart
+A28	form T28 NOM
+T29	Place 48 58	Shitamachi
+A29	form T29 NAM
+T30	Place 515 519	home
+A30	form T30 NOM
+T31	Place 64 71	quarter
+A31	form T31 NOM
+T32	Place 8 15	Asakusa
+A32	form T32 NAM
+T33	Null 1981 1985	were
+#33	AnnotatorNotes T33	PLACE The set subsuming [halls, pl158], [theaters, pl159], [cabarets, pl160], [dens, pl161], and [holes, pl162] in 'Before long, the streets and alleys around the         temple were filled with music halls, burlesque theaters, cabarets,         gambling dens, and watering holes of every description.'
+T34	Path 1267 1287	Sumida         River
+A33	form T34 NAM
+T35	Path 1936 1943	streets
+A34	form T35 NOM
+T36	Path 1948 1954	alleys
+A35	form T36 NOM
+T37	Null 1962 1965	the
+#37	AnnotatorNotes T37	PATH The set subsuming [streets, p10] and [alleys, p11] in 'Before long, the streets and alleys around the         temple were filled with music halls, burlesque theaters, cabarets,         gambling dens, and watering holes of every description.'
+T38	SpatialEntity 1213 1219	statue
+A36	form T38 NOM
+T39	SpatialEntity 2292 2302	structures
+A37	form T39 NOM
+T40	SpatialEntity 545 548	she
+A38	form T40 NOM
+T41	Event 1254 1259	found
+T42	Event 1801 1807	opened
+T43	Event 1898 1904	opened
+T44	Event 510 514	stay
+T45	Motion 554 556	be
+A39	motion_type T45 path
+A40	motion_class T45 reach
+A41	motion_sense T45 literal
+T46	SpatialSignal 1190 1196	houses
+A42	semantic_type T46 topological
+T47	SpatialSignal 1260 1262	in
+A43	semantic_type T47 topological
+T48	SpatialSignal 1769 1771	in
+A44	semantic_type T48 topological
+T49	SpatialSignal 1808 1810	in
+A45	semantic_type T49 topological
+T50	SpatialSignal 1955 1961	around
+A46	semantic_type T50 directional
+T51	SpatialSignal 1986 1992	filled
+A47	semantic_type T51 topological
+T52	MotionSignal 557 561	over
+A48	MS_type T52 path
+T53	Measure 2303 2309	around
+#54	AnnotatorNotes T53	 NEAR
+T54	TLINK 39 44	heart
+A49	QS_type E1 NTPP
+E1	TLINK:T54 trajector:T28 landmark:T29
+T55	TLINK 510 514	stay
+A50	QS_type E2 IN
+E2	TLINK:T55 trajector:T44 landmark:T30
+T56	TLINK 1069 1074	heart
+A51	QS_type E3 NTPP
+E3	TLINK:T56 trajector:T1 landmark:T2
+T57	TLINK 1190 1196	houses
+A52	QS_type E4 IN
+E4	TLINK:T57 trajector:T38 landmark:T5 trigger:T46
+T58	TLINK 1260 1262	in
+A53	QS_type E5 IN
+E5	TLINK:T58 trajector:T41 landmark:T34 trigger:T47
+T59	TLINK 1564 1572	theaters
+A54	QS_type E6 IN
+E6	TLINK:T59 trajector:T8 landmark:T9
+T60	TLINK 1769 1771	in
+A55	QS_type E7 IN
+E7	TLINK:T60 trajector:T13 landmark:T14 trigger:T48
+T61	TLINK 1808 1810	in
+A56	QS_type E8 IN
+E8	TLINK:T61 trajector:T42 landmark:T16 trigger:T49
+T62	TLINK 1898 1904	opened
+A57	QS_type E9 IN
+E9	TLINK:T62 trajector:T43 landmark:T17
+T63	TLINK 1986 1992	filled
+A58	QS_type E10 EC
+E10	TLINK:T63 trajector:T33 landmark:T37 trigger:T51
+T64	OLINK 1955 1961	around
+A59	O_type E11 SURROUND
+A60	frame_type E11 INTRINSIC
+A61	projective E11 INTRINSIC
+E11	OLINK:T64 trajector:T37 landmark:T18 trigger:T50 referencePt:T18
+T65	MLINK 554 556	be
+A62	goal_reached E12 yes
+E12	MLINK:T65 goal:T30 mover:T40 motion_signalID:T52 trigger:T45
+T66	DLINK 2303 2309	around
+E13	DLINK:T66 trajector:T39 landmark:T25 val:T53

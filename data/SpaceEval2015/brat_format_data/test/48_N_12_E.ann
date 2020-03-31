@@ -1,0 +1,285 @@
+T1	Null 245 252	decided
+#1	AnnotatorNotes T1	PLACE Goal for 'rushing back' and source for 'we decided to leave early'
+T2	Null 519 522	the
+#2	AnnotatorNotes T2	PLACE Goal for 'We stopped before the bridge over the stream'
+T3	Place 1052 1057	field
+A1	form T3 NOM
+T4	Place 130 140	Ingolstadt
+A2	form T4 NAM
+T5	Place 1365 1375	Ingolstadt
+A3	form T5 NAM
+T6	Place 1509 1514	point
+A4	form T6 NOM
+T7	Place 195 200	there
+A5	form T7 NOM
+T8	Place 278 288	CP 48N 12E
+A6	form T8 NAM
+T9	Place 310 318	Salzburg
+A7	form T9 NAM
+T10	Place 397 406	Rosenheim
+A8	form T10 NAM
+T11	Place 410 416	Aßling
+A9	form T11 NAM
+T12	Place 434 443	Ebersberg
+A10	form T12 NAM
+T13	Place 497 499	CP
+A11	form T13 NOM
+T14	Place 551 553	CP
+A12	form T14 NOM
+T15	Place 597 602	field
+A13	form T15 NOM
+T16	Place 669 674	field
+A14	form T16 NOM
+T17	Place 886 891	field
+A15	form T17 NOM
+T19	Path 1311 1317	bridge
+A16	form T19 NOM
+T20	Path 296 299	way
+A17	form T20 NOM
+T21	Path 355 357	A8
+A18	form T21 NAM
+T22	Path 364 390	Salzburg - Munich Autobahn
+A19	form T22 NAM
+T23	Path 472 476	road
+A20	form T23 NOM
+T24	Path 523 529	bridge
+A21	form T24 NOM
+T25	Path 539 545	stream
+A22	form T25 NOM
+T26	Null 65 68	and
+#25	AnnotatorNotes T26	SPATIAL_ENTITY Subsumes 'my brother and sister'
+T27	Null 54 56	my
+#26	AnnotatorNotes T27	SPATIAL_ENTITY Represents the narrator.  Mover in 'The initial plan was to meet up with my brother and sister'
+T28	SpatialEntity 1068 1069	I
+A23	form T28 NOM
+T29	SpatialEntity 1126 1129	mud
+A24	form T29 NOM
+T30	SpatialEntity 1241 1243	We
+A25	form T30 NOM
+T31	SpatialEntity 1278 1296	SPD meridian stone
+A26	form T31 NAM
+T32	SpatialEntity 1377 1379	We
+A27	form T32 NOM
+T33	SpatialEntity 146 148	we
+A28	form T33 NOM
+T34	SpatialEntity 1465 1467	we
+A29	form T34 NOM
+T35	SpatialEntity 216 222	people
+A30	form T35 NOM
+T36	SpatialEntity 242 244	we
+A31	form T36 NOM
+T37	SpatialEntity 302 304	We
+A32	form T37 NOM
+T38	SpatialEntity 487 489	us
+A33	form T38 NOM
+T39	SpatialEntity 501 503	We
+A34	form T39 NOM
+T40	SpatialEntity 57 64	brother
+A35	form T40 NOM
+T41	SpatialEntity 605 606	I
+A36	form T41 NOM
+T42	SpatialEntity 647 648	I
+A37	form T42 NOM
+T43	SpatialEntity 69 75	sister
+A38	form T43 NOM
+T44	SpatialEntity 797 799	we
+A39	form T44 NOM
+T45	SpatialEntity 957 958	I
+A40	form T45 NOM
+T46	SpatialEntity 981 982	I
+A41	form T46 NOM
+T47	Event 103 111	visiting
+T48	Event 1116 1122	danced
+T49	Motion 1257 1261	walk
+A42	motion_type T49 compound
+A43	motion_class T49 reach
+A44	motion_sense T49 literal
+T50	Motion 1356 1360	head
+A45	motion_type T50 path
+A46	motion_class T50 reach
+A47	motion_sense T50 literal
+T51	Motion 1488 1495	visited
+A48	motion_type T51 path
+A49	motion_class T51 reach
+A50	motion_sense T51 literal
+T52	Motion 187 194	rushing
+A51	motion_type T52 compound
+A52	motion_class T52 reach
+A53	motion_sense T52 literal
+T53	Motion 202 210	visiting
+A54	motion_type T53 path
+A55	motion_class T53 hit
+A56	motion_sense T53 literal
+T54	Motion 228 235	rushing
+A57	motion_type T54 compound
+A58	motion_class T54 reach
+A59	motion_sense T54 literal
+T55	Motion 256 261	leave
+A60	motion_type T55 path
+A61	motion_class T55 leave
+A62	motion_sense T55 literal
+T56	Motion 272 277	visit
+A63	motion_type T56 path
+A64	motion_class T56 reach
+A65	motion_sense T56 literal
+T57	Motion 305 309	left
+A66	motion_type T57 path
+A67	motion_class T57 leave
+A68	motion_sense T57 literal
+T58	Motion 337 344	driving
+A69	motion_type T58 compound
+A70	motion_class T58 follow
+A71	motion_sense T58 literal
+T59	Motion 41 48	meet up
+A72	motion_type T59 path
+A73	motion_class T59 hit
+A74	motion_sense T59 literal
+T60	Motion 451 458	turning
+A75	motion_type T60 path
+A76	motion_class T60 deviate
+A77	motion_sense T60 literal
+T61	Motion 482 486	took
+A78	motion_type T61 path
+A79	motion_class T61 reach
+A80	motion_sense T61 literal
+T62	Motion 504 511	stopped
+A81	motion_type T62 path
+A82	motion_class T62 reach
+A83	motion_sense T62 literal
+T63	Motion 655 659	walk
+A84	motion_type T63 compound
+A85	motion_class T63 reach
+A86	motion_sense T63 literal
+T64	Motion 728 733	clear
+A87	motion_type T64 path
+A88	motion_class T64 leave
+A89	motion_sense T64 literal
+T65	SpatialSignal 1123 1125	in
+A90	semantic_type T65 topological
+T66	SpatialSignal 127 129	in
+A91	semantic_type T66 topological
+T67	SpatialSignal 289 291	on
+A92	semantic_type T67 topological
+T68	SpatialSignal 512 518	before
+A93	semantic_type T68 dir_top
+T69	SpatialSignal 530 534	over
+A94	semantic_type T69 dir_top
+T70	SpatialSignal 579 583	into
+A95	semantic_type T70 topological
+T71	SpatialSignal 588 596	adjacent
+A96	semantic_type T71 topological
+T72	MotionSignal 1262 1264	to
+A97	MS_type T72 path
+T73	MotionSignal 1301 1303	up
+A98	MS_type T73 path
+T74	MotionSignal 1304 1306	to
+A99	MS_type T74 path
+T75	MotionSignal 1361 1364	for
+A100	MS_type T75 path
+T76	MotionSignal 236 240	back
+A101	MS_type T76 path
+T77	MotionSignal 345 350	along
+A102	MS_type T77 path
+T78	MotionSignal 393 396	via
+A103	MS_type T78 path
+T79	MotionSignal 407 409	to
+A104	MS_type T79 path
+T80	MotionSignal 426 433	towards
+A105	MS_type T80 path
+T81	MotionSignal 459 462	off
+A106	MS_type T81 path
+T82	MotionSignal 463 467	down
+A107	MS_type T82 path
+T83	MotionSignal 49 53	with
+A108	MS_type T83 path
+T84	MotionSignal 490 492	to
+A109	MS_type T84 path
+T85	MotionSignal 660 664	into
+A110	MS_type T85 path
+T86	MotionSignal 734 737	off
+A111	MS_type T86 path
+T87	Measure 568 578	few metres
+#87	AnnotatorNotes T87	meters few
+T88	TLINK 289 291	on
+A112	QS_type E1 NTPP
+E1	TLINK:T88 trajector:T56 landmark:T20 trigger:T67
+T89	TLINK 127 129	in
+A113	QS_type E2 IN
+E2	TLINK:T89 trajector:T47 landmark:T4 trigger:T66
+T90	TLINK 530 534	over
+A114	QS_type E3 DC
+E3	TLINK:T90 trajector:T24 landmark:T25 trigger:T69
+T91	TLINK 512 518	before
+A115	QS_type E4 DC
+E4	TLINK:T91 trajector:T2 landmark:T24 trigger:T68
+T92	TLINK 588 596	adjacent
+A116	QS_type E5 EC
+E5	TLINK:T92 trajector:T15 landmark:T2 trigger:T71
+T93	TLINK 1123 1125	in
+A117	QS_type E6 IN
+E6	TLINK:T93 trajector:T48 landmark:T29 trigger:T65
+T94	TLINK 579 583	into
+A118	QS_type E7 IN
+E7	TLINK:T94 trajector:T14 landmark:T15 trigger:T70
+T95	OLINK 530 534	over
+A119	O_type E8 ABOVE
+A120	frame_type E8 INTRINSIC
+A121	projective E8 INTRINSIC
+E8	OLINK:T95 trajector:T24 landmark:T25 trigger:T69 referencePt:T25
+T96	OLINK 512 518	before
+A122	O_type E9 BEFORE
+A123	frame_type E9 RELATIVE
+A124	projective E9 RELATIVE
+E9	OLINK:T96 trajector:T2 landmark:T24 trigger:T68 referencePt:T62
+T97	MLINK 256 261	leave
+E10	MLINK:T97 mover:T36 trigger:T55 source:T1
+T98	MLINK 187 194	rushing
+A126	goal_reached E11 yes
+E11	MLINK:T98 goal:T7 mover:T36 trigger:T52
+T99	MLINK 504 511	stopped
+A127	goal_reached E12 yes
+E12	MLINK:T99 goal:T2 mover:T39 trigger:T62
+T100	MLINK 655 659	walk
+A128	goal_reached E13 yes
+E13	MLINK:T100 goal:T16 mover:T42 motion_signalID:T85 trigger:T63
+T101	MLINK 728 733	clear
+E14	MLINK:T101 mover:T42 motion_signalID:T86 trigger:T64 source:T16
+T102	MLINK 1257 1261	walk
+A130	goal_reached E15 yes
+E15	MLINK:T102 goal:T19 mover:T30 midPoint:T31 motion_signalID3:T74 motion_signalID2:T72 motion_signalID:T73 trigger:T49
+T103	MLINK 1356 1360	head
+A131	goal_reached E16 uncertain
+E16	MLINK:T103 goal:T5 mover:T30 motion_signalID:T75 trigger:T50
+T104	MLINK 1488 1495	visited
+A132	goal_reached E17 yes
+E17	MLINK:T104 goal:T6 mover:T34 trigger:T51
+T105	MLINK 202 210	visiting
+A133	goal_reached E18 yes
+E18	MLINK:T105 goal:T35 mover:T36 trigger:T53
+T106	MLINK 228 235	rushing
+A134	goal_reached E19 yes
+E19	MLINK:T106 goal:T1 mover:T36 motion_signalID:T76 trigger:T54
+T107	MLINK 272 277	visit
+A135	goal_reached E20 yes
+E20	MLINK:T107 goal:T8 mover:T36 trigger:T56
+T108	MLINK 41 48	meet up
+A136	goal_reached E21 yes
+E21	MLINK:T108 goal:T26 mover:T27 motion_signalID:T83 trigger:T59
+T109	MLINK 305 309	left
+E22	MLINK:T109 mover:T37 trigger:T57 source:T9
+T110	MLINK 337 344	driving
+A138	goal_reached E23 uncertain
+E23	MLINK:T110 goal:T12 mover:T37 midPoint2:T11 midPoint:T10 motion_signalID3:T79 motion_signalID2:T78 motion_signalID:T77 motion_signalID4:T80 trigger:T58 pathID:T21
+T111	MLINK 451 458	turning
+E24	MLINK:T111 mover:T37 motion_signalID2:T82 motion_signalID:T81 trigger:T60 source:T21 pathID:T23
+T112	MLINK 482 486	took
+A140	goal_reached E25 yes
+E25	MLINK:T112 goal:T13 mover:T38 motion_signalID:T84 trigger:T61 pathID:T23
+T113	DLINK 568 578	few metres
+E26	DLINK:T113 trajector:T14 landmark:T2 val:T87
+R22	coreference Arg1:T27 Arg2:T41
+#88	AnnotatorNotes R22	COREFERENCE
+R23	coreference Arg1:T26 Arg2:T40
+#89	AnnotatorNotes R23	SPLITCOREFERENCE
+R24	coreference Arg1:T26 Arg2:T43
+#90	AnnotatorNotes R24	SPLITCOREFERENCE

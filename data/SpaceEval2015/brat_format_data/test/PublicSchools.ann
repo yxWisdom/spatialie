@@ -1,0 +1,159 @@
+T1	Place 152 173	Santa Rosa de Viterbo
+A1	form T1 NAM
+T2	Place 1641 1654	United States
+A2	form T2 NAM
+T3	Place 189 195	school
+A3	form T3 NOM
+T4	Place 493 498	stage
+A4	form T4 NOM
+T5	Place 758 762	U.S.
+A5	form T5 NAM
+T6	Place 767 771	Peru
+A6	form T6 NAM
+T7	Place 916 920	U.S.
+A7	form T7 NAM
+T8	Place 93 99	Huaraz
+A8	form T8 NAM
+T9	Place 317 319	it
+A9	form T9 NOM
+T10	Null 1163 1166	the
+#10	AnnotatorNotes T10	PATH The set subsuming [rivers,se] and [streets,se] in '... asking if it is fair to throw trash in the rivers or streets ...'
+T11	Path 1167 1173	rivers
+A10	form T11 NOM
+T12	Path 1177 1184	streets
+A11	form T12 NOM
+T13	Null 214 218	were
+#13	AnnotatorNotes T13	SPATIAL_ENTITY The set subsuming [students,se0] in '... just as the students were arriving. The entire school was gathering ...'
+T14	SpatialEntity 1154 1159	trash
+A12	form T14 NOM
+T15	SpatialEntity 139 140	I
+A13	form T15 NOM
+T16	SpatialEntity 1627 1633	people
+A14	form T16 NOM
+T17	SpatialEntity 205 213	students
+A15	form T17 NOM
+T18	SpatialEntity 240 246	school
+#18	AnnotatorNotes T18	amount=entire
+A16	form T18 NOM
+T19	SpatialEntity 442 450	director
+A17	form T19 NOM
+T20	SpatialEntity 487 489	me
+A18	form T20 NOM
+T21	SpatialEntity 882 883	I
+A19	form T21 NOM
+T22	Null 499 502	and
+#22	AnnotatorNotes T22	SPATIAL_ENTITY Subsuming mover for 'the director surprised me by immediately leading me on stage'
+T23	SpatialEntity 366 374	director
+A20	form T23 NOM
+T24	SpatialEntity 461 463	me
+A21	form T24 NOM
+T25	SpatialEntity 511 513	me
+A22	form T25 NOM
+T26	SpatialEntity 537 539	me
+A23	form T26 NOM
+T27	SpatialEntity 575 581	school
+A24	form T27 NOM
+T28	SpatialEntity 595 596	I
+A25	form T28 NOM
+T29	SpatialEntity 773 774	I
+A26	form T29 NOM
+T30	SpatialEntity 871 872	I
+A27	form T30 NOM
+T31	SpatialEntity 962 963	I
+A28	form T31 NOM
+T32	SpatialEntity 984 985	I
+A29	form T32 NOM
+T33	SpatialEntity 1065 1066	I
+A30	form T33 NOM
+T34	SpatialEntity 1346 1347	I
+A31	form T34 NOM
+T35	SpatialEntity 1415 1416	I
+A32	form T35 NOM
+T36	SpatialEntity 1530 1531	I
+A33	form T36 NOM
+T37	SpatialEntity 1597 1598	I
+A34	form T37 NOM
+T38	SpatialEntity 1741 1742	I
+A35	form T38 NOM
+T39	SpatialEntity 1811 1812	I
+A36	form T39 NOM
+T40	Event 111 115	give
+T41	Event 125 137	presentation
+T42	Event 279 287	assembly
+T43	Motion 1148 1153	throw
+A37	motion_type T43 compound
+A38	motion_class T43 reach
+A39	motion_sense T43 literal
+T44	Motion 141 148	arrived
+A40	motion_type T44 path
+A41	motion_class T44 reach
+A42	motion_sense T44 literal
+T45	Motion 219 227	arriving
+A43	motion_type T45 path
+A44	motion_class T45 reach
+A45	motion_sense T45 literal
+T46	Motion 251 260	gathering
+A46	motion_type T46 compound
+A47	motion_class T46 reach
+A48	motion_sense T46 literal
+T47	Motion 479 486	leading
+A49	motion_type T47 path
+A50	motion_class T47 move
+A51	motion_sense T47 literal
+T48	Motion 896 902	return
+A52	motion_type T48 path
+A53	motion_class T48 reach
+A54	motion_sense T48 literal
+T49	Motion 907 911	bike
+A55	motion_type T49 compound
+A56	motion_class T49 move_internal
+A57	motion_sense T49 literal
+T50	SpatialSignal 1634 1636	in
+A58	semantic_type T50 topological
+T51	SpatialSignal 90 92	In
+A59	semantic_type T51 topological
+T52	MotionSignal 1160 1162	in
+A60	MS_type T52 path
+T53	MotionSignal 149 151	at
+A61	MS_type T53 path
+T54	MotionSignal 490 492	on
+A62	MS_type T54 path
+T55	TLINK 90 92	In
+A63	QS_type E1 IN
+E1	TLINK:T55 trajector:T40 landmark:T8 trigger:T51
+T56	TLINK 90 92	In
+A64	QS_type E2 IN
+E2	TLINK:T56 trajector:T41 landmark:T8 trigger:T51
+T57	TLINK 90 92	In
+A65	QS_type E3 IN
+E3	TLINK:T57 trajector:T44 landmark:T8 trigger:T51
+T58	TLINK 1634 1636	in
+A66	QS_type E4 IN
+E4	TLINK:T58 trajector:T16 landmark:T2 trigger:T50
+T59	MLINK 141 148	arrived
+A67	goal_reached E5 yes
+E5	MLINK:T59 goal:T1 mover:T15 motion_signalID:T53 trigger:T44
+T60	MLINK 219 227	arriving
+A68	goal_reached E6 yes
+E6	MLINK:T60 goal:T3 mover:T17 trigger:T45
+T61	MLINK 251 260	gathering
+E7	MLINK:T61 goal:T42 mover:T18 trigger:T46
+T62	MLINK 896 902	return
+A70	goal_reached E8 yes
+E8	MLINK:T62 goal:T7 mover:T21 trigger:T48
+T63	MLINK 907 911	bike
+E9	MLINK:T63 mover:T21 ground:T7 trigger:T49
+T64	MLINK 1148 1153	throw
+A72	goal_reached E10 yes
+E10	MLINK:T64 goal:T10 mover:T14 motion_signalID:T52 trigger:T43
+T65	MLINK 479 486	leading
+A73	goal_reached E11 yes
+E11	MLINK:T65 goal:T4 mover:T22 motion_signalID:T54 trigger:T47
+R7	coreference Arg1:T11 Arg2:T10
+#55	AnnotatorNotes R7	SUBCOREFERENCE
+R8	coreference Arg1:T12 Arg2:T10
+#56	AnnotatorNotes R8	SUBCOREFERENCE
+R9	coreference Arg1:T17 Arg2:T13
+#57	AnnotatorNotes R9	SUBCOREFERENCE
+R10	coreference Arg1:T18 Arg2:T13
+#58	AnnotatorNotes R10	SPLITCOREFERENCE

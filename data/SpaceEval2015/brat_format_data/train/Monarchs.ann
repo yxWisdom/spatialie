@@ -1,0 +1,243 @@
+T2	Null 939 942	and
+#1	AnnotatorNotes T2	PLACE 'It is cold at 11,000 feet ...'
+T3	Place 1348 1353	place
+A1	form T3 NOM
+T4	Place 155 159	tops
+A2	form T4 NOM
+T5	Place 163 172	mountains
+A3	form T5 NOM
+T6	Place 180 186	center
+A4	form T6 NOM
+T7	Place 1845 1853	entrance
+A5	form T7 NOM
+T8	Place 1871 1880	sanctuary
+A6	form T8 NOM
+T9	Place 1893 1898	shops
+A7	form T9 NOM
+T10	Place 190 196	Mexico
+A8	form T10 NAM
+T11	Place 2053 2057	park
+A9	form T11 NOM
+T12	Place 2076 2084	entrance
+A10	form T12 NOM
+T13	Place 369 373	here
+A11	form T13 NOM
+T14	Place 408 413	skies
+A12	form T14 NOM
+T15	Place 603 629	northeastern North America
+A13	form T15 NAM
+T16	Place 777 783	region
+A14	form T16 NOM
+T17	Place 787 793	Mexico
+A15	form T17 NAM
+T18	Place 899 909	California
+A16	form T18 NAM
+T19	Place 1633 1639	region
+A17	form T19 NOM
+T20	Path 1685 1694	mountains
+A18	form T20 NOM
+T21	Path 1839 1844	trail
+A19	form T21 NOM
+R4	beginID Arg1:T21 Arg2:T7
+R5	endID Arg1:T21 Arg2:T8
+T22	Path 2189 2193	hill
+A20	form T22 NOM
+T23	Path 2323 2328	trail
+A21	form T23 NOM
+R11	endID Arg1:T23 Arg2:T34
+T24	Path 2394 2400	trails
+A22	form T24 NOM
+T25	Path 2423 2427	side
+A23	form T25 NOM
+T26	Null 350 354	that
+#25	AnnotatorNotes T26	SPATIAL_ENTITY The set subsuming [butterflies,se] and [more,se] in 'The butterflies that are wintering here are mostly hibernating. While the skies were full of butterflies, there were even more (believe it or not) hanging motionless on the trees. What they need is ...'
+T27	SpatialEntity 101 102	I
+A24	form T27 NOM
+T28	SpatialEntity 1314 1325	butterflies
+A25	form T28 NOM
+T29	SpatialEntity 1696 1697	I
+A26	form T29 NOM
+T30	SpatialEntity 2026 2027	I
+A27	form T30 NOM
+T31	SpatialEntity 2147 2158	butterflies
+A28	form T31 NOM
+T32	SpatialEntity 2160 2161	I
+A29	form T32 NOM
+T33	SpatialEntity 2170 2179	subwoofer
+A30	form T33 NOM
+T34	SpatialEntity 2336 2347	butterflies
+A31	form T34 NOM
+T35	SpatialEntity 2369 2377	tourists
+A32	form T35 NOM
+T36	SpatialEntity 338 349	butterflies
+A33	form T36 NOM
+T37	SpatialEntity 427 438	butterflies
+A34	form T37 NOM
+T38	SpatialEntity 456 460	more
+A35	form T38 NOM
+T39	SpatialEntity 507 512	trees
+A36	form T39 NOM
+T40	SpatialEntity 519 523	they
+A37	form T40 NOM
+T41	SpatialEntity 89 100	butterflies
+A38	form T41 NOM
+T42	SpatialEntity 198 202	They
+A39	form T42 NOM
+T43	SpatialEntity 231 235	they
+A40	form T43 NOM
+T44	SpatialEntity 1417 1421	they
+A41	form T44 NOM
+T45	SpatialEntity 1813 1824	butterflies
+A42	form T45 NOM
+T46	SpatialEntity 1992 1993	I
+A43	form T46 NOM
+T47	SpatialEntity 2281 2282	I
+A44	form T47 NOM
+T48	Event 121 131	congregate
+T49	Event 2037 2041	camp
+T50	Event 2103 2107	camp
+T51	Event 2109 2115	Camped
+T52	Event 359 368	wintering
+T53	Event 481 488	hanging
+T54	Event 821 825	rain
+T55	Event 877 881	rain
+T56	Event 918 922	cold
+T57	Event 1797 1803	living
+T58	Motion 103 110	visited
+A45	motion_type T58 compound
+A46	motion_class T58 reach
+A47	motion_sense T58 literal
+T59	Motion 1334 1338	move
+A48	motion_type T59 path
+A49	motion_class T59 move
+A50	motion_sense T59 literal
+T60	Motion 1673 1677	ride
+A51	motion_type T60 compound
+A52	motion_class T60 follow
+A53	motion_sense T60 literal
+T61	Motion 2378 2386	trampled
+A54	motion_type T61 compound
+A55	motion_class T61 follow
+A56	motion_sense T61 literal
+T62	Motion 590 599	returning
+A57	motion_type T62 path
+A58	motion_class T62 reach
+A59	motion_sense T62 literal
+T63	SpatialSignal 148 150	at
+A60	semantic_type T63 topological
+T64	SpatialSignal 160 162	of
+A61	semantic_type T64 topological
+T65	SpatialSignal 173 175	in
+A62	semantic_type T65 topological
+T66	SpatialSignal 187 189	of
+A63	semantic_type T66 topological
+T67	SpatialSignal 1885 1892	full of
+A64	semantic_type T67 topological
+T68	SpatialSignal 2042 2048	inside
+A65	semantic_type T68 topological
+T69	SpatialSignal 2069 2071	at
+A66	semantic_type T69 topological
+T70	SpatialSignal 2085 2090	where
+A67	semantic_type T70 topological
+T71	SpatialSignal 2138 2142	from
+A68	semantic_type T71 topological
+T72	SpatialSignal 2180 2184	down
+A69	semantic_type T72 directional
+T73	SpatialSignal 419 426	full of
+A70	semantic_type T73 topological
+T74	SpatialSignal 500 502	on
+A71	semantic_type T74 topological
+T75	SpatialSignal 769 771	in
+A72	semantic_type T75 topological
+T76	SpatialSignal 784 786	of
+A73	semantic_type T76 topological
+T77	SpatialSignal 896 898	in
+A74	semantic_type T77 topological
+T78	SpatialSignal 923 925	at
+A75	semantic_type T78 topological
+T79	MotionSignal 1339 1341	to
+A76	MS_type T79 path
+T80	MotionSignal 1678 1680	up
+A77	MS_type T80 path
+T81	MotionSignal 2401 2405	down
+A78	MS_type T81 path
+T82	MotionSignal 600 602	to
+A79	MS_type T82 path
+T83	Measure 2116 2137	less than a kilometer
+#83	AnnotatorNotes T83	kilometers lt1
+T84	Measure 926 937	11,000 feet
+#85	AnnotatorNotes T84	feet 11000
+T85	Measure 1804 1808	near
+#87	AnnotatorNotes T85	 NEAR
+T86	TLINK 160 162	of
+A80	QS_type E1 TPP
+E1	TLINK:T86 trajector:T4 landmark:T5 trigger:T64
+T87	TLINK 2042 2048	inside
+A81	QS_type E2 IN
+E2	TLINK:T87 trajector:T49 landmark:T11 trigger:T68
+T88	TLINK 2085 2090	where
+A82	QS_type E3 IN
+E3	TLINK:T88 trajector:T50 landmark:T12 trigger:T70
+T89	TLINK 2138 2142	from
+A83	QS_type E4 DC
+E4	TLINK:T89 trajector:T51 landmark:T31 trigger:T71
+T90	TLINK 148 150	at
+A84	QS_type E5 IN
+E5	TLINK:T90 trajector:T48 landmark:T4 trigger:T63
+T91	TLINK 359 368	wintering
+A85	QS_type E6 IN
+E6	TLINK:T91 trajector:T52 landmark:T13
+T92	TLINK 419 426	full of
+A86	QS_type E7 IN
+E7	TLINK:T92 trajector:T37 landmark:T14 trigger:T73
+T93	TLINK 500 502	on
+A87	QS_type E8 EC
+E8	TLINK:T93 trajector:T53 landmark:T39 trigger:T74
+T94	TLINK 784 786	of
+A88	QS_type E9 IN
+E9	TLINK:T94 trajector:T16 landmark:T17 trigger:T76
+T95	TLINK 769 771	in
+A89	QS_type E10 IN
+E10	TLINK:T95 trajector:T54 landmark:T16 trigger:T75
+T96	TLINK 896 898	in
+A90	QS_type E11 IN
+E11	TLINK:T96 trajector:T55 landmark:T18 trigger:T77
+T97	TLINK 923 925	at
+A91	QS_type E12 IN
+E12	TLINK:T97 trajector:T56 landmark:T2 trigger:T78
+T98	TLINK 1885 1892	full of
+A92	QS_type E13 IN
+E13	TLINK:T98 trajector:T9 landmark:T7 trigger:T67
+T99	TLINK 187 189	of
+A93	QS_type E14 NTPP
+E14	TLINK:T99 trajector:T6 landmark:T10 trigger:T66
+T100	TLINK 2069 2071	at
+A94	QS_type E15 IN
+E15	TLINK:T100 trajector:T49 landmark:T12 trigger:T69
+T101	TLINK 173 175	in
+A95	QS_type E16 IN
+E16	TLINK:T101 trajector:T5 landmark:T6 trigger:T65
+T102	OLINK 2180 2184	down
+A96	O_type E17 DOWN
+A97	frame_type E17 RELATIVE
+A98	projective E17 RELATIVE
+E17	OLINK:T102 trajector:T33 landmark:T22 trigger:T72 referencePt:T51
+T103	MLINK 103 110	visited
+A99	goal_reached E18 yes
+E18	MLINK:T103 goal:T41 mover:T27 trigger:T58
+T104	MLINK 590 599	returning
+A100	goal_reached E19 yes
+E19	MLINK:T104 goal:T15 mover:T40 motion_signalID:T82 trigger:T62
+T105	MLINK 1334 1338	move
+A101	goal_reached E20 yes
+E20	MLINK:T105 goal:T3 mover:T28 motion_signalID:T79 trigger:T59
+T106	MLINK 1673 1677	ride
+E21	MLINK:T106 mover:T29 motion_signalID:T80 trigger:T60 pathID:T20
+T107	MLINK 2378 2386	trampled
+E22	MLINK:T107 mover:T35 motion_signalID:T81 ground:T25 trigger:T61 pathID:T24
+R19	coreference Arg1:T36 Arg2:T26
+#88	AnnotatorNotes R19	SPLITCOREFERENCE
+R20	coreference Arg1:T37 Arg2:T26
+#89	AnnotatorNotes R20	SUBCOREFERENCE
+R21	coreference Arg1:T38 Arg2:T26
+#90	AnnotatorNotes R21	SUBCOREFERENCE

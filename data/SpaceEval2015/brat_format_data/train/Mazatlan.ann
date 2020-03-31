@@ -1,0 +1,208 @@
+T2	Place 1041 1049	pharmacy
+A1	form T2 NOM
+T3	Place 155 159	town
+A2	form T3 NOM
+T4	Place 230 239	firehouse
+A3	form T4 NOM
+T5	Place 434 443	foothills
+A4	form T5 NOM
+T6	Place 451 460	mountains
+A5	form T6 NOM
+T7	Place 487 491	town
+A6	form T7 NOM
+T8	Place 530 535	place
+A7	form T8 NOM
+T9	Place 633 637	here
+A8	form T9 NOM
+T10	Place 710 714	Baja
+A9	form T10 NAM
+T11	Place 758 767	Concordia
+A10	form T11 NAM
+T12	Place 771 775	town
+A11	form T12 NOM
+T13	Place 852 856	room
+A12	form T13 NOM
+T14	Place 91 97	marina
+A13	form T14 NOM
+T15	Place 409 413	town
+#14	AnnotatorNotes T15	SPATIAL_FUNCTION
+A14	form T15 NOM
+T16	Place 417 426	Concordia
+A15	form T16 NAM
+T17	Place 982 986	town
+#16	AnnotatorNotes T17	SPATIAL_FUNCTION
+A16	form T17 NOM
+T18	Place 990 996	Copala
+A17	form T18 NAM
+T19	Path 600 608	roadside
+A18	form T19 NOM
+T20	Null 555 562	singing
+#19	AnnotatorNotes T20	SPATIAL_ENTITY The set of [forests,se13], [birds,se10] and [lizards,se11] in '... there are forests, singing birds, and even a few lizards on the roadside.'; What should the quan attribute value be in this situation?  This is a heterogeneous set.
+T21	SpatialEntity 1018 1019	I
+A19	form T21 NOM
+T22	SpatialEntity 138 139	I
+A20	form T22 NOM
+T23	SpatialEntity 212 213	I
+A21	form T23 NOM
+T24	SpatialEntity 247 248	I
+A22	form T24 NOM
+T25	SpatialEntity 347 348	I
+A23	form T25 NOM
+T26	SpatialEntity 493 494	I
+A24	form T26 NOM
+T27	SpatialEntity 546 553	forests
+A25	form T27 NOM
+T28	SpatialEntity 563 568	birds
+A26	form T28 NOM
+T29	SpatialEntity 585 592	lizards
+#28	AnnotatorNotes T29	amount='few'
+A27	form T29 NOM
+T30	SpatialEntity 622 626	rain
+#29	AnnotatorNotes T30	amount='most'
+A28	form T30 NOM
+T31	SpatialEntity 741 742	I
+A29	form T31 NOM
+T32	SpatialEntity 915 916	I
+A30	form T32 NOM
+T33	SpatialEntity 946 947	I
+A31	form T33 NOM
+T34	SpatialEntity 190 191	I
+A32	form T34 NOM
+T35	SpatialEntity 905 906	I
+A33	form T35 NOM
+T36	Event 180 189	realizing
+T37	Event 80 83	day
+T38	Event 249 254	spent
+T39	Motion 1008 1016	continue
+A34	motion_type T39 path
+A35	motion_class T39 move
+A36	motion_sense T39 literal
+T40	Motion 1020 1026	sought
+A37	motion_type T40 path
+A38	motion_class T40 move
+A39	motion_sense T40 literal
+T41	Motion 149 154	leave
+A40	motion_type T41 path
+A41	motion_class T41 leave
+A42	motion_sense T41 literal
+T42	Motion 214 220	pulled
+A43	motion_type T42 compound
+A44	motion_class T42 reach
+A45	motion_sense T42 literal
+T43	Motion 349 356	pedaled
+A46	motion_type T43 manner
+A47	motion_class T43 move
+A48	motion_sense T43 literal
+T44	Motion 393 401	arriving
+A49	motion_type T44 path
+A50	motion_class T44 reach
+A51	motion_sense T44 literal
+T45	Motion 479 486	leaving
+A52	motion_type T45 path
+A53	motion_class T45 leave
+A54	motion_sense T45 literal
+T46	Motion 627 632	falls
+A55	motion_type T46 compound
+A56	motion_class T46 hit
+A57	motion_sense T46 literal
+T47	Motion 752 757	leave
+A58	motion_type T47 compound
+A59	motion_class T47 leave
+A60	motion_sense T47 literal
+T48	Motion 825 833	returned
+A61	motion_type T48 path
+A62	motion_class T48 reach
+A63	motion_sense T48 literal
+T49	Motion 936 940	bike
+A64	motion_type T49 manner
+A65	motion_class T49 move
+A66	motion_sense T49 literal
+T50	Motion 948 952	rode
+A67	motion_type T50 compound
+A68	motion_class T50 reach
+A69	motion_sense T50 literal
+T51	SpatialSignal 241 246	where
+A70	semantic_type T51 topological
+T52	SpatialSignal 427 429	at
+A71	semantic_type T52 topological
+T53	SpatialSignal 444 446	of
+A72	semantic_type T53 topological
+T54	SpatialSignal 593 595	on
+A73	semantic_type T54 dir_top
+T55	SpatialSignal 84 86	in
+A74	semantic_type T55 topological
+T56	MotionSignal 1027 1030	out
+A75	MS_type T56 path
+T57	MotionSignal 221 225	into
+A76	MS_type T57 path
+T58	MotionSignal 402 404	in
+A77	MS_type T58 path
+T59	MotionSignal 834 836	to
+A78	MS_type T59 path
+T60	MotionSignal 962 968	uphill
+A79	MS_type T60 path
+T61	MotionSignal 969 971	to
+A80	MS_type T61 path
+T62	Measure 167 178	eight miles
+#62	AnnotatorNotes T62	miles 8
+T63	Measure 365 378	30 flat miles
+#63	AnnotatorNotes T63	modifier: 'flat'
+#64	AnnotatorNotes T63	miles 30
+T64	Measure 953 961	15 miles
+#66	AnnotatorNotes T64	miles 15
+T65	TLINK 84 86	in
+A81	QS_type E1 IN
+E1	TLINK:T65 trajector:T37 landmark:T14 trigger:T55
+T66	TLINK 444 446	of
+A82	QS_type E2 EC
+E2	TLINK:T66 trajector:T5 landmark:T6 trigger:T53
+T67	TLINK 593 595	on
+A83	QS_type E3 EC
+E3	TLINK:T67 trajector:T20 landmark:T19 trigger:T54
+T68	TLINK 427 429	at
+A84	QS_type E4 IN
+E4	TLINK:T68 trajector:T16 landmark:T5 trigger:T52
+T69	TLINK 241 246	where
+A85	QS_type E5 IN
+E5	TLINK:T69 trajector:T38 landmark:T4 trigger:T51
+T70	OLINK 593 595	on
+A86	O_type E6 ABOVE
+A87	frame_type E6 INTRINSIC
+A88	projective E6 INTRINSIC
+E6	OLINK:T70 trajector:T20 landmark:T19 trigger:T54 referencePt:T19
+T71	MLINK 479 486	leaving
+E7	MLINK:T71 mover:T26 midPoint:T8 trigger:T45 source:T7
+T72	MLINK 149 154	leave
+E8	MLINK:T72 mover:T22 trigger:T41 source:T3
+T73	MLINK 948 952	rode
+A91	goal_reached E9 yes
+E9	MLINK:T73 goal:T18 mover:T33 motion_signalID2:T61 motion_signalID:T60 trigger:T50
+T74	MLINK 1008 1016	continue
+E10	MLINK:T74 mover:T21 trigger:T39
+T75	MLINK 1020 1026	sought
+A93	goal_reached E11 yes
+E11	MLINK:T75 goal:T2 mover:T21 motion_signalID:T56 trigger:T40
+T76	MLINK 214 220	pulled
+A94	goal_reached E12 yes
+E12	MLINK:T76 goal:T4 mover:T23 motion_signalID:T57 trigger:T42
+T77	MLINK 349 356	pedaled
+E13	MLINK:T77 mover:T25 trigger:T43
+T78	MLINK 393 401	arriving
+A96	goal_reached E14 yes
+E14	MLINK:T78 goal:T16 mover:T25 motion_signalID:T58 trigger:T44
+T79	MLINK 627 632	falls
+A97	goal_reached E15 yes
+E15	MLINK:T79 goal:T9 mover:T30 trigger:T46
+T80	MLINK 752 757	leave
+E16	MLINK:T80 mover:T31 trigger:T47 source:T11
+T81	MLINK 825 833	returned
+A99	goal_reached E17 yes
+E17	MLINK:T81 goal:T13 mover:T31 motion_signalID:T59 trigger:T48
+T82	MLINK 936 940	bike
+E18	MLINK:T82 mover:T32 trigger:T49
+R4	coreference Arg1:T27 Arg2:T20
+#67	AnnotatorNotes R4	SUBCOREFERENCE
+R5	coreference Arg1:T28 Arg2:T20
+#68	AnnotatorNotes R5	SUBCOREFERENCE
+R6	coreference Arg1:T29 Arg2:T20
+#69	AnnotatorNotes R6	SUBCOREFERENCE

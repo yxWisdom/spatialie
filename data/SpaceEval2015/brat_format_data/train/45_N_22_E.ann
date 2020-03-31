@@ -1,0 +1,449 @@
+T1	Null 66 70	with
+#1	AnnotatorNotes T1	PLACE the point at which they started the Enduros, 100 km from the confluence
+T2	Null 1129 1132	the
+#2	AnnotatorNotes T2	PLACE place within 530 m of confluence point
+T3	Null 1200 1201	a
+#3	AnnotatorNotes T3	PLACE one side (source) of 'a deeply cut brook bed'
+T4	Null 1202 1207	light
+#4	AnnotatorNotes T4	PLACE other side (goal) of 'a deeply cut brook bed'
+T5	Null 1515 1520	again
+#5	AnnotatorNotes T5	PLACE one side (source) of 'a further, deeply cut brook bed'
+T6	Null 1526 1529	the
+#6	AnnotatorNotes T6	PLACE other side (goal) of 'a further, deeply cut brook bed'
+T7	Null 1224 1227	and
+#7	AnnotatorNotes T7	PLACE other side (goal) of 'a light hardwood forest'
+T8	Null 1208 1216	hardwood
+#8	AnnotatorNotes T8	PLACE one side (source) of 'a light hardwood forest'
+T9	Null 1937 1940	the
+#9	AnnotatorNotes T9	PLACE goal for 'we take the way back through the wonderful landscape'
+T10	Place 1184 1189	point
+A1	form T10 NOM
+T11	Place 1217 1223	forest
+A2	form T11 NOM
+T12	Place 126 131	point
+A3	form T12 NOM
+T13	Place 1279 1284	point
+A4	form T13 NOM
+T14	Place 1308 1316	clearing
+A5	form T14 NOM
+T15	Place 1325 1328	top
+A6	form T15 NOM
+T16	Place 1333 1339	forest
+A7	form T16 NOM
+T17	Place 1371 1373	it
+A8	form T17 NOM
+T18	Place 1389 1397	clearing
+A9	form T18 NOM
+T19	Place 1445 1450	point
+A10	form T19 NOM
+T20	Place 1539 1545	forest
+A11	form T20 NOM
+T21	Place 1605 1610	point
+A12	form T21 NOM
+T22	Place 1635 1639	here
+A13	form T22 NOM
+T23	Place 1677 1683	forest
+A14	form T23 NOM
+T24	Place 1798 1803	place
+A15	form T24 NOM
+T25	Place 1805 1809	Here
+A16	form T25 NOM
+T26	Place 1828 1833	point
+A17	form T26 NOM
+T27	Place 1972 1981	landscape
+A18	form T27 NOM
+T28	Place 204 211	Romania
+A19	form T28 NAM
+T29	Place 2073 2080	Romania
+A20	form T29 NOM
+T30	Place 2161 2168	country
+A21	form T30 NOM
+T31	Place 284 289	point
+A22	form T31 NOM
+T32	Place 443 448	point
+A23	form T32 NOM
+T33	Place 520 526	valley
+A24	form T33 NOM
+T34	Place 565 571	forest
+A25	form T34 NOM
+T35	Place 685 696	N 45° E 22°
+A26	form T35 NOM
+T36	Place 906 909	top
+A27	form T36 NOM
+T37	Place 974 979	point
+A28	form T37 NOM
+T38	Null 850 853	the
+#38	AnnotatorNotes T38	PATH source for 'we bend off on the forest road'
+T39	Path 1057 1063	tracks
+A29	form T39 NOM
+T40	Path 1247 1250	bed
+A30	form T40 NOM
+T41	Path 1584 1587	bed
+A31	form T41 NOM
+T42	Path 1941 1944	way
+A32	form T42 NOM
+T43	Path 260 265	paths
+A33	form T43 NOM
+T44	Path 389 393	road
+A34	form T44 NOM
+T45	Path 472 478	street
+A35	form T45 NOM
+T46	Path 488 490	it
+A36	form T46 NOM
+T47	Path 599 606	section
+A37	form T47 NOM
+T48	Path 645 647	it
+A38	form T48 NOM
+T49	Path 861 865	road
+A39	form T49 NOM
+T50	Path 940 948	branches
+A40	form T50 NOM
+T51	Null 54 57	and
+#51	AnnotatorNotes T51	SPATIAL_ENTITY subsuming mover for 'Daniel and I start with our Enduros'
+T52	SpatialEntity 1016 1018	We
+A41	form T52 NOM
+T53	SpatialEntity 1122 1124	we
+A42	form T53 NOM
+T54	SpatialEntity 1133 1144	motorcycles
+A43	form T54 NOM
+T55	SpatialEntity 1191 1193	We
+A44	form T55 NOM
+T56	SpatialEntity 1357 1359	we
+A45	form T56 NOM
+T57	SpatialEntity 1423 1428	ferns
+A46	form T57 NOM
+T58	SpatialEntity 1507 1509	We
+A47	form T58 NOM
+T59	SpatialEntity 156 157	I
+A48	form T59 NOM
+T60	SpatialEntity 1645 1647	we
+A49	form T60 NOM
+T61	SpatialEntity 1689 1694	arrow
+A50	form T61 NOM
+T62	SpatialEntity 1702 1705	GPS
+A51	form T62 NOM
+T63	SpatialEntity 1771 1773	we
+A52	form T63 NOM
+T64	SpatialEntity 1929 1931	we
+A53	form T64 NOM
+T65	SpatialEntity 2135 2141	people
+A54	form T65 NOM
+T66	SpatialEntity 226 228	we
+A55	form T66 NOM
+T67	SpatialEntity 370 372	we
+A56	form T67 NOM
+T68	SpatialEntity 450 452	we
+A57	form T68 NOM
+T69	SpatialEntity 47 53	Daniel
+A58	form T69 NOM
+T70	SpatialEntity 573 574	I
+A59	form T70 NOM
+T71	SpatialEntity 58 59	I
+A60	form T71 NOM
+T72	SpatialEntity 835 837	We
+A61	form T72 NOM
+T73	SpatialEntity 824 826	me
+A62	form T73 NOM
+T74	SpatialEntity 1836 1838	We
+A63	form T74 NOM
+T75	Event 1299 1302	lie
+T76	Motion 1026 1031	drive
+A64	motion_type T76 compound
+A65	motion_class T76 follow
+A66	motion_sense T76 literal
+T77	Motion 1115 1121	travel
+A67	motion_type T77 manner
+A68	motion_class T77 move
+A69	motion_sense T77 literal
+T78	Motion 1125 1128	got
+A70	motion_type T78 path
+A71	motion_class T78 reach
+A72	motion_sense T78 literal
+T79	Motion 1194 1199	cross
+A73	motion_type T79 path
+A74	motion_class T79 cross
+A75	motion_sense T79 literal
+T80	Motion 1360 1363	goe
+A76	motion_type T80 path
+A77	motion_class T80 reach
+A78	motion_sense T80 literal
+T81	Motion 1378 1386	discover
+A79	motion_type T81 path
+A80	motion_class T81 reach
+A81	motion_sense T81 literal
+T82	Motion 1510 1514	dive
+A82	motion_type T82 compound
+A83	motion_class T82 reach
+A84	motion_sense T82 literal
+T83	Motion 1550 1555	cross
+A85	motion_type T83 path
+A86	motion_class T83 cross
+A87	motion_sense T83 literal
+T84	Motion 158 167	travelled
+A88	motion_type T84 path
+A89	motion_class T84 move_internal
+A90	motion_sense T84 literal
+T85	Motion 1648 1652	move
+A91	motion_type T85 compound
+A92	motion_class T85 move_internal
+A93	motion_sense T85 literal
+T86	Motion 1706 1713	jumping
+A94	motion_type T86 compound
+A95	motion_class T86 move
+A96	motion_sense T86 literal
+T87	Motion 1781 1785	land
+A97	motion_type T87 path
+A98	motion_class T87 reach
+A99	motion_sense T87 literal
+T88	Motion 1932 1936	take
+A100	motion_type T88 path
+A101	motion_class T88 follow
+A102	motion_sense T88 literal
+T89	Motion 2020 2026	Enduro
+A103	motion_type T89 manner
+A104	motion_class T89 move
+A105	motion_sense T89 literal
+T90	Motion 229 233	take
+A106	motion_type T90 path
+A107	motion_class T90 follow
+A108	motion_sense T90 literal
+T91	Motion 373 377	take
+A109	motion_type T91 path
+A110	motion_class T91 follow
+A111	motion_sense T91 literal
+T92	Motion 401 406	leads
+A112	motion_type T92 path
+A113	motion_class T92 reach
+A114	motion_sense T92 fictive
+T93	Motion 457 464	driving
+A115	motion_type T93 compound
+A116	motion_class T93 follow
+A117	motion_sense T93 literal
+T94	Motion 491 495	goes
+A118	motion_type T94 path
+A119	motion_class T94 leave
+A120	motion_sense T94 fictive
+T95	Motion 552 557	drive
+A121	motion_type T95 compound
+A122	motion_class T95 move_internal
+A123	motion_sense T95 literal
+T96	Motion 575 580	drove
+A124	motion_type T96 compound
+A125	motion_class T96 follow
+A126	motion_sense T96 literal
+T97	Motion 75 82	Enduros
+A127	motion_type T97 compound
+A128	motion_class T97 leave
+A129	motion_sense T97 literal
+T98	Motion 838 842	bend
+A130	motion_type T98 compound
+A131	motion_class T98 deviate
+A132	motion_sense T98 literal
+T99	SpatialSignal 1303 1305	on
+A133	semantic_type T99 topological
+T100	SpatialSignal 1318 1320	At
+A134	semantic_type T100 topological
+T101	SpatialSignal 1496 1505	southwest
+A135	semantic_type T101 directional
+T102	SpatialSignal 1695 1697	on
+A136	semantic_type T102 topological
+T103	SpatialSignal 661 663	to
+A137	semantic_type T103 topological
+T104	SpatialSignal 899 901	In
+A138	semantic_type T104 topological
+T105	SpatialSignal 949 955	toward
+A139	semantic_type T105 directional
+T106	MotionSignal 1037 1039	on
+A140	MS_type T106 path
+T107	MotionSignal 1145 1147	to
+A141	MS_type T107 path
+T108	MotionSignal 1364 1370	toward
+A142	MS_type T108 path
+T109	MotionSignal 1521 1525	into
+A143	MS_type T109 path
+T110	MotionSignal 1653 1664	in a zigzag
+A144	MS_type T110 manner
+T111	MotionSignal 1665 1672	through
+A145	MS_type T111 path
+T112	MotionSignal 1730 1736	around
+A146	MS_type T112 path
+T113	MotionSignal 1786 1788	in
+A147	MS_type T113 path
+T114	MotionSignal 1945 1949	back
+A148	MS_type T114 path
+T115	MotionSignal 1950 1957	through
+A149	MS_type T115 path
+T116	MotionSignal 201 203	in
+A150	MS_type T116 path
+T117	MotionSignal 266 268	to
+A151	MS_type T117 path
+T118	MotionSignal 421 427	toward
+A152	MS_type T118 path
+T119	MotionSignal 465 467	on
+A153	MS_type T119 path
+T120	MotionSignal 504 510	uphill
+A154	MS_type T120 path
+T121	MotionSignal 511 515	from
+A155	MS_type T121 path
+T122	MotionSignal 558 560	in
+A156	MS_type T122 path
+T123	MotionSignal 581 588	through
+A157	MS_type T123 path
+T124	MotionSignal 843 846	off
+A158	MS_type T124 path
+T125	MotionSignal 847 849	on
+A159	MS_type T125 path
+T126	MotionSignal 60 65	start
+A160	MS_type T126 path
+T127	Measure 1032 1036	near
+#128	AnnotatorNotes T127	 NEAR
+T128	Measure 1148 1165	within 530 meters
+#130	AnnotatorNotes T128	meters lte530
+T129	Measure 1468 1487	approx.. 100 meters
+#132	AnnotatorNotes T129	meters ~100
+T130	Measure 1620 1629	few steps
+#134	AnnotatorNotes T130	steps few
+T131	Measure 168 200	some thousand offroad kilometers
+#136	AnnotatorNotes T131	kilometers ~1000
+T132	Measure 2037 2070	many beautiful Offroad kilometers
+#138	AnnotatorNotes T132	kilometers many
+T133	Measure 352 362	kilometers
+#140	AnnotatorNotes T133	kilometers gt1
+T134	Measure 656 660	near
+#142	AnnotatorNotes T134	 NEAR
+T135	Measure 83 105	approx. 100 kilometers
+#144	AnnotatorNotes T135	kilometers ~100
+T136	TLINK 1805 1809	Here
+A161	QS_type E1 EQ
+E1	TLINK:T136 trajector:T25 landmark:T26
+T137	TLINK 1200 1201	a
+A162	QS_type E2 EC
+E2	TLINK:T137 trajector:T3 landmark:T40
+T138	TLINK 1202 1207	light
+A163	QS_type E3 EC
+E3	TLINK:T138 trajector:T4 landmark:T40
+T139	TLINK 1515 1520	again
+A164	QS_type E4 EC
+E4	TLINK:T139 trajector:T5 landmark:T41
+T140	TLINK 1526 1529	the
+A165	QS_type E5 EC
+E5	TLINK:T140 trajector:T6 landmark:T41
+T141	TLINK 1208 1216	hardwood
+A166	QS_type E6 EC
+E6	TLINK:T141 trajector:T8 landmark:T11
+T142	TLINK 1224 1227	and
+A167	QS_type E7 EC
+E7	TLINK:T142 trajector:T7 landmark:T11
+T143	TLINK 899 901	In
+A168	QS_type E8 IN
+E8	TLINK:T143 trajector:T50 landmark:T36 trigger:T104
+T144	TLINK 1303 1305	on
+A169	QS_type E9 IN
+E9	TLINK:T144 trajector:T75 landmark:T14 trigger:T99
+T145	TLINK 1423 1428	ferns
+A170	QS_type E10 IN
+E10	TLINK:T145 trajector:T57 landmark:T18
+T146	TLINK 1318 1320	At
+A171	QS_type E11 EC
+E11	TLINK:T146 trajector:T16 landmark:T15 trigger:T100
+T147	TLINK 1695 1697	on
+A172	QS_type E12 NTPP
+E12	TLINK:T147 trajector:T61 landmark:T62 trigger:T102
+T148	TLINK 2135 2141	people
+A173	QS_type E13 IN
+E13	TLINK:T148 trajector:T65 landmark:T29
+T149	TLINK 661 663	to
+A174	QS_type E14 DC
+E14	TLINK:T149 trajector:T48 landmark:T35 trigger:T103
+T150	OLINK 949 955	toward
+A175	O_type E15 TOWARD
+A176	frame_type E15 RELATIVE
+A177	projective E15 RELATIVE
+E15	OLINK:T150 trajector:T50 landmark:T37 trigger:T105
+T151	OLINK 1496 1505	southwest
+A178	O_type E16 SOUTHWEST
+A179	frame_type E16 ABSOLUTE
+A180	projective E16 ABSOLUTE
+E16	OLINK:T151 trajector:T19 landmark:T18 trigger:T101
+T152	MLINK 575 580	drove
+E17	MLINK:T152 mover:T70 motion_signalID:T123 trigger:T96 pathID:T47
+T153	MLINK 838 842	bend
+A182	goal_reached E18 yes
+E18	MLINK:T153 goal:T49 mover:T72 motion_signalID2:T125 motion_signalID:T124 trigger:T98 source:T38
+T154	MLINK 1026 1031	drive
+E19	MLINK:T154 mover:T52 motion_signalID:T106 trigger:T76 pathID:T39
+T155	MLINK 1115 1121	travel
+E20	MLINK:T155 mover:T53 trigger:T77
+T156	MLINK 1125 1128	got
+A185	goal_reached E21 yes
+E21	MLINK:T156 goal:T2 mover:T54 motion_signalID:T107 trigger:T78
+T157	MLINK 1194 1199	cross
+A186	goal_reached E22 yes
+E22	MLINK:T157 goal:T7 mover:T55 midPoint:T11 trigger:T79 source:T8
+T158	MLINK 1194 1199	cross
+A187	goal_reached E23 yes
+E23	MLINK:T158 goal:T4 mover:T55 midPoint:T40 trigger:T79 source:T3
+T159	MLINK 1360 1363	goe
+A188	goal_reached E24 uncertain
+E24	MLINK:T159 goal:T17 mover:T56 motion_signalID:T108 trigger:T80
+T160	MLINK 1378 1386	discover
+A189	goal_reached E25 yes
+E25	MLINK:T160 goal:T18 mover:T56 trigger:T81
+T161	MLINK 1510 1514	dive
+A190	goal_reached E26 yes
+E26	MLINK:T161 goal:T20 mover:T58 motion_signalID:T109 trigger:T82
+T162	MLINK 1550 1555	cross
+A191	goal_reached E27 yes
+E27	MLINK:T162 goal:T6 mover:T58 midPoint:T41 trigger:T83 source:T5
+T163	MLINK 1648 1652	move
+E28	MLINK:T163 mover:T60 motion_signalID2:T111 motion_signalID:T110 ground:T23 trigger:T85
+T164	MLINK 1706 1713	jumping
+E29	MLINK:T164 mover:T61 motion_signalID:T112 trigger:T86
+T165	MLINK 1781 1785	land
+A194	goal_reached E30 yes
+E30	MLINK:T165 goal:T24 mover:T63 motion_signalID:T113 trigger:T87
+T166	MLINK 1932 1936	take
+A195	goal_reached E31 uncertain
+E31	MLINK:T166 goal:T9 mover:T64 motion_signalID2:T115 motion_signalID:T114 ground:T27 trigger:T88 pathID:T42
+T167	MLINK 2020 2026	Enduro
+E32	MLINK:T167 mover:T64 trigger:T89
+T168	MLINK 158 167	travelled
+E33	MLINK:T168 mover:T59 motion_signalID:T116 ground:T28 trigger:T84
+T169	MLINK 229 233	take
+A198	goal_reached E34 yes
+E34	MLINK:T169 goal:T31 mover:T66 motion_signalID:T117 trigger:T90 pathID:T43
+T170	MLINK 373 377	take
+E35	MLINK:T170 mover:T67 trigger:T91 pathID:T44
+T171	MLINK 401 406	leads
+A200	goal_reached E36 uncertain
+E36	MLINK:T171 goal:T32 mover:T44 motion_signalID:T118 trigger:T92
+T172	MLINK 457 464	driving
+E37	MLINK:T172 mover:T68 motion_signalID:T119 trigger:T93 pathID:T45
+T173	MLINK 491 495	goes
+E38	MLINK:T173 mover:T46 motion_signalID2:T121 motion_signalID:T120 trigger:T94 source:T33
+T174	MLINK 552 557	drive
+E39	MLINK:T174 motion_signalID:T122 ground:T34 trigger:T95
+T175	MLINK 75 82	Enduros
+E40	MLINK:T175 mover:T51 motion_signalID:T126 trigger:T97 source:T1
+T176	DLINK 168 200	some thousand offroad kilometers
+E41	DLINK:T176 trajector:T84 landmark:T84 val:T131
+T177	DLINK 352 362	kilometers
+E42	DLINK:T177 trajector:T93 landmark:T93 val:T133
+T178	DLINK 1032 1036	near
+E43	DLINK:T178 trajector:T76 landmark:T39 val:T127
+T179	DLINK 1468 1487	approx.. 100 meters
+E44	DLINK:T179 trajector:T19 landmark:T18 val:T129
+T180	DLINK 1620 1629	few steps
+E45	DLINK:T180 trajector:T21 landmark:T22 val:T130
+T181	DLINK 2037 2070	many beautiful Offroad kilometers
+E46	DLINK:T181 trajector:T89 landmark:T89 val:T132
+T182	DLINK 1148 1165	within 530 meters
+E47	DLINK:T182 trajector:T2 landmark:T10 val:T128
+T183	DLINK 656 660	near
+E48	DLINK:T183 trajector:T48 landmark:T35 val:T134
+T184	DLINK 83 105	approx. 100 kilometers
+E49	DLINK:T184 trajector:T1 landmark:T12 val:T135
+R37	coreference Arg1:T51 Arg2:T69
+#145	AnnotatorNotes R37	SPLITCOREFERENCE
+R38	coreference Arg1:T51 Arg2:T71
+#146	AnnotatorNotes R38	SPLITCOREFERENCE

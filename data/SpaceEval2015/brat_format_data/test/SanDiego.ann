@@ -1,0 +1,297 @@
+T1	Null 324 327	the
+#1	AnnotatorNotes T1	PLACE beginning of '... I could cross the border the next morning.'
+T2	Null 312 317	could
+#2	AnnotatorNotes T2	PLACE end of '... I could cross the border the next morning.'
+T3	Null 755 759	many
+#3	AnnotatorNotes T3	PLACE beginning of 'I passed through many small and fairly uninhabited valleys ...'
+T4	Null 760 765	small
+#4	AnnotatorNotes T4	PLACE end of 'I passed through many small and fairly uninhabited valleys ...'
+T5	Place 110 119	San Diego
+A1	form T5 NAM
+T6	Place 1181 1189	Ensenada
+A2	form T6 NAM
+T7	Place 1233 1239	school
+A3	form T7 NOM
+T8	Place 1293 1316	Centro Educativo Patria
+A4	form T8 NAM
+T9	Place 1446 1451	ranch
+A5	form T9 NOM
+T10	Place 1460 1465	ranch
+A6	form T10 NOM
+T11	Place 167 174	suburbs
+#11	AnnotatorNotes T11	amount='gt1'
+A7	form T11 NOM
+T12	Place 243 251	Tiajuana
+A8	form T12 NAM
+T13	Place 416 422	Mexico
+A9	form T13 NAM
+T14	Place 537 543	Tecate
+A10	form T14 NAM
+T15	Place 715 720	hills
+#15	AnnotatorNotes T15	amount='gt1'
+A11	form T15 NOM
+T16	Place 730 736	Tecate
+A12	form T16 NAM
+T17	Place 789 796	valleys
+#17	AnnotatorNotes T17	amount='many'
+A13	form T17 NOM
+T18	Place 815 821	valley
+A14	form T18 NOM
+T19	Place 825 834	vineyards
+#19	AnnotatorNotes T19	amount='gt1'
+A15	form T19 NOM
+T20	Place 910 915	place
+A16	form T20 NOM
+T21	Place 979 984	house
+A17	form T21 NOM
+T22	Path 190 195	roads
+A18	form T22 NOM
+T23	Path 214 221	highway
+A19	form T23 NOM
+T24	Path 232 237	coast
+A20	form T24 NOM
+T25	Path 285 289	side
+A21	form T25 NOM
+T26	Path 297 301	road
+A22	form T26 NOM
+T27	Path 328 334	border
+A23	form T27 NOM
+T28	Path 844 849	coast
+A24	form T28 NOM
+T29	SpatialEntity 103 104	I
+A25	form T29 NOM
+T30	SpatialEntity 1197 1198	I
+A26	form T30 NOM
+T31	SpatialEntity 1240 1241	I
+A27	form T31 NOM
+T32	SpatialEntity 1426 1428	me
+A28	form T32 NOM
+T33	SpatialEntity 176 177	I
+A29	form T33 NOM
+T34	SpatialEntity 268 269	I
+A30	form T34 NOM
+T35	SpatialEntity 310 311	I
+A31	form T35 NOM
+T36	SpatialEntity 360 368	Bicycles
+A32	form T36 NOM
+T37	SpatialEntity 545 546	I
+A33	form T37 NOM
+T38	SpatialEntity 632 635	car
+A34	form T38 NOM
+T39	SpatialEntity 648 650	me
+A35	form T39 NOM
+T40	SpatialEntity 738 739	I
+A36	form T40 NOM
+T41	SpatialEntity 933 937	tent
+A37	form T41 NOM
+T42	SpatialEntity 939 944	Julio
+A38	form T42 NAM
+T43	SpatialEntity 961 963	me
+A39	form T43 NOM
+T44	SpatialEntity 452 453	I
+A40	form T44 NOM
+T45	SpatialEntity 871 872	I
+A41	form T45 NOM
+T46	SpatialEntity 916 917	I
+A42	form T46 NOM
+T47	SpatialEntity 1685 1686	I
+A43	form T47 NOM
+T48	SpatialEntity 1741 1742	I
+A44	form T48 NOM
+T49	Event 1199 1206	checked
+T50	Event 1562 1567	lives
+T51	Event 681 688	sitting
+T52	Event 967 971	stay
+T53	Event 1432 1436	stay
+T54	Event 270 276	camped
+T55	Motion 105 109	left
+A45	motion_type T55 path
+A46	motion_class T55 leave
+A47	motion_sense T55 literal
+T56	Motion 1173 1177	ride
+A48	motion_type T56 compound
+A49	motion_class T56 move
+A50	motion_sense T56 literal
+T57	Motion 1255 1260	visit
+A51	motion_type T57 compound
+A52	motion_class T57 reach
+A53	motion_sense T57 literal
+T58	Motion 1284 1289	biked
+A54	motion_type T58 compound
+A55	motion_class T58 reach
+A56	motion_sense T58 literal
+T59	Motion 141 147	riding
+A57	motion_type T59 compound
+A58	motion_class T59 move
+A59	motion_sense T59 literal
+T60	Motion 178 182	took
+A60	motion_type T60 compound
+A61	motion_class T60 follow
+A62	motion_sense T60 literal
+T61	Motion 199 204	avoid
+A63	motion_type T61 compound
+A64	motion_class T61 move_external
+A65	motion_sense T61 literal
+T62	Motion 318 323	cross
+A66	motion_type T62 path
+A67	motion_class T62 cross
+A68	motion_sense T62 literal
+T63	Motion 401 410	traveling
+A69	motion_type T63 path
+A70	motion_class T63 reach
+A71	motion_sense T63 literal
+T64	Motion 522 528	Biking
+A72	motion_type T64 compound
+A73	motion_class T64 move
+A74	motion_sense T64 literal
+T65	Motion 641 647	passed
+A75	motion_type T65 compound
+A76	motion_class T65 move_external
+A77	motion_sense T65 literal
+T66	Motion 700 706	Biking
+A78	motion_type T66 compound
+A79	motion_class T66 move_internal
+A80	motion_sense T66 literal
+T67	Motion 740 746	passed
+A81	motion_type T67 compound
+A82	motion_class T67 cross
+A83	motion_sense T67 literal
+T68	Motion 804 812	reaching
+A84	motion_type T68 compound
+A85	motion_class T68 reach
+A86	motion_sense T68 literal
+T69	Motion 924 929	pitch
+A87	motion_type T69 manner
+A88	motion_class T69 move
+A89	motion_sense T69 intrinsic_change
+T70	SpatialSignal 1191 1196	where
+A90	semantic_type T70 topological
+T71	SpatialSignal 1437 1439	at
+A91	semantic_type T71 topological
+T72	SpatialSignal 1453 1455	At
+A92	semantic_type T72 topological
+T73	SpatialSignal 222 227	along
+A93	semantic_type T73 topological
+T74	SpatialSignal 277 280	off
+A94	semantic_type T74 topological
+T75	SpatialSignal 290 292	of
+A95	semantic_type T75 topological
+T76	SpatialSignal 689 695	inside
+A96	semantic_type T76 topological
+T77	SpatialSignal 721 726	south
+A97	semantic_type T77 directional
+T78	SpatialSignal 972 974	at
+A98	semantic_type T78 topological
+T79	MotionSignal 1178 1180	to
+A99	MS_type T79 path
+T80	MotionSignal 1290 1292	to
+A100	MS_type T80 path
+T81	MotionSignal 148 152	east
+A101	MS_type T81 path
+T82	MotionSignal 153 160	through
+A102	MS_type T82 path
+T83	MotionSignal 411 415	into
+A103	MS_type T83 path
+T84	MotionSignal 529 536	through
+A104	MS_type T84 path
+T85	MotionSignal 747 754	through
+A105	MS_type T85 path
+T86	Measure 238 242	near
+#87	AnnotatorNotes T86	 NEAR
+T87	Measure 835 839	near
+#89	AnnotatorNotes T87	 NEAR
+T88	TLINK 290 292	of
+A106	QS_type E1 TPP
+E1	TLINK:T88 trajector:T25 landmark:T26 trigger:T75
+T89	TLINK 815 821	valley
+A107	QS_type E2 DC
+E2	TLINK:T89 trajector:T18 landmark:T28
+T90	TLINK 1191 1196	where
+A108	QS_type E3 IN
+E3	TLINK:T90 trajector:T49 landmark:T6 trigger:T70
+T91	TLINK 1453 1455	At
+A109	QS_type E4 EQ
+E4	TLINK:T91 trajector:T50 landmark:T10 trigger:T72
+T92	TLINK 689 695	inside
+A110	QS_type E5 IN
+E5	TLINK:T92 trajector:T51 landmark:T38 trigger:T76
+T93	TLINK 972 974	at
+A111	QS_type E6 EQ
+E6	TLINK:T93 trajector:T52 landmark:T21 trigger:T78
+T94	TLINK 1437 1439	at
+A112	QS_type E7 IN
+E7	TLINK:T94 trajector:T53 landmark:T9 trigger:T71
+T95	TLINK 277 280	off
+A113	QS_type E8 DC
+E8	TLINK:T95 trajector:T54 landmark:T25 trigger:T74
+T96	TLINK 755 759	many
+A114	QS_type E9 EC
+E9	TLINK:T96 trajector:T3 landmark:T17
+T97	TLINK 760 765	small
+A115	QS_type E10 EC
+E10	TLINK:T97 trajector:T4 landmark:T17
+T98	TLINK 324 327	the
+A116	QS_type E11 EC
+E11	TLINK:T98 trajector:T1 landmark:T27
+T99	TLINK 312 317	could
+A117	QS_type E12 EC
+E12	TLINK:T99 trajector:T2 landmark:T27
+T100	TLINK 222 227	along
+A118	QS_type E13 DC
+E13	TLINK:T100 trajector:T23 landmark:T24 trigger:T73
+T101	OLINK 721 726	south
+A119	O_type E14 SOUTH
+A120	frame_type E14 ABSOLUTE
+A121	projective E14 ABSOLUTE
+E14	OLINK:T101 trajector:T15 landmark:T16 trigger:T77
+T102	OLINK 755 759	many
+A122	O_type E15 ACROSS
+A123	frame_type E15 RELATIVE
+A124	projective E15 RELATIVE
+E15	OLINK:T102 trajector:T3 landmark:T17 referencePt:T4
+T103	OLINK 324 327	the
+A125	O_type E16 ACROSS
+A126	frame_type E16 RELATIVE
+A127	projective E16 RELATIVE
+E16	OLINK:T103 trajector:T1 landmark:T27 referencePt:T2
+T104	MLINK 105 109	left
+E17	MLINK:T104 mover:T29 trigger:T55 source:T5
+T105	MLINK 141 147	riding
+E18	MLINK:T105 mover:T29 motion_signalID2:T82 motion_signalID:T81 ground:T11 trigger:T59
+T106	MLINK 740 746	passed
+A130	goal_reached E19 yes
+E19	MLINK:T106 goal:T4 mover:T40 midPoint:T17 motion_signalID:T85 trigger:T67 source:T3
+T107	MLINK 804 812	reaching
+A131	goal_reached E20 yes
+E20	MLINK:T107 goal:T18 mover:T40 trigger:T68
+T108	MLINK 924 929	pitch
+E21	MLINK:T108 mover:T41 ground:T20 trigger:T69
+T109	MLINK 1173 1177	ride
+A133	goal_reached E22 yes
+E22	MLINK:T109 goal:T6 motion_signalID:T79 trigger:T56
+T110	MLINK 1255 1260	visit
+A134	goal_reached E23 yes
+E23	MLINK:T110 goal:T7 mover:T31 trigger:T57
+T111	MLINK 1284 1289	biked
+A135	goal_reached E24 yes
+E24	MLINK:T111 goal:T8 mover:T31 motion_signalID:T80 trigger:T58
+T112	MLINK 178 182	took
+E25	MLINK:T112 mover:T33 trigger:T60 pathID:T22
+T113	MLINK 199 204	avoid
+E26	MLINK:T113 mover:T33 ground:T23 trigger:T61
+T114	MLINK 318 323	cross
+A138	goal_reached E27 yes
+E27	MLINK:T114 goal:T2 mover:T35 midPoint:T27 trigger:T62 source:T1
+T115	MLINK 401 410	traveling
+A139	goal_reached E28 yes
+E28	MLINK:T115 goal:T13 mover:T36 motion_signalID:T83 trigger:T63
+T116	MLINK 522 528	Biking
+E29	MLINK:T116 mover:T37 motion_signalID:T84 ground:T14 trigger:T64
+T117	MLINK 641 647	passed
+E30	MLINK:T117 mover:T38 ground:T39 trigger:T65
+T118	MLINK 700 706	Biking
+E31	MLINK:T118 mover:T40 ground:T15 trigger:T66
+T119	DLINK 238 242	near
+E32	DLINK:T119 trajector:T24 landmark:T12 val:T86
+T120	DLINK 835 839	near
+E33	DLINK:T120 trajector:T18 landmark:T28 val:T87

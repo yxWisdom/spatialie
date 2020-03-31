@@ -66,7 +66,7 @@ public class GenerateJointCorpus {
         GenerateJointCorpus.run("data/SpaceEval2015/raw_data/training++",
                 "data/SpaceEval2015/processed_data/joint/train.txt");
         GenerateJointCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/joint/dev.txt");
+                "data/SpaceEval2015/processed_data/joint/dev_all.txt");
         GenerateJointCorpus.run("data/SpaceEval2015/raw_data/gold++",
                 "data/SpaceEval2015/processed_data/joint/test.txt");
     }

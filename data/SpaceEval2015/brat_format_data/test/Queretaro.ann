@@ -1,0 +1,194 @@
+T1	Null 1091 1093	of
+#1	AnnotatorNotes T1	PLACE end of '... I traveled south through a patchwork of small corn fields.'
+T2	Null 1330 1333	the
+#2	AnnotatorNotes T2	PLACE '... I climbed to 11,000 feet ...'
+T3	Null 1079 1080	a
+#3	AnnotatorNotes T3	PLACE beginning of '... I traveled south through a patchwork of small corn fields.'
+T4	Place 1031 1035	land
+A1	form T4 NOM
+T5	Place 1081 1090	patchwork
+A2	form T5 NOM
+T6	Place 1105 1111	fields
+A3	form T6 NOM
+T7	Place 1149 1153	land
+A4	form T7 NOM
+T8	Place 1340 1346	forest
+A5	form T8 NOM
+T9	Place 1365 1372	Durango
+A6	form T9 NAM
+T10	Place 1374 1378	This
+A7	form T10 NOM
+T11	Place 458 467	Queretaro
+A8	form T11 NAM
+T12	Place 506 511	house
+A9	form T12 NOM
+T13	Place 840 844	U.S.
+A10	form T13 NAM
+T14	Place 900 905	towns
+A11	form T14 NOM
+T15	Place 925 929	U.S.
+A12	form T15 NAM
+T16	Place 979 983	land
+A13	form T16 NOM
+T17	Place 993 1002	Queretaro
+A14	form T17 NAM
+T18	Place 1266 1270	town
+#18	AnnotatorNotes T18	SPATIAL_FUNCTION
+A15	form T18 NOM
+T19	Place 1274 1283	Maravatio
+A16	form T19 NAM
+T20	SpatialEntity 1054 1055	I
+A17	form T20 NOM
+T21	SpatialEntity 1199 1205	stalks
+A18	form T21 NOM
+T22	SpatialEntity 1234 1242	bomberos
+A19	form T22 NOM
+T23	SpatialEntity 1285 1286	I
+A20	form T23 NOM
+T24	SpatialEntity 1316 1317	I
+A21	form T24 NOM
+T25	SpatialEntity 1392 1403	butterflies
+A22	form T25 NOM
+T26	SpatialEntity 469 470	I
+A23	form T26 NOM
+T27	SpatialEntity 794 802	daughter
+A24	form T27 NOM
+T28	SpatialEntity 878 884	people
+A25	form T28 NOM
+T29	SpatialEntity 273 274	I
+A26	form T29 NOM
+T30	SpatialEntity 620 621	I
+A27	form T30 NOM
+T31	SpatialEntity 1347 1348	I
+A28	form T31 NOM
+T32	Event 1017 1021	rain
+T33	Event 1217 1224	staying
+T34	Event 471 477	camped
+T35	Event 911 917	worked
+T36	Event 952 959	working
+T37	Motion 1056 1064	traveled
+A29	motion_type T37 path
+A30	motion_class T37 cross
+A31	motion_sense T37 literal
+T38	Motion 1287 1294	climbed
+A32	motion_type T38 compound
+A33	motion_class T38 reach
+A34	motion_sense T38 literal
+T39	Motion 1318 1329	encountered
+A35	motion_type T39 path
+A36	motion_class T39 hit
+A37	motion_sense T39 literal
+T40	Motion 439 446	Heading
+A38	motion_type T40 compound
+A39	motion_class T40 leave
+A40	motion_sense T40 literal
+T41	Motion 826 832	moving
+A41	motion_type T41 path
+A42	motion_class T41 move
+A43	motion_sense T41 literal
+T42	SpatialSignal 1036 1048	to the north
+A44	semantic_type T42 directional
+T43	SpatialSignal 1172 1179	covered
+A45	semantic_type T43 dir_top
+T44	SpatialSignal 1253 1255	of
+A46	semantic_type T44 topological
+T45	SpatialSignal 1310 1315	where
+A47	semantic_type T45 topological
+T46	SpatialSignal 1382 1387	where
+A48	semantic_type T46 topological
+T47	SpatialSignal 494 501	next to
+A49	semantic_type T47 dir_top
+T48	SpatialSignal 885 887	in
+A50	semantic_type T48 topological
+T49	SpatialSignal 918 920	in
+A51	semantic_type T49 topological
+T50	SpatialSignal 960 966	abroad
+A52	semantic_type T50 topological
+T51	SpatialSignal 984 989	south
+A53	semantic_type T51 directional
+T52	MotionSignal 1065 1070	south
+A54	MS_type T52 path
+T53	MotionSignal 1071 1078	through
+A55	MS_type T53 path
+T54	MotionSignal 1295 1297	to
+A56	MS_type T54 path
+T55	MotionSignal 447 452	south
+A57	MS_type T55 path
+T56	MotionSignal 453 457	from
+A58	MS_type T56 path
+T57	MotionSignal 833 835	to
+A59	MS_type T57 path
+T58	Measure 1298 1309	11,000 feet
+#59	AnnotatorNotes T58	feet 11000
+T59	TLINK 494 501	next to
+A60	QS_type E1 DC
+E1	TLINK:T59 trajector:T34 landmark:T12 trigger:T47
+T60	TLINK 885 887	in
+A61	QS_type E2 IN
+E2	TLINK:T60 trajector:T28 landmark:T14 trigger:T48
+T61	TLINK 918 920	in
+A62	QS_type E3 IN
+E3	TLINK:T61 trajector:T35 landmark:T15 trigger:T49
+T62	TLINK 960 966	abroad
+A63	QS_type E4 DC
+E4	TLINK:T62 trajector:T36 landmark:T14 trigger:T50
+T63	TLINK 1017 1021	rain
+A64	QS_type E5 PO
+E5	TLINK:T63 trajector:T32 landmark:T16
+T64	TLINK 1017 1021	rain
+A65	QS_type E6 PO
+E6	TLINK:T64 trajector:T32 landmark:T4
+T65	TLINK 1172 1179	covered
+A66	QS_type E7 EC
+E7	TLINK:T65 trajector:T21 landmark:T7 trigger:T43
+T66	TLINK 1310 1315	where
+A67	QS_type E8 IN
+E8	TLINK:T66 trajector:T39 landmark:T2 trigger:T45
+T67	TLINK 1382 1387	where
+A68	QS_type E9 IN
+E9	TLINK:T67 trajector:T25 landmark:T10 trigger:T46
+T68	TLINK 1217 1224	staying
+A69	QS_type E10 IN
+E10	TLINK:T68 trajector:T33 landmark:T19
+T69	TLINK 1253 1255	of
+A70	QS_type E11 IN
+E11	TLINK:T69 trajector:T22 landmark:T19 trigger:T44
+T70	OLINK 494 501	next to
+A71	O_type E12 NEXT_TO
+A72	frame_type E12 INTRINSIC
+A73	projective E12 INTRINSIC
+E12	OLINK:T70 trajector:T34 landmark:T12 trigger:T47 referencePt:T12
+T71	OLINK 984 989	south
+A74	O_type E13 SOUTH
+A75	frame_type E13 ABSOLUTE
+A76	projective E13 ABSOLUTE
+E13	OLINK:T71 trajector:T16 landmark:T17 trigger:T51
+T72	OLINK 1036 1048	to the north
+A77	O_type E14 NORTH
+A78	frame_type E14 ABSOLUTE
+A79	projective E14 ABSOLUTE
+E14	OLINK:T72 trajector:T4 landmark:T17 trigger:T42
+T73	OLINK 1172 1179	covered
+A80	O_type E15 ABOVE
+A81	frame_type E15 INTRINSIC
+A82	projective E15 INTRINSIC
+E15	OLINK:T73 trajector:T21 landmark:T7 trigger:T43 referencePt:T7
+T74	OLINK 1091 1093	of
+A83	O_type E16 ACROSS
+A84	frame_type E16 RELATIVE
+A85	projective E16 RELATIVE
+E16	OLINK:T74 trajector:T1 landmark:T5 referencePt:T3
+T75	MLINK 439 446	Heading
+E17	MLINK:T75 mover:T26 motion_signalID2:T56 motion_signalID:T55 trigger:T40 source:T11
+T76	MLINK 826 832	moving
+A87	goal_reached E18 yes
+E18	MLINK:T76 goal:T13 mover:T27 motion_signalID:T57 trigger:T41
+T77	MLINK 1056 1064	traveled
+A88	goal_reached E19 yes
+E19	MLINK:T77 goal:T1 mover:T20 midPoint:T5 motion_signalID2:T53 motion_signalID:T52 trigger:T37 source:T3
+T78	MLINK 1287 1294	climbed
+A89	goal_reached E20 yes
+E20	MLINK:T78 goal:T2 mover:T23 motion_signalID:T54 trigger:T38
+T79	MLINK 1318 1329	encountered
+A90	goal_reached E21 yes
+E21	MLINK:T79 goal:T8 mover:T24 trigger:T39

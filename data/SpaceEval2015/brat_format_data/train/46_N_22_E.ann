@@ -1,0 +1,264 @@
+T1	Null 487 490	and
+#1	AnnotatorNotes T1	PLACE Goal for 'the mosquitoes didn't allow us to stop for a moment'
+T2	Null 51 54	and
+#2	AnnotatorNotes T2	PLACE Represents 46N 21E in 'About 5 km behind that village'
+T4	Place 146 153	village
+A1	form T4 NOM
+T5	Place 174 178	Bata
+A2	form T5 NAM
+T6	Place 231 237	forest
+A3	form T6 NOM
+T7	Place 25 32	46N 21E
+A4	form T7 NAM
+T8	Place 373 383	confluence
+A5	form T8 NOM
+T9	Place 46 50	Arad
+A6	form T9 NAM
+T10	Place 540 549	clearings
+A7	form T10 NOM
+T11	Place 55 61	Lipova
+A8	form T11 NAM
+T12	Place 642 647	point
+A9	form T12 NOM
+T13	Place 69 76	village
+A10	form T13 NOM
+T14	Place 77 83	Zăbalţ
+A11	form T14 NAM
+T15	Place 788 793	there
+A12	form T15 NOM
+T16	Place 911 922	confluences
+A13	form T16 NOM
+T17	Null 491 499	stinging
+#16	AnnotatorNotes T17	PLACE set containing se9, se10, and se11 - ground for 'the walk through thicket, wood and stinging nettles'
+T18	Path 200 204	21 E
+A14	form T18 NAM
+T19	Path 212 215	way
+A15	form T19 NOM
+T20	Path 296 300	rest
+A16	form T20 NOM
+T21	Path 308 311	way
+A17	form T21 NOM
+T22	Path 402 405	way
+A18	form T22 NOM
+T23	Path 822 825	way
+A19	form T23 NOM
+T24	Path 981 987	border
+A20	form T24 NOM
+T25	SpatialEntity 119 121	us
+A21	form T25 NOM
+T26	SpatialEntity 179 181	we
+A22	form T26 NOM
+T27	SpatialEntity 248 250	we
+A23	form T27 NOM
+T28	SpatialEntity 269 272	bar
+A24	form T28 NOM
+T29	SpatialEntity 277 279	we
+A25	form T29 NOM
+T30	SpatialEntity 33 35	we
+A26	form T30 NOM
+T31	SpatialEntity 341 351	mosquitoes
+A27	form T31 NOM
+T32	SpatialEntity 384 386	we
+A28	form T32 NOM
+T33	SpatialEntity 473 480	thicket
+A29	form T33 NOM
+T34	SpatialEntity 482 486	wood
+A30	form T34 NOM
+T35	SpatialEntity 500 507	nettles
+A31	form T35 NOM
+T36	SpatialEntity 602 604	us
+A32	form T36 NOM
+T37	SpatialEntity 627 629	We
+A33	form T37 NOM
+T38	SpatialEntity 713 719	hornet
+A34	form T38 NOM
+T39	SpatialEntity 734 744	mosquitoes
+A35	form T39 NOM
+T40	SpatialEntity 749 751	we
+A36	form T40 NOM
+T41	SpatialEntity 799 802	GPS
+A37	form T41 NAM
+T42	SpatialEntity 807 809	us
+A38	form T42 NOM
+T43	SpatialEntity 837 840	car
+A39	form T43 NOM
+T44	SpatialEntity 858 860	we
+A40	form T44 NOM
+T45	SpatialEntity 895 903	visitors
+A41	form T45 NOM
+T46	SpatialEntity 99 102	pig
+A42	form T46 NOM
+T47	Event 767 772	spend
+T48	Event 845 853	standing
+T49	Event 950 954	wait
+T50	Motion 112 118	follow
+A43	motion_type T50 path
+A44	motion_class T50 move_internal
+A45	motion_sense T50 literal
+T51	Motion 17 24	Leaving
+A46	motion_type T51 path
+A47	motion_class T51 leave
+A48	motion_sense T51 literal
+T52	Motion 182 188	turned
+A49	motion_type T52 path
+A50	motion_class T52 reach
+A51	motion_sense T52 literal
+T53	Motion 216 223	leading
+A52	motion_type T53 path
+A53	motion_class T53 reach
+A54	motion_sense T53 fictive
+T54	Motion 256 263	stopped
+A55	motion_type T54 path
+A56	motion_class T54 reach
+A57	motion_sense T54 literal
+T55	Motion 287 291	walk
+A58	motion_type T55 compound
+A59	motion_class T55 follow
+A60	motion_sense T55 literal
+T56	Motion 36 41	drove
+A61	motion_type T56 compound
+A62	motion_class T56 reach
+A63	motion_sense T56 literal
+T57	Motion 392 397	leave
+A64	motion_type T57 path
+A65	motion_class T57 deviate
+A66	motion_sense T57 literal
+T58	Motion 460 464	walk
+A67	motion_type T58 compound
+A68	motion_class T58 move_internal
+A69	motion_sense T58 literal
+T59	Motion 608 612	stop
+A70	motion_type T59 path
+A71	motion_class T59 reach
+A72	motion_sense T59 literal
+T60	Motion 630 637	reached
+A73	motion_type T60 path
+A74	motion_class T60 reach
+A75	motion_sense T60 literal
+T61	Motion 720 726	joined
+A76	motion_type T61 path
+A77	motion_class T61 reach
+A78	motion_sense T61 literal
+T62	Motion 803 806	led
+A79	motion_type T62 path
+A80	motion_class T62 reach
+A81	motion_sense T62 fictive
+T63	SpatialSignal 134 140	behind
+A82	semantic_type T63 dir_top
+T64	SpatialSignal 154 173	in the direction to
+A83	semantic_type T64 directional
+T65	SpatialSignal 301 303	of
+A84	semantic_type T65 topological
+T66	SpatialSignal 827 832	where
+A85	semantic_type T66 topological
+T67	SpatialSignal 84 89	where
+A86	semantic_type T67 topological
+T68	SpatialSignal 955 957	at
+A87	semantic_type T68 topological
+T69	SpatialSignal 360 368	far from
+A88	semantic_type T69 topological
+T70	MotionSignal 189 194	right
+A89	MS_type T70 path
+T71	MotionSignal 205 209	into
+A90	MS_type T71 path
+T72	MotionSignal 224 228	into
+A91	MS_type T72 path
+T73	MotionSignal 42 45	via
+A92	MS_type T73 path
+T74	MotionSignal 465 472	through
+A93	MS_type T74 path
+T75	MotionSignal 62 64	to
+A94	MS_type T75 path
+T76	MotionSignal 727 729	to
+A95	MS_type T76 path
+T77	MotionSignal 810 814	back
+A96	MS_type T77 path
+T78	MotionSignal 815 817	to
+A97	MS_type T78 path
+T79	MotionSignal 406 418	turning left
+A98	MS_type T79 path
+T80	Measure 123 133	About 5 km
+#80	AnnotatorNotes T80	kilometers ~5
+T81	Measure 195 199	near
+#82	AnnotatorNotes T81	 NEAR
+T82	Measure 353 359	1.3 km
+#84	AnnotatorNotes T82	kilometers 1.3
+T83	TLINK 301 303	of
+A99	QS_type E1 TPP
+E1	TLINK:T83 trajector:T20 landmark:T21 trigger:T65
+T84	TLINK 767 772	spend
+A100	QS_type E2 IN
+E2	TLINK:T84 trajector:T47 landmark:T15
+T85	TLINK 827 832	where
+A101	QS_type E3 IN
+E3	TLINK:T85 trajector:T48 landmark:T23 trigger:T66
+T86	TLINK 827 832	where
+A102	QS_type E4 IN
+E4	TLINK:T86 trajector:T43 landmark:T23 trigger:T66
+T87	TLINK 955 957	at
+A103	QS_type E5 IN
+E5	TLINK:T87 trajector:T49 landmark:T24 trigger:T68
+T88	TLINK 134 140	behind
+A104	QS_type E6 DC
+E6	TLINK:T88 trajector:T52 landmark:T4 trigger:T63
+T89	TLINK 360 368	far from
+A105	QS_type E7 DC
+E7	TLINK:T89 trajector:T57 landmark:T8 trigger:T69
+T90	OLINK 134 140	behind
+A106	O_type E8 ACROSS
+A107	frame_type E8 RELATIVE
+A108	projective E8 RELATIVE
+E8	OLINK:T90 trajector:T52 landmark:T4 trigger:T63 referencePt:T2
+T91	OLINK 154 173	in the direction to
+A109	O_type E9 ACROSS
+A110	frame_type E9 RELATIVE
+A111	projective E9 RELATIVE
+E9	OLINK:T91 trajector:T5 landmark:T52 trigger:T64 referencePt:T4
+T92	MLINK 17 24	Leaving
+E10	MLINK:T92 mover:T30 trigger:T51 source:T7
+T93	MLINK 36 41	drove
+A113	goal_reached E11 yes
+E11	MLINK:T93 goal:T13 mover:T30 midPoint2:T11 midPoint:T9 motion_signalID2:T75 motion_signalID:T73 trigger:T56
+T94	MLINK 608 612	stop
+A114	goal_reached E12 yes
+E12	MLINK:T94 goal:T1 mover:T36 trigger:T59
+T95	MLINK 630 637	reached
+A115	goal_reached E13 yes
+E13	MLINK:T95 goal:T12 mover:T37 trigger:T60
+T96	MLINK 720 726	joined
+A116	goal_reached E14 yes
+E14	MLINK:T96 goal:T39 mover:T38 motion_signalID:T76 trigger:T61
+T97	MLINK 803 806	led
+A117	goal_reached E15 yes
+E15	MLINK:T97 goal:T23 mover:T42 motion_signalID2:T78 motion_signalID:T77 trigger:T62
+T98	MLINK 112 118	follow
+E16	MLINK:T98 mover:T46 ground:T13 trigger:T50
+T99	MLINK 182 188	turned
+A119	goal_reached E17 yes
+E17	MLINK:T99 goal:T19 mover:T26 motion_signalID2:T71 motion_signalID:T70 trigger:T52
+T100	MLINK 216 223	leading
+A120	goal_reached E18 yes
+E18	MLINK:T100 goal:T6 mover:T19 motion_signalID:T72 trigger:T53
+T101	MLINK 256 263	stopped
+A121	goal_reached E19 yes
+E19	MLINK:T101 goal:T28 mover:T27 trigger:T54
+T102	MLINK 287 291	walk
+E20	MLINK:T102 mover:T29 trigger:T55 pathID:T20
+T103	MLINK 392 397	leave
+E21	MLINK:T103 mover:T32 motion_signalID:T79 trigger:T57 source:T22
+T104	MLINK 460 464	walk
+E22	MLINK:T104 mover:T36 motion_signalID:T74 ground:T17 trigger:T58
+T105	DLINK 123 133	About 5 km
+E23	DLINK:T105 trajector:T52 landmark:T4 val:T80
+T106	DLINK 195 199	near
+E24	DLINK:T106 trajector:T52 landmark:T18 val:T81
+T107	DLINK 353 359	1.3 km
+E25	DLINK:T107 trajector:T57 landmark:T8 val:T82
+R22	coreference Arg1:T33 Arg2:T17
+#85	AnnotatorNotes R22	SUBCOREFERENCE
+R23	coreference Arg1:T35 Arg2:T17
+#86	AnnotatorNotes R23	SUBCOREFERENCE
+R24	coreference Arg1:T34 Arg2:T17
+#87	AnnotatorNotes R24	SUBCOREFERENCE
+R25	coreference Arg1:T2 Arg2:T7
+#88	AnnotatorNotes R25	COREFERENCE

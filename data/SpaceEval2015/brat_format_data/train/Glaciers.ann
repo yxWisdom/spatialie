@@ -1,0 +1,407 @@
+T1	Null 1814 1817	did
+#1	AnnotatorNotes T1	PLACE 'I did not need to climb higher...' (the lower location)
+T2	Null 1818 1821	not
+#2	AnnotatorNotes T2	PLACE 'I did not need to climb higher...' (the higher location)
+T3	Null 164 168	that
+#3	AnnotatorNotes T3	PLACE 'a massive mountain range that rises over 22,000 feet'
+T4	Null 912 917	shown
+#4	AnnotatorNotes T4	PLACE '... where I am sitting ...'
+T5	Null 676 678	is
+#5	AnnotatorNotes T5	PLACE The goal location that the glaciers reached in 'That is where the glaciers reached less than a century ago.'
+T6	Null 851 855	used
+#6	AnnotatorNotes T6	PLACE The goal location for reach in 'the glaciers used to reach far below.'
+T7	Place 1166 1172	Huaraz
+A1	form T7 NAM
+T8	Place 1195 1206	Vallunaraju
+A2	form T8 NAM
+T9	Place 1244 1248	peak
+A3	form T9 NOM
+T10	Place 1297 1301	camp
+#10	AnnotatorNotes T10	I added this in because it's similar to the other measurements in this sentence
+A4	form T10 NOM
+T11	Place 1329 1333	base
+A5	form T11 NOM
+T12	Place 1409 1415	summit
+A6	form T12 NOM
+T13	Place 1478 1481	sky
+A7	form T13 NOM
+T14	Place 1572 1577	peaks
+A8	form T14 NOM
+T15	Place 1611 1614	top
+A9	form T15 NOM
+T16	Place 1652 1658	summit
+A10	form T16 NOM
+T17	Place 1965 1969	Peru
+A11	form T17 NAM
+T18	Place 2063 2069	Huaraz
+A12	form T18 NAM
+T19	Place 2092 2101	mountains
+A13	form T19 NOM
+T20	Place 2125 2130	peaks
+A14	form T20 NOM
+T21	Place 465 471	Huaraz
+A15	form T21 NAM
+T22	Place 494 500	INRENA
+A16	form T22 NAM
+T23	Place 502 541	Instituto Nacional de Recursos Naturals
+A17	form T23 NAM
+T24	Place 664 669	lakes
+A18	form T24 NOM
+T25	Place 753 762	mountains
+A19	form T25 NOM
+T26	Place 79 83	city
+A20	form T26 NOM
+T27	Place 87 93	Huaraz
+#27	AnnotatorNotes T27	SPATIAL_FUNCTION to pl26
+A21	form T27 NAM
+T28	Path 120 137	Cordillera Blanca
+A22	form T28 NAM
+T29	Path 1341 1348	glacier
+A23	form T29 NOM
+T30	Path 158 163	range
+A24	form T30 NOM
+T31	Path 1691 1695	wall
+A25	form T31 NOM
+T32	Path 1746 1752	cliffs
+A26	form T32 NOM
+T33	Path 239 247	glaciers
+A27	form T33 NOM
+T34	Path 262 270	glaciers
+A28	form T34 NOM
+T35	Path 358 366	glaciers
+A29	form T35 NOM
+T36	Path 644 652	glaciers
+A30	form T36 NOM
+T37	Path 689 697	glaciers
+A31	form T37 NOM
+T38	Path 842 850	glaciers
+A32	form T38 NOM
+T39	Path 904 911	glacier
+A33	form T39 NOM
+T40	Null 1130 1133	was
+#40	AnnotatorNotes T40	SPATIAL_ENTITY The set subsuming [I,se] and [guide,se] in '... I was soon following the guide out of Huaraz to attempt a climb of Vallunaraju. We would climbe ...'
+T41	SpatialEntity 1128 1129	I
+A34	form T41 NOM
+T42	SpatialEntity 1153 1158	guide
+A35	form T42 NOM
+T43	SpatialEntity 1208 1210	We
+A36	form T43 NOM
+T44	SpatialEntity 1465 1470	cloud
+A37	form T44 NOM
+T45	SpatialEntity 1530 1532	we
+A38	form T45 NOM
+T46	SpatialEntity 1597 1599	we
+A39	form T46 NOM
+T47	SpatialEntity 1669 1671	we
+A40	form T47 NOM
+T48	SpatialEntity 1812 1813	I
+A41	form T48 NOM
+T49	SpatialEntity 2073 2079	people
+A42	form T49 NOM
+T50	SpatialEntity 473 474	I
+A43	form T50 NOM
+T51	SpatialEntity 479 490	researchers
+A44	form T51 NOM
+T52	SpatialEntity 627 631	rock
+A45	form T52 NOM
+T53	SpatialEntity 671 675	That
+A46	form T53 NOM
+T54	SpatialEntity 951 952	I
+A47	form T54 NOM
+T55	SpatialEntity 602 604	me
+A48	form T55 NOM
+T56	SpatialEntity 764 765	I
+A49	form T56 NOM
+T57	SpatialEntity 1013 1014	I
+A50	form T57 NOM
+T58	SpatialEntity 1433 1435	we
+A51	form T58 NOM
+T59	SpatialEntity 1772 1777	guide
+A52	form T59 NOM
+T60	SpatialEntity 1797 1798	I
+A53	form T60 NOM
+T61	SpatialEntity 1847 1848	I
+A54	form T61 NOM
+T62	SpatialEntity 1888 1890	we
+A55	form T62 NOM
+T63	SpatialEntity 1986 1987	I
+A56	form T63 NOM
+T64	SpatialEntity 2135 2137	me
+A57	form T64 NOM
+T65	Event 1545 1552	sunrise
+T66	Event 1953 1961	problems
+T67	Event 2051 2059	industry
+T68	Event 741 745	days
+T69	Event 94 98	sits
+T70	Event 956 963	sitting
+T71	Motion 1139 1148	following
+A58	motion_type T71 path
+A59	motion_class T71 leave
+A60	motion_sense T71 literal
+T72	Motion 1186 1191	climb
+A61	motion_type T72 compound
+A62	motion_class T72 move
+A63	motion_sense T72 literal
+T73	Motion 1217 1222	climb
+A64	motion_type T73 compound
+A65	motion_class T73 reach
+A66	motion_sense T73 literal
+T74	Motion 1270 1277	leaving
+A67	motion_type T74 path
+A68	motion_class T74 leave
+A69	motion_sense T74 literal
+T75	Motion 1315 1321	hiking
+A70	motion_type T75 compound
+A71	motion_class T75 reach
+A72	motion_sense T75 literal
+T76	Motion 1399 1404	reach
+A73	motion_type T76 compound
+A74	motion_class T76 reach
+A75	motion_sense T76 literal
+T77	Motion 1494 1500	hiking
+A76	motion_type T77 manner
+A77	motion_class T77 move
+A78	motion_sense T77 literal
+T78	Motion 1579 1587	Climbing
+A79	motion_type T78 manner
+A80	motion_class T78 move
+A81	motion_sense T78 literal
+T79	Motion 1600 1606	neared
+A82	motion_type T79 path
+A83	motion_class T79 hit
+A84	motion_sense T79 literal
+T80	Motion 1672 1683	encountered
+A85	motion_type T80 path
+A86	motion_class T80 hit
+A87	motion_sense T80 literal
+T81	Motion 169 174	rises
+A88	motion_type T81 path
+A89	motion_class T81 reach
+A90	motion_sense T81 fictive
+T82	Motion 1727 1735	climbing
+A91	motion_type T82 compound
+A92	motion_class T82 follow
+A93	motion_sense T82 literal
+T83	Motion 1830 1835	climb
+A94	motion_type T83 compound
+A95	motion_class T83 reach
+A96	motion_sense T83 literal
+T84	Motion 2080 2085	visit
+A97	motion_type T84 path
+A98	motion_class T84 reach
+A99	motion_sense T84 literal
+T85	Motion 285 292	melting
+A100	motion_type T85 manner
+A101	motion_class T85 move
+A102	motion_sense T85 intrinsic_change
+T86	Motion 372 376	melt
+A103	motion_type T86 manner
+A104	motion_class T86 move
+A105	motion_sense T86 intrinsic_change
+T87	Motion 475 478	met
+A106	motion_type T87 path
+A107	motion_class T87 hit
+A108	motion_sense T87 literal
+T88	Motion 698 705	reached
+A109	motion_type T88 path
+A110	motion_class T88 reach
+A111	motion_sense T88 fictive
+T89	Motion 859 864	reach
+A112	motion_type T89 path
+A113	motion_class T89 reach
+A114	motion_sense T89 fictive
+T90	Motion 939 944	reach
+A115	motion_type T90 path
+A116	motion_class T90 reach
+A117	motion_sense T90 fictive
+T91	SpatialSignal 1334 1336	of
+A118	semantic_type T91 dir_top
+T92	SpatialSignal 1471 1473	in
+A119	semantic_type T92 topological
+T93	SpatialSignal 1553 1557	over
+A120	semantic_type T93 directional
+T94	SpatialSignal 1643 1647	from
+A121	semantic_type T94 topological
+T95	SpatialSignal 1753 1758	below
+A122	semantic_type T95 dir_top
+T96	SpatialSignal 194 197	has
+A123	semantic_type T96 topological
+T97	SpatialSignal 1962 1964	in
+A124	semantic_type T97 topological
+T98	SpatialSignal 2060 2062	in
+A125	semantic_type T98 topological
+T99	SpatialSignal 462 464	In
+A126	semantic_type T99 topological
+T100	SpatialSignal 491 493	at
+A127	semantic_type T100 topological
+T101	SpatialSignal 632 639	beneath
+A128	semantic_type T101 directional
+T102	SpatialSignal 679 684	where
+A129	semantic_type T102 topological
+T103	SpatialSignal 746 748	in
+A130	semantic_type T103 topological
+T104	SpatialSignal 869 874	below
+A131	semantic_type T104 directional
+T105	SpatialSignal 945 950	where
+A132	semantic_type T105 topological
+T106	SpatialSignal 99 115	directly beneath
+A133	semantic_type T106 dir_top
+T107	MotionSignal 1159 1162	out
+A134	MS_type T107 path
+T108	MotionSignal 1322 1324	to
+A135	MS_type T108 path
+T109	MotionSignal 1378 1382	rope
+A136	MS_type T109 manner
+T110	MotionSignal 1387 1395	crampons
+A137	MS_type T110 manner
+T111	MotionSignal 1836 1842	higher
+A138	MS_type T111 path
+T112	Measure 1227 1243	nearly 19,000 ft
+#113	AnnotatorNotes T112	feet 19000
+T113	Measure 1282 1291	14,000 ft
+#115	AnnotatorNotes T113	feet 14000
+T114	Measure 1352 1361	16,000 ft
+#117	AnnotatorNotes T114	feet 16000
+T115	Measure 1632 1642	Ten meters
+#119	AnnotatorNotes T115	meters 10
+T116	Measure 175 189	over 22,000 ft
+#121	AnnotatorNotes T116	feet gt22000
+T117	Measure 865 868	far
+#123	AnnotatorNotes T117	 FAR
+T118	TLINK 1643 1647	from
+A139	QS_type E1 DC
+E1	TLINK:T118 trajector:T80 landmark:T16 trigger:T94
+T119	TLINK 194 197	has
+A140	QS_type E2 IN
+E2	TLINK:T119 trajector:T33 landmark:T30 trigger:T96
+T120	TLINK 2125 2130	peaks
+A141	QS_type E3 TPP
+E3	TLINK:T120 trajector:T20 landmark:T19
+T121	TLINK 679 684	where
+A142	QS_type E4 EQ
+E4	TLINK:T121 trajector:T5 landmark:T53 trigger:T102
+T122	TLINK 746 748	in
+A143	QS_type E5 IN
+E5	TLINK:T122 trajector:T68 landmark:T25 trigger:T103
+T123	TLINK 99 115	directly beneath
+A144	QS_type E6 EC
+E6	TLINK:T123 trajector:T69 landmark:T28 trigger:T106
+T124	TLINK 1962 1964	in
+A145	QS_type E7 IN
+E7	TLINK:T124 trajector:T66 landmark:T17 trigger:T97
+T125	TLINK 491 493	at
+A146	QS_type E8 IN
+E8	TLINK:T125 trajector:T87 landmark:T22 trigger:T100
+T126	TLINK 462 464	In
+A147	QS_type E9 IN
+E9	TLINK:T126 trajector:T87 landmark:T21 trigger:T99
+T127	TLINK 945 950	where
+A148	QS_type E10 EQ
+E10	TLINK:T127 trajector:T70 landmark:T4 trigger:T105
+T128	TLINK 1334 1336	of
+A149	QS_type E11 TPP
+E11	TLINK:T128 trajector:T11 landmark:T29 trigger:T91
+T129	TLINK 1471 1473	in
+A150	QS_type E12 IN
+E12	TLINK:T129 trajector:T44 landmark:T13 trigger:T92
+T130	TLINK 2060 2062	in
+A151	QS_type E13 IN
+E13	TLINK:T130 trajector:T67 landmark:T18 trigger:T98
+T131	OLINK 99 115	directly beneath
+A152	O_type E14 BELOW
+A153	frame_type E14 INTRINSIC
+A154	projective E14 INTRINSIC
+E14	OLINK:T131 trajector:T69 landmark:T28 trigger:T106 referencePt:T28
+T132	OLINK 632 639	beneath
+A155	O_type E15 BELOW
+A156	frame_type E15 INTRINSIC
+A157	projective E15 INTRINSIC
+E15	OLINK:T132 trajector:T52 landmark:T24 trigger:T101 referencePt:T24
+T133	OLINK 632 639	beneath
+A158	O_type E16 BELOW
+A159	frame_type E16 INTRINSIC
+A160	projective E16 INTRINSIC
+E16	OLINK:T133 trajector:T52 landmark:T36 trigger:T101 referencePt:T36
+T134	OLINK 1334 1336	of
+A161	O_type E17 BELOW
+A162	frame_type E17 INTRINSIC
+A163	projective E17 INTRINSIC
+E17	OLINK:T134 trajector:T11 landmark:T29 trigger:T91 referencePt:T29
+T135	OLINK 2125 2130	peaks
+A164	O_type E18 TOP
+A165	frame_type E18 INTRINSIC
+A166	projective E18 INTRINSIC
+E18	OLINK:T135 trajector:T20 landmark:T19 referencePt:T19
+T136	OLINK 1553 1557	over
+A167	O_type E19 ABOVE
+A168	frame_type E19 RELATIVE
+A169	projective E19 RELATIVE
+E19	OLINK:T136 trajector:T65 landmark:T14 trigger:T93 referencePt:T45
+T137	OLINK 1753 1758	below
+A170	O_type E20 BELOW
+A171	frame_type E20 INTRINSIC
+A172	projective E20 INTRINSIC
+E20	OLINK:T137 trajector:T32 landmark:T31 trigger:T95 referencePt:T31
+T138	OLINK 869 874	below
+A173	O_type E21 BELOW
+A174	frame_type E21 INTRINSIC
+A175	projective E21 INTRINSIC
+E21	OLINK:T138 trajector:T6 landmark:T38 trigger:T104 referencePt:T38
+T139	MLINK 285 292	melting
+E22	MLINK:T139 mover:T34 trigger:T85
+T140	MLINK 372 376	melt
+E23	MLINK:T140 mover:T35 trigger:T86
+T141	MLINK 1315 1321	hiking
+A178	goal_reached E24 yes
+E24	MLINK:T141 goal:T11 mover:T43 motion_signalID:T108 trigger:T75
+T142	MLINK 1399 1404	reach
+A179	goal_reached E25 yes
+E25	MLINK:T142 goal:T12 mover:T43 motion_signalID2:T110 motion_signalID:T109 trigger:T76
+T143	MLINK 1494 1500	hiking
+E26	MLINK:T143 mover:T45 trigger:T77
+T144	MLINK 1579 1587	Climbing
+E27	MLINK:T144 mover:T46 trigger:T78
+T145	MLINK 1600 1606	neared
+A182	goal_reached E28 no
+E28	MLINK:T145 goal:T15 mover:T46 trigger:T79
+T146	MLINK 1672 1683	encountered
+A183	goal_reached E29 yes
+E29	MLINK:T146 goal:T31 mover:T47 trigger:T80
+T147	MLINK 1727 1735	climbing
+E30	MLINK:T147 mover:T47 trigger:T82 pathID:T32
+T148	MLINK 1830 1835	climb
+A185	goal_reached E31 no
+E31	MLINK:T148 goal:T2 mover:T48 motion_signalID:T111 trigger:T83 source:T1
+T149	MLINK 2080 2085	visit
+A186	goal_reached E32 yes
+E32	MLINK:T149 goal:T19 mover:T49 trigger:T84
+T150	MLINK 169 174	rises
+A187	goal_reached E33 yes
+E33	MLINK:T150 goal:T3 mover:T30 trigger:T81
+T151	MLINK 475 478	met
+A188	goal_reached E34 yes
+E34	MLINK:T151 goal:T51 mover:T50 trigger:T87
+T152	MLINK 939 944	reach
+A189	goal_reached E35 yes
+E35	MLINK:T152 goal:T4 mover:T39 trigger:T90
+T153	MLINK 698 705	reached
+A190	goal_reached E36 yes
+E36	MLINK:T153 goal:T5 mover:T37 trigger:T88
+T154	MLINK 859 864	reach
+A191	goal_reached E37 yes
+E37	MLINK:T154 goal:T6 mover:T38 trigger:T89
+T155	MLINK 1139 1148	following
+E38	MLINK:T155 mover:T40 motion_signalID:T107 trigger:T71 source:T7
+T156	MLINK 1186 1191	climb
+E39	MLINK:T156 mover:T41 ground:T8 trigger:T72
+T157	MLINK 1217 1222	climb
+A194	goal_reached E40 yes
+E40	MLINK:T157 goal:T9 mover:T43 trigger:T73
+T158	MLINK 1270 1277	leaving
+E41	MLINK:T158 mover:T43 trigger:T74 source:T10
+R37	coreference Arg1:T41 Arg2:T40
+#124	AnnotatorNotes R37	SUBCOREFERENCE
+R38	coreference Arg1:T42 Arg2:T40
+#125	AnnotatorNotes R38	SUBCOREFERENCE
+R39	coreference Arg1:T43 Arg2:T40
+#126	AnnotatorNotes R39	SPLITCOREFERENCE

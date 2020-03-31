@@ -1,0 +1,316 @@
+T1	Null 1172 1174	to
+#1	AnnotatorNotes T1	PLACE goal location for '... Dave Johnson flew in ...' 
+T2	Null 1728 1731	the
+#2	AnnotatorNotes T2	PLACE The location in Elqui Valley that the road was followed 150 miles from in 'Following the road 150 miles down the deep Elqui Valley, we arrived quickly to ...'
+T3	Null 263 266	and
+#3	AnnotatorNotes T3	PLACE The set subsuming [Argentina,pl] and [Chile,pl] in 'Biking Argentina (and Chile) after traveling the northern countries of South America is a bit of a shock.  The people here are far wealthier.'
+T4	Place 101 106	Salta
+A1	form T4 NAM
+T5	Place 1021 1026	towns
+A2	form T5 NOM
+T6	Place 1062 1068	plazas
+A3	form T6 NOM
+T7	Place 1316 1321	Chile
+A4	form T7 NAM
+T8	Place 1637 1647	snowfields
+A5	form T8 NAM
+T9	Place 1797 1806	sea level
+A6	form T9 NAM
+T10	Place 213 219	desert
+A7	form T10 NOM
+T11	Place 234 239	towns
+A8	form T11 NOM
+T12	Place 252 261	Argentina
+A9	form T12 NAM
+T13	Place 267 272	Chile
+A10	form T13 NAM
+T14	Place 303 312	countries
+A11	form T14 NOM
+T15	Place 316 329	South America
+A12	form T15 NAM
+T16	Place 362 366	here
+A13	form T16 NOM
+T17	Place 386 392	Stores
+A14	form T17 NOM
+T18	Place 488 497	Argentina
+A15	form T18 NAM
+T19	Place 594 599	plaza
+A16	form T19 NOM
+T20	Place 614 623	Argentina
+A17	form T20 NAM
+T21	Place 744 748	town
+A18	form T21 NOM
+T22	Place 914 918	here
+A19	form T22 NOM
+T23	Place 1821 1825	town
+A20	form T23 NOM
+T24	Place 1829 1845	La Serena, Chile
+A21	form T24 NAM
+T25	Path 1295 1300	Andes
+A22	form T25 NAM
+T26	Path 1544 1548	pass
+A23	form T26 NOM
+T27	Path 1550 1567	Paso Aguas Negras
+A24	form T27 NAM
+T28	Path 1574 1578	road
+A25	form T28 NOM
+R12	midIDs Arg1:T28 Arg2:T26
+T29	Path 1624 1632	glaciers
+A26	form T29 NOM
+T30	Path 1732 1736	road
+A27	form T30 NOM
+T31	Path 1761 1773	Elqui Valley
+A28	form T31 NAM
+T32	Path 200 209	stretches
+A29	form T32 NOM
+T33	Null 1183 1186	for
+#33	AnnotatorNotes T33	SPATIAL_ENTITY The set subsuming [Dave Johnson,se7] and [me,se8] in 'My friend Dave Johnson flew in to join me for this section ...'
+T34	SpatialEntity 1032 1033	I
+A30	form T34 NOM
+T35	SpatialEntity 1151 1163	Dave Johnson
+A31	form T35 NAM
+T36	SpatialEntity 1180 1182	me
+A32	form T36 NOM
+T37	SpatialEntity 1252 1254	We
+A33	form T37 NOM
+T38	SpatialEntity 1400 1402	us
+A34	form T38 NOM
+T39	SpatialEntity 1614 1616	we
+A35	form T39 NOM
+T40	SpatialEntity 167 168	I
+A36	form T40 NOM
+T41	SpatialEntity 1775 1777	we
+A37	form T41 NOM
+T42	SpatialEntity 181 187	myself
+A38	form T42 NOM
+T43	SpatialEntity 355 361	people
+A39	form T43 NOM
+T44	SpatialEntity 418 422	food
+A40	form T44 NOM
+T45	SpatialEntity 580 581	I
+A41	form T45 NOM
+T46	SpatialEntity 729 730	I
+A42	form T46 NOM
+T47	SpatialEntity 988 994	people
+#47	AnnotatorNotes T47	amount=an amazing number;
+A43	form T47 NOM
+T48	SpatialEntity 423 424	I
+A44	form T48 NOM
+T49	SpatialEntity 437 438	I
+A45	form T49 NOM
+T50	SpatialEntity 532 534	me
+A46	form T50 NOM
+T51	SpatialEntity 567 569	me
+A47	form T51 NOM
+T52	SpatialEntity 789 790	I
+A48	form T52 NOM
+T53	SpatialEntity 819 822	You
+A49	form T53 NOM
+T54	SpatialEntity 924 925	I
+A50	form T54 NOM
+T55	SpatialEntity 1337 1339	us
+A51	form T55 NOM
+T56	Event 1042 1049	sitting
+T57	Event 439 442	get
+T58	Event 446 451	drink
+T59	Motion 1164 1168	flew
+A52	motion_type T59 compound
+A53	motion_class T59 reach
+A54	motion_sense T59 literal
+T60	Motion 1175 1179	join
+A55	motion_type T60 manner
+A56	motion_class T60 hit
+A57	motion_sense T60 literal
+T61	Motion 1276 1282	biking
+A58	motion_type T61 compound
+A59	motion_class T61 reach
+A60	motion_sense T61 literal
+T62	Motion 1302 1310	crossing
+A61	motion_type T62 path
+A62	motion_class T62 reach
+A63	motion_sense T62 literal
+T63	Motion 1403 1409	travel
+A64	motion_type T63 path
+A65	motion_class T63 move
+A66	motion_sense T63 literal
+T64	Motion 1523 1531	Crossing
+A67	motion_type T64 path
+A68	motion_class T64 follow
+A69	motion_sense T64 literal
+T65	Motion 1617 1623	passed
+A70	motion_type T65 path
+A71	motion_class T65 move_external
+A72	motion_sense T65 literal
+T66	Motion 1718 1727	Following
+A73	motion_type T66 path
+A74	motion_class T66 follow
+A75	motion_sense T66 literal
+T67	Motion 1778 1785	arrived
+A76	motion_type T67 path
+A77	motion_class T67 reach
+A78	motion_sense T67 literal
+T68	Motion 188 194	biking
+A79	motion_type T68 compound
+A80	motion_class T68 move
+A81	motion_sense T68 literal
+T69	Motion 245 251	Biking
+A82	motion_type T69 compound
+A83	motion_class T69 move_internal
+A84	motion_sense T69 literal
+T70	Motion 280 289	traveling
+A85	motion_type T70 path
+A86	motion_class T70 move_internal
+A87	motion_sense T70 literal
+T71	Motion 582 586	bike
+A88	motion_type T71 compound
+A89	motion_class T71 reach
+A90	motion_sense T71 literal
+T72	Motion 731 736	biked
+A91	motion_type T72 compound
+A92	motion_class T72 reach
+A93	motion_sense T72 literal
+T73	Motion 83 89	Biking
+A94	motion_type T73 compound
+A95	motion_class T73 move
+A96	motion_sense T73 literal
+T74	Motion 995 998	use
+A97	motion_type T74 manner
+A98	motion_class T74 move
+A99	motion_sense T74 literal
+T75	SpatialSignal 1008 1010	in
+A100	semantic_type T75 topological
+T76	SpatialSignal 1050 1052	in
+A101	semantic_type T76 topological
+T77	SpatialSignal 1283 1285	up
+#77	AnnotatorNotes T77	Need a non-consuming place for the location that is 'down' from the Andes
+A102	semantic_type T77 directional
+T78	SpatialSignal 1569 1571	on
+A103	semantic_type T78 topological
+T79	SpatialSignal 1747 1751	down
+A104	semantic_type T79 directional
+T80	SpatialSignal 210 212	of
+A105	semantic_type T80 topological
+T81	SpatialSignal 220 227	between
+A106	semantic_type T81 directional
+T82	SpatialSignal 313 315	of
+A107	semantic_type T82 topological
+T83	SpatialSignal 397 404	stocked
+A108	semantic_type T83 topological
+T84	SpatialSignal 485 487	in
+A109	semantic_type T84 topological
+T85	MotionSignal 1169 1171	in
+A110	MS_type T85 path
+T86	MotionSignal 1286 1290	into
+A111	MS_type T86 path
+T87	MotionSignal 1311 1315	into
+A112	MS_type T87 path
+T88	MotionSignal 1747 1751	down
+A113	MS_type T88 path
+T89	MotionSignal 1794 1796	to
+A114	MS_type T89 path
+T90	MotionSignal 587 591	into
+A115	MS_type T90 path
+T91	MotionSignal 737 741	into
+A116	MS_type T91 path
+T92	MotionSignal 90 95	south
+A117	MS_type T92 path
+T93	MotionSignal 96 100	from
+A118	MS_type T93 path
+T94	MotionSignal 999 1007	bicycles
+A119	MS_type T94 manner
+T95	Measure 1534 1543	15,500 ft
+#96	AnnotatorNotes T95	feet 15500
+T96	Measure 1737 1746	150 miles
+#98	AnnotatorNotes T96	miles 150
+T97	TLINK 210 212	of
+A120	QS_type E1 IN
+E1	TLINK:T97 trajector:T32 landmark:T10 trigger:T80
+T98	TLINK 397 404	stocked
+A121	QS_type E2 IN
+E2	TLINK:T98 trajector:T44 landmark:T17 trigger:T83
+T99	TLINK 485 487	in
+A122	QS_type E3 IN
+E3	TLINK:T99 trajector:T57 landmark:T18 trigger:T84
+T100	TLINK 1008 1010	in
+A123	QS_type E4 IN
+E4	TLINK:T100 trajector:T74 landmark:T5 trigger:T75
+T101	TLINK 1050 1052	in
+A124	QS_type E5 IN
+E5	TLINK:T101 trajector:T56 landmark:T6 trigger:T76
+T102	TLINK 1569 1571	on
+A125	QS_type E6 NTPP
+E6	TLINK:T102 trajector:T26 landmark:T28 trigger:T78
+T103	TLINK 313 315	of
+A126	QS_type E7 IN
+E7	TLINK:T103 trajector:T14 landmark:T15 trigger:T82
+T104	TLINK 355 361	people
+A127	QS_type E8 IN
+E8	TLINK:T104 trajector:T43 landmark:T16
+T105	TLINK 1732 1736	road
+A128	QS_type E9 IN
+E9	TLINK:T105 trajector:T30 landmark:T31
+T106	TLINK 485 487	in
+A129	QS_type E10 IN
+E10	TLINK:T106 trajector:T58 landmark:T18 trigger:T84
+T107	OLINK 220 227	between
+A130	O_type E11 BETWEEN
+A131	frame_type E11 RELATIVE
+A132	projective E11 RELATIVE
+E11	OLINK:T107 trajector:T32 landmark:T11 trigger:T81 referencePt:T11
+T108	MLINK 1175 1179	join
+A133	goal_reached E12 yes
+E12	MLINK:T108 goal:T36 mover:T35 trigger:T60
+T109	MLINK 1276 1282	biking
+A134	goal_reached E13 yes
+E13	MLINK:T109 goal:T25 mover:T37 motion_signalID:T86 trigger:T61
+T110	MLINK 1302 1310	crossing
+A135	goal_reached E14 yes
+E14	MLINK:T110 goal:T7 mover:T37 motion_signalID:T87 trigger:T62
+T111	MLINK 1403 1409	travel
+E15	MLINK:T111 mover:T38 trigger:T63
+T112	MLINK 1523 1531	Crossing
+E16	MLINK:T112 mover:T39 trigger:T64 pathID:T26
+T113	MLINK 1617 1623	passed
+E17	MLINK:T113 mover:T39 ground:T29 trigger:T65
+T114	MLINK 1617 1623	passed
+E18	MLINK:T114 mover:T39 ground:T8 trigger:T65
+T115	MLINK 1778 1785	arrived
+A140	goal_reached E19 yes
+E19	MLINK:T115 goal:T24 mover:T41 motion_signalID:T89 trigger:T67
+T116	MLINK 1778 1785	arrived
+A141	goal_reached E20 yes
+E20	MLINK:T116 goal:T9 mover:T41 motion_signalID:T89 trigger:T67
+T117	MLINK 245 251	Biking
+E21	MLINK:T117 ground:T3 trigger:T69
+T118	MLINK 995 998	use
+E22	MLINK:T118 mover:T47 motion_signalID:T94 trigger:T74
+T119	MLINK 83 89	Biking
+E23	MLINK:T119 mover:T40 motion_signalID2:T92 motion_signalID:T93 trigger:T73 source:T4
+T120	MLINK 280 289	traveling
+E24	MLINK:T120 ground:T14 trigger:T70
+T121	MLINK 1718 1727	Following
+A146	goal_reached E25 yes
+E25	MLINK:T121 goal:T24 mover:T41 motion_signalID:T88 trigger:T66 source:T2 pathID:T30
+T122	MLINK 188 194	biking
+E26	MLINK:T122 mover:T42 ground:T10 trigger:T68 pathID:T32
+T123	MLINK 582 586	bike
+A148	goal_reached E27 yes
+E27	MLINK:T123 goal:T19 mover:T45 motion_signalID:T90 trigger:T71
+T124	MLINK 731 736	biked
+A149	goal_reached E28 yes
+E28	MLINK:T124 goal:T21 mover:T46 motion_signalID:T91 trigger:T72
+T125	MLINK 1164 1168	flew
+A150	goal_reached E29 yes
+E29	MLINK:T125 goal:T1 mover:T35 motion_signalID:T85 trigger:T59
+R25	coreference Arg1:T35 Arg2:T33
+#99	AnnotatorNotes R25	SUBCOREFERENCE
+R26	coreference Arg1:T12 Arg2:T3
+#100	AnnotatorNotes R26	SUBCOREFERENCE
+R27	coreference Arg1:T13 Arg2:T3
+#101	AnnotatorNotes R27	SUBCOREFERENCE
+R28	coreference Arg1:T16 Arg2:T3
+#102	AnnotatorNotes R28	SPLITCOREFERENCE
+R29	coreference Arg1:T36 Arg2:T33
+#103	AnnotatorNotes R29	SUBCOREFERENCE
+R30	coreference Arg1:T37 Arg2:T33
+#104	AnnotatorNotes R30	SPLITCOREFERENCE

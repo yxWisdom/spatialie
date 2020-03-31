@@ -1,0 +1,367 @@
+T1	Null 1433 1436	and
+#1	AnnotatorNotes T1	PLACE The source for the tearing event in 'In 1998, a huge category 5 hurricane, Hurricane Mitch, tore through the Caribbean...'
+T2	Null 1419 1422	the
+#2	AnnotatorNotes T2	PLACE The goal for the tearing event in 'In 1998, a huge category 5 hurricane, Hurricane Mitch, tore through the Caribbean...'
+T3	Place 1423 1432	Caribbean
+A1	form T3 NAM
+T4	Place 1461 1476	Central America
+A2	form T4 NAM
+T5	Place 1593 1601	Honduras
+A3	form T5 NAM
+T6	Place 1765 1770	house
+A4	form T6 NOM
+T7	Place 1824 1835	countryside
+A5	form T7 NOM
+T8	Place 1965 1976	Tegucigalpa
+A6	form T8 NAM
+T9	Place 2009 2014	floor
+A7	form T9 NOM
+T10	Place 2023 2032	buildings
+#10	AnnotatorNotes T10	SPATIAL_FUNCTION
+A8	form T10 NOM
+T11	Place 2118 2124	houses
+A9	form T11 NOM
+T12	Place 2177 2184	section
+A10	form T12 NOM
+T13	Place 221 227	Belize
+A11	form T13 NAM
+T14	Place 2243 2249	houses
+A12	form T14 NOM
+T15	Place 2290 2294	rest
+A13	form T15 NOM
+T16	Place 2298 2313	Central America
+A14	form T16 NAM
+T17	Place 2318 2341	San Miguel, El Salvador
+A15	form T17 NAM
+T18	Place 2403 2412	Nicaragua
+A16	form T18 NAM
+T19	Place 2605 2614	Nicaragua
+A17	form T19 NAM
+T20	Place 2641 2646	house
+A18	form T20 NOM
+T21	Place 277 288	settlements
+A19	form T21 NOM
+T22	Place 3136 3140	here
+A20	form T22 NOM
+T23	Place 3144 3159	Central America
+A21	form T23 NAM
+T24	Place 326 330	town
+A22	form T24 NOM
+T25	Place 3401 3405	U.S.
+A23	form T25 NAM
+T26	Place 3543 3547	U.S.
+A24	form T26 NAM
+T27	Place 3604 3611	Florida
+A25	form T27 NAM
+T28	Place 362 371	Placencia
+A26	form T28 NAM
+T29	Place 3623 3629	states
+A27	form T29 NOM
+T30	Place 548 557	Placencia
+A28	form T30 NAM
+T31	Place 561 570	Sand Bite
+A29	form T31 NAM
+T32	Place 898 906	Atlantic
+A30	form T32 NAM
+T33	Place 96 111	Central America
+A31	form T33 NAM
+T34	Place 1719 1741	San Pedro Sula airport
+A32	form T34 NAM
+T35	Place 580 584	town
+A33	form T35 NOM
+T36	Place 629 633	town
+A34	form T36 NOM
+T37	Place 3200 3206	houses
+A35	form T37 NOM
+T38	Path 2137 2142	sides
+#38	AnnotatorNotes T38	Possible SPATIAL_FUNCTION with 'hill'
+A36	form T38 NOM
+T39	Path 315 320	level
+A37	form T39 NOM
+T40	Path 538 542	road
+A38	form T40 NOM
+T41	Path 3231 3237	slopes
+A39	form T41 NOM
+T42	SpatialEntity 113 114	I
+A40	form T42 NOM
+T43	SpatialEntity 1583 1588	storm
+A41	form T43 NOM
+T44	SpatialEntity 1689 1693	rain
+A42	form T44 NOM
+T45	SpatialEntity 1706 1711	guard
+A43	form T45 NOM
+T46	SpatialEntity 1752 1757	water
+A44	form T46 NOM
+T47	SpatialEntity 1781 1788	armpits
+A45	form T47 NOM
+T48	SpatialEntity 1792 1798	family
+A46	form T48 NOM
+T49	SpatialEntity 1803 1804	I
+A47	form T49 NOM
+T50	SpatialEntity 2418 2424	family
+A48	form T50 NOM
+T51	SpatialEntity 2430 2431	I
+A49	form T51 NOM
+T52	SpatialEntity 249 259	population
+A50	form T52 NOM
+T53	SpatialEntity 2616 2617	I
+A51	form T53 NOM
+T54	SpatialEntity 3125 3126	I
+A52	form T54 NOM
+T55	SpatialEntity 495 501	Others
+A53	form T55 NOM
+T56	SpatialEntity 885 890	water
+A54	form T56 NOM
+T57	Null 2425 2429	that
+#57	AnnotatorNotes T57	SPATIAL_ENTITY Subsuming mover for 'the family that I swam with on Good Friday'
+T58	SpatialEntity 146 147	I
+A55	form T58 NOM
+T59	SpatialEntity 1615 1617	It
+A56	form T59 NOM
+T60	SpatialEntity 1841 1843	me
+A57	form T60 NOM
+T61	SpatialEntity 1879 1880	I
+A58	form T61 NOM
+T62	SpatialEntity 2166 2168	me
+A59	form T62 NOM
+T63	SpatialEntity 2465 2467	me
+A60	form T63 NOM
+T64	SpatialEntity 3565 3566	I
+A61	form T64 NOM
+T65	SpatialEntity 3651 3652	I
+A62	form T65 NOM
+T66	Event 1378 1387	hurricane
+T67	Event 1389 1404	Hurricane Mitch
+T68	Event 1442 1448	parked
+T69	Event 1805 1811	stayed
+T70	Event 1982 1990	flooding
+T71	Event 2261 2272	destruction
+T72	Event 2351 2360	described
+T73	Event 2457 2464	invited
+T74	Event 260 265	lives
+T75	Event 2618 2623	spent
+T76	Event 3388 3393	storm
+T77	Event 339 346	learned
+T78	Event 356 360	dive
+T79	Event 3132 3135	met
+T80	Event 2820 2825	Mitch
+T81	Event 3054 3059	Mitch
+T82	Event 3173 3177	live
+T83	Event 3212 3216	live
+T84	Event 3342 3357	Hurricane Mitch
+T85	Motion 1406 1410	tore
+A63	motion_type T85 compound
+A64	motion_class T85 cross
+A65	motion_sense T85 literal
+T86	Motion 1589 1592	hit
+A66	motion_type T86 path
+A67	motion_class T86 hit
+A68	motion_sense T86 literal
+T87	Motion 1662 1669	dropped
+A69	motion_type T87 path
+A70	motion_class T87 move
+A71	motion_sense T87 literal
+T88	Motion 1991 1998	reached
+A72	motion_type T88 path
+A73	motion_class T88 reach
+A74	motion_sense T88 literal
+T89	Motion 2143 2149	washed
+A75	motion_type T89 compound
+A76	motion_class T89 detach
+A77	motion_sense T89 literal
+T90	Motion 2432 2436	swam
+A78	motion_type T90 compound
+A79	motion_class T90 move
+A80	motion_sense T90 literal
+T91	Motion 522 527	moved
+A81	motion_type T91 manner
+A82	motion_class T91 move
+A83	motion_sense T91 literal
+T92	Motion 84 92	arriving
+A84	motion_type T92 path
+A85	motion_class T92 reach
+A86	motion_sense T92 literal
+T93	SpatialSignal 1456 1460	over
+A87	semantic_type T93 directional
+T94	SpatialSignal 1712 1714	at
+A88	semantic_type T94 topological
+T95	SpatialSignal 1758 1760	in
+A89	semantic_type T95 topological
+T96	SpatialSignal 1771 1776	up to
+A90	semantic_type T96 dir_top
+T97	SpatialSignal 1817 1819	in
+A91	semantic_type T97 topological
+T98	SpatialSignal 1962 1964	In
+A92	semantic_type T98 topological
+T99	SpatialSignal 2125 2127	on
+A93	semantic_type T99 dir_top
+T100	SpatialSignal 218 220	In
+A94	semantic_type T100 topological
+T101	SpatialSignal 2220 2225	where
+A95	semantic_type T101 topological
+T102	SpatialSignal 2283 2285	in
+A96	semantic_type T102 topological
+T103	SpatialSignal 2295 2297	of
+A97	semantic_type T103 topological
+T104	SpatialSignal 2315 2317	In
+A98	semantic_type T104 topological
+T105	SpatialSignal 2400 2402	In
+A99	semantic_type T105 topological
+T106	SpatialSignal 2602 2604	in
+A100	semantic_type T106 topological
+T107	SpatialSignal 2634 2636	at
+A101	semantic_type T107 topological
+T108	SpatialSignal 266 268	in
+A102	semantic_type T108 topological
+T109	SpatialSignal 305 310	above
+A103	semantic_type T109 directional
+T110	SpatialSignal 3141 3143	in
+A104	semantic_type T110 topological
+T111	SpatialSignal 331 336	where
+A105	semantic_type T111 topological
+T112	SpatialSignal 3394 3396	in
+A106	semantic_type T112 topological
+T113	SpatialSignal 529 533	Down
+A107	semantic_type T113 dir_top
+T114	SpatialSignal 891 893	in
+A108	semantic_type T114 topological
+T115	SpatialSignal 3178 3180	in
+A109	semantic_type T115 topological
+T116	SpatialSignal 3217 3219	on
+A110	semantic_type T116 dir_top
+T117	MotionSignal 1411 1418	through
+A111	MS_type T117 path
+T118	MotionSignal 2150 2154	away
+A112	MS_type T118 path
+T119	MotionSignal 93 95	in
+A113	MS_type T119 path
+T120	Measure 3616 3622	nearby
+#121	AnnotatorNotes T120	 NEAR
+T121	TLINK 266 268	in
+A114	QS_type E1 IN
+E1	TLINK:T121 trajector:T74 landmark:T21 trigger:T108
+T122	TLINK 218 220	In
+A115	QS_type E2 IN
+E2	TLINK:T122 trajector:T52 landmark:T13 trigger:T100
+T123	TLINK 1962 1964	In
+A116	QS_type E3 IN
+E3	TLINK:T123 trajector:T70 landmark:T8 trigger:T98
+T124	TLINK 2125 2127	on
+A117	QS_type E4 EC
+E4	TLINK:T124 trajector:T11 landmark:T38 trigger:T99
+T125	TLINK 2220 2225	where
+A118	QS_type E5 IN
+E5	TLINK:T125 trajector:T14 landmark:T12 trigger:T101
+T126	TLINK 2283 2285	in
+A119	QS_type E6 IN
+E6	TLINK:T126 trajector:T71 landmark:T15 trigger:T102
+T127	TLINK 2295 2297	of
+A120	QS_type E7 IN
+E7	TLINK:T127 trajector:T15 landmark:T16 trigger:T103
+T128	TLINK 2315 2317	In
+A121	QS_type E8 IN
+E8	TLINK:T128 trajector:T72 landmark:T17 trigger:T104
+T129	TLINK 2400 2402	In
+A122	QS_type E9 IN
+E9	TLINK:T129 trajector:T73 landmark:T18 trigger:T105
+T130	TLINK 2634 2636	at
+A123	QS_type E10 IN
+E10	TLINK:T130 trajector:T75 landmark:T20 trigger:T107
+T131	TLINK 2602 2604	in
+A124	QS_type E11 IN
+E11	TLINK:T131 trajector:T75 landmark:T19 trigger:T106
+T132	TLINK 331 336	where
+A125	QS_type E12 IN
+E12	TLINK:T132 trajector:T77 landmark:T24 trigger:T111
+T133	TLINK 3141 3143	in
+A126	QS_type E13 IN
+E13	TLINK:T133 trajector:T22 landmark:T23 trigger:T110
+T134	TLINK 3394 3396	in
+A127	QS_type E14 IN
+E14	TLINK:T134 trajector:T76 landmark:T25 trigger:T112
+T135	TLINK 529 533	Down
+A128	QS_type E15 DC
+E15	TLINK:T135 trajector:T31 landmark:T30 trigger:T113
+T136	TLINK 891 893	in
+A129	QS_type E16 IN
+E16	TLINK:T136 trajector:T56 landmark:T32 trigger:T114
+T137	TLINK 1758 1760	in
+A130	QS_type E17 IN
+E17	TLINK:T137 trajector:T46 landmark:T6 trigger:T95
+T138	TLINK 1771 1776	up to
+A131	QS_type E18 EC
+E18	TLINK:T138 trajector:T46 landmark:T47 trigger:T96
+T139	TLINK 1817 1819	in
+A132	QS_type E19 IN
+E19	TLINK:T139 trajector:T69 landmark:T7 trigger:T97
+T140	TLINK 1712 1714	at
+A133	QS_type E20 IN
+E20	TLINK:T140 trajector:T45 landmark:T34 trigger:T94
+T141	TLINK 3132 3135	met
+A134	QS_type E21 IN
+E21	TLINK:T141 trajector:T79 landmark:T22
+T142	TLINK 3178 3180	in
+A135	QS_type E22 IN
+E22	TLINK:T142 trajector:T82 landmark:T37 trigger:T115
+T143	TLINK 3217 3219	on
+A136	QS_type E23 EC
+E23	TLINK:T143 trajector:T83 landmark:T41 trigger:T116
+T144	OLINK 1456 1460	over
+A137	O_type E24 ABOVE
+A138	frame_type E24 INTRINSIC
+A139	projective E24 INTRINSIC
+E24	OLINK:T144 trajector:T68 landmark:T4 trigger:T93 referencePt:T4
+T145	OLINK 305 310	above
+A140	O_type E25 ABOVE
+A141	frame_type E25 INTRINSIC
+A142	projective E25 INTRINSIC
+E25	OLINK:T145 trajector:T21 landmark:T39 trigger:T109 referencePt:T39
+T146	OLINK 529 533	Down
+A143	O_type E26 DOWN
+A144	frame_type E26 RELATIVE
+A145	projective E26 RELATIVE
+E26	OLINK:T146 trajector:T31 landmark:T40 trigger:T113 referencePt:T30
+T147	OLINK 1771 1776	up to
+A146	O_type E27 BELOW
+A147	frame_type E27 INTRINSIC
+A148	projective E27 INTRINSIC
+E27	OLINK:T147 trajector:T46 landmark:T47 trigger:T96 referencePt:T47
+T148	OLINK 1419 1422	the
+A149	O_type E28 ACROSS
+A150	frame_type E28 RELATIVE
+A151	projective E28 RELATIVE
+E28	OLINK:T148 trajector:T2 landmark:T3 referencePt:T1
+T149	OLINK 2125 2127	on
+A152	O_type E29 ABOVE
+A153	frame_type E29 INTRINSIC
+A154	projective E29 INTRINSIC
+E29	OLINK:T149 trajector:T11 landmark:T38 trigger:T99 referencePt:T38
+T150	OLINK 3217 3219	on
+A155	O_type E30 ABOVE
+A156	frame_type E30 INTRINSIC
+A157	projective E30 INTRINSIC
+E30	OLINK:T150 trajector:T83 landmark:T41 trigger:T116 referencePt:T41
+T151	MLINK 84 92	arriving
+A158	goal_reached E31 yes
+E31	MLINK:T151 goal:T33 mover:T42 motion_signalID:T119 trigger:T92
+T152	MLINK 522 527	moved
+E32	MLINK:T152 mover:T55 trigger:T91
+T153	MLINK 1589 1592	hit
+A160	goal_reached E33 yes
+E33	MLINK:T153 goal:T5 mover:T43 trigger:T86
+T154	MLINK 1662 1669	dropped
+E34	MLINK:T154 mover:T44 trigger:T87
+T155	MLINK 1991 1998	reached
+A162	goal_reached E35 yes
+E35	MLINK:T155 goal:T9 mover:T70 trigger:T88
+T156	MLINK 2143 2149	washed
+E36	MLINK:T156 mover:T11 motion_signalID:T118 trigger:T89 source:T38
+T157	MLINK 1406 1410	tore
+A164	goal_reached E37 yes
+E37	MLINK:T157 goal:T2 mover:T66 midPoint:T3 motion_signalID:T117 trigger:T85 source:T1
+T158	MLINK 2432 2436	swam
+E38	MLINK:T158 mover:T57 trigger:T90
+R13	coreference Arg1:T50 Arg2:T57
+#122	AnnotatorNotes R13	SUBCOREFERENCE
+R14	coreference Arg1:T51 Arg2:T57
+#123	AnnotatorNotes R14	SUBCOREFERENCE

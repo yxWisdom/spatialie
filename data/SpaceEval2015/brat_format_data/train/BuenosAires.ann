@@ -1,0 +1,518 @@
+T1	Null 3553 3557	have
+#1	AnnotatorNotes T1	PLACE beginning of 'I hope I have given you a bit of a sense of what it is like to cross the Americas one village at a time...'
+T2	Null 3558 3563	given
+#2	AnnotatorNotes T2	PLACE end of 'I hope I have given you a bit of a sense of what it is like to cross the Americas one village at a time...'
+T3	Place 1384 1388	land
+A1	form T3 NOM
+T4	Place 1400 1406	oceans
+A2	form T4 NOM
+T5	Place 144 150	States
+A3	form T5 NAM
+T6	Place 1599 1606	schools
+#6	AnnotatorNotes T6	amount=gt60;
+A4	form T6 NOM
+T7	Place 1972 1985	United States
+A5	form T7 NAM
+T8	Place 2143 2154	countryside
+A6	form T8 NOM
+T9	Place 2170 2176	houses
+A7	form T9 NOM
+T10	Place 2895 2908	United States
+A8	form T10 NAM
+T11	Place 2970 2991	Boston, Massachusetts
+A9	form T11 NAM
+T12	Place 307 311	door
+A10	form T12 NOM
+T13	Place 315 325	California
+A11	form T13 NAM
+T14	Place 3617 3625	Americas
+A12	form T14 NAM
+T15	Place 3630 3637	village
+A13	form T15 NOM
+T16	Place 3849 3858	Palo Alto
+A14	form T16 NAM
+T17	Place 389 392	end
+A15	form T17 NOM
+T18	Place 3915 3928	Latin America
+A16	form T18 NAM
+T19	Place 3997 4000	USA
+A17	form T19 NAM
+T20	Place 4002 4012	California
+A18	form T20 NAM
+T21	Place 4020 4026	Mexico
+A19	form T21 NAM
+T22	Place 4035 4044	Guatemala
+A20	form T22 NAM
+T23	Place 4051 4057	Belize
+A21	form T23 NAM
+T24	Place 4064 4072	Honduras
+A22	form T24 NAM
+T25	Place 4079 4090	El Salvador
+A23	form T25 NAM
+T26	Place 4097 4106	Nicaragua
+A24	form T26 NAM
+T27	Place 4113 4123	Costa Rica
+A25	form T27 NAM
+T28	Place 4130 4136	Panama
+A26	form T28 NAM
+T29	Place 4143 4151	Colombia
+A27	form T29 NAM
+T30	Place 4160 4169	Venezuela
+A28	form T30 NAM
+T31	Place 4177 4183	Brazil
+A29	form T31 NAM
+T32	Place 4190 4194	Peru
+A30	form T32 NAM
+T33	Place 4203 4210	Bolivia
+A31	form T33 NAM
+T34	Place 4217 4222	Chile
+A32	form T34 NAM
+T35	Place 4231 4240	Argentina
+A33	form T35 NAM
+T36	Place 436 449	South America
+A34	form T36 NAM
+T37	Place 556 566	continents
+A35	form T37 NOM
+T38	Place 584 590	houses
+A36	form T38 NOM
+T39	Place 750 754	Peru
+A37	form T39 NAM
+T40	Place 82 94	Buenos Aires
+A38	form T40 NAM
+T41	Place 877 883	Mexico
+A39	form T41 NAM
+T42	Place 911 920	Patagonia
+A40	form T42 NAM
+T43	Place 954 960	cities
+A41	form T43 NOM
+T44	Place 977 984	country
+A42	form T44 NOM
+T45	Place 3731 3741	continents
+A43	form T45 NOM
+T46	Path 1340 1345	level
+A44	form T46 NOM
+T47	Path 1875 1879	road
+A45	form T47 NOM
+T48	Path 2119 2123	trip
+A46	form T48 NOM
+T49	Path 400 404	road
+A47	form T49 NOM
+R11	endID Arg1:T49 Arg2:T17
+T50	Path 784 790	Amazon
+A48	form T50 NAM
+T51	Path 805 810	roads
+A49	form T51 NOM
+R18	midIDs Arg1:T51 Arg2:T52
+T52	Path 833 839	passes
+A50	form T52 NOM
+T53	Path 737 746	mountains
+A51	form T53 NOM
+T54	Null 2646 2649	ask
+#54	AnnotatorNotes T54	SPATIAL_ENTITY The set subusming [I,se] and [partner,se] in 'I ask you all now to turn your eyes to the next project, Ride for Climate USA, which my riding partner ...'
+T55	SpatialEntity 102 103	I
+A52	form T55 NOM
+T56	SpatialEntity 1581 1582	I
+A53	form T56 NOM
+T57	SpatialEntity 1852 1858	people
+A54	form T57 NOM
+T58	SpatialEntity 1859 1860	I
+A55	form T58 NOM
+T59	SpatialEntity 1951 1952	I
+A56	form T59 NOM
+T60	SpatialEntity 2085 2091	people
+A57	form T60 NOM
+T61	SpatialEntity 2092 2093	I
+A58	form T61 NOM
+T62	SpatialEntity 2644 2645	I
+A59	form T62 NOM
+T63	SpatialEntity 2739 2746	partner
+A60	form T63 NOM
+T64	SpatialEntity 2762 2774	Bill Bradlee
+A61	form T64 NAM
+T65	SpatialEntity 2854 2855	I
+A62	form T65 NOM
+T66	SpatialEntity 286 287	I
+A63	form T66 NOM
+T67	SpatialEntity 2953 2955	we
+A64	form T67 NOM
+T68	SpatialEntity 3204 3206	we
+A65	form T68 NOM
+T69	SpatialEntity 3223 3226	you
+A66	form T69 NOM
+T70	SpatialEntity 3551 3552	I
+A67	form T70 NOM
+T71	SpatialEntity 3702 3708	people
+A68	form T71 NOM
+T72	SpatialEntity 372 373	I
+A69	form T72 NOM
+T73	SpatialEntity 3780 3785	David
+A70	form T73 NAM
+T74	SpatialEntity 422 423	I
+A71	form T74 NOM
+T75	SpatialEntity 534 540	people
+A72	form T75 NOM
+T76	SpatialEntity 591 592	I
+A73	form T76 NOM
+T77	SpatialEntity 757 758	I
+A74	form T77 NOM
+T78	SpatialEntity 894 898	wind
+A75	form T78 NOM
+T79	SpatialEntity 903 907	rain
+A76	form T79 NOM
+T80	SpatialEntity 933 938	buses
+A77	form T80 NOM
+T81	SpatialEntity 65 66	I
+A78	form T81 NOM
+T82	SpatialEntity 489 490	I
+A79	form T82 NOM
+T83	SpatialEntity 622 623	I
+A80	form T83 NOM
+T84	SpatialEntity 1013 1014	I
+A81	form T84 NOM
+T85	SpatialEntity 1541 1542	I
+A82	form T85 NOM
+T86	SpatialEntity 1569 1570	I
+A83	form T86 NOM
+T87	SpatialEntity 1647 1648	I
+A84	form T87 NOM
+T88	SpatialEntity 1887 1889	me
+A85	form T88 NOM
+T89	SpatialEntity 1993 1994	I
+A86	form T89 NOM
+T90	SpatialEntity 2003 2004	I
+A87	form T90 NOM
+T91	SpatialEntity 2234 2238	they
+A88	form T91 NOM
+T92	SpatialEntity 2271 2273	me
+A89	form T92 NOM
+T93	SpatialEntity 2275 2279	many
+A90	form T93 NOM
+T94	SpatialEntity 2303 2307	they
+A91	form T94 NOM
+T95	SpatialEntity 2319 2321	me
+A92	form T95 NOM
+T96	SpatialEntity 2326 2327	I
+A93	form T96 NOM
+T97	SpatialEntity 2364 2370	people
+A94	form T97 NOM
+T98	SpatialEntity 3028 3029	I
+A95	form T98 NOM
+T99	SpatialEntity 3472 3473	I
+A96	form T99 NOM
+T100	SpatialEntity 3544 3545	I
+A97	form T100 NOM
+T101	Event 107 116	preparing
+T102	Event 1369 1380	extinctions
+T103	Event 1608 1614	giving
+T104	Event 1615 1620	talks
+T105	Event 2099 2105	stayed
+T106	Event 2156 2160	live
+T107	Event 3713 3717	live
+T108	Event 593 599	stayed
+T109	Event 606 612	camped
+T110	Event 67 72	write
+T111	Event 849 856	escaped
+T112	Motion 125 136	return home
+A98	motion_type T112 path
+A99	motion_class T112 reach
+A100	motion_sense T112 literal
+T113	Motion 1329 1335	rising
+A101	motion_type T113 path
+A102	motion_class T113 move
+A103	motion_sense T113 literal
+T114	Motion 1583 1590	visited
+A104	motion_type T114 path
+A105	motion_class T114 reach
+A106	motion_sense T114 literal
+T115	Motion 1861 1864	met
+A107	motion_type T115 path
+A108	motion_class T115 hit
+A109	motion_sense T115 literal
+T116	Motion 1958 1964	return
+A110	motion_type T116 path
+A111	motion_class T116 reach
+A112	motion_sense T116 literal
+T117	Motion 2756 2760	trip
+A113	motion_type T117 compound
+A114	motion_class T117 move
+A115	motion_sense T117 literal
+T118	Motion 2856 2861	biked
+A116	motion_type T118 manner
+A117	motion_class T118 move
+A118	motion_sense T118 literal
+T119	Motion 2863 2865	It
+A119	motion_type T119 compound
+A120	motion_class T119 move_internal
+A121	motion_sense T119 literal
+T120	Motion 2876 2883	journey
+A122	motion_type T120 path
+A123	motion_class T120 move_internal
+A124	motion_sense T120 literal
+T121	Motion 288 293	biked
+A125	motion_type T121 compound
+A126	motion_class T121 detach
+A127	motion_sense T121 literal
+T122	Motion 3211 3217	biking
+A128	motion_type T122 manner
+A129	motion_class T122 move
+A130	motion_sense T122 literal
+T123	Motion 338 344	biking
+A131	motion_type T123 compound
+A132	motion_class T123 move
+A133	motion_sense T123 literal
+T124	Motion 3607 3612	cross
+A134	motion_type T124 path
+A135	motion_class T124 cross
+A136	motion_sense T124 literal
+T125	Motion 374 381	arrived
+A137	motion_type T125 path
+A138	motion_class T125 reach
+A139	motion_sense T125 literal
+T126	Motion 428 432	bike
+A140	motion_type T126 compound
+A141	motion_class T126 move
+A142	motion_sense T126 literal
+T127	Motion 764 769	taken
+A143	motion_type T127 compound
+A144	motion_class T127 follow
+A145	motion_sense T127 literal
+T128	Motion 792 799	crossed
+A146	motion_type T128 path
+A147	motion_class T128 follow
+A148	motion_sense T128 literal
+T129	Motion 926 932	dodged
+A149	motion_type T129 path
+A150	motion_class T129 move_external
+A151	motion_sense T129 literal
+T130	Motion 3245 3249	Ride
+A152	motion_type T130 compound
+A153	motion_class T130 move
+A154	motion_sense T130 literal
+T131	Motion 2701 2705	Ride
+A155	motion_type T131 compound
+A156	motion_class T131 move
+A157	motion_sense T131 literal
+T132	Motion 3367 3371	Ride
+A158	motion_type T132 compound
+A159	motion_class T132 move
+A160	motion_sense T132 literal
+T133	Motion 3754 3758	Ride
+A161	motion_type T133 compound
+A162	motion_class T133 move
+A163	motion_sense T133 literal
+T134	SpatialSignal 1381 1383	on
+A164	semantic_type T134 dir_top
+T135	SpatialSignal 1393 1395	in
+A165	semantic_type T135 topological
+T136	SpatialSignal 1865 1870	along
+A166	semantic_type T136 directional
+T137	SpatialSignal 2111 2113	on
+A167	semantic_type T137 topological
+T138	SpatialSignal 2136 2138	in
+A168	semantic_type T138 topological
+T139	SpatialSignal 2161 2163	in
+A169	semantic_type T139 topological
+T140	SpatialSignal 2967 2969	in
+A170	semantic_type T140 topological
+T141	SpatialSignal 312 314	in
+A171	semantic_type T141 topological
+T142	SpatialSignal 3481 3485	with
+A172	semantic_type T142 topological
+T143	SpatialSignal 3718 3724	across
+#143	AnnotatorNotes T143	Need se and place to make a link
+A173	semantic_type T143 topological
+T144	SpatialSignal 433 435	in
+A174	semantic_type T144 topological
+T145	SpatialSignal 541 547	across
+A175	semantic_type T145 topological
+T146	SpatialSignal 600 602	in
+A176	semantic_type T146 topological
+T147	SpatialSignal 613 620	next to
+#147	AnnotatorNotes T147	Shouldn't this be DIR_TOP?
+A177	semantic_type T147 dir_top
+T148	SpatialSignal 77 81	from
+A178	semantic_type T148 topological
+T149	SpatialSignal 865 867	in
+A179	semantic_type T149 topological
+T150	SpatialSignal 908 910	of
+A180	semantic_type T150 topological
+T151	SpatialSignal 939 941	in
+A181	semantic_type T151 topological
+T152	SpatialSignal 96 101	where
+A182	semantic_type T152 topological
+T153	SpatialSignal 961 963	of
+A183	semantic_type T153 topological
+T154	SpatialSignal 747 749	of
+A184	semantic_type T154 topological
+T155	MotionSignal 137 139	to
+A185	MS_type T155 path
+T156	MotionSignal 1965 1967	to
+A186	MS_type T156 path
+T157	MotionSignal 2732 2738	riding
+A187	MS_type T157 manner
+T158	MotionSignal 2884 2890	around
+A188	MS_type T158 path
+T159	MotionSignal 294 297	out
+A189	MS_type T159 path
+T160	MotionSignal 2961 2969	start in
+A190	MS_type T160 path
+T161	MotionSignal 345 350	south
+A191	MS_type T161 path
+T162	MotionSignal 409 418	far south
+A192	MS_type T162 path
+T163	MotionSignal 770 776	a boat
+A193	MS_type T163 manner
+T164	MotionSignal 777 779	up
+A194	MS_type T164 path
+T165	MotionSignal 811 815	over
+A195	MS_type T165 path
+T166	Measure 816 825	15,000 ft
+#167	AnnotatorNotes T166	feet 15000
+T167	TLINK 96 101	where
+A196	QS_type E1 IN
+E1	TLINK:T167 trajector:T101 landmark:T40 trigger:T152
+T168	TLINK 961 963	of
+A197	QS_type E2 IN
+E2	TLINK:T168 trajector:T43 landmark:T44 trigger:T153
+T169	TLINK 1381 1383	on
+A198	QS_type E3 EC
+E3	TLINK:T169 trajector:T102 landmark:T3 trigger:T134
+T170	TLINK 1393 1395	in
+A199	QS_type E4 IN
+E4	TLINK:T170 trajector:T102 landmark:T4 trigger:T135
+T171	TLINK 1608 1614	giving
+A200	QS_type E5 IN
+E5	TLINK:T171 trajector:T103 landmark:T6
+T172	TLINK 1615 1620	talks
+A201	QS_type E6 IN
+E6	TLINK:T172 trajector:T104 landmark:T6
+T173	TLINK 2161 2163	in
+A202	QS_type E7 IN
+E7	TLINK:T173 trajector:T106 landmark:T9 trigger:T139
+T174	TLINK 2111 2113	on
+A203	QS_type E8 IN
+E8	TLINK:T174 trajector:T105 landmark:T48 trigger:T137
+T175	TLINK 2136 2138	in
+A204	QS_type E9 IN
+E9	TLINK:T175 trajector:T60 landmark:T8 trigger:T138
+T176	TLINK 433 435	in
+A205	QS_type E10 IN
+E10	TLINK:T176 trajector:T126 landmark:T36 trigger:T144
+T177	TLINK 77 81	from
+A206	QS_type E11 IN
+E11	TLINK:T177 trajector:T110 landmark:T40 trigger:T148
+T178	TLINK 312 314	in
+A207	QS_type E12 IN
+E12	TLINK:T178 trajector:T12 landmark:T13 trigger:T141
+T179	TLINK 541 547	across
+A208	QS_type E13 IN
+E13	TLINK:T179 trajector:T75 landmark:T37 trigger:T145
+T180	TLINK 600 602	in
+A209	QS_type E14 IN
+E14	TLINK:T180 trajector:T108 landmark:T38 trigger:T146
+T181	TLINK 613 620	next to
+A210	QS_type E15 EC
+E15	TLINK:T181 trajector:T109 landmark:T38 trigger:T147
+T182	TLINK 865 867	in
+A211	QS_type E16 IN
+E16	TLINK:T182 trajector:T111 landmark:T41 trigger:T149
+T183	TLINK 908 910	of
+A212	QS_type E17 IN
+E17	TLINK:T183 trajector:T78 landmark:T42 trigger:T150
+T184	TLINK 908 910	of
+A213	QS_type E18 IN
+E18	TLINK:T184 trajector:T79 landmark:T42 trigger:T150
+T185	TLINK 939 941	in
+A214	QS_type E19 IN
+E19	TLINK:T185 trajector:T129 landmark:T43 trigger:T151
+T186	TLINK 3718 3724	across
+A215	QS_type E20 IN
+E20	TLINK:T186 trajector:T107 landmark:T45 trigger:T143
+T187	TLINK 747 749	of
+A216	QS_type E21 IN
+E21	TLINK:T187 trajector:T53 landmark:T39 trigger:T154
+T188	TLINK 3553 3557	have
+A217	QS_type E22 IN
+E22	TLINK:T188 trajector:T1 landmark:T14
+T189	TLINK 3558 3563	given
+A218	QS_type E23 IN
+E23	TLINK:T189 trajector:T2 landmark:T14
+T190	OLINK 613 620	next to
+A219	O_type E24 NEXT_TO
+A220	frame_type E24 INTRINSIC
+A221	projective E24 INTRINSIC
+E24	OLINK:T190 trajector:T109 landmark:T38 trigger:T147 referencePt:T38
+T191	OLINK 805 810	roads
+A222	O_type E25 ABOVE
+A223	frame_type E25 INTRINSIC
+A224	projective E25 INTRINSIC
+E25	OLINK:T191 trajector:T51 landmark:T52 referencePt:T52
+T192	OLINK 1381 1383	on
+A225	O_type E26 ABOVE
+A226	frame_type E26 INTRINSIC
+A227	projective E26 INTRINSIC
+E26	OLINK:T192 trajector:T102 landmark:T3 trigger:T134 referencePt:T3
+T193	OLINK 1865 1870	along
+A228	O_type E27 ALONG
+A229	frame_type E27 INTRINSIC
+A230	projective E27 INTRINSIC
+E27	OLINK:T193 trajector:T115 landmark:T47 trigger:T136 referencePt:T47
+T194	OLINK 3553 3557	have
+A231	O_type E28 ACROSS
+A232	frame_type E28 RELATIVE
+A233	projective E28 RELATIVE
+E28	OLINK:T194 trajector:T1 landmark:T14 referencePt:T2
+T195	MLINK 792 799	crossed
+E29	MLINK:T195 mover:T77 midPoint:T52 motion_signalID:T165 trigger:T128 pathID:T51
+T196	MLINK 926 932	dodged
+E30	MLINK:T196 mover:T77 ground:T80 trigger:T129
+T197	MLINK 288 293	biked
+E31	MLINK:T197 mover:T66 motion_signalID:T159 trigger:T121 source:T12
+T198	MLINK 338 344	biking
+E32	MLINK:T198 mover:T66 motion_signalID:T161 trigger:T123
+T199	MLINK 374 381	arrived
+A238	goal_reached E33 yes
+E33	MLINK:T199 goal:T17 mover:T72 trigger:T125
+T200	MLINK 764 769	taken
+E34	MLINK:T200 mover:T77 motion_signalID2:T164 motion_signalID:T163 trigger:T127 pathID:T50
+T201	MLINK 1329 1335	rising
+E35	MLINK:T201 mover:T46 trigger:T113
+T202	MLINK 1583 1590	visited
+A241	goal_reached E36 yes
+E36	MLINK:T202 goal:T6 mover:T56 trigger:T114
+T203	MLINK 1958 1964	return
+A242	goal_reached E37 yes
+E37	MLINK:T203 goal:T7 mover:T59 motion_signalID:T156 trigger:T116
+T204	MLINK 2856 2861	biked
+E38	MLINK:T204 mover:T65 trigger:T118
+T205	MLINK 3211 3217	biking
+E39	MLINK:T205 mover:T68 ground:T69 trigger:T122
+T206	MLINK 3607 3612	cross
+A245	goal_reached E40 yes
+E40	MLINK:T206 goal:T2 mover:T70 midPoint:T14 trigger:T124 source:T1
+T207	MLINK 2876 2883	journey
+E41	MLINK:T207 mover:T67 motion_signalID2:T160 motion_signalID:T158 ground:T10 trigger:T120 source:T11
+T208	MLINK 428 432	bike
+E42	MLINK:T208 mover:T74 motion_signalID:T162 trigger:T126
+T209	MLINK 125 136	return home
+A248	goal_reached E43 yes
+E43	MLINK:T209 goal:T5 mover:T55 motion_signalID:T155 trigger:T112
+T210	MLINK 2756 2760	trip
+E44	MLINK:T210 mover:T54 motion_signalID:T157 trigger:T117
+T211	MLINK 1861 1864	met
+A250	goal_reached E45 yes
+E45	MLINK:T211 goal:T57 mover:T58 trigger:T115
+T212	MLINK 2701 2705	Ride
+E46	MLINK:T212 mover:T54 motion_signalID:T157 trigger:T131
+T213	MLINK 3245 3249	Ride
+E47	MLINK:T213 trigger:T130
+T214	MLINK 3367 3371	Ride
+E48	MLINK:T214 trigger:T132
+T215	MLINK 3754 3758	Ride
+E49	MLINK:T215 trigger:T133
+R25	coreference Arg1:T62 Arg2:T54
+#168	AnnotatorNotes R25	SUBCOREFERENCE
+R26	coreference Arg1:T63 Arg2:T54
+#169	AnnotatorNotes R26	SUBCOREFERENCE
+R27	coreference Arg1:T67 Arg2:T54
+#170	AnnotatorNotes R27	SPLITCOREFERENCE

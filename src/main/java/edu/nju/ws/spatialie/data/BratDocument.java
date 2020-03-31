@@ -23,6 +23,10 @@ public class BratDocument {
     private Map<String, BratRelation> relationMap = new HashMap<>();
     private Map<String, BratEvent> eventMap = new HashMap<>();
 
+    public BratDocument(String text) {
+        content = text;
+    }
+
     private boolean isEntity(String id) {
         return id.startsWith("T");
     }

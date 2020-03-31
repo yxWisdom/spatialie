@@ -1,0 +1,281 @@
+T1	Place 1072 1076	INPA
+A1	form T1 NAM
+T2	Place 116 125	apartment
+A2	form T2 NOM
+T3	Place 1487 1493	Amazon
+A3	form T3 NAM
+T4	Place 164 207	Instituto National de Pesquisas da Amazonia
+A4	form T4 NAM
+T5	Place 1689 1695	Amazon
+#5	AnnotatorNotes T5	amount=much
+A5	form T5 NAM
+T6	Place 209 213	INPA
+A6	form T6 NAM
+T7	Place 234 240	center
+A7	form T7 NOM
+T8	Place 242 246	Here
+A8	form T8 NOM
+T9	Place 2574 2580	Amazon
+A9	form T9 NAM
+T10	Place 2682 2692	atmosphere
+A10	form T10 NOM
+T11	Place 2803 2809	Manaus
+A11	form T11 NAM
+T12	Place 2874 2882	preserve
+A12	form T12 NOM
+T13	Place 289 293	INPA
+A13	form T13 NAM
+T14	Place 2892 2896	city
+A14	form T14 NOM
+T15	Place 2905 2913	preserve
+A15	form T15 NOM
+T16	Place 3044 3050	forest
+A16	form T16 NOM
+T17	Place 3077 3080	top
+A17	form T17 NOM
+T18	Place 3145 3151	forest
+A18	form T18 NOM
+T19	Place 3295 3301	Amazon
+A19	form T19 NAM
+T20	Place 333 343	University
+A20	form T20 NOM
+T21	Place 395 412	Amazon rainforest
+A21	form T21 NAM
+T22	Place 632 644	Amazon basin
+A22	form T22 NAM
+T23	Place 681 696	contiguous U.S.
+A23	form T23 NAM
+T24	Place 764 770	forest
+A24	form T24 NOM
+T25	Place 799 805	fields
+A25	form T25 NOM
+T26	Place 866 870	INPA
+A26	form T26 NAM
+T27	Place 915 921	forest
+A27	form T27 NOM
+T28	Place 93 99	Manaus
+A28	form T28 NAM
+T29	Place 438 448	rainforest
+A29	form T29 NOM
+T30	Place 608 613	basin
+A30	form T30 NOM
+T31	Place 1199 1209	rainforest
+A31	form T31 NOM
+T32	Place 2074 2080	Amazon
+A32	form T32 NAM
+T33	Place 2111 2116	basin
+A33	form T33 NOM
+T34	Place 2237 2247	rainforest
+A34	form T34 NOM
+T35	Path 3201 3208	horizon
+A35	form T35 NOM
+T36	Path 743 748	roads
+A36	form T36 NOM
+T37	Null 809 812	soy
+#37	AnnotatorNotes T37	SPATIAL_ENTITY The set subsuming [beans,se] and [cattle,se] in '... making way for fields of soy beans or beef cattle.'
+T38	SpatialEntity 2660 2674	carbon dioxide
+#38	AnnotatorNotes T38	amount=incredible amounts
+A37	form T38 NAM
+T39	SpatialEntity 2811 2812	I
+A38	form T39 NOM
+T40	SpatialEntity 2828 2837	Alexender
+A39	form T40 NAM
+T41	SpatialEntity 2938 2943	tower
+A40	form T41 NOM
+T42	SpatialEntity 3013 3016	CO2
+A41	form T42 NAM
+T43	SpatialEntity 3061 3063	me
+A42	form T43 NOM
+T44	SpatialEntity 307 315	students
+#44	AnnotatorNotes T44	amount=gt1
+A43	form T44 NOM
+T45	SpatialEntity 3088 3093	tower
+A44	form T45 NOM
+T46	SpatialEntity 3101 3102	I
+A45	form T46 NOM
+T47	SpatialEntity 3131 3139	treetops
+A46	form T47 NOM
+T48	SpatialEntity 75 76	I
+A47	form T48 NOM
+T49	SpatialEntity 813 818	beans
+A48	form T49 NOM
+T50	SpatialEntity 827 833	cattle
+A49	form T50 NOM
+T51	Null 2823 2827	with
+#51	AnnotatorNotes T51	SPATIAL_ENTITY The set subsuming [I,se] and [Alexander,se] in 'I travelled with Alexander...'
+T52	SpatialEntity 345 346	I
+A50	form T52 NOM
+T53	SpatialEntity 424 425	I
+A51	form T53 NOM
+T54	SpatialEntity 872 873	I
+A52	form T54 NOM
+T55	SpatialEntity 1033 1034	I
+A53	form T55 NOM
+T56	Event 101 108	staying
+T57	Event 1035 1041	talked
+T58	Event 263 269	giving
+T59	Event 2920 2929	maintains
+T60	Event 3115 3119	look
+T61	Event 347 353	talked
+T62	Event 380 387	climate
+T63	Event 699 712	deforestation
+T64	Event 77 82	spent
+T65	Motion 155 163	visiting
+A54	motion_type T65 path
+A55	motion_class T65 reach
+A56	motion_sense T65 literal
+T66	Motion 2630 2637	release
+A57	motion_type T66 compound
+A58	motion_class T66 reach
+A59	motion_sense T66 literal
+T67	Motion 2813 2822	travelled
+A60	motion_type T67 path
+A61	motion_class T67 reach
+A62	motion_sense T67 literal
+T68	Motion 3017 3023	fluxes
+A63	motion_type T68 compound
+A64	motion_class T68 move
+A65	motion_sense T68 literal
+T69	Motion 3064 3069	climb
+A66	motion_type T69 compound
+A67	motion_class T69 reach
+A68	motion_sense T69 literal
+T70	Motion 3157 3166	stretches
+A69	motion_type T70 path
+A70	motion_class T70 move
+A71	motion_sense T70 fictive
+T71	Motion 753 758	built
+A72	motion_type T71 manner
+A73	motion_class T71 move
+A74	motion_sense T71 intrinsic_change
+T72	Motion 774 777	cut
+A75	motion_type T72 manner
+A76	motion_class T72 move
+A77	motion_sense T72 intrinsic_change
+T73	SpatialSignal 1069 1071	at
+A78	semantic_type T73 topological
+T74	SpatialSignal 109 111	in
+A79	semantic_type T74 topological
+T75	SpatialSignal 2898 2900	In
+A80	semantic_type T75 topological
+T76	SpatialSignal 3081 3083	of
+A81	semantic_type T76 topological
+T77	SpatialSignal 3095 3100	where
+A82	semantic_type T77 topological
+T78	SpatialSignal 3140 3142	of
+A83	semantic_type T78 dir_top
+T79	SpatialSignal 316 318	at
+A84	semantic_type T79 topological
+T80	SpatialSignal 321 332	neighboring
+A85	semantic_type T80 directional
+T81	SpatialSignal 388 390	in
+#81	AnnotatorNotes T81	should this be topological? (Changed from DIR to TOP.  Didn't change any links, as a QS but no O had already been made.  -BB)
+A86	semantic_type T81 topological
+T82	SpatialSignal 732 742	Everywhere
+A87	semantic_type T82 topological
+T83	SpatialSignal 806 808	of
+A88	semantic_type T83 topological
+T84	SpatialSignal 90 92	in
+A89	semantic_type T84 topological
+T85	MotionSignal 2675 2677	to
+A90	MS_type T85 path
+T86	MotionSignal 2856 2858	to
+A91	MS_type T86 path
+T87	MotionSignal 3024 3028	into
+A92	MS_type T87 path
+T88	MotionSignal 3033 3036	out
+A93	MS_type T88 path
+T89	MotionSignal 3070 3072	to
+A94	MS_type T89 path
+T90	MotionSignal 3190 3196	beyond
+A95	MS_type T90 path
+T91	MotionSignal 778 782	down
+A96	MS_type T91 path
+T92	Measure 2883 2887	near
+#93	AnnotatorNotes T92	 NEAR
+T93	Measure 3171 3189	thousands of miles
+#95	AnnotatorNotes T93	miles gte2000
+T94	TLINK 90 92	in
+A97	QS_type E1 IN
+E1	TLINK:T94 trajector:T64 landmark:T28 trigger:T84
+T95	TLINK 109 111	in
+A98	QS_type E2 IN
+E2	TLINK:T95 trajector:T56 landmark:T2 trigger:T74
+T96	TLINK 806 808	of
+A99	QS_type E3 IN
+E3	TLINK:T96 trajector:T37 landmark:T25 trigger:T83
+T97	TLINK 1069 1071	at
+A100	QS_type E4 IN
+E4	TLINK:T97 trajector:T57 landmark:T1 trigger:T73
+T98	TLINK 2898 2900	In
+A101	QS_type E5 IN
+E5	TLINK:T98 trajector:T59 landmark:T15 trigger:T75
+T99	TLINK 3140 3142	of
+A102	QS_type E6 TPP
+E6	TLINK:T99 trajector:T47 landmark:T18 trigger:T78
+T100	TLINK 3081 3083	of
+A103	QS_type E7 TPP
+E7	TLINK:T100 trajector:T17 landmark:T45 trigger:T76
+T101	TLINK 3095 3100	where
+A104	QS_type E8 IN
+E8	TLINK:T101 trajector:T60 landmark:T17 trigger:T77
+T102	TLINK 263 269	giving
+A105	QS_type E9 IN
+E9	TLINK:T102 trajector:T58 landmark:T8
+T103	TLINK 316 318	at
+A106	QS_type E10 IN
+E10	TLINK:T103 trajector:T44 landmark:T20 trigger:T79
+T104	TLINK 347 353	talked
+A107	QS_type E11 IN
+E11	TLINK:T104 trajector:T61 landmark:T8
+T105	TLINK 388 390	in
+A108	QS_type E12 IN
+E12	TLINK:T105 trajector:T62 landmark:T21 trigger:T81
+T106	TLINK 699 712	deforestation
+A109	QS_type E13 IN
+E13	TLINK:T106 trajector:T63 landmark:T22
+T107	TLINK 732 742	Everywhere
+A110	QS_type E14 EQ
+E14	TLINK:T107 trajector:T72 landmark:T71 trigger:T82
+T108	OLINK 3140 3142	of
+A111	O_type E15 ABOVE
+A112	frame_type E15 INTRINSIC
+A113	projective E15 INTRINSIC
+E15	OLINK:T108 trajector:T47 landmark:T18 trigger:T78 referencePt:T18
+T109	OLINK 321 332	neighboring
+A114	O_type E16 NEXT TO
+A115	frame_type E16 INTRINSIC
+A116	projective E16 INTRINSIC
+E16	OLINK:T109 trajector:T20 landmark:T13 trigger:T80 referencePt:T13
+T110	OLINK 3081 3083	of
+A117	O_type E17 ABOVE
+A118	frame_type E17 INTRINSIC
+A119	projective E17 INTRINSIC
+E17	OLINK:T110 trajector:T17 landmark:T45 trigger:T76 referencePt:T45
+T111	MLINK 3157 3166	stretches
+E18	MLINK:T111 mover:T18 midPoint:T35 motion_signalID:T90 trigger:T70 source:T35
+T112	MLINK 155 163	visiting
+A121	goal_reached E19 yes
+E19	MLINK:T112 goal:T4 mover:T48 trigger:T65
+T113	MLINK 753 758	built
+E20	MLINK:T113 mover:T36 trigger:T71
+T114	MLINK 774 777	cut
+E21	MLINK:T114 mover:T24 motion_signalID:T91 trigger:T72
+T115	MLINK 2630 2637	release
+A124	goal_reached E22 yes
+E22	MLINK:T115 goal:T10 mover:T38 motion_signalID:T85 trigger:T66
+T116	MLINK 3017 3023	fluxes
+E23	MLINK:T116 mover:T42 motion_signalID:T88 trigger:T68 source:T16
+T117	MLINK 3017 3023	fluxes
+A126	goal_reached E24 yes
+E24	MLINK:T117 goal:T16 mover:T42 motion_signalID:T87 trigger:T68
+T118	MLINK 3064 3069	climb
+A127	goal_reached E25 yes
+E25	MLINK:T118 goal:T17 mover:T43 motion_signalID:T89 trigger:T69
+T119	MLINK 2813 2822	travelled
+A128	goal_reached E26 yes
+E26	MLINK:T119 goal:T12 mover:T51 motion_signalID:T86 trigger:T67
+R7	coreference Arg1:T50 Arg2:T37
+#96	AnnotatorNotes R7	SUBCOREFERENCE
+R8	coreference Arg1:T49 Arg2:T37
+#97	AnnotatorNotes R8	SUBCOREFERENCE

@@ -65,6 +65,11 @@ public class BratUtil {
         put(CONFERENCE, EVENT);
     }};
 
+    public static String subType(String s){
+        if (subtypeMap.get(s)!=null) return subtypeMap.get(s);
+        return s;
+    }
+
     public static final Set<String> availableLabels = new HashSet<>(Arrays.asList("Place", "MilitaryPlace", "MilitaryBase",
             "Country","AdministrativeDivision", "Path", "P_MilitaryPlace", "SpatialEntity", "SpatialSignal", "Motion",
             "Event", "MilitaryExercise", "Conference", "Measure", "MotionSignal"));

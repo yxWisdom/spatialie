@@ -1,0 +1,505 @@
+T1	Null 2281 2283	is
+#1	AnnotatorNotes T1	PLACE place that the castle is 1 km to SW of
+T2	Place 1125 1131	Cernat
+A1	form T2 NAM
+T3	Place 1133 1142	Csernáton
+A2	form T3 NAM
+T4	Place 1155 1160	point
+A3	form T4 NOM
+T5	Place 1189 1196	village
+A4	form T5 NOM
+T6	Place 1342 1347	field
+A5	form T6 NOM
+T7	Place 1369 1373	This
+A6	form T7 NOM
+T8	Place 1403 1413	confluence
+A7	form T8 NOM
+T9	Place 1488 1494	target
+A8	form T9 NOM
+T10	Place 1528 1532	hill
+A9	form T10 NOM
+T11	Place 155 161	county
+A10	form T11 NOM
+T12	Place 1642 1646	peak
+A11	form T12 NOM
+T13	Place 1711 1714	top
+A12	form T13 NOM
+T14	Place 1791 1794	top
+A13	form T14 NOM
+T15	Place 1802 1808	saddle
+A14	form T15 NOM
+T16	Place 182 188	corner
+A15	form T16 NOM
+T17	Place 1828 1840	intersection
+A16	form T17 NOM
+T18	Place 1863 1873	confluence
+A17	form T18 NOM
+T19	Place 1886 1892	middle
+A18	form T19 NOM
+T20	Place 1900 1906	forest
+A19	form T20 NOM
+T21	Place 192 199	Hungary
+A20	form T21 NAM
+T22	Place 2038 2040	It
+A21	form T22 NOM
+T23	Place 22 32	confluence
+A22	form T23 NOM
+T24	Place 2241 2245	ruin
+A23	form T24 NOM
+T25	Place 2249 2255	Ikavár
+A24	form T25 NAM
+T26	Place 2257 2267	Ika castle
+A25	form T26 NOM
+T27	Place 2274 2280	castle
+A26	form T27 NOM
+T28	Place 2308 2312	side
+A27	form T28 NOM
+T29	Place 2320 2326	valley
+A28	form T29 NOM
+T30	Place 2335 2338	top
+A29	form T30 NOM
+T31	Place 2353 2357	crag
+A30	form T31 NOM
+T32	Place 2386 2396	Ika castle
+A31	form T32 NAM
+T33	Place 250 256	county
+A32	form T33 NOM
+T34	Place 2528 2533	tower
+A33	form T34 NOM
+T35	Place 2575 2581	castle
+A34	form T35 NOM
+T36	Place 260 269	Háromszék
+A35	form T36 NAM
+T37	Place 2641 2650	46°N 26°E
+A36	form T37 NAM
+T38	Place 274 282	Ikafalva
+A37	form T38 NAM
+T39	Place 284 292	Icafalău
+A38	form T39 NAM
+T40	Place 315 323	villages
+A39	form T40 NOM
+T41	Place 329 335	county
+A40	form T41 NOM
+T42	Place 347 359	Transylvania
+A41	form T42 NAM
+T43	Place 431 451	Eastern Transylvania
+A42	form T43 NAM
+T44	Place 511 515	land
+A43	form T44 NOM
+T45	Place 577 582	heart
+A44	form T45 NOM
+T46	Place 586 593	Romania
+A45	form T46 NAM
+T47	Place 640 647	parents
+#47	AnnotatorNotes T47	I know it's weird to have parents as a place, but context implied parents' house.
+A46	form T47 NOM
+T48	Place 651 666	Sfântu Gheorghe
+A47	form T48 NAM
+T49	Place 668 684	Sepsiszentgyörgy
+A48	form T49 NAM
+T50	Place 687 694	capital
+A49	form T50 NOM
+T51	Place 698 705	Covasna
+A50	form T51 NAM
+T52	Place 70 78	Icafalâu
+A51	form T52 NAM
+T53	Place 730 735	there
+A52	form T53 NOM
+T54	Place 80 88	Ikafalva
+A53	form T54 NAM
+T55	Place 895 905	confluence
+A54	form T55 NOM
+T56	Place 93 116	Covasna county, Romania
+A55	form T56 NAM
+T57	Place 952 968	Sepsiszentgyörgy
+A56	form T57 NAM
+T58	Null 1323 1326	the
+#58	AnnotatorNotes T58	PLACE goal for 'we parked the car in a small field'
+T59	Path 1095 1107	11 main road
+A57	form T59 NAM
+T60	Path 1241 1245	road
+A58	form T60 NOM
+T61	Path 1549 1555	valley
+A59	form T61 NOM
+T62	Path 1567 1572	creek
+A60	form T62 NOM
+T63	Path 1627 1631	path
+A61	form T63 NOM
+R14	endID Arg1:T63 Arg2:T12
+T64	Path 1670 1676	trails
+A62	form T64 NOM
+R17	endID Arg1:T64 Arg2:T12
+T65	Path 1700 1703	way
+A63	form T65 NOM
+R20	endID Arg1:T65 Arg2:T13
+T66	Path 1844 1848	46°N
+A64	form T66 NAM
+R24	midIDs Arg1:T66 Arg2:T17
+T67	Path 1853 1857	26°E
+A65	form T67 NAM
+R27	midIDs Arg1:T67 Arg2:T17
+T68	Path 2489 2494	creek
+A66	form T68 NOM
+T69	Path 555 561	border
+A67	form T69 NOM
+T70	Path 913 928	Bodok mountains
+A68	form T70 NOM
+T71	SpatialEntity 1069 1071	We
+A69	form T71 NOM
+T72	SpatialEntity 1161 1163	we
+A70	form T72 NOM
+T73	SpatialEntity 1313 1315	We
+A71	form T73 NOM
+T74	SpatialEntity 1327 1330	car
+A72	form T74 NOM
+T75	SpatialEntity 1354 1356	we
+A73	form T75 NOM
+T76	SpatialEntity 1466 1468	we
+A74	form T76 NOM
+T77	SpatialEntity 1597 1599	we
+A75	form T77 NOM
+T78	SpatialEntity 1678 1680	We
+A76	form T78 NOM
+T79	SpatialEntity 1727 1731	snow
+A77	form T79 NOM
+T80	SpatialEntity 1777 1779	we
+A78	form T80 NOM
+T81	SpatialEntity 1920 1922	we
+A79	form T81 NOM
+T82	SpatialEntity 1972 1973	I
+A80	form T82 NOM
+T83	SpatialEntity 1997 1998	I
+A81	form T83 NOM
+T84	SpatialEntity 2071 2072	I
+A82	form T84 NOM
+T85	SpatialEntity 2192 2194	we
+A83	form T85 NOM
+T86	SpatialEntity 2681 2683	us
+A84	form T86 NOM
+T87	SpatialEntity 396 402	people
+A85	form T87 NOM
+T88	SpatialEntity 414 420	people
+A86	form T88 NOM
+T89	SpatialEntity 455 459	they
+A87	form T89 NOM
+T90	SpatialEntity 596 598	We
+A88	form T90 NOM
+T91	SpatialEntity 707 709	We
+A89	form T91 NOM
+T92	SpatialEntity 805 807	us
+A90	form T92 NOM
+T93	SpatialEntity 810 812	me
+A91	form T93 NOM
+T94	SpatialEntity 822 827	Judit
+A92	form T94 NAM
+T95	SpatialEntity 840 844	Apja
+A93	form T95 NAM
+T96	SpatialEntity 860 866	Andrea
+A94	form T96 NAM
+T97	SpatialEntity 2516 2520	tail
+A95	form T97 NOM
+T98	Event 1874 1878	lies
+T99	Event 421 427	living
+T100	Event 604 609	spent
+T101	Event 720 729	Christmas
+T102	Motion 1072 1077	drove
+A96	motion_type T102 compound
+A97	motion_class T102 follow
+A98	motion_sense T102 literal
+T103	Motion 1112 1118	turned
+A99	motion_type T103 path
+A100	motion_class T103 move
+A101	motion_sense T103 literal
+T104	Motion 1171 1176	drive
+A102	motion_type T104 compound
+A103	motion_class T104 move
+A104	motion_sense T104 literal
+T105	Motion 1316 1322	parked
+A105	motion_type T105 compound
+A106	motion_class T105 reach
+A107	motion_sense T105 literal
+T106	Motion 1363 1367	turn
+A108	motion_type T106 path
+A109	motion_class T106 move
+A110	motion_sense T106 literal
+T107	Motion 1469 1475	walked
+A111	motion_type T107 compound
+A112	motion_class T107 reach
+A113	motion_sense T107 literal
+T108	Motion 1588 1596	tracking
+A114	motion_type T108 manner
+A115	motion_class T108 move
+A116	motion_sense T108 literal
+T109	Motion 1780 1783	got
+A117	motion_type T109 path
+A118	motion_class T109 reach
+A119	motion_sense T109 literal
+T110	Motion 2217 2225	discover
+A120	motion_type T110 path
+A121	motion_class T110 reach
+A122	motion_sense T110 literal
+T111	Motion 869 873	went
+A123	motion_type T111 path
+A124	motion_class T111 move
+A125	motion_sense T111 literal
+T112	Motion 878 889	discovering
+A126	motion_type T112 path
+A127	motion_class T112 reach
+A128	motion_sense T112 literal
+T113	SpatialSignal 1122 1124	at
+A129	semantic_type T113 topological
+T114	SpatialSignal 1331 1333	in
+A130	semantic_type T114 topological
+T115	SpatialSignal 1348 1353	where
+A131	semantic_type T115 topological
+T116	SpatialSignal 1521 1523	on
+A132	semantic_type T116 dir_top
+T117	SpatialSignal 1632 1634	up
+A133	semantic_type T117 directional
+T118	SpatialSignal 1635 1637	to
+A134	semantic_type T118 directional
+T119	SpatialSignal 1704 1706	to
+A135	semantic_type T119 directional
+T120	SpatialSignal 1715 1717	in
+A136	semantic_type T120 topological
+T121	SpatialSignal 1879 1881	in
+A137	semantic_type T121 topological
+T122	SpatialSignal 2289 2294	to SW
+A138	semantic_type T122 dir_top
+T123	SpatialSignal 2295 2297	on
+A139	semantic_type T123 dir_top
+T124	SpatialSignal 2328 2330	on
+A140	semantic_type T124 dir_top
+T125	SpatialSignal 375 384	inhabited
+A141	semantic_type T125 topological
+T126	SpatialSignal 428 430	in
+A142	semantic_type T126 topological
+T127	SpatialSignal 53 69	to the west from
+A143	semantic_type T127 directional
+T128	SpatialSignal 570 572	in
+A144	semantic_type T128 topological
+T129	SpatialSignal 629 631	at
+A145	semantic_type T129 topological
+T130	SpatialSignal 648 650	in
+A146	semantic_type T130 topological
+T131	SpatialSignal 90 92	in
+A147	semantic_type T131 topological
+T132	SpatialSignal 906 908	in
+A148	semantic_type T132 topological
+T133	SpatialSignal 941 951	apart from
+A149	semantic_type T133 topological
+T134	SpatialSignal 526 534	far from
+A150	semantic_type T134 topological
+T135	SpatialSignal 2501 2511	coiling up
+A151	semantic_type T135 dir_top
+T136	MotionSignal 1078 1087	to the NE
+A152	MS_type T136 path
+T137	MotionSignal 1088 1090	on
+A153	MS_type T137 path
+T138	MotionSignal 1119 1121	NW
+A154	MS_type T138 path
+T139	MotionSignal 1145 1149	From
+A155	MS_type T139 path
+T140	MotionSignal 1177 1184	through
+A156	MS_type T140 path
+T141	MotionSignal 1206 1219	towards North
+A157	MS_type T141 path
+T142	MotionSignal 1220 1222	on
+A158	MS_type T142 path
+T143	MotionSignal 1476 1483	towards
+A159	MS_type T143 path
+T144	MotionSignal 1784 1786	to
+A160	MS_type T144 path
+T145	Measure 1383 1393	250 meters
+#146	AnnotatorNotes T145	meters 250
+T146	Measure 1739 1763	about one hundred meters
+#148	AnnotatorNotes T146	meters ~100
+T147	Measure 1815 1820	close
+#150	AnnotatorNotes T147	 NEAR
+T148	Measure 2044 2053	725 meter
+#152	AnnotatorNotes T148	meters 725
+T149	Measure 2284 2288	1 km
+#154	AnnotatorNotes T149	kilometers 1
+T150	Measure 2344 2347	30m
+#156	AnnotatorNotes T150	meters 30
+T151	Measure 46 52	1,5 km
+#158	AnnotatorNotes T151	kilometers 1.5
+T152	Measure 519 525	300 km
+#160	AnnotatorNotes T152	kilometers 300
+T153	Measure 935 940	23 km
+#162	AnnotatorNotes T153	kilometers 23
+T154	TLINK 1122 1124	at
+A161	QS_type E1 IN
+E1	TLINK:T154 trajector:T103 landmark:T2 trigger:T113
+T155	TLINK 90 92	in
+A162	QS_type E2 IN
+E2	TLINK:T155 trajector:T52 landmark:T56 trigger:T131
+T156	TLINK 629 631	at
+A163	QS_type E3 IN
+E3	TLINK:T156 trajector:T100 landmark:T47 trigger:T129
+T157	TLINK 648 650	in
+A164	QS_type E4 IN
+E4	TLINK:T157 trajector:T47 landmark:T48 trigger:T130
+T158	TLINK 687 694	capital
+A165	QS_type E5 IN
+E5	TLINK:T158 trajector:T50 landmark:T51
+T159	TLINK 720 729	Christmas
+A166	QS_type E6 IN
+E6	TLINK:T159 trajector:T101 landmark:T53
+T160	TLINK 906 908	in
+A167	QS_type E7 IN
+E7	TLINK:T160 trajector:T55 landmark:T70 trigger:T132
+T161	TLINK 941 951	apart from
+A168	QS_type E8 DC
+E8	TLINK:T161 trajector:T55 landmark:T57 trigger:T133
+T162	TLINK 1567 1572	creek
+A169	QS_type E9 TPP
+E9	TLINK:T162 trajector:T62 landmark:T61
+T163	TLINK 1348 1353	where
+A170	QS_type E10 IN
+E10	TLINK:T163 trajector:T106 landmark:T6 trigger:T115
+T164	TLINK 1521 1523	on
+A171	QS_type E11 EC
+E11	TLINK:T164 trajector:T9 landmark:T10 trigger:T116
+T165	TLINK 182 188	corner
+A172	QS_type E12 TPP
+E12	TLINK:T165 trajector:T16 landmark:T21
+T166	TLINK 1715 1717	in
+A173	QS_type E13 IN
+E13	TLINK:T166 trajector:T65 landmark:T79 trigger:T120
+T167	TLINK 1791 1794	top
+A174	QS_type E14 TPP
+E14	TLINK:T167 trajector:T14 landmark:T15
+T168	TLINK 1879 1881	in
+A175	QS_type E15 IN
+E15	TLINK:T168 trajector:T98 landmark:T19 trigger:T121
+T169	TLINK 1886 1892	middle
+A176	QS_type E16 NTPP
+E16	TLINK:T169 trajector:T19 landmark:T20
+T170	TLINK 2308 2312	side
+A177	QS_type E17 TPP
+E17	TLINK:T170 trajector:T28 landmark:T29
+T171	TLINK 2295 2297	on
+A178	QS_type E18 EC
+E18	TLINK:T171 trajector:T27 landmark:T28 trigger:T123
+T172	TLINK 2328 2330	on
+A179	QS_type E19 EC
+E19	TLINK:T172 trajector:T27 landmark:T30 trigger:T124
+T173	TLINK 2335 2338	top
+A180	QS_type E20 TPP
+E20	TLINK:T173 trajector:T30 landmark:T31
+T174	TLINK 375 384	inhabited
+A181	QS_type E21 IN
+E21	TLINK:T174 trajector:T87 landmark:T41 trigger:T125
+T175	TLINK 428 430	in
+A182	QS_type E22 IN
+E22	TLINK:T175 trajector:T99 landmark:T43 trigger:T126
+T176	TLINK 526 534	far from
+A183	QS_type E23 DC
+E23	TLINK:T176 trajector:T44 landmark:T69 trigger:T134
+T177	TLINK 570 572	in
+A184	QS_type E24 NTPP
+E24	TLINK:T177 trajector:T44 landmark:T45 trigger:T128
+T178	TLINK 577 582	heart
+A185	QS_type E25 NTPP
+E25	TLINK:T178 trajector:T45 landmark:T46
+T179	TLINK 1331 1333	in
+A186	QS_type E26 IN
+E26	TLINK:T179 trajector:T105 landmark:T6 trigger:T114
+T180	TLINK 329 335	county
+A187	QS_type E27 IN
+E27	TLINK:T180 trajector:T41 landmark:T42
+T181	TLINK 2501 2511	coiling up
+A188	QS_type E28 EC
+E28	TLINK:T181 trajector:T97 landmark:T34 trigger:T135
+T182	OLINK 53 69	to the west from
+A189	O_type E29 WEST
+A190	frame_type E29 ABSOLUTE
+A191	projective E29 ABSOLUTE
+E29	OLINK:T182 trajector:T23 landmark:T52 trigger:T127
+T183	OLINK 1521 1523	on
+A192	O_type E30 ABOVE
+A193	frame_type E30 INTRINSIC
+A194	projective E30 INTRINSIC
+E30	OLINK:T183 trajector:T9 landmark:T10 trigger:T116 referencePt:T10
+T184	OLINK 2328 2330	on
+A195	O_type E31 ABOVE
+A196	frame_type E31 INTRINSIC
+A197	projective E31 INTRINSIC
+E31	OLINK:T184 trajector:T27 landmark:T30 trigger:T124 referencePt:T30
+T185	OLINK 2289 2294	to SW
+A198	O_type E32 SOUTHWEST
+A199	frame_type E32 ABSOLUTE
+A200	projective E32 ABSOLUTE
+E32	OLINK:T185 trajector:T27 landmark:T1 trigger:T122
+T186	OLINK 1632 1634	up
+A201	O_type E33 BOTTOM
+A202	frame_type E33 INTRINSIC
+A203	projective E33 INTRINSIC
+E33	OLINK:T186 trajector:T63 landmark:T12 trigger:T117 referencePt:T12
+T187	OLINK 2295 2297	on
+A204	O_type E34 ABOVE
+A205	frame_type E34 INTRINSIC
+A206	projective E34 INTRINSIC
+E34	OLINK:T187 trajector:T27 landmark:T28 trigger:T123 referencePt:T28
+T188	OLINK 2501 2511	coiling up
+A207	O_type E35 SURROUND
+A208	frame_type E35 INTRINSIC
+A209	projective E35 INTRINSIC
+E35	OLINK:T188 trajector:T97 landmark:T34 trigger:T135 referencePt:T34
+T189	OLINK 1635 1637	to
+A210	O_type E36 TOWARD
+A211	frame_type E36 RELATIVE
+A212	projective E36 RELATIVE
+E36	OLINK:T189 trajector:T63 landmark:T12 trigger:T118
+T190	OLINK 1704 1706	to
+A213	O_type E37 TOWARD
+A214	frame_type E37 RELATIVE
+A215	projective E37 RELATIVE
+E37	OLINK:T190 trajector:T65 landmark:T13 trigger:T119
+T191	MLINK 869 873	went
+E38	MLINK:T191 mover:T92 trigger:T111
+T192	MLINK 878 889	discovering
+A217	goal_reached E39 uncertain
+E39	MLINK:T192 goal:T55 mover:T92 trigger:T112
+T193	MLINK 1316 1322	parked
+A218	goal_reached E40 yes
+E40	MLINK:T193 goal:T58 mover:T73 trigger:T105
+T194	MLINK 1316 1322	parked
+A219	goal_reached E41 yes
+E41	MLINK:T194 goal:T58 mover:T74 trigger:T105
+T195	MLINK 1072 1077	drove
+E42	MLINK:T195 mover:T71 motion_signalID2:T137 motion_signalID:T136 trigger:T102 pathID:T59
+T196	MLINK 1112 1118	turned
+E43	MLINK:T196 mover:T71 motion_signalID:T138 trigger:T103
+T197	MLINK 1171 1176	drive
+E44	MLINK:T197 mover:T72 midPoint:T5 motion_signalID3:T141 motion_signalID2:T140 motion_signalID:T139 motion_signalID4:T142 trigger:T104 source:T4 pathID:T60
+T198	MLINK 1363 1367	turn
+E45	MLINK:T198 mover:T75 trigger:T106
+T199	MLINK 1469 1475	walked
+A224	goal_reached E46 uncertain
+E46	MLINK:T199 goal:T9 mover:T76 motion_signalID:T143 trigger:T107
+T200	MLINK 1588 1596	tracking
+E47	MLINK:T200 mover:T77 trigger:T108
+T201	MLINK 1780 1783	got
+A226	goal_reached E48 yes
+E48	MLINK:T201 goal:T14 mover:T80 motion_signalID:T144 trigger:T109
+T202	MLINK 2217 2225	discover
+A227	goal_reached E49 yes
+E49	MLINK:T202 goal:T24 mover:T85 trigger:T110
+T203	DLINK 46 52	1,5 km
+E50	DLINK:T203 trajector:T23 landmark:T52 val:T151
+T204	DLINK 519 525	300 km
+E51	DLINK:T204 trajector:T44 landmark:T69 val:T152
+T205	DLINK 935 940	23 km
+E52	DLINK:T205 trajector:T55 landmark:T57 val:T153
+T206	DLINK 1383 1393	250 meters
+E53	DLINK:T206 trajector:T7 landmark:T8 val:T145
+T207	DLINK 1815 1820	close
+E54	DLINK:T207 trajector:T14 landmark:T17 val:T147
+T208	DLINK 1739 1763	about one hundred meters
+E55	DLINK:T208 trajector:T109 landmark:T109 val:T146
+T209	DLINK 2284 2288	1 km
+E56	DLINK:T209 trajector:T27 landmark:T1 val:T149
+T210	DLINK 2344 2347	30m
+E57	DLINK:T210 trajector:T31 landmark:T31 val:T150

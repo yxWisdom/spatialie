@@ -63,12 +63,36 @@ public class GenerateTraditionalRelationCorpus {
 //        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
 //                "data/SpaceEval2015/processed_data/openNRE", "test", false);
 
+<<<<<<< HEAD
+        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
+                "data/SpaceEval2015/processed_data/openNRE", "test", false);
+
+
+//        GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
+//
+//        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/training++",
+//                "data/SpaceEval2015/processed_data/openNRE", "train", false);
+//
+//        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
+//                "data/SpaceEval2015/processed_data/openNRE", "val", false);
+//
+//        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
+//                "data/SpaceEval2015/processed_data/openNRE", "test", false);
+
+    }
+    //    public static void get
+    private final static int moveLinkDistanceLimit = 12;
+    private final static int nonMoveLinkDistanceLimit = 12;
+
+    private final static int internalElementNumLimit = 4;
+=======
     }
     //    public static void get
     private  static int moveLinkDistanceLimit = 12;
     private  static int nonMoveLinkDistanceLimit = 12;
 
     private  static int internalElementNumLimit = 4;
+>>>>>>> 335f6be916f9bb33b9f2d1fce480ae52c3af3f65
 //    private final static int binaryNonMoveLinkDistanceLimit = 15;
 
     private final static String NONE="None";
@@ -187,8 +211,13 @@ public class GenerateTraditionalRelationCorpus {
         }
         return linkLines;
     }
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> 335f6be916f9bb33b9f2d1fce480ae52c3af3f65
     private static List<String> getQSAndOLinkWithTrigger(String srcDir, String...linkTypes) {
         List<File> files = FileUtil.listFiles(srcDir);
         List<String> linkLines = new ArrayList<>();
@@ -315,7 +344,7 @@ public class GenerateTraditionalRelationCorpus {
     }
 
     private static void run(String srcDir, String targetFilePath, String mode, boolean shuffle) {
-        List<String> nonMoveLinkLines = getQSAndOLinkWithTrigger(srcDir, QSLINK, OLINK);
+        List<String> nonMoveLinkLines = getQSAndOLinkWithTrigger(srcDir, QSLINK, OLINK,MEASURELINK);
         List<String> moveLinkLines = getMoveLinkLines(srcDir);
         List<String> allLinkLines = new ArrayList<>();
         allLinkLines.addAll(nonMoveLinkLines);
@@ -332,6 +361,23 @@ public class GenerateTraditionalRelationCorpus {
         String dirname = targetFilePath + "/AllLink_" + moveLinkDistanceLimit + "_" + internalElementNumLimit + "/";
         FileUtil.createDir(dirname);
         FileUtil.writeFile(dirname + mode + ".txt", allLinkLines);
+<<<<<<< HEAD
+    }
+
+
+    private static void run_no_trigger(String srcDir, String targetFilePath, String mode, boolean shuffle) {
+        List<String> no_trigger_links = getQSAndOLinkWithoutTrigger(srcDir, QSLINK, OLINK);
+
+        if (shuffle) {
+            Collections.shuffle(no_trigger_links);
+        }
+
+        String dirname = targetFilePath + "/noTriggerLinks_" + moveLinkDistanceLimit + "_" + internalElementNumLimit + "/";
+        FileUtil.createDir(dirname);
+        FileUtil.writeFile(dirname + mode + ".txt", no_trigger_links);
+    }
+
+=======
 
         GenerateTraditionalRelationCorpus.saveRelationMap(dirname + "rel2id.json");
     }
@@ -349,4 +395,5 @@ public class GenerateTraditionalRelationCorpus {
         FileUtil.writeFile(dirname + mode + ".txt", no_trigger_links);
     }
 
+>>>>>>> 335f6be916f9bb33b9f2d1fce480ae52c3af3f65
 }

@@ -1,0 +1,199 @@
+T1	Null 360 362	as
+#1	AnnotatorNotes T1	PLACE '... where it falls as rain ...'
+T2	Place 1013 1017	Peru
+A1	form T2 NAM
+T3	Place 108 115	deserts
+A2	form T3 NOM
+T4	Place 1195 1200	towns
+#4	AnnotatorNotes T4	amount=most;
+A3	form T4 NOM
+T5	Place 1205 1211	cities
+#5	AnnotatorNotes T5	amount=most
+A4	form T5 NOM
+T6	Place 123 128	world
+A5	form T6 NOM
+T7	Place 1238 1243	parts
+A6	form T7 NOM
+T8	Place 1247 1251	Lima
+A7	form T8 NAM
+T9	Place 1334 1338	area
+A8	form T9 NOM
+T10	Place 1545 1550	house
+A9	form T10 NOM
+T11	Place 2110 2114	Peru
+A10	form T11 NAM
+T12	Place 214 218	Lima
+A11	form T12 NAM
+T13	Place 2159 2168	resivours
+#13	AnnotatorNotes T13	amount=many
+A12	form T13 NOM
+T14	Place 2176 2185	mountains
+A13	form T14 NOM
+T15	Place 2302 2306	Peru
+A14	form T15 NAM
+T16	Place 314 318	city
+A15	form T16 NOM
+T17	Place 334 343	mountains
+A16	form T17 NOM
+T18	Place 815 819	Peru
+A17	form T18 NAM
+T19	Place 90 93	one
+A18	form T19 NOM
+T20	Place 2279 2286	valleys
+A19	form T20 NOM
+T21	Path 1351 1368	Cordillera Blanca
+A20	form T21 NAM
+T22	Path 1587 1592	coast
+A21	form T22 NOM
+T23	Path 1734 1740	stream
+A22	form T23 NOM
+T24	Path 404 410	rivers
+A23	form T24 NOM
+T25	Path 73 78	coast
+A24	form T25 NOM
+T26	SpatialEntity 1212 1213	I
+A25	form T26 NOM
+T27	SpatialEntity 1370 1371	I
+A26	form T27 NOM
+T28	SpatialEntity 1378 1381	man
+A27	form T28 NOM
+T29	SpatialEntity 1519 1524	water
+A28	form T29 NOM
+T30	SpatialEntity 1564 1565	I
+A29	form T30 NOM
+T31	SpatialEntity 300 305	water
+#31	AnnotatorNotes T31	quant=all;
+A30	form T31 NOM
+T32	SpatialEntity 351 353	it
+A31	form T32 NOM
+T33	SpatialEntity 40 41	I
+A32	form T33 NOM
+T34	SpatialEntity 224 226	me
+A33	form T34 NOM
+T35	SpatialEntity 762 763	I
+A34	form T35 NOM
+T36	SpatialEntity 925 930	water
+A35	form T36 NOM
+T37	SpatialEntity 938 942	dams
+A36	form T37 NOM
+T38	SpatialEntity 1142 1143	I
+A37	form T38 NOM
+T39	SpatialEntity 1481 1482	I
+A38	form T39 NOM
+T40	SpatialEntity 1747 1749	me
+A39	form T40 NOM
+T41	Event 1566 1572	stayed
+T42	Event 1721 1726	lives
+T43	Event 203 210	exhibit
+T44	Event 385 390	melts
+T45	Event 2263 2269	living
+T46	Motion 1372 1375	met
+A40	motion_type T46 path
+A41	motion_class T46 hit
+A42	motion_sense T46 literal
+T47	Motion 1525 1529	goes
+A43	motion_type T47 path
+A44	motion_class T47 reach
+A45	motion_sense T47 literal
+T48	Motion 319 324	comes
+A46	motion_type T48 path
+A47	motion_class T48 move
+A48	motion_sense T48 literal
+T49	Motion 354 359	falls
+A49	motion_type T49 compound
+A50	motion_class T49 hit
+A51	motion_sense T49 literal
+T50	Motion 392 399	filling
+A52	motion_type T50 path
+A53	motion_class T50 reach
+A54	motion_sense T50 literal
+T51	SpatialSignal 116 118	in
+A55	semantic_type T51 topological
+T52	SpatialSignal 1224 1226	in
+A56	semantic_type T52 topological
+T53	SpatialSignal 1244 1246	of
+A57	semantic_type T53 topological
+T54	SpatialSignal 1321 1323	In
+A58	semantic_type T54 topological
+T55	SpatialSignal 1339 1346	east of
+A59	semantic_type T55 directional
+T56	SpatialSignal 211 213	in
+A60	semantic_type T56 topological
+T57	SpatialSignal 2169 2171	in
+A61	semantic_type T57 topological
+T58	SpatialSignal 345 350	where
+A62	semantic_type T58 topological
+T59	SpatialSignal 931 933	in
+A63	semantic_type T59 topological
+T60	SpatialSignal 2270 2272	in
+A64	semantic_type T60 topological
+T61	MotionSignal 1530 1532	to
+A65	MS_type T61 path
+T62	MotionSignal 306 309	for
+A66	MS_type T62 path
+T63	MotionSignal 325 329	from
+A67	MS_type T63 path
+T64	Measure 1578 1582	near
+#65	AnnotatorNotes T64	 NEAR
+T65	Measure 1727 1731	near
+#67	AnnotatorNotes T65	 NEAR
+T66	TLINK 90 93	one
+A68	QS_type E1 IN
+E1	TLINK:T66 trajector:T19 landmark:T25
+T67	TLINK 211 213	in
+A69	QS_type E2 IN
+E2	TLINK:T67 trajector:T43 landmark:T12 trigger:T56
+T68	TLINK 345 350	where
+A70	QS_type E3 IN
+E3	TLINK:T68 trajector:T49 landmark:T17 trigger:T58
+T69	TLINK 1224 1226	in
+A71	QS_type E4 IN
+E4	TLINK:T69 trajector:T26 landmark:T4 trigger:T52
+T70	TLINK 1224 1226	in
+A72	QS_type E5 IN
+E5	TLINK:T70 trajector:T26 landmark:T5 trigger:T52
+T71	TLINK 1224 1226	in
+A73	QS_type E6 IN
+E6	TLINK:T71 trajector:T26 landmark:T7 trigger:T52
+T72	TLINK 1244 1246	of
+A74	QS_type E7 IN
+E7	TLINK:T72 trajector:T7 landmark:T8 trigger:T53
+T73	TLINK 1321 1323	In
+A75	QS_type E8 IN
+E8	TLINK:T73 trajector:T46 landmark:T9 trigger:T54
+T74	TLINK 2169 2171	in
+A76	QS_type E9 IN
+E9	TLINK:T74 trajector:T13 landmark:T14 trigger:T57
+T75	TLINK 345 350	where
+A77	QS_type E10 IN
+E10	TLINK:T75 trajector:T44 landmark:T17 trigger:T58
+T76	TLINK 931 933	in
+A78	QS_type E11 IN
+E11	TLINK:T76 trajector:T36 landmark:T37 trigger:T59
+T77	TLINK 2270 2272	in
+A79	QS_type E12 IN
+E12	TLINK:T77 trajector:T45 landmark:T20 trigger:T60
+T78	OLINK 1339 1346	east of
+A80	O_type E13 EAST
+A81	frame_type E13 ABSOLUTE
+A82	projective E13 ABSOLUTE
+E13	OLINK:T78 trajector:T9 landmark:T21 trigger:T55
+T79	MLINK 319 324	comes
+A83	goal_reached E14 yes
+E14	MLINK:T79 goal:T16 mover:T31 motion_signalID2:T62 motion_signalID:T63 trigger:T48 source:T17
+T80	MLINK 354 359	falls
+A84	goal_reached E15 yes
+E15	MLINK:T80 goal:T1 mover:T32 trigger:T49
+T81	MLINK 392 399	filling
+A85	goal_reached E16 yes
+E16	MLINK:T81 goal:T24 mover:T31 trigger:T50 source:T17
+T82	MLINK 1372 1375	met
+A86	goal_reached E17 yes
+E17	MLINK:T82 goal:T28 mover:T27 trigger:T46
+T83	MLINK 1525 1529	goes
+A87	goal_reached E18 yes
+E18	MLINK:T83 goal:T10 mover:T29 motion_signalID:T61 trigger:T47
+T84	DLINK 1578 1582	near
+E19	DLINK:T84 trajector:T41 landmark:T22 val:T64
+T85	DLINK 1727 1731	near
+E20	DLINK:T85 trajector:T42 landmark:T23 val:T65

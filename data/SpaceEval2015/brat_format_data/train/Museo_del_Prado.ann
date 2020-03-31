@@ -1,0 +1,116 @@
+T1	Place 1052 1054	it
+A1	form T1 NOM
+T2	Place 1101 1125	royal museum of painting
+A2	form T2 NAM
+T3	Place 1159 1161	it
+A3	form T3 NOM
+T4	Place 1169 1196	El         Mu­seo del Prado
+A4	form T4 NAM
+T5	Place 1355 1361	museum
+A5	form T5 NOM
+T6	Place 1566 1571	Prado
+A6	form T6 NAM
+T7	Place 1613 1615	it
+A7	form T7 NOM
+T8	Place 1671 1676	Prado
+A8	form T8 NAM
+T9	Place 1808 1815	storage
+A9	form T9 NOM
+T10	Place 192 199	museums
+A10	form T10 NOM
+T11	Place 217 219	it
+A11	form T11 NOM
+T12	Place 240 242	it
+A12	form T12 NOM
+T13	Place 2422 2432	restaurant
+A13	form T13 NOM
+T14	Place 302 304	it
+A14	form T14 NOM
+T15	Place 33 39	Madrid
+A15	form T15 NAM
+T16	Place 516 521	Spain
+A16	form T16 NAM
+T17	Place 53 65	Prado museum
+A17	form T17 NAM
+T18	Place 593 601	convents
+A18	form T18 NOM
+T19	Place 606 617	monasteries
+A19	form T19 NOM
+T20	Place 637 644	country
+A20	form T20 NOM
+T21	Place 662 664	it
+A21	form T21 NOM
+T22	Place 681 687	museum
+A22	form T22 NOM
+T23	Place 839 851	royal palace
+A23	form T23 NAM
+T24	Place 890 898	building
+A24	form T24 NOM
+T25	Place 900 902	It
+A25	form T25 NOM
+T26	Place 928 934	museum
+A26	form T26 NOM
+T27	SpatialEntity 1041 1049	building
+A27	form T27 NOM
+T28	SpatialEntity 1778 1786	overflow
+A28	form T28 NOM
+T29	SpatialEntity 2184 2188	what
+A29	form T29 NOM
+T30	SpatialEntity 2189 2192	you
+A30	form T30 NOM
+T31	SpatialEntity 2218 2220	it
+A31	form T31 NOM
+T32	SpatialEntity 2260 2263	you
+A32	form T32 NOM
+T33	SpatialEntity 2282 2293	masterworks
+A33	form T33 NOM
+T34	SpatialEntity 2327 2330	you
+A34	form T34 NOM
+T35	Event 1339 1347	upheaval
+T36	Event 2386 2397	refreshment
+T37	Motion 1587 1596	expansion
+A35	motion_type T37 manner
+A36	motion_class T37 move
+A37	motion_sense T37 intrinsic_change
+T38	Motion 2209 2213	head
+A38	motion_type T38 path
+A39	motion_class T38 hit
+A40	motion_sense T38 literal
+T39	Motion 2264 2268	rush
+A41	motion_type T39 compound
+A42	motion_class T39 move_external
+A43	motion_sense T39 literal
+T40	SpatialSignal 1348 1350	in
+A44	semantic_type T40 topological
+T41	SpatialSignal 1797 1799	in
+A45	semantic_type T41 topological
+T42	SpatialSignal 2406 2408	in
+A46	semantic_type T42 topological
+T43	SpatialSignal 618 624	around
+A47	semantic_type T43 topological
+T44	MotionSignal 2214 2217	for
+A48	MS_type T44 path
+T45	MotionSignal 2269 2273	past
+A49	MS_type T45 path
+T46	TLINK 618 624	around
+A50	QS_type E1 IN
+E1	TLINK:T46 trajector:T18 landmark:T20 trigger:T43
+T47	TLINK 618 624	around
+A51	QS_type E2 IN
+E2	TLINK:T47 trajector:T19 landmark:T20 trigger:T43
+T48	TLINK 1348 1350	in
+A52	QS_type E3 EQ
+E3	TLINK:T48 trajector:T35 landmark:T5 trigger:T40
+T49	TLINK 1797 1799	in
+A53	QS_type E4 IN
+E4	TLINK:T49 trajector:T28 landmark:T9 trigger:T41
+T50	TLINK 2406 2408	in
+A54	QS_type E5 IN
+E5	TLINK:T50 trajector:T36 landmark:T13 trigger:T42
+T51	MLINK 1587 1596	expansion
+E6	MLINK:T51 mover:T6 trigger:T37
+T52	MLINK 2209 2213	head
+A56	goal_reached E7 yes
+E7	MLINK:T52 goal:T31 mover:T30 motion_signalID:T44 trigger:T38
+T53	MLINK 2264 2268	rush
+E8	MLINK:T53 mover:T32 motion_signalID:T45 ground:T33 trigger:T39

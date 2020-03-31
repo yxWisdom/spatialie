@@ -1,0 +1,213 @@
+T1	Null 2076 2079	the
+#1	AnnotatorNotes T1	PLACE beginning of '... now they drive across the country.'
+T2	Null 2092 2094	My
+#2	AnnotatorNotes T2	PLACE end of '... now they drive across the country.'
+T3	Place 158 166	Colombia
+A1	form T3 NAM
+T4	Place 2026 2032	Bogota
+A2	form T4 NAM
+T5	Place 2080 2087	country
+A3	form T5 NOM
+T6	Place 2114 2123	Cartagena
+A4	form T6 NAM
+T7	Place 2139 2143	farm
+A5	form T7 NOM
+T8	Place 2350 2358	Colombia
+A6	form T8 NAM
+T9	Place 2383 2387	here
+A7	form T9 NOM
+T10	Place 2391 2399	Colombia
+A8	form T10 NAM
+T11	Place 344 348	town
+A9	form T11 NOM
+T12	Place 354 363	Cartagena
+A10	form T12 NAM
+T13	Place 394 400	cities
+A11	form T13 NOM
+T14	Place 404 417	South America
+A12	form T14 NAM
+T15	Place 454 462	downtown
+A13	form T15 NOM
+T16	Place 526 530	city
+A14	form T16 NOM
+T17	Place 627 631	city
+A15	form T17 NOM
+T18	Place 823 831	downtown
+A16	form T18 NOM
+T19	Place 96 105	Cartagena
+A17	form T19 NAM
+T20	Place 738 742	city
+A18	form T20 NOM
+T21	Place 1802 1809	country
+A19	form T21 NOM
+T22	Path 1906 1911	roads
+A20	form T22 NOM
+T23	Path 2341 2346	roads
+A21	form T23 NOM
+T24	Path 485 490	walls
+A22	form T24 NOM
+T25	Path 567 574	streets
+A23	form T25 NOM
+T26	Path 654 659	level
+A24	form T26 NOM
+T27	Path 766 771	level
+A25	form T27 NOM
+T28	SpatialEntity 1852 1856	army
+A26	form T28 NOM
+T29	SpatialEntity 2005 2012	friends
+A27	form T29 NOM
+T30	SpatialEntity 2058 2062	they
+A28	form T30 NOM
+T31	SpatialEntity 2125 2126	I
+A29	form T31 NOM
+T32	SpatialEntity 2321 2323	me
+A30	form T32 NOM
+T33	SpatialEntity 294 295	I
+A31	form T33 NOM
+T34	SpatialEntity 803 804	I
+A32	form T34 NOM
+T35	SpatialEntity 83 84	I
+A33	form T35 NOM
+T36	SpatialEntity 107 108	I
+A34	form T36 NOM
+T37	SpatialEntity 1063 1064	I
+A35	form T37 NOM
+T38	SpatialEntity 1115 1117	me
+A36	form T38 NOM
+T39	SpatialEntity 1155 1156	I
+A37	form T39 NOM
+T40	SpatialEntity 1219 1220	I
+A38	form T40 NOM
+T41	SpatialEntity 1282 1283	I
+A39	form T41 NOM
+T42	SpatialEntity 1787 1788	I
+A40	form T42 NOM
+T43	SpatialEntity 1956 1957	I
+A41	form T43 NOM
+T44	SpatialEntity 2292 2294	me
+A42	form T44 NOM
+T45	SpatialEntity 2485 2486	I
+A43	form T45 NOM
+T46	SpatialEntity 2540 2541	I
+A44	form T46 NOM
+T47	SpatialEntity 704 705	I
+A45	form T47 NOM
+T48	Event 2374 2382	conflict
+T49	Event 324 329	spent
+T50	Event 632 636	sits
+T51	Event 2127 2133	stayed
+T52	Motion 1924 1933	patrolled
+A46	motion_type T52 path
+A47	motion_class T52 move_internal
+A48	motion_sense T52 literal
+T53	Motion 2019 2022	fly
+A49	motion_type T53 compound
+A50	motion_class T53 reach
+A51	motion_sense T53 literal
+T54	Motion 2044 2049	drive
+A52	motion_type T54 compound
+A53	motion_class T54 move
+A54	motion_sense T54 literal
+T55	Motion 2063 2068	drive
+A55	motion_type T55 compound
+A56	motion_class T55 cross
+A57	motion_sense T55 literal
+T56	Motion 2327 2331	bike
+A58	motion_type T56 compound
+A59	motion_class T56 follow
+A60	motion_sense T56 literal
+T57	Motion 772 777	rises
+A61	motion_type T57 path
+A62	motion_class T57 move
+A63	motion_sense T57 literal
+T58	Motion 805 811	walked
+A64	motion_type T58 compound
+A65	motion_class T58 move_internal
+A66	motion_sense T58 literal
+T59	Motion 85 92	arrived
+A67	motion_type T59 path
+A68	motion_class T59 reach
+A69	motion_sense T59 literal
+T60	SpatialSignal 2134 2136	on
+A70	semantic_type T60 topological
+T61	SpatialSignal 2347 2349	in
+A71	semantic_type T61 topological
+T62	SpatialSignal 2388 2390	in
+A72	semantic_type T62 topological
+T63	SpatialSignal 341 343	in
+A73	semantic_type T63 topological
+T64	SpatialSignal 401 403	in
+A74	semantic_type T64 topological
+T65	SpatialSignal 466 476	surrounded
+A75	semantic_type T65 dir_top
+T66	SpatialSignal 644 649	above
+A76	semantic_type T66 directional
+T67	MotionSignal 2023 2025	to
+A77	MS_type T67 path
+T68	MotionSignal 2069 2075	across
+A78	MS_type T68 path
+T69	MotionSignal 812 818	around
+A79	MS_type T69 path
+T70	MotionSignal 93 95	in
+A80	MS_type T70 path
+T71	TLINK 401 403	in
+A81	QS_type E1 IN
+E1	TLINK:T71 trajector:T13 landmark:T14 trigger:T64
+T72	TLINK 466 476	surrounded
+A82	QS_type E2 EC
+E2	TLINK:T72 trajector:T24 landmark:T15 trigger:T65
+T73	TLINK 2347 2349	in
+A83	QS_type E3 IN
+E3	TLINK:T73 trajector:T23 landmark:T8 trigger:T61
+T74	TLINK 2374 2382	conflict
+A84	QS_type E4 EQ
+E4	TLINK:T74 trajector:T48 landmark:T9
+T75	TLINK 2388 2390	in
+A85	QS_type E5 IN
+E5	TLINK:T75 trajector:T9 landmark:T10 trigger:T62
+T76	TLINK 341 343	in
+A86	QS_type E6 IN
+E6	TLINK:T76 trajector:T49 landmark:T11 trigger:T63
+T77	TLINK 2076 2079	the
+A87	QS_type E7 IN
+E7	TLINK:T77 trajector:T1 landmark:T5
+T78	TLINK 2092 2094	My
+A88	QS_type E8 IN
+E8	TLINK:T78 trajector:T2 landmark:T5
+T79	TLINK 2134 2136	on
+A89	QS_type E9 IN
+E9	TLINK:T79 trajector:T51 landmark:T7 trigger:T60
+T80	OLINK 466 476	surrounded
+A90	O_type E10 SURROUND
+A91	frame_type E10 INTRINSIC
+A92	projective E10 INTRINSIC
+E10	OLINK:T80 trajector:T24 landmark:T15 trigger:T65 referencePt:T15
+T81	OLINK 644 649	above
+A93	O_type E11 ABOVE
+A94	frame_type E11 INTRINSIC
+A95	projective E11 INTRINSIC
+E11	OLINK:T81 trajector:T50 landmark:T26 trigger:T66 referencePt:T26
+T82	OLINK 2076 2079	the
+A96	O_type E12 ACROSS
+A97	frame_type E12 RELATIVE
+A98	projective E12 RELATIVE
+E12	OLINK:T82 trajector:T1 landmark:T5 referencePt:T2
+T83	MLINK 85 92	arrived
+A99	goal_reached E13 yes
+E13	MLINK:T83 goal:T19 mover:T35 motion_signalID:T70 trigger:T59
+T84	MLINK 772 777	rises
+E14	MLINK:T84 mover:T27 trigger:T57
+T85	MLINK 805 811	walked
+E15	MLINK:T85 mover:T34 motion_signalID:T69 ground:T18 trigger:T58
+T86	MLINK 1924 1933	patrolled
+E16	MLINK:T86 mover:T28 ground:T22 trigger:T52
+T87	MLINK 2019 2022	fly
+A103	goal_reached E17 yes
+E17	MLINK:T87 goal:T4 mover:T29 motion_signalID:T67 trigger:T53
+T88	MLINK 2044 2049	drive
+E18	MLINK:T88 mover:T29 trigger:T54
+T89	MLINK 2063 2068	drive
+A105	goal_reached E19 yes
+E19	MLINK:T89 goal:T2 mover:T30 midPoint:T5 motion_signalID:T68 trigger:T55 source:T1
+T90	MLINK 2327 2331	bike
+E20	MLINK:T90 mover:T32 trigger:T56 pathID:T23

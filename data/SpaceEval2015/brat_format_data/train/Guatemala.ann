@@ -1,0 +1,622 @@
+T1	Null 1664 1668	told
+#1	AnnotatorNotes T1	PLACE goal location for '... and when he arrived, ...' and also source location for '... we were biking 50 miles inland.'
+T2	Null 2291 2296	never
+#2	AnnotatorNotes T2	PLACE beginning of '... the road never crossed over the mountains ...'
+T3	Null 2310 2313	the
+#3	AnnotatorNotes T3	PLACE end of '... the road never crossed over the mountains ...'
+T4	Null 2693 2697	Soon
+#4	AnnotatorNotes T4	PLACE The retired American's house in 'I will try to put him (the Jaguar) inside,...'
+T5	Place 1100 1106	Belize
+A1	form T5 NAM
+T6	Place 115 122	village
+A2	form T6 NOM
+T7	Place 1277 1288	Belize City
+A3	form T7 NAM
+T8	Place 1343 1362	Belize City airport
+A4	form T8 NAM
+T9	Place 1400 1411	Belize City
+A5	form T9 NAM
+T10	Place 1772 1779	capital
+A6	form T10 NOM
+T11	Place 1783 1789	Belize
+A7	form T11 NAM
+T12	Place 179 185	Belize
+A8	form T12 NAM
+T13	Place 1791 1799	Belmopan
+A9	form T13 NAM
+T14	Place 1803 1807	town
+A10	form T14 NOM
+T15	Place 1954 1970	Galen University
+A11	form T15 NAM
+T16	Place 2121 2133	Jaguar Creek
+A12	form T16 NAM
+T17	Place 2314 2323	mountains
+A13	form T17 NOM
+T18	Place 233 244	Belize City
+A14	form T18 NAM
+T19	Place 2346 2351	hills
+A15	form T19 NOM
+T20	Place 245 252	airport
+A16	form T20 NOM
+T21	Place 2580 2586	Belize
+A17	form T21 NAM
+T22	Place 2611 2615	lawn
+A18	form T22 NOM
+T23	Place 3071 3075	lawn
+A19	form T23 NOM
+T24	Place 3079 3090	Maya Center
+A20	form T24 NAM
+T25	Place 3100 3104	town
+A21	form T25 NOM
+T26	Place 3208 3217	Placencia
+A22	form T26 NAM
+T27	Place 3229 3233	town
+A23	form T27 NOM
+T28	Place 3267 3271	here
+A24	form T28 NOM
+T29	Place 3297 3302	reefs
+A25	form T29 NOM
+T30	Place 3306 3312	Belize
+A26	form T30 NAM
+T31	Place 3317 3322	reefs
+A27	form T31 NOM
+T32	Place 3407 3413	Belize
+A28	form T32 NAM
+T33	Place 361 372	Belize City
+A29	form T33 NAM
+T34	Place 522 528	Belize
+A30	form T34 NAM
+T35	Place 796 803	country
+A31	form T35 NOM
+T36	Place 851 860	countries
+A32	form T36 NOM
+T37	Place 920 927	country
+A33	form T37 NOM
+T38	Place 947 960	Massachusetts
+A34	form T38 NAM
+T39	Place 591 593	It
+A35	form T39 NOM
+T40	Place 902 904	It
+A36	form T40 NOM
+T41	Place 929 931	It
+A37	form T41 NOM
+T42	Place 1974 1984	university
+A38	form T42 NOM
+T43	Place 2164 2170	center
+A39	form T43 NOM
+T44	Path 1139 1143	road
+A40	form T44 NOM
+T45	Path 1612 1617	beach
+A41	form T45 NOM
+T46	Path 2088 2092	road
+A42	form T46 NOM
+T47	Path 2205 2210	coast
+A43	form T47 NOM
+T48	Path 2241 2245	base
+A44	form T48 NOM
+T49	Path 2253 2267	Maya mountains
+A45	form T49 NAM
+T50	Path 2286 2290	road
+A46	form T50 NOM
+T51	Path 3196 3204	distance
+A47	form T51 NOM
+T52	Path 497 499	it
+A48	form T52 NOM
+T53	Null 1308 1309	a
+#53	AnnotatorNotes T53	SPATIAL_ENTITY The set subsuming [I,se] and [Dennis,se] in 'I met Dennis, a good friend from college, at the Belize City airport. We ...'
+T54	SpatialEntity 1114 1121	cyclist
+A49	form T54 NOM
+T55	SpatialEntity 1126 1127	I
+A50	form T55 NOM
+T56	SpatialEntity 1268 1273	racks
+A51	form T56 NOM
+T57	SpatialEntity 1294 1295	I
+A52	form T57 NOM
+T58	SpatialEntity 130 131	I
+A53	form T58 NOM
+T59	SpatialEntity 1300 1306	Dennis
+A54	form T59 NAM
+T60	SpatialEntity 1364 1366	We
+A55	form T60 NOM
+T61	SpatialEntity 1427 1433	Dennis
+A56	form T61 NAM
+T62	SpatialEntity 1513 1515	he
+A57	form T62 NOM
+T63	SpatialEntity 1537 1539	me
+A58	form T63 NOM
+T64	SpatialEntity 155 161	friend
+A59	form T64 NOM
+T65	SpatialEntity 1552 1554	we
+A60	form T65 NOM
+T66	SpatialEntity 164 165	I
+A61	form T66 NOM
+T67	SpatialEntity 1650 1652	he
+A62	form T67 NOM
+T68	SpatialEntity 1673 1675	we
+A63	form T68 NOM
+T69	SpatialEntity 1738 1744	Dennis
+A64	form T69 NAM
+T70	SpatialEntity 1749 1750	I
+A65	form T70 NOM
+T71	SpatialEntity 1832 1834	we
+A66	form T71 NOM
+T72	SpatialEntity 197 212	Dennis Murphree
+A67	form T72 NAM
+T73	SpatialEntity 2094 2096	we
+A68	form T73 NOM
+T74	SpatialEntity 2212 2218	Dennis
+A69	form T74 NAM
+T75	SpatialEntity 2223 2224	I
+A70	form T75 NOM
+T76	SpatialEntity 2394 2396	he
+A71	form T76 NOM
+T77	SpatialEntity 2539 2541	we
+A72	form T77 NOM
+T78	SpatialEntity 2558 2566	American
+A73	form T78 NOM
+T79	SpatialEntity 2590 2592	we
+A74	form T79 NOM
+T80	SpatialEntity 2644 2645	I
+A75	form T80 NOM
+T81	SpatialEntity 2652 2658	jaguar
+A76	form T81 NOM
+T82	SpatialEntity 2678 2681	him
+A77	form T82 NOM
+T83	SpatialEntity 273 274	I
+A78	form T83 NOM
+T84	SpatialEntity 2735 2741	kitten
+A79	form T84 NOM
+T85	SpatialEntity 2765 2770	stuff
+A80	form T85 NOM
+T86	SpatialEntity 2806 2811	glove
+A81	form T86 NOM
+T87	SpatialEntity 2817 2823	jaguar
+A82	form T87 NOM
+T88	SpatialEntity 2847 2850	leg
+A83	form T88 NOM
+T89	SpatialEntity 2879 2885	jaguar
+A84	form T89 NOM
+T90	SpatialEntity 2902 2908	kitten
+A85	form T90 NOM
+T91	SpatialEntity 2923 2926	man
+A86	form T91 NOM
+T92	SpatialEntity 2968 2974	helmet
+A87	form T92 NOM
+T93	SpatialEntity 300 303	him
+A88	form T93 NOM
+T94	SpatialEntity 3056 3058	we
+A89	form T94 NOM
+T95	SpatialEntity 3179 3181	we
+A90	form T95 NOM
+T96	SpatialEntity 3272 3274	we
+A91	form T96 NOM
+T97	SpatialEntity 3388 3389	I
+A92	form T97 NOM
+T98	Null 2745 2748	was
+#98	AnnotatorNotes T98	SPATIAL_ENTITY Subsuming mover for 'ran' in 'a half-grown 11-month-old jaguar â€˜kittenâ€™ was diving into our stuff, and ran off with Dennisâ€™ biking glove'
+T99	Null 2909 2918	scratched
+#99	AnnotatorNotes T99	SPATIAL_ENTITY Subsuming mover in 'the kitten scratched the man and ran off, this time with Dennis’ bike helmet'
+T100	SpatialEntity 305 306	I
+A93	form T100 NOM
+T101	SpatialEntity 1066 1067	I
+A94	form T101 NOM
+T102	SpatialEntity 1166 1167	I
+A95	form T102 NOM
+T103	SpatialEntity 1223 1224	I
+A96	form T103 NOM
+T104	SpatialEntity 1541 1542	I
+A97	form T104 NOM
+T105	SpatialEntity 1662 1663	I
+A98	form T105 NOM
+T106	SpatialEntity 1929 1930	I
+A99	form T106 NOM
+T107	SpatialEntity 2353 2359	Dennis
+A100	form T107 NAM
+T108	SpatialEntity 2856 2861	owner
+A101	form T108 NOM
+T109	SpatialEntity 2991 2997	helmet
+A102	form T109 NOM
+T110	SpatialEntity 3010 3011	I
+A103	form T110 NOM
+T111	SpatialEntity 2999 3005	Dennis
+A104	form T111 NAM
+T112	SpatialEntity 3239 3240	I
+A105	form T112 NOM
+T113	SpatialEntity 3254 3260	Dennis
+A106	form T113 NAM
+T114	Event 1586 1591	spend
+T115	Event 1938 1950	presentation
+T116	Event 2102 2107	spent
+T117	Event 2599 2603	camp
+T118	Event 3059 3065	camped
+T119	Event 3122 3127	speak
+T120	Event 87 92	night
+T121	Event 1835 1838	met
+T122	Motion 1128 1131	met
+A107	motion_type T122 path
+A108	motion_class T122 hit
+A109	motion_sense T122 literal
+T123	Motion 1296 1299	met
+A110	motion_type T123 path
+A111	motion_class T123 hit
+A112	motion_sense T123 literal
+T124	Motion 132 135	ran
+A113	motion_type T124 path
+A114	motion_class T124 hit
+A115	motion_sense T124 literal
+T125	Motion 1390 1394	rode
+A116	motion_type T125 compound
+A117	motion_class T125 move
+A118	motion_sense T125 literal
+T126	Motion 1449 1454	biked
+A119	motion_type T126 compound
+A120	motion_class T126 move
+A121	motion_sense T126 literal
+T127	Motion 1499 1506	touring
+A122	motion_type T127 manner
+A123	motion_class T127 move
+A124	motion_sense T127 literal
+T128	Motion 1532 1536	join
+A125	motion_type T128 path
+A126	motion_class T128 hit
+A127	motion_sense T128 literal
+T129	Motion 1561 1565	bike
+A128	motion_type T129 compound
+A129	motion_class T129 move
+A130	motion_sense T129 literal
+T130	Motion 1653 1660	arrived
+A131	motion_type T130 path
+A132	motion_class T130 reach
+A133	motion_sense T130 literal
+T131	Motion 166 173	crossed
+A134	motion_type T131 path
+A135	motion_class T131 reach
+A136	motion_sense T131 literal
+T132	Motion 1681 1687	biking
+A137	motion_type T132 compound
+A138	motion_class T132 move
+A139	motion_sense T132 literal
+T133	Motion 1751 1756	biked
+A140	motion_type T133 compound
+A141	motion_class T133 move
+A142	motion_sense T133 literal
+T134	Motion 2063 2069	Biking
+A143	motion_type T134 compound
+A144	motion_class T134 move
+A145	motion_sense T134 literal
+T135	Motion 217 223	flying
+A146	motion_type T135 compound
+A147	motion_class T135 move
+A148	motion_sense T135 literal
+T136	Motion 2180 2187	Turning
+A149	motion_type T136 compound
+A150	motion_class T136 move
+A151	motion_sense T136 literal
+T137	Motion 2225 2230	biked
+A152	motion_type T137 compound
+A153	motion_class T137 follow
+A154	motion_sense T137 literal
+T138	Motion 2297 2304	crossed
+A155	motion_type T138 path
+A156	motion_class T138 cross
+A157	motion_sense T138 fictive
+T139	Motion 2325 2333	avoiding
+A158	motion_type T139 path
+A159	motion_class T139 move_external
+A160	motion_sense T139 fictive
+T140	Motion 2414 2423	bicycling
+A161	motion_type T140 manner
+A162	motion_class T140 move
+A163	motion_sense T140 literal
+T141	Motion 2571 2576	moved
+A164	motion_type T141 path
+A165	motion_class T141 move
+A166	motion_sense T141 literal
+T142	Motion 2749 2755	diving
+A167	motion_type T142 compound
+A168	motion_class T142 move
+A169	motion_sense T142 literal
+T143	Motion 2776 2779	ran
+A170	motion_type T143 compound
+A171	motion_class T143 leave
+A172	motion_sense T143 literal
+T144	Motion 2829 2834	leapt
+A173	motion_type T144 compound
+A174	motion_class T144 move
+A175	motion_sense T144 literal
+T145	Motion 286 290	bike
+A176	motion_type T145 manner
+A177	motion_class T145 move
+A178	motion_sense T145 literal
+T146	Motion 2931 2934	ran
+A179	motion_type T146 compound
+A180	motion_class T146 leave
+A181	motion_sense T146 literal
+T147	Motion 295 299	meet
+A182	motion_type T147 path
+A183	motion_class T147 hit
+A184	motion_sense T147 literal
+T148	Motion 3182 3187	biked
+A185	motion_type T148 compound
+A186	motion_class T148 follow
+A187	motion_sense T148 literal
+T149	Motion 3281 3286	visit
+A188	motion_type T149 compound
+A189	motion_class T149 reach
+A190	motion_sense T149 literal
+T150	Motion 3401 3406	visit
+A191	motion_type T150 compound
+A192	motion_class T150 reach
+A193	motion_sense T150 literal
+T151	SpatialSignal 1132 1134	on
+A194	semantic_type T151 dir_top
+T152	SpatialSignal 124 129	where
+A195	semantic_type T152 topological
+T153	SpatialSignal 1274 1276	in
+A196	semantic_type T153 topological
+T154	SpatialSignal 1336 1338	at
+A197	semantic_type T154 topological
+T155	SpatialSignal 1605 1607	on
+A198	semantic_type T155 dir_top
+T156	SpatialSignal 1826 1831	where
+A199	semantic_type T156 topological
+T157	SpatialSignal 1951 1953	at
+A200	semantic_type T157 topological
+T158	SpatialSignal 2118 2120	at
+A201	semantic_type T158 topological
+T159	SpatialSignal 2604 2606	on
+A202	semantic_type T159 dir_top
+T160	SpatialSignal 2682 2688	inside
+A203	semantic_type T160 topological
+T161	SpatialSignal 2886 2892	inside
+A204	semantic_type T161 topological
+T162	SpatialSignal 3066 3068	on
+A205	semantic_type T162 dir_top
+T163	SpatialSignal 3076 3078	in
+A206	semantic_type T163 topological
+T164	SpatialSignal 3105 3110	where
+A207	semantic_type T164 topological
+T165	SpatialSignal 830 841	surrounding
+A208	semantic_type T165 dir_top
+T166	SpatialSignal 93 95	in
+A209	semantic_type T166 topological
+T167	MotionSignal 136 140	into
+A210	MS_type T167 path
+T168	MotionSignal 1395 1399	into
+A211	MS_type T168 path
+T169	MotionSignal 1494 1498	bike
+A212	MS_type T169 manner
+T170	MotionSignal 1697 1703	inland
+A213	MS_type T170 path
+T171	MotionSignal 174 178	into
+A214	MS_type T171 path
+T172	MotionSignal 1765 1767	to
+A215	MS_type T172 path
+T173	MotionSignal 2079 2083	down
+A216	MS_type T173 path
+T174	MotionSignal 2188 2192	back
+A217	MS_type T174 path
+T175	MotionSignal 2193 2200	towards
+A218	MS_type T175 path
+T176	MotionSignal 2231 2236	along
+A219	MS_type T176 path
+T177	MotionSignal 224 228	into
+A220	MS_type T177 path
+T178	MotionSignal 2305 2309	over
+A221	MS_type T178 path
+T179	MotionSignal 2577 2579	to
+A222	MS_type T179 path
+T180	MotionSignal 2756 2760	into
+A223	MS_type T180 path
+T181	MotionSignal 2780 2783	off
+A224	MS_type T181 path
+T182	MotionSignal 2835 2839	onto
+A225	MS_type T182 path
+T183	MotionSignal 2935 2938	off
+A226	MS_type T183 path
+T184	MotionSignal 3205 3207	to
+A227	MS_type T184 path
+T185	MotionSignal 3262 3266	From
+A228	MS_type T185 path
+T186	Measure 1465 1473	20 miles
+#187	AnnotatorNotes T186	miles 20
+T187	Measure 1688 1696	50 miles
+#189	AnnotatorNotes T187	miles 50
+T188	Measure 2070 2078	10 miles
+#191	AnnotatorNotes T188	miles 10
+T189	Measure 503 511	75 miles
+#193	AnnotatorNotes T189	miles 75
+T190	TLINK 93 95	in
+A229	QS_type E1 IN
+E1	TLINK:T190 trajector:T120 landmark:T6 trigger:T166
+T191	TLINK 124 129	where
+A230	QS_type E2 IN
+E2	TLINK:T191 trajector:T124 landmark:T6 trigger:T152
+T192	TLINK 1951 1953	at
+A231	QS_type E3 IN
+E3	TLINK:T192 trajector:T115 landmark:T15 trigger:T157
+T193	TLINK 2118 2120	at
+A232	QS_type E4 IN
+E4	TLINK:T193 trajector:T116 landmark:T16 trigger:T158
+T194	TLINK 2241 2245	base
+A233	QS_type E5 TPP
+E5	TLINK:T194 trajector:T48 landmark:T49
+T195	TLINK 2604 2606	on
+A234	QS_type E6 EC
+E6	TLINK:T195 trajector:T117 landmark:T22 trigger:T159
+T196	TLINK 3066 3068	on
+A235	QS_type E7 EC
+E7	TLINK:T196 trajector:T118 landmark:T23 trigger:T162
+T197	TLINK 3076 3078	in
+A236	QS_type E8 IN
+E8	TLINK:T197 trajector:T23 landmark:T24 trigger:T163
+T198	TLINK 3105 3110	where
+A237	QS_type E9 IN
+E9	TLINK:T198 trajector:T119 landmark:T25 trigger:T164
+T199	TLINK 3297 3302	reefs
+A238	QS_type E10 IN
+E10	TLINK:T199 trajector:T29 landmark:T30
+T200	TLINK 830 841	surrounding
+A239	QS_type E11 EC
+E11	TLINK:T200 trajector:T36 landmark:T35 trigger:T165
+T201	TLINK 1132 1134	on
+A240	QS_type E12 EC
+E12	TLINK:T201 trajector:T122 landmark:T44 trigger:T151
+T202	TLINK 1274 1276	in
+A241	QS_type E13 IN
+E13	TLINK:T202 trajector:T56 landmark:T7 trigger:T153
+T203	TLINK 1336 1338	at
+A242	QS_type E14 IN
+E14	TLINK:T203 trajector:T123 landmark:T8 trigger:T154
+T204	TLINK 1605 1607	on
+A243	QS_type E15 EC
+E15	TLINK:T204 trajector:T114 landmark:T45 trigger:T155
+T205	TLINK 1772 1779	capital
+A244	QS_type E16 IN
+E16	TLINK:T205 trajector:T10 landmark:T11
+T206	TLINK 2682 2688	inside
+A245	QS_type E17 IN
+E17	TLINK:T206 trajector:T82 landmark:T4 trigger:T160
+T207	TLINK 2886 2892	inside
+A246	QS_type E18 IN
+E18	TLINK:T207 trajector:T89 landmark:T4 trigger:T161
+T208	TLINK 245 252	airport
+A247	QS_type E19 IN
+E19	TLINK:T208 trajector:T20 landmark:T18
+T209	TLINK 1826 1831	where
+A248	QS_type E20 IN
+E20	TLINK:T209 trajector:T121 landmark:T10 trigger:T156
+T210	TLINK 2291 2296	never
+A249	QS_type E21 EC
+E21	TLINK:T210 trajector:T2 landmark:T17
+T211	TLINK 2310 2313	the
+A250	QS_type E22 EC
+E22	TLINK:T211 trajector:T3 landmark:T17
+T212	OLINK 830 841	surrounding
+A251	O_type E23 SURROUND
+A252	frame_type E23 RELATIVE
+A253	projective E23 RELATIVE
+E23	OLINK:T212 trajector:T36 landmark:T35 trigger:T165 referencePt:T35
+T213	OLINK 1605 1607	on
+A254	O_type E24 ABOVE
+A255	frame_type E24 INTRINSIC
+A256	projective E24 INTRINSIC
+E24	OLINK:T213 trajector:T114 landmark:T45 trigger:T155 referencePt:T45
+T214	OLINK 1132 1134	on
+A257	O_type E25 ABOVE
+A258	frame_type E25 INTRINSIC
+A259	projective E25 INTRINSIC
+E25	OLINK:T214 trajector:T122 landmark:T44 trigger:T151 referencePt:T44
+T215	OLINK 2604 2606	on
+A260	O_type E26 ABOVE
+A261	frame_type E26 INTRINSIC
+A262	projective E26 INTRINSIC
+E26	OLINK:T215 trajector:T117 landmark:T22 trigger:T159 referencePt:T22
+T216	OLINK 3066 3068	on
+A263	O_type E27 ABOVE
+A264	frame_type E27 INTRINSIC
+A265	projective E27 INTRINSIC
+E27	OLINK:T216 trajector:T118 landmark:T23 trigger:T162 referencePt:T23
+T217	OLINK 2291 2296	never
+A266	O_type E28 ABOVE
+A267	frame_type E28 RELATIVE
+A268	projective E28 RELATIVE
+E28	OLINK:T217 trajector:T2 landmark:T17 referencePt:T3
+T218	MLINK 132 135	ran
+A269	goal_reached E29 yes
+E29	MLINK:T218 goal:T64 mover:T58 motion_signalID:T167 trigger:T124
+T219	MLINK 166 173	crossed
+A270	goal_reached E30 yes
+E30	MLINK:T219 goal:T12 mover:T66 motion_signalID:T171 trigger:T131 source:T6
+T220	MLINK 1532 1536	join
+A271	goal_reached E31 yes
+E31	MLINK:T220 goal:T63 mover:T62 trigger:T128
+T221	MLINK 1561 1565	bike
+E32	MLINK:T221 mover:T65 trigger:T129
+T222	MLINK 1653 1660	arrived
+A273	goal_reached E33 yes
+E33	MLINK:T222 goal:T1 mover:T67 trigger:T130
+T223	MLINK 1681 1687	biking
+E34	MLINK:T223 mover:T68 motion_signalID:T170 trigger:T132 source:T1
+T224	MLINK 1751 1756	biked
+A275	goal_reached E35 yes
+E35	MLINK:T224 goal:T10 mover:T70 motion_signalID:T172 trigger:T133
+T225	MLINK 1751 1756	biked
+A276	goal_reached E36 yes
+E36	MLINK:T225 goal:T10 mover:T69 motion_signalID:T172 trigger:T133
+T226	MLINK 2063 2069	Biking
+E37	MLINK:T226 mover:T73 motion_signalID:T173 trigger:T134 pathID:T46
+T227	MLINK 2180 2187	Turning
+A278	goal_reached E38 no
+E38	MLINK:T227 goal:T47 mover:T75 motion_signalID2:T175 motion_signalID:T174 trigger:T136
+T228	MLINK 2180 2187	Turning
+A279	goal_reached E39 no
+E39	MLINK:T228 goal:T47 mover:T74 motion_signalID2:T175 motion_signalID:T174 trigger:T136
+T229	MLINK 217 223	flying
+A280	goal_reached E40 yes
+E40	MLINK:T229 goal:T18 mover:T72 motion_signalID:T177 trigger:T135
+T230	MLINK 2225 2230	biked
+E41	MLINK:T230 mover:T75 motion_signalID:T176 trigger:T137 pathID:T48
+T231	MLINK 2225 2230	biked
+E42	MLINK:T231 mover:T74 motion_signalID:T176 trigger:T137 pathID:T48
+T232	MLINK 2297 2304	crossed
+A283	goal_reached E43 no
+E43	MLINK:T232 goal:T3 mover:T50 midPoint:T17 motion_signalID:T178 trigger:T138 source:T2
+T233	MLINK 2325 2333	avoiding
+E44	MLINK:T233 mover:T50 ground:T19 trigger:T139
+T234	MLINK 2414 2423	bicycling
+E45	MLINK:T234 mover:T76 trigger:T140
+T235	MLINK 2571 2576	moved
+A286	goal_reached E46 yes
+E46	MLINK:T235 goal:T21 mover:T78 motion_signalID:T179 trigger:T141
+T236	MLINK 2749 2755	diving
+A287	goal_reached E47 yes
+E47	MLINK:T236 goal:T85 mover:T84 motion_signalID:T180 trigger:T142
+T237	MLINK 2829 2834	leapt
+A288	goal_reached E48 yes
+E48	MLINK:T237 goal:T88 mover:T87 motion_signalID:T182 trigger:T144
+T238	MLINK 286 290	bike
+E49	MLINK:T238 mover:T83 trigger:T145
+T239	MLINK 3182 3187	biked
+A290	goal_reached E50 yes
+E50	MLINK:T239 goal:T26 mover:T95 motion_signalID:T184 trigger:T148 pathID:T51
+T240	MLINK 3281 3286	visit
+A291	goal_reached E51 uncertain
+E51	MLINK:T240 goal:T29 mover:T96 motion_signalID:T185 trigger:T149 source:T28
+T241	MLINK 3401 3406	visit
+A292	goal_reached E52 yes
+E52	MLINK:T241 goal:T32 mover:T97 trigger:T150
+T242	MLINK 295 299	meet
+A293	goal_reached E53 yes
+E53	MLINK:T242 goal:T93 mover:T83 trigger:T147
+T243	MLINK 1128 1131	met
+A294	goal_reached E54 yes
+E54	MLINK:T243 goal:T54 mover:T55 trigger:T122
+T244	MLINK 1296 1299	met
+A295	goal_reached E55 yes
+E55	MLINK:T244 goal:T59 mover:T57 trigger:T123
+T245	MLINK 1390 1394	rode
+A296	goal_reached E56 yes
+E56	MLINK:T245 goal:T9 mover:T60 motion_signalID:T168 trigger:T125
+T246	MLINK 1449 1454	biked
+E57	MLINK:T246 mover:T61 trigger:T126
+T247	MLINK 1499 1506	touring
+E58	MLINK:T247 mover:T61 motion_signalID:T169 trigger:T127
+T248	MLINK 2776 2779	ran
+E59	MLINK:T248 mover:T98 motion_signalID:T181 trigger:T143 source:T85
+T249	MLINK 2931 2934	ran
+E60	MLINK:T249 mover:T99 motion_signalID:T183 trigger:T146 source:T91
+R28	coreference Arg1:T60 Arg2:T53
+#194	AnnotatorNotes R28	SPLITCOREFERENCE
+R29	coreference Arg1:T57 Arg2:T53
+#195	AnnotatorNotes R29	SUBCOREFERENCE
+R30	coreference Arg1:T59 Arg2:T53
+#196	AnnotatorNotes R30	SUBCOREFERENCE
+R31	coreference Arg1:T84 Arg2:T98
+#197	AnnotatorNotes R31	SUBCOREFERENCE
+R32	coreference Arg1:T86 Arg2:T98
+#198	AnnotatorNotes R32	SUBCOREFERENCE
+R33	coreference Arg1:T90 Arg2:T99
+#199	AnnotatorNotes R33	SUBCOREFERENCE
+R34	coreference Arg1:T92 Arg2:T99
+#200	AnnotatorNotes R34	SUBCOREFERENCE
