@@ -166,13 +166,14 @@ public class EveluateUtil {
         return idx;
     }
 
-    public static void eveluate_NRE_all(BratDocumentwithList bratDocument, JSONObject object, List<BratEvent> eventList, EvaluationCount evel, boolean notrigger) {
+    public static String eveluate_NRE_all(BratDocumentwithList bratDocument, JSONObject object, List<BratEvent> eventList, EvaluationCount evel, boolean notrigger) {
         JSONObject t = object.getJSONObject("t");
         JSONObject h = object.getJSONObject("h");
         String relation = object.getString("relation");
         BratEntity et = getEntity(bratDocument, t);
         BratEntity eh = getEntity(bratDocument, h);
         int count = 0;
+        String res = "None";
         for (BratEvent event : eventList) {
             if (event.getRoleMap().values().contains(et.getId()) && event.getRoleMap().values().contains(eh.getId())) {
                 if (event.getRoleIds("trigger").contains(et.getId()) || event.getRoleIds("val").contains(et.getId())) {
@@ -180,6 +181,12 @@ public class EveluateUtil {
                     if (count == 1) {
                         evel.predict.replace(event.getType(), evel.predict.get(event.getType()) + 1);
                         evel.addPredictbyId(event.getRuleid());
+                        if (event.getRoleIds("mover").size()>0)
+                            res = "mover";
+                        else if (event.getRoleIds("landmark").contains(eh.getId()))
+                            res = "landmark";
+                        else
+                            res = "trajector";
                     }
                     switch (relation) {
                         case "trajector":
@@ -237,29 +244,30 @@ public class EveluateUtil {
                     }
                 }
                 else
-                    if (notrigger) {
-                        if (event.getType().equals("OTLINK") && !event.getRoleMap().keySet().contains("trigger")) {
-                            if (event.getRoleIds("trajector").contains(eh.getId())&&event.getRoleIds("landmark").contains(et.getId())) {
-                                count++;
-                                if (count == 1)
+                if (notrigger) {
+                    if (event.getType().equals("OTLINK") && !event.getRoleMap().keySet().contains("trigger")) {
+                        if (event.getRoleIds("trajector").contains(eh.getId())&&event.getRoleIds("landmark").contains(et.getId())) {
+                            count++;
+                            if (count == 1)
 //                                    evel.predict.replace(event.getType(), evel.predict.get(event.getType()) + 1);
                                 evel.predict.replace("NOTRIGGER", evel.predict.get("NOTRIGGER") + 1);
-                                evel.addPredictbyId(event.getRuleid());
-                                if (relation.equals("LocatedIn")) {
-                                    if (event.getRoleIds("trajector") != null && event.getRoleIds("trajector").size() > 0) {
-                                        if (event.getRoleIds("landmark") != null && event.getRoleIds("landmark").size() > 0) {
-                                            if (event.getRoleIds("landmark").contains(et.getId()) && event.getRoleIds("trajector").contains(eh.getId())
-                                                    || event.getRoleIds("landmark").contains(eh.getId()) && event.getRoleIds("trajector").contains(et.getId())) {
+                            evel.addPredictbyId(event.getRuleid());
+                            res = "LocatedIn";
+                            if (relation.equals("LocatedIn")) {
+                                if (event.getRoleIds("trajector") != null && event.getRoleIds("trajector").size() > 0) {
+                                    if (event.getRoleIds("landmark") != null && event.getRoleIds("landmark").size() > 0) {
+                                        if (event.getRoleIds("landmark").contains(et.getId()) && event.getRoleIds("trajector").contains(eh.getId())
+                                                || event.getRoleIds("landmark").contains(eh.getId()) && event.getRoleIds("trajector").contains(et.getId())) {
 //                                                evel.gold.replace(event.getType(), evel.gold.get(event.getType()) + 1);
-                                                evel.correct.replace("NOTRIGGER", evel.correct.get("NOTRIGGER") + 1);
-                                                evel.addCorrectbyId(event.getRuleid());
-                                            }
+                                            evel.correct.replace("NOTRIGGER", evel.correct.get("NOTRIGGER") + 1);
+                                            evel.addCorrectbyId(event.getRuleid());
                                         }
                                     }
                                 }
                             }
                         }
                     }
+                }
                 break;
             }
         }
@@ -282,6 +290,7 @@ public class EveluateUtil {
                 evel.gold.replace("MLINK", evel.gold.get("MLINK") + 1);
                 break;
         }
+        return res;
     }
 
 }

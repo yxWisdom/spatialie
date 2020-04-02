@@ -34,6 +34,7 @@ public class GetRelation_NRE {
         BratDocumentwithList lastdocument = null;
         BratDocumentwithList bratDocument;
         List<BratEvent> lasteventlist = null;
+        List<String> output = new ArrayList<>();
 
         for (int i = 0; i < lines.size(); i++) {
 
@@ -155,7 +156,7 @@ public class GetRelation_NRE {
             }
             if (bratDocument.getParseTree()==null) continue;
             EvaluationCount evel = new EvaluationCount();
-            EveluateUtil.eveluate_NRE_all(bratDocument, object, eventList, evel,true);
+            String predict_res = EveluateUtil.eveluate_NRE_all(bratDocument, object, eventList, evel,true);
 
 //            if (bratDocument.getTrigger()==null){
 //                if (evel.recall() == 1) evel.predict=evel.gold;
@@ -175,8 +176,11 @@ public class GetRelation_NRE {
 //                System.out.println();
             }
             if (i % 100 == 0) System.out.println(count_all);
+            object.put("relation_predict",predict_res);
+            output.add(object.toJSONString());
         }
         System.out.println(count_all);
+        FileUtil.writeFile(filepath.replace("data","output_SRL"),output);
     }
 
     private static List<BratEvent> Combinecompany(List<BratEvent> eventList, BratDocumentwithList bratDocument) throws CloneNotSupportedException {

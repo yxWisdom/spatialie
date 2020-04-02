@@ -11,7 +11,9 @@ import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.getrelation.*;
 import edu.nju.ws.spatialie.utils.FileUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GetRelation_SRL {
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {
@@ -25,6 +27,7 @@ public class GetRelation_SRL {
 
         List<String> lines = FileUtil.readLines(filepath);
 
+        List<String> output = new ArrayList<>();
         for (int i = 0;i<lines.size();i++) {
 
             String line = lines.get(i);
@@ -147,8 +150,83 @@ public class GetRelation_SRL {
 //                System.out.println();
             }
             if (i%100==0) System.out.println(count_all);
+            if (bratDocument.getTrigger()!=null) {
+                String res = buildtags(line, eventList, bratDocument);
+                output.add(res+"\n");
+            }
         }
         System.out.println(count_all);
+        FileUtil.writeFile(filepath.replace("data","output_SRL"),output);
+    }
+
+    private static String buildtags(String line, List<BratEvent> eventList, BratDocumentwithList bratDocument) {
+        String[] texts= line.split("\t");
+        String text = texts[1];
+        String[] tags = texts[2].split(" ");
+        String[] labels = texts[3].split(" ");
+        int trigger_idx = Integer.valueOf(texts[0].split(" ")[0]);
+        int pos = 0;
+        String[] words = text.split(" ");
+        for (int i = 0;i<trigger_idx;i++){
+            pos = pos+words[i].length()+1;
+        }
+        BratEvent event_ = null;
+        for (BratEvent event:eventList){
+            if (event.getRoleIds("trigger").size()>0) {
+                if (event.getEntities().get(event.getRoleId("trigger")).getStart() == pos) {
+                    event_ = event;
+                    break;
+                }
+            }
+            if (event.getRoleIds("val").size()>0) {
+                if (event.getEntities().get(event.getRoleId("val")).getStart() == pos) {
+                    event_ = event;
+                    break;
+                }
+            }
+        }
+        boolean inlabel = false;
+        String res = "";
+        String label = null;
+        int end = 0;
+        pos = 0;
+        for (int i = 0;i<words.length;i++){
+            boolean newlabel = false;
+            if (!inlabel) {
+                for (String role : event_.getRoleMap().keySet()) {
+                    for (String id : event_.getRoleIds(role)) {
+                        int p = event_.getEntities().get(id).getStart();
+                        if (p == pos) {
+                            inlabel = true;
+                            newlabel = true;
+                            end = event_.getEntities().get(id).getEnd();
+                            label = role;
+                        }
+                    }
+                }
+            }
+            String predict;
+            if (!inlabel)
+                predict = "O";
+            else {
+                if (label.equals("val"))
+                    predict = "trigger";
+                else
+                    predict = label;
+                if (newlabel)
+                    predict = "B-"+predict;
+                else
+                    predict = "I-"+predict;
+            }
+            res = res+words[i]+" "+tags[i]+" "+labels[i]+" "+predict+"\n";
+            pos = pos+words[i].length()+1;
+            if (inlabel) {
+                if (pos >= end) {
+                    inlabel = false;
+                }
+            }
+        }
+        return res+"\n";
     }
 
     private static List<BratEvent> Combinecompany(List<BratEvent> eventList, BratDocumentwithList bratDocument) throws CloneNotSupportedException {
