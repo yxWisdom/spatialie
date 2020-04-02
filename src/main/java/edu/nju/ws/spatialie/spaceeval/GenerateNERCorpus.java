@@ -15,8 +15,6 @@ public class GenerateNERCorpus {
         int maxLength = 0;
         List<String> lines = new ArrayList<>();
 
-
-
         for (File file: files) {
             SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
             List<Span> elements = spaceEvalDoc.getElementsOfNERTask();

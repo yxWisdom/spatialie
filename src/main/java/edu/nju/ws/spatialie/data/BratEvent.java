@@ -6,6 +6,7 @@ import edu.stanford.nlp.util.ArrayMap;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,7 @@ public class BratEvent implements Cloneable{
     private Map<String, BratEntity> entities = null;
     private List<BratAttribute> bratAttributes = null;
     private boolean hasTrigger = true;
+    private String ruleid = null;
 
     @Override
     public BratEvent clone() throws CloneNotSupportedException {
@@ -291,5 +293,60 @@ public class BratEvent implements Cloneable{
         e2.addRole("a","T1");
         System.out.println(e1.equals(e2));
 
+    }
+
+    public void setEntities(String id, BratEntity e) {
+        entities.put(id,e);
+    }
+
+    public void setMembers(String val, String id) {
+        addRole(val,id);
+    }
+
+    public Multimap<String, String> getMembers() {
+        return roleMap;
+    }
+
+    public String getMemberId(String duplicate) {
+        return ((List<String>)getRoleIds(duplicate)).get(0);
+    }
+
+    public Map<String, BratEntity> getEntities() {
+        return entities;
+    }
+
+    public void setT_start_end(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+
+    public boolean is(Object obj)
+    {
+        if (this == obj) return true;
+        if ((obj == null) || (obj.getClass() != this.getClass())) return false;
+
+        BratEvent event = (BratEvent) obj;
+
+//        if (this.id != null && !this.id.equals(event.id)) return false;
+
+        for (String key: roleMap.keySet()) {
+            if (!event.roleMap.containsKey(key)) return false;
+            Set<String> entitySet = new HashSet<>(roleMap.get(key));
+            entitySet.removeAll(event.roleMap.get(key));
+            if (entitySet.size()!=0) return false;
+        }
+        return true;
+    }
+
+    public void removeEntity(String id){
+        entities.remove(id);
+    }
+
+    public String getRuleid() {
+        return ruleid;
+    }
+
+    public void setRuleid(String ruleid) {
+        this.ruleid = ruleid;
     }
 }

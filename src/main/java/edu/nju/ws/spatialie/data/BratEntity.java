@@ -211,4 +211,8 @@ public class BratEntity {
     public void setParent_count(int parent_count) {
         this.parent_count = parent_count;
     }
+
+    public void setId(String s) {
+        id = s;
+    }
 }
