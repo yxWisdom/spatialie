@@ -190,7 +190,7 @@ public class GetRelation_SRL {
         pos = 0;
         for (int i = 0;i<words.length;i++){
             boolean newlabel = false;
-            if (!inlabel) {
+            if (!inlabel&&event_!=null) {
                 for (String role : event_.getRoleMap().keySet()) {
                     for (String id : event_.getRoleIds(role)) {
                         int p = event_.getEntities().get(id).getStart();
