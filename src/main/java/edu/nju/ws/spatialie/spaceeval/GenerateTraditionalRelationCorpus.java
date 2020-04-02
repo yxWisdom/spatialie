@@ -21,16 +21,37 @@ public class GenerateTraditionalRelationCorpus {
     // 生成传统关系抽取格式的语料
     public static void main(String [] args) {
 
-        GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
 
-        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/training++",
-                "data/SpaceEval2015/processed_data/openNRE", "train", false);
+        for (int i = 6; i <= 16; i+=2) {
+            GenerateTraditionalRelationCorpus.moveLinkDistanceLimit = i;
+            GenerateTraditionalRelationCorpus.nonMoveLinkDistanceLimit = i;
 
-        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/openNRE", "val", false);
+//            GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
 
-        GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/openNRE", "test", false);
+            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/training++",
+                    "data/SpaceEval2015/processed_data/openNRE", "train", true);
+
+            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
+                    "data/SpaceEval2015/processed_data/openNRE", "val", false);
+
+            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
+                    "data/SpaceEval2015/processed_data/openNRE", "test", false);
+        }
+
+        for (int j = 1; j <= 7; j++) {
+            GenerateTraditionalRelationCorpus.moveLinkDistanceLimit = 12;
+            GenerateTraditionalRelationCorpus.nonMoveLinkDistanceLimit = 12;
+            GenerateTraditionalRelationCorpus.internalElementNumLimit = j;
+
+            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/training++",
+                    "data/SpaceEval2015/processed_data/openNRE", "train", true);
+
+            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
+                    "data/SpaceEval2015/processed_data/openNRE", "val", false);
+
+            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
+                    "data/SpaceEval2015/processed_data/openNRE", "test", false);
+        }
 
 
 //        GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
@@ -46,10 +67,10 @@ public class GenerateTraditionalRelationCorpus {
 
     }
     //    public static void get
-    private final static int moveLinkDistanceLimit = 12;
-    private final static int nonMoveLinkDistanceLimit = 12;
+    private  static int moveLinkDistanceLimit = 12;
+    private  static int nonMoveLinkDistanceLimit = 12;
 
-    private final static int internalElementNumLimit = 4;
+    private  static int internalElementNumLimit = 5;
 //    private final static int binaryNonMoveLinkDistanceLimit = 15;
 
     private final static String NONE="None";
@@ -158,7 +179,7 @@ public class GenerateTraditionalRelationCorpus {
                         if (goldTriples.contains(new ImmutableTriple<>(trajector.id, LOCATED_IN, landmark.id))) {
                             linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark));
                         } else if (trajectorTypes.contains(trajector.label) && landmarkTypes.contains(landmark.label) &&
-                                distance < nonMoveLinkDistanceLimit && elementNum < internalElementNumLimit) {
+                                distance <= nonMoveLinkDistanceLimit && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark));
                         }
                     }
@@ -204,8 +225,8 @@ public class GenerateTraditionalRelationCorpus {
                             linkLines.add(getRelLine(LANDMARK, tokensInSentence, element, trigger));
                         } else if (!inGoldTriple(goldTriples, element.id, trigger.id)
                                 && trajectorTypes.contains(element.label)
-                                && distance < nonMoveLinkDistanceLimit
-                                && elementNum < internalElementNumLimit) {
+                                && distance <= nonMoveLinkDistanceLimit
+                                && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, element, trigger));
                         }
                     }
@@ -220,7 +241,7 @@ public class GenerateTraditionalRelationCorpus {
                             linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark));
                         } else if (!inGoldTriple(goldTriples,trajector.id,landmark.id) &&
                                 trajectorTypes.contains(trajector.label) && landmarkTypes.contains(landmark.label) &&
-                                distance < nonMoveLinkDistanceLimit && elementNum < internalElementNumLimit) {
+                                distance <= nonMoveLinkDistanceLimit && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark));
                         }
                     }
@@ -259,8 +280,8 @@ public class GenerateTraditionalRelationCorpus {
                             linkLines.add(getRelLine(MOVER, tokensInSentence, mover, trigger));
                         } else if (!inGoldTriple(goldTriples, mover.id,trigger.id, MOVER)
                                 && moverTypes.contains(mover.label)
-                                && distance < moveLinkDistanceLimit
-                                && elementNum < internalElementNumLimit) {
+                                && distance <= moveLinkDistanceLimit
+                                && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, mover, trigger));
                         }
                     }
@@ -279,15 +300,33 @@ public class GenerateTraditionalRelationCorpus {
         FileUtil.writeFile(targetFilePath, relationsObj.toJSONString());
     }
 
+    private static void checkConflict(List<String> lines) {
+       Map<String, List<String>> map = new TreeMap<>();
+       for (String line: lines) {
+           int index = line.indexOf("\"relation\":");
+           String key = line.substring(0, index);
+           map.putIfAbsent(key, new ArrayList<>());
+           map.get(key).add(line.substring(index));
+       }
+
+       map.forEach((x,y)-> {
+           if (y.size() > 1) {
+               System.out.println(x + y);
+           }
+       });
+    }
 
     private static void run(String srcDir, String targetFilePath, String mode, boolean shuffle) {
-        List<String> nonMoveLinkLines = getQSAndOLinkWithTrigger(srcDir, QSLINK, OLINK,MEASURELINK);
+        List<String> nonMoveLinkLines = getQSAndOLinkWithTrigger(srcDir, QSLINK, OLINK);
         List<String> moveLinkLines = getMoveLinkLines(srcDir);
         List<String> allLinkLines = new ArrayList<>();
         allLinkLines.addAll(nonMoveLinkLines);
         allLinkLines.addAll(moveLinkLines);
         allLinkLines = allLinkLines.stream().distinct().collect(Collectors.toList());
 
+
+
+        checkConflict(allLinkLines);
         if (shuffle) {
             Collections.shuffle(allLinkLines);
         }
@@ -295,6 +334,8 @@ public class GenerateTraditionalRelationCorpus {
         String dirname = targetFilePath + "/AllLink_" + moveLinkDistanceLimit + "_" + internalElementNumLimit + "/";
         FileUtil.createDir(dirname);
         FileUtil.writeFile(dirname + mode + ".txt", allLinkLines);
+
+        GenerateTraditionalRelationCorpus.saveRelationMap(dirname + "rel2id.json");
     }
 
 
