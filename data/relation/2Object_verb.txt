@@ -1,6 +1,0 @@
-lead
-take
-route
-bring
-drop
-release
