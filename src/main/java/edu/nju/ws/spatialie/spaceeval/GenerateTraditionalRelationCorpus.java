@@ -22,7 +22,7 @@ public class GenerateTraditionalRelationCorpus {
     public static void main(String [] args) {
 
 
-        for (int i = 8; i <= 14; i++) {
+        for (int i = 6; i <= 16; i+=2) {
             GenerateTraditionalRelationCorpus.moveLinkDistanceLimit = i;
             GenerateTraditionalRelationCorpus.nonMoveLinkDistanceLimit = i;
 
@@ -38,7 +38,9 @@ public class GenerateTraditionalRelationCorpus {
                     "data/SpaceEval2015/processed_data/openNRE", "test", false);
         }
 
-        for (int j = 3; j <= 7; j++) {
+        for (int j = 1; j <= 7; j++) {
+            GenerateTraditionalRelationCorpus.moveLinkDistanceLimit = 12;
+            GenerateTraditionalRelationCorpus.nonMoveLinkDistanceLimit = 12;
             GenerateTraditionalRelationCorpus.internalElementNumLimit = j;
 
             GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/training++",
@@ -68,7 +70,7 @@ public class GenerateTraditionalRelationCorpus {
     private  static int moveLinkDistanceLimit = 12;
     private  static int nonMoveLinkDistanceLimit = 12;
 
-    private  static int internalElementNumLimit = 4;
+    private  static int internalElementNumLimit = 5;
 //    private final static int binaryNonMoveLinkDistanceLimit = 15;
 
     private final static String NONE="None";
@@ -177,7 +179,7 @@ public class GenerateTraditionalRelationCorpus {
                         if (goldTriples.contains(new ImmutableTriple<>(trajector.id, LOCATED_IN, landmark.id))) {
                             linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark));
                         } else if (trajectorTypes.contains(trajector.label) && landmarkTypes.contains(landmark.label) &&
-                                distance < nonMoveLinkDistanceLimit && elementNum < internalElementNumLimit) {
+                                distance <= nonMoveLinkDistanceLimit && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark));
                         }
                     }
@@ -223,8 +225,8 @@ public class GenerateTraditionalRelationCorpus {
                             linkLines.add(getRelLine(LANDMARK, tokensInSentence, element, trigger));
                         } else if (!inGoldTriple(goldTriples, element.id, trigger.id)
                                 && trajectorTypes.contains(element.label)
-                                && distance < nonMoveLinkDistanceLimit
-                                && elementNum < internalElementNumLimit) {
+                                && distance <= nonMoveLinkDistanceLimit
+                                && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, element, trigger));
                         }
                     }
@@ -239,7 +241,7 @@ public class GenerateTraditionalRelationCorpus {
                             linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark));
                         } else if (!inGoldTriple(goldTriples,trajector.id,landmark.id) &&
                                 trajectorTypes.contains(trajector.label) && landmarkTypes.contains(landmark.label) &&
-                                distance < nonMoveLinkDistanceLimit && elementNum < internalElementNumLimit) {
+                                distance <= nonMoveLinkDistanceLimit && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark));
                         }
                     }
@@ -278,8 +280,8 @@ public class GenerateTraditionalRelationCorpus {
                             linkLines.add(getRelLine(MOVER, tokensInSentence, mover, trigger));
                         } else if (!inGoldTriple(goldTriples, mover.id,trigger.id, MOVER)
                                 && moverTypes.contains(mover.label)
-                                && distance < moveLinkDistanceLimit
-                                && elementNum < internalElementNumLimit) {
+                                && distance <= moveLinkDistanceLimit
+                                && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, mover, trigger));
                         }
                     }
