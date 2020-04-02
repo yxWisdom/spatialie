@@ -1,2 +1,5 @@
 data/
 .idea/
+target/
+.gitignore
+spatial-ie.iml
