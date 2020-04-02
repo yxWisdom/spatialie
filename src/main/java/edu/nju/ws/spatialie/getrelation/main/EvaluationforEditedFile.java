@@ -2,13 +2,34 @@ package edu.nju.ws.spatialie.getrelation.main;
 
 import edu.nju.ws.spatialie.utils.FileUtil;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class EvaluationforEditedFile {
+    public static List<String> readLineswithEmptyLine(String path) {
+        File file = new File(path);
+        InputStream is = null;
+        BufferedReader br = null;
+        String tmp;
+        List<String> rst = new ArrayList<>();
+        try {
+            is = new BufferedInputStream(new FileInputStream(file));
+            br = new BufferedReader(new InputStreamReader(is, "utf-8"));
+            while ((tmp = br.readLine()) != null) {
+                rst.add(tmp);
+            }
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return rst;
+    }
+
     public static void evel(String PATH){
-        List<String> tlines = FileUtil.readLineswithEmptyLine(PATH);
+        List<String> tlines = readLineswithEmptyLine(PATH);
         String[] lines = tlines.toArray(new String[tlines.size()]);
         int total = 0;
         int extract = 0;

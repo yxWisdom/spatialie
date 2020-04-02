@@ -11,9 +11,7 @@ import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.getrelation.*;
 import edu.nju.ws.spatialie.utils.FileUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class GetRelation_SRL {
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {

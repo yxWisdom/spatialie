@@ -1,8 +1,6 @@
 package edu.nju.ws.spatialie.data;
 
-import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
 import edu.stanford.nlp.util.ArrayMap;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -34,7 +32,7 @@ public class BratEvent implements Cloneable{
         if (this.bratAttributes != null)
             bratEvent.bratAttributes = new ArrayList<>(this.bratAttributes);
         if (this.roleMap != null)
-            bratEvent.roleMap = ArrayListMultimap.create(this.roleMap);
+            bratEvent.roleMap = HashMultimap.create(this.roleMap);
         if (this.entities != null)
             bratEvent.entities = new HashMap<>(this.entities);
         return bratEvent;
@@ -42,7 +40,7 @@ public class BratEvent implements Cloneable{
 
     public BratEvent() {
         this.bratAttributes = new ArrayList<>();
-        this.roleMap = ArrayListMultimap.create();
+        this.roleMap = HashMultimap.create();
         this.entities = new ArrayMap<>();
     }
 
@@ -60,7 +58,7 @@ public class BratEvent implements Cloneable{
         this.id = id;
         this.filename = filename;
         this.type = eventType;
-        this.roleMap = ArrayListMultimap.create();
+        this.roleMap = HashMultimap.create();
         this.entities = new HashMap<>();
         this.bratAttributes = new ArrayList<>();
         for (String rel: rolePairs) {

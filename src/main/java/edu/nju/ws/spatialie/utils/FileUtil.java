@@ -1,6 +1,9 @@
 package edu.nju.ws.spatialie.utils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -207,24 +210,5 @@ public class FileUtil {
 
     public static void main(String [] args) {
         FileUtil.writeFile("data/corpus/test.txt", Collections.singletonList("123123"), true);
-    }
-
-    public static List<String> readLineswithEmptyLine(String path) {
-        File file = new File(path);
-        InputStream is = null;
-        BufferedReader br = null;
-        String tmp;
-        List<String> rst = new ArrayList<>();
-        try {
-            is = new BufferedInputStream(new FileInputStream(file));
-            br = new BufferedReader(new InputStreamReader(is, "utf-8"));
-            while ((tmp = br.readLine()) != null) {
-                rst.add(tmp);
-            }
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return rst;
     }
 }

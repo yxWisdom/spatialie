@@ -112,31 +112,6 @@ public class stanfordnlp {
 //            "He sent a postcard to his sister Jane Smith. " +
 //            "After hearing about Joe's trip, Jane decided she might go to France one day.";
 
-
-
-    static void generateNERCorpusChinese(String path){
-        String content = FileUtil.readFile(path);
-        String token = "";
-        for (int i = 0;i<content.length();i++){
-            char c = content.charAt(i);
-            if (c==' ') continue;
-            if (c>='a'&&c<='z'||c>='A'&&c<='Z'){
-                while(c>='a'&&c<='z'||c>='A'&&c<='Z'||c>='0'&&c<='9'){
-                    token = token+c;
-                    i ++;
-                    if (i==content.length()) break;
-                    c = content.charAt(i);
-                }
-                i--;
-            } else {
-                token = token+c;
-            }
-            token = token+" O\n";
-            if ("。！？".contains(c+"")) token = token+"\n";
-        }
-        FileUtil.writeFile("res.txt",token);
-    }
-
     public static void main(String[] args) {
 
 //        generateNERCorpusChinese("test.txt");

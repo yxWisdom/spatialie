@@ -212,14 +212,14 @@ public class ConsistencyCheck {
                 new String [] {"data/SpaceEval2015/processed_data/relation/no-trigger-non-MoveLink/train.txt"}, "LocatedIn", true);
 
         ConsistencyCheck.checkTraditionalRelAndRelation(new String [] {"data/SpaceEval2015/processed_data/openNRE/AllLink/val.txt"},
-                new String [] {"data/SpaceEval2015/processed_data/relation/no-trigger-non-MoveLink/dev_all.txt"}, "LocatedIn", true);
+                new String [] {"data/SpaceEval2015/processed_data/relation/no-trigger-non-MoveLink/dev.txt"}, "LocatedIn", true);
 
         ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/NoTriggerLink/train.txt"},
                 new String [] {"data/SpaceEval2015/processed_data/relation/no-trigger-non-MoveLink/train.txt"}, true);
 
 
-        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/NoTriggerLink/dev_all.txt"},
-                new String [] {"data/SpaceEval2015/processed_data/relation/no-trigger-non-MoveLink/dev_all.txt"}, true);
+        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/NoTriggerLink/dev.txt"},
+                new String [] {"data/SpaceEval2015/processed_data/relation/no-trigger-non-MoveLink/dev.txt"}, true);
     }
 
 
@@ -227,14 +227,14 @@ public class ConsistencyCheck {
         ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/MoveLink/train.txt"},
                 new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/train.txt"}, true);
 
-        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/MoveLink/dev_all.txt"},
-                new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/dev_all.txt"}, true);
+        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/MoveLink/dev.txt"},
+                new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/dev.txt"}, true);
 
         ConsistencyCheck.checkTraditionalRelAndRelation(new String [] {"data/SpaceEval2015/processed_data/openNRE/AllLink/train.txt"},
                 new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/train.txt"}, "mover", true);
 
         ConsistencyCheck.checkTraditionalRelAndRelation(new String [] {"data/SpaceEval2015/processed_data/openNRE/AllLink/val.txt"},
-                new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/dev_all.txt"}, "mover", true);
+                new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/dev.txt"}, "mover", true);
     }
 
 
@@ -244,18 +244,18 @@ public class ConsistencyCheck {
 //                new String [] {"data/SpaceEval2015/processed_data/relation/OLink/train.txt"}, false);
 //
 //
-//        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/OLink/dev_all.txt",
-//                        "data/SpaceEval2015/processed_data/SRL/ONoTrigger/dev_all.txt"},
-//                new String [] {"data/SpaceEval2015/processed_data/relation/OLink/dev_all.txt"}, false);
+//        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/OLink/dev.txt",
+//                        "data/SpaceEval2015/processed_data/SRL/ONoTrigger/dev.txt"},
+//                new String [] {"data/SpaceEval2015/processed_data/relation/OLink/dev.txt"}, false);
 //
 //        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/QSLink/train.txt",
 //                        "data/SpaceEval2015/processed_data/SRL/QSNoTrigger/train.txt"},
 //                new String [] {"data/SpaceEval2015/processed_data/relation/QSLink/train.txt"}, false);
 //
 //
-//        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/QSLink/dev_all.txt",
-//                        "data/SpaceEval2015/processed_data/SRL/QSNoTrigger/dev_all.txt"},
-//                new String [] {"data/SpaceEval2015/processed_data/relation/QSLink/dev_all.txt"}, false);
+//        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/QSLink/dev.txt",
+//                        "data/SpaceEval2015/processed_data/SRL/QSNoTrigger/dev.txt"},
+//                new String [] {"data/SpaceEval2015/processed_data/relation/QSLink/dev.txt"}, false);
 //
 //
 //        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/NonMoveLink/train.txt",
@@ -263,20 +263,20 @@ public class ConsistencyCheck {
 //                new String [] {"data/SpaceEval2015/processed_data/relation/non-MoveLink/train.txt"}, false);
 
 
-        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/NonMoveLink/dev_all.txt",
-                        "data/SpaceEval2015/processed_data/SRL/NoTriggerLink/dev_all.txt"},
-                new String [] {"data/SpaceEval2015/processed_data/relation/non-MoveLink/dev_all.txt"}, false);
+        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/NonMoveLink/dev.txt",
+                        "data/SpaceEval2015/processed_data/SRL/NoTriggerLink/dev.txt"},
+                new String [] {"data/SpaceEval2015/processed_data/relation/non-MoveLink/dev.txt"}, false);
 //
 //        ConsistencyCheck.checkMultiHeadAndSRL(new String [] {"data/SpaceEval2015/processed_data/multi-head/AllLink-Head/train.txt"},
 //                new String [] {"data/SpaceEval2015/processed_data/SRL/NonMoveLink/train.txt"},"trajector");
 //
-//        ConsistencyCheck.checkMultiHeadAndSRL(new String [] {"data/SpaceEval2015/processed_data/multi-head/AllLink-Head/dev_all.txt"},
-//                new String [] {"data/SpaceEval2015/processed_data/SRL/NonMoveLink/dev_all.txt"},"trajector");
+//        ConsistencyCheck.checkMultiHeadAndSRL(new String [] {"data/SpaceEval2015/processed_data/multi-head/AllLink-Head/dev.txt"},
+//                new String [] {"data/SpaceEval2015/processed_data/SRL/NonMoveLink/dev.txt"},"trajector");
 //
 //        ConsistencyCheck.checkMultiHeadAndSRL(new String [] {"data/SpaceEval2015/processed_data/multi-head/AllLink-Head/train.txt"},
 //                new String [] {"data/SpaceEval2015/processed_data/SRL/NonMoveLink/train.txt"},"landmark");
-//        ConsistencyCheck.checkMultiHeadAndSRL(new String [] {"data/SpaceEval2015/processed_data/multi-head/AllLink-Head/dev_all.txt"},
-//                new String [] {"data/SpaceEval2015/processed_data/SRL/NonMoveLink/dev_all.txt"},"landmark");
+//        ConsistencyCheck.checkMultiHeadAndSRL(new String [] {"data/SpaceEval2015/processed_data/multi-head/AllLink-Head/dev.txt"},
+//                new String [] {"data/SpaceEval2015/processed_data/SRL/NonMoveLink/dev.txt"},"landmark");
     }
 
 
@@ -292,8 +292,8 @@ public class ConsistencyCheck {
 //                new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/train.txt"}, true);
 //
 //
-//        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/MoveLink/dev_all.txt"},
-//                new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/dev_all.txt"}, true);
+//        ConsistencyCheck.checkSRLAndRelation(new String [] {"data/SpaceEval2015/processed_data/SRL/MoveLink/dev.txt"},
+//                new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/dev.txt"}, true);
 
 
 //
@@ -302,7 +302,7 @@ public class ConsistencyCheck {
 //                new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/train.txt"}, "mover", true);
 //
 //        ConsistencyCheck.checkTraditionalRelAndRelation(new String [] {"data/SpaceEval2015/processed_data/openNRE/AllLink/val.txt"},
-//                new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/dev_all.txt"}, "mover", true);
+//                new String [] {"data/SpaceEval2015/processed_data/relation/MoveLink/dev.txt"}, "mover", true);
 
 
 //        ConsistencyCheck.checkNoTriggerLink();

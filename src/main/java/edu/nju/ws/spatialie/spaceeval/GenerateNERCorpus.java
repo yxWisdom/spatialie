@@ -51,7 +51,7 @@ public class GenerateNERCorpus {
         GenerateNERCorpus.run("data/SpaceEval2015/raw_data/training++",
                 "data/SpaceEval2015/processed_data/ner/train.txt");
         GenerateNERCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/ner/dev_all.txt");
+                "data/SpaceEval2015/processed_data/ner/dev.txt");
         GenerateNERCorpus.run("data/SpaceEval2015/raw_data/gold++",
                 "data/SpaceEval2015/processed_data/ner/test.txt");
         System.out.println(GenerateNERCorpus.lengths);

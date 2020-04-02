@@ -176,7 +176,7 @@ public class GetRelation_NRE {
 //                System.out.println();
             }
             if (i % 100 == 0) System.out.println(count_all);
-            object.put("relation_predict",predict_res);
+            object.put("relation",predict_res);
             output.add(object.toJSONString());
         }
         System.out.println(count_all);
