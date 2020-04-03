@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FindTagUtil {
-    static String dir = "data/relation/findtag";
+    static String dir = "resource/relation/findtag";
     public static String findtag(String content) {
 //        content = content.substring(0,60);
 //        content = content.replaceAll("approx ~","approx .");
