@@ -47,19 +47,31 @@ public class EvaluationCount {
 
     public int allGold(){
         int sum = 0;
-        for (int v:gold.values()) sum+=v;
+        for (String key:gold.keySet()) {
+            if (key.contains("LINK")||key.contains("NOTRIGGER")) {
+                sum += gold.get(key);
+            }
+        }
         return sum;
     }
 
     public int allCorrect(){
         int sum = 0;
-        for (int v:correct.values()) sum+=v;
+        for (String key:correct.keySet()) {
+            if (key.contains("LINK")||key.contains("NOTRIGGER")) {
+                sum += correct.get(key);
+            }
+        }
         return sum;
     }
 
     public int allPredict(){
         int sum = 0;
-        for (int v:predict.values()) sum+=v;
+        for (String key:predict.keySet()) {
+            if (key.contains("LINK")||key.contains("NOTRIGGER")) {
+                sum += predict.get(key);
+            }
+        }
         return sum;
     }
 
