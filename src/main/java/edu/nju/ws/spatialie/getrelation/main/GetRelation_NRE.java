@@ -14,11 +14,16 @@ import edu.nju.ws.spatialie.getrelation.*;
 import edu.nju.ws.spatialie.utils.FileUtil;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class GetRelation_NRE {
+    static String inputdir = "data/SpaceEval2015/processed_data/openNRE/AllLink_12_5/";
+    static String outputdir = inputdir.replaceFirst("data","output");
+    static String filename = "train.txt";
+
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {
         NLPUtil.init();
 
@@ -44,6 +49,8 @@ public class GetRelation_NRE {
 
             JSONObject object = JSONObject.parseObject(line);
             List<String> words = JSON.parseArray(object.getJSONArray("token").toJSONString(), String.class);
+            object = FindTagUtil.trimWords(object,words);
+
             String content = StringUtils.join(words, " ");
             List<BratEvent> eventList;
 //                System.out.println(line);
@@ -167,20 +174,27 @@ public class GetRelation_NRE {
 //                if (bratDocument.getContent().contains(object.getJSONObject("h").getString("name")+" of "+object.getJSONObject("t").getString("name")))
 //                    System.out.println(object.getJSONObject("h").getString("name"));
                     System.out.println(lines.get(i));
-                    for (String key:evel.predict.keySet()){
-                        if (key.contains("LINK")||key.contains("NO")) continue;
-                        System.out.println(key);
-                    }
+
+                    //规则标记
+//                    for (String key:evel.predict.keySet()){
+//                        if (key.contains("LINK")||key.contains("NO")) continue;
+//                        System.out.println(key);
+//                    }
+
 //                System.out.println("landmark:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A1").getRoleId("landmark")).getText());
 //                System.out.println("Trajector:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A1").getRoleId("trajector")).getText());
 //                System.out.println();
             }
-            if (i % 100 == 0) System.out.println(count_all);
-            object.put("relation",predict_res);
+            object.put("relation_predict",predict_res);
             output.add(object.toJSONString());
+            if (i % 100 == 0) {
+                System.out.println(count_all);
+                FileUtil.writeFile(outputdir+filename,output,true);
+                output.clear();
+            }
         }
         System.out.println(count_all);
-        FileUtil.writeFile(filepath.replace("data","output_SRL"),output);
+        FileUtil.writeFile(outputdir+filename,output,true);
     }
 
     private static List<BratEvent> Combinecompany(List<BratEvent> eventList, BratDocumentwithList bratDocument) throws CloneNotSupportedException {
@@ -236,6 +250,10 @@ public class GetRelation_NRE {
     }
 
     public static void main(String[] args) throws CloneNotSupportedException {
-        generateCorpus("data/SpaceEval2015/processed_data/openNRE/AllLink_12_4/train_edited.txt");
+        File file = new File(outputdir);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        generateCorpus(inputdir+filename);
     }
 }

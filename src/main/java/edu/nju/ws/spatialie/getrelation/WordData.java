@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WordData {
-    static List<String> prepList = FileUtil.readLines("data/relation/prep.txt");
-    static List<String> verb2objList = FileUtil.readLines("data/relation/2Object_verb.txt");
-    static List<String> verbList = FileUtil.readLines("data/relation/TLINK_verb.txt");
-    static List<String> pathList = FileUtil.readLines("data/relation/path_canbeMover.txt");
-    static List<String> not_notrigger_of = FileUtil.readLines("data/relation/not_notrigger_of.txt");
-    static List<String> changelt = FileUtil.readLines("data/relation/changelt.txt");
+    static List<String> prepList = FileUtil.readLines("resource/relation/prep.txt");
+    static List<String> verb2objList = FileUtil.readLines("resource/relation/2Object_verb.txt");
+    static List<String> verbList = FileUtil.readLines("resource/relation/TLINK_verb.txt");
+    static List<String> pathList = FileUtil.readLines("resource/relation/path_canbeMover.txt");
+    static List<String> not_notrigger_of = FileUtil.readLines("resource/relation/not_notrigger_of.txt");
+    static List<String> changelt = FileUtil.readLines("resource/relation/changelt.txt");
 
     public static List<String> getChangelt() {
         return changelt;

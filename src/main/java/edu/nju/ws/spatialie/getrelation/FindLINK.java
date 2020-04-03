@@ -11,6 +11,8 @@ import java.util.List;
 
 public class FindLINK {
     static boolean isVerb(BratEntity trigger, BratDocumentwithList bratDocument) {
+//        System.out.println(bratDocument.getContent());
+//        System.out.println(trigger.getText());
         if (bratDocument.getParseTree().getPOS(trigger.getStart()).startsWith("V")) return true;
         String lema = bratDocument.getParseTree().getLemma(trigger.getStart());
         for (String v:WordData.getVerbList()){

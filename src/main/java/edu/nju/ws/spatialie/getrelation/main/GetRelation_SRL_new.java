@@ -14,9 +14,9 @@ import edu.nju.ws.spatialie.utils.FileUtil;
 import java.io.File;
 import java.util.*;
 
-public class GetRelation_SRL {
-    static String inputdir = "data/SpaceEval2015/processed_data/SRL/AllLink/";
-    static String outputdir = inputdir.replaceFirst("data","output");
+public class GetRelation_SRL_new {
+    static String inputdir = "data/SpaceEval2015/processed_data/SRL/QSNoTrigger/";
+    static String outputdir = inputdir.replaceFirst("data", "output");
     static String filename = "train.txt";
 
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {
@@ -31,15 +31,30 @@ public class GetRelation_SRL {
         List<String> lines = FileUtil.readLines(filepath);
 
         List<String> output = new ArrayList<>();
+
+        UserComparator comparator = new UserComparator();
+        lines.sort(comparator);
+
         for (int i = 0; i < lines.size(); i++) {
-
+            List<String> samesentences = new ArrayList<>();
             String line = lines.get(i);
-//            line ="23 23\tAnd then there were the 3 different families whose houses I camped next to , and who all invited me and fed me in their kitchens .\tO O O O O O O O O B-PLACE B-SPATIAL_ENTITY B-NONMOTION_EVENT B-SPATIAL_SIGNAL I-SPATIAL_SIGNAL O O O O O B-SPATIAL_ENTITY O B-NONMOTION_EVENT B-SPATIAL_ENTITY B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O O O O O O B-trajector O B-trigger O B-landmark O\n";
+            samesentences.add(line);
+            while (i + 1 < lines.size() && lines.get(i + 1).split("\t")[1].equals(line.split("\t")[1])) {
+                i++;
+                samesentences.add(lines.get(i));
+            }
 
-            BratDocumentwithList bratDocument = new BratDocumentwithList(line);
+//            line ="-1 -1\tThe route sees few foreigners , and nearly every person on the roadside asked me ‘ Â¿de donde viene ? , ’ or where do you come from .\tO B-PATH O O B-SPATIAL_ENTITY O O O O B-SPATIAL_ENTITY B-SPATIAL_SIGNAL O B-PATH O B-SPATIAL_ENTITY O O O O O O O O B-PLACE O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O\tO B-landmark O O B-trajector O O O O O O O O O O O O O O O O O O O O O O O O\n";
+//            samesentences.clear();
+//            samesentences.add(line);
+
+//            if (line.contains(" Cars and Politics in Caracas 7/18 Floods and Climate Cha")){
+//                System.out.print(" ");
+//            }
+            BratDocumentwithList bratDocument = new BratDocumentwithList(samesentences);
             JudgeEntity.init(bratDocument);
 //            System.out.println(line);
-            if (!bratDocument.c) continue;
+//            if (!bratDocument.c) continue;
 //            System.out.println(1);
             bratDocument.dealCompany();
             int idx = 0;
@@ -138,7 +153,7 @@ public class GetRelation_SRL {
 //                eventList = EveluateUtil.removeRedundancy(eventList,bratDocument);
 //            else
 //                eventList = EveluateUtil.removeRedundancy_notrigger(eventList,bratDocument);
-            eventList = EveluateUtil.removeRedundancy(eventList, bratDocument);
+            eventList = EveluateUtil.removeRedundancy_notrigger(eventList, bratDocument);
             EveluateUtil.eveluate(bratDocument, eventList, evel);
 
 //            if (bratDocument.getTrigger()==null){
@@ -152,19 +167,27 @@ public class GetRelation_SRL {
 //                System.out.println("Trajector:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A1").getRoleId("trajector")).getText());
 //                System.out.println();
             }
-            if (bratDocument.getTrigger() != null) {
-                String res = buildtags(line, eventList, bratDocument);
+
+            for (String line_ : samesentences) {
+                String res = buildtags(line_, eventList, bratDocument);
                 output.add(res);
             }
-            if (i % 100 == 0) {
-                System.out.println(count_all);
-                FileUtil.writeFile(outputdir + filename, output,true);
-                output.clear();
-            }
+            System.out.println(count_all);
+            FileUtil.writeFile(outputdir + filename, output, true);
+            output.clear();
 
         }
         System.out.println(count_all);
-        FileUtil.writeFile(outputdir + filename, output,true);
+//        FileUtil.writeFile(outputdir + filename, output, true);
+    }
+
+    public static class UserComparator implements Comparator<String> {
+        @Override
+        public int compare(String u1, String u2) {
+            String s1 = u1.split("\t")[1];
+            String s2 = u2.split("\t")[1];
+            return s1.compareTo(s2);
+        }
     }
 
     private static String buildtags(String line, List<BratEvent> eventList, BratDocumentwithList bratDocument) {
@@ -175,66 +198,114 @@ public class GetRelation_SRL {
         int trigger_idx = Integer.valueOf(texts[0].split(" ")[0]);
         int pos = 0;
         String[] words = text.split(" ");
-        for (int i = 0; i < trigger_idx; i++) {
-            pos = pos + words[i].length() + 1;
-        }
-        BratEvent event_ = null;
-        for (BratEvent event : eventList) {
-            if (event.getRoleIds("trigger").size() > 0) {
-                if (event.getEntities().get(event.getRoleId("trigger")).getStart() == pos) {
-                    event_ = event;
-                    break;
-                }
+        if (trigger_idx != -1) {
+            for (int i = 0; i < trigger_idx; i++) {
+                pos = pos + words[i].length() + 1;
             }
-            if (event.getRoleIds("val").size() > 0) {
-                if (event.getEntities().get(event.getRoleId("val")).getStart() == pos) {
-                    event_ = event;
-                    break;
+            BratEvent event_ = null;
+            for (BratEvent event : eventList) {
+                if (event.getRoleIds("trigger").size() > 0) {
+                    if (event.getEntities().get(event.getRoleId("trigger")).getStart() == pos) {
+                        event_ = event;
+                        break;
+                    }
                 }
-            }
-        }
-        boolean inlabel = false;
-        String res = "";
-        String label = null;
-        int end = 0;
-        pos = 0;
-        for (int i = 0; i < words.length; i++) {
-            boolean newlabel = false;
-            if (!inlabel && event_ != null) {
-                for (String role : event_.getRoleMap().keySet()) {
-                    for (String id : event_.getRoleIds(role)) {
-                        int p = event_.getEntities().get(id).getStart();
-                        if (p == pos) {
-                            inlabel = true;
-                            newlabel = true;
-                            end = event_.getEntities().get(id).getEnd();
-                            label = role;
-                        }
+                if (event.getRoleIds("val").size() > 0) {
+                    if (event.getEntities().get(event.getRoleId("val")).getStart() == pos) {
+                        event_ = event;
+                        break;
                     }
                 }
             }
-            String predict;
-            if (!inlabel)
-                predict = "O";
-            else {
-                if (label.equals("val"))
-                    predict = "trigger";
-                else
-                    predict = label;
-                if (newlabel)
-                    predict = "B-" + predict;
-                else
-                    predict = "I-" + predict;
-            }
-            res = res + words[i] + " " + tags[i] + " " + labels[i] + " " + predict + "\n";
-            pos = pos + words[i].length() + 1;
-            if (inlabel) {
-                if (pos >= end) {
-                    inlabel = false;
+            boolean inlabel = false;
+            String res = "";
+            String label = null;
+            int end = 0;
+            pos = 0;
+            for (int i = 0; i < words.length; i++) {
+                boolean newlabel = false;
+                if (!inlabel && event_ != null) {
+                    for (String role : event_.getRoleMap().keySet()) {
+                        for (String id : event_.getRoleIds(role)) {
+                            int p = event_.getEntities().get(id).getStart();
+                            if (p == pos) {
+                                inlabel = true;
+                                newlabel = true;
+                                end = event_.getEntities().get(id).getEnd();
+                                label = role;
+                            }
+                        }
+                    }
+                }
+                String predict;
+                if (!inlabel)
+                    predict = "O";
+                else {
+                    if (label.equals("val"))
+                        predict = "trigger";
+                    else
+                        predict = label;
+                    if (newlabel)
+                        predict = "B-" + predict;
+                    else
+                        predict = "I-" + predict;
+                }
+                res = res + words[i] + " " + tags[i] + " " + labels[i] + " " + predict + "\n";
+                pos = pos + words[i].length() + 1;
+                if (inlabel) {
+                    if (pos >= end) {
+                        inlabel = false;
+                    }
                 }
             }
+            return res;
+        } else {
+            boolean inlabel = false;
+            String res = "";
+            String label = null;
+            int end = 0;
+            pos = 0;
+            for (int i = 0; i < words.length; i++) {
+                boolean newlabel = false;
+                if (!inlabel) {
+                    for (BratEvent event_ : eventList) {
+                        for (String role : event_.getRoleMap().keySet()) {
+                            for (String id : event_.getRoleIds(role)) {
+                                int p = event_.getEntities().get(id).getStart();
+                                if (p == pos) {
+                                    inlabel = true;
+                                    newlabel = true;
+                                    end = event_.getEntities().get(id).getEnd();
+                                    label = role;
+                                }
+                            }
+                        }
+                    }
+                }
+                String predict;
+                if (!inlabel)
+                    predict = "O";
+                else {
+                    if (label.equals("val"))
+                        predict = "trigger";
+                    else
+                        predict = label;
+                    if (newlabel)
+                        predict = "B-" + predict;
+                    else
+                        predict = "I-" + predict;
+                }
+                res = res + words[i] + " " + tags[i] + " " + labels[i] + " " + predict + "\n";
+                pos = pos + words[i].length() + 1;
+                if (inlabel) {
+                    if (pos >= end) {
+                        inlabel = false;
+                    }
+                }
+            }
+            return res;
         }
-        return res;
+
     }
 
     private static List<BratEvent> Combinecompany(List<BratEvent> eventList, BratDocumentwithList bratDocument) throws CloneNotSupportedException {

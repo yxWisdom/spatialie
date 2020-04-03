@@ -19,8 +19,24 @@ public class BratDocumentwithList extends BratDocument {
     List<Boolean> isCandidate = new ArrayList<>();
     Multimap<String, String> companyMap = ArrayListMultimap.create();
     ParseTree parseTree;
-    String tagmap_path = "data/relation/tag_map.txt";
     BratEntity trigger = null;
+
+    public BratDocumentwithList(List<String> samesentences) {
+        super(samesentences.get(0).split("\t")[1]);
+        String[] t = samesentences.get(0).split("\t");
+
+        Map<String, String> tagMap = transTag();
+        Map<Integer, BratEntity> idxEntity = buildEntities(t[1], t[2], tagMap);
+        int idx = 0;
+        for (String sentence :samesentences) {
+            int trigger_pos = Integer.parseInt(sentence.split("\t")[0].split(" ")[0]);
+            buildEvents(trigger_pos, idxEntity, sentence.split("\t")[3],idx);
+            idx++;
+        }
+        int trigger_pos = Integer.parseInt(t[0].split(" ")[0]);
+        if (trigger_pos != -1) trigger = idxEntity.get(trigger_pos);
+        init();
+    }
 
     public Multimap<String, String> getCompanyMap() {
         return companyMap;
@@ -73,7 +89,31 @@ public class BratDocumentwithList extends BratDocument {
     }
 
     private Map transTag() {
-        List<String> lines = FileUtil.readLines(tagmap_path);
+        List<String> lines = Arrays.asList(("DATE Date\n" +
+                "TIME Time\n" +
+                "DURATION Duration\n" +
+                "TIME_SET TimeSet\n" +
+                "PLACE Place\n" +
+                "MILITARY_PLACE MilitaryPlace\n" +
+                "MILITARY_BASE MilitaryBase\n" +
+                "COUNTRY Country\n" +
+                "ADMIN_DIV AdministrativeDivision\n" +
+                "PATH Path\n" +
+                "P_MILITARY_PLACE P_MilitaryPlace\n" +
+                "ORGANIZATION Organization\n" +
+                "ARMY Army\n" +
+                "PERSON Person\n" +
+                "COMMANDER Commander\n" +
+                "WEAPON Weapon\n" +
+                "NONMOTION_EVENT Event\n" +
+                "MILITARY_EXERCISE MilitaryExercise\n" +
+                "CONFERENCE Conference\n" +
+                "SPATIAL_ENTITY SpatialEntity\n" +
+                "MEASURE Measure\n" +
+                "SPATIAL_SIGNAL SpatialSignal\n" +
+                "MOTION Motion\n" +
+                "MOTION_SIGNAL MotionSignal\n" +
+                "LITERAL Literal").split("\n"));
         Map<String, String> tagMap = new HashMap<>();
         for (String line : lines) {
             tagMap.put(line.split(" ")[0], line.split(" ")[1]);
@@ -85,6 +125,33 @@ public class BratDocumentwithList extends BratDocument {
         String[] labelList = labels.split(" ");
         BratEvent newEvent = new BratEvent();
         newEvent.setId("A1");
+        newEvent.setType("OTLINK");//无trigger
+        for (int i = 0; i < labelList.length; i++) {
+            if (labelList[i].startsWith("B")) {
+                String label = labelList[i].substring(2);
+                BratEntity entity = idxEntity.get(i);
+                newEvent.addRole(label, entity.getId());
+                newEvent.setEntities(entity.getId(), entity);
+                if (i == trigger_pos) {
+                    if (entity.getTag().equals(BratUtil.MOTION)) {
+                        newEvent.setType("MLINK");
+                    } else if (entity.getTag().equals(BratUtil.MEASURE)) {
+                        newEvent.setType("DLINK");
+                        newEvent.removeRole(label);
+                        newEvent.addRole("val", entity.getId());
+                    } else if (entity.getTag().equals(BratUtil.SPATIAL_SIGNAL)) {
+                        newEvent.setType("OTLINK");
+                    }
+                }
+            }
+        }
+        getEventMap().put(newEvent.getId(), newEvent);
+    }
+
+    private void buildEvents(int trigger_pos, Map<Integer, BratEntity> idxEntity, String labels,int idx) {
+        String[] labelList = labels.split(" ");
+        BratEvent newEvent = new BratEvent();
+        newEvent.setId("A"+idx);
         newEvent.setType("OTLINK");//无trigger
         for (int i = 0; i < labelList.length; i++) {
             if (labelList[i].startsWith("B")) {
@@ -157,7 +224,10 @@ public class BratDocumentwithList extends BratDocument {
         for (BratEntity ignored : entityList) {
             if (ignored.getTag().equals(BratUtil.MOTION_SIGNAL)) isCandidate.add(false); else isCandidate.add(true);
         }
-        parseTree = new ParseTree(getContent());
+        String content = getContent().replaceAll("\\.","~");
+        content = content.replaceAll("\\?","~");
+        content = content.substring(0,content.length()-1)+".";
+        parseTree = new ParseTree(content);
     }
 
     public ParseTree getParseTree() {
@@ -208,6 +278,7 @@ public class BratDocumentwithList extends BratDocument {
         int i = 0;
         while (i < entityList.size()) {
             BratEntity e = entityList.get(i);
+            if (FindLINK.getNext(i, this)==-1) break;
             if (getIsCandidate(i) && e.getTag().equals(BratUtil.SPATIAL_ENTITY)) {
                 if (getNextWord(e.getEnd()).equals("(")) {
                     int j = FindLINK.getNext(i, this);

@@ -1,0 +1,8 @@
+road
+path
+way
+river
+street
+line
+border
+level

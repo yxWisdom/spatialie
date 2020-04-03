@@ -1,5 +1,6 @@
 package edu.nju.ws.spatialie.getrelation;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import edu.nju.ws.spatialie.utils.FileUtil;
 
@@ -9,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FindTagUtil {
-    static String dir = "data/relation/findtag";
+    static String dir = "resource/relation/findtag";
     public static String findtag(String content) {
 //        content = content.substring(0,60);
 //        content = content.replaceAll("approx ~","approx .");
@@ -99,5 +100,28 @@ public class FindTagUtil {
     }
     public static void main(String[] args){
         dealwithNREfile("data/SpaceEval2015/processed_data/openNRE/OTMDLink_12_4/train.txt","data/SpaceEval2015/processed_data/openNRE/OTMDLink_12_4/train_edited.txt");
+    }
+
+    public static JSONObject trimWords(JSONObject object, List<String> words) {
+        JSONObject eh = object.getJSONObject("h");
+        JSONObject et = object.getJSONObject("t");
+        List<Integer> posh = JSON.parseArray(eh.getJSONArray("pos").toJSONString(), Integer.class);
+        List<Integer> post = JSON.parseArray(et.getJSONArray("pos").toJSONString(), Integer.class);
+        String texth="";
+        for (int idx = posh.get(0);idx<posh.get(1);idx++){
+            texth = texth+ " "+words.get(idx);
+        }
+        texth = texth.substring(1);
+        String textt="";
+        for (int idx = post.get(0);idx<post.get(1);idx++){
+            textt = textt+ " "+words.get(idx);
+        }
+        textt = textt.substring(1);
+        eh.put("name",texth);
+        et.put("name",textt);
+        JSONObject res = object;
+        res.put("h",eh);
+        res.put("t",et);
+        return res;
     }
 }

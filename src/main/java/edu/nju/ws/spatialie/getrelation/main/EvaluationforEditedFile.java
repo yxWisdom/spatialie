@@ -31,8 +31,8 @@ public class EvaluationforEditedFile {
     public static void evel(String PATH){
         List<String> tlines = readLineswithEmptyLine(PATH);
         String[] lines = tlines.toArray(new String[tlines.size()]);
-        int total = 0;
-        int extract = 0;
+        int gold = 0;
+        int predict = 0;
         int countright = 0;
         for (int idx = 0;idx<lines.length;idx++) {
             boolean isright = true;
@@ -41,7 +41,7 @@ public class EvaluationforEditedFile {
             int other = 0;
             String duplicate = "";
             int start = idx;
-            int t1 = countright,t2=extract,t3=total;
+            int t1 = countright,t2=predict,t3=gold;
             boolean isanswer = false;
             boolean isdlink;
             while (idx < lines.length && !lines[idx].equals("") && !lines[idx].equals("\n")) {
@@ -51,7 +51,7 @@ public class EvaluationforEditedFile {
                 if (!answer.equals("O")) isanswer = true;
                 if (right.startsWith("B")) {
                     if (elements1.contains(right)) {
-                        total++;
+                        gold++;
                         duplicate = right.substring(2);
                     } else {
                         elements1.add(right);
@@ -60,7 +60,7 @@ public class EvaluationforEditedFile {
 
                 if (answer.startsWith("B")) {
                     if (elements2.contains(answer)) {
-                        extract++;
+                        predict++;
                     } else {
                         elements2.add(answer);
                     }
@@ -70,8 +70,8 @@ public class EvaluationforEditedFile {
                 }
                 idx++;
             }
-            total++;
-            if (isanswer) extract++;
+            gold++;
+            if (isanswer) predict++;
             if (duplicate.isEmpty()){
                 if (isright&&isanswer) countright++;
             } else {
@@ -100,16 +100,16 @@ public class EvaluationforEditedFile {
                 countright+=other;
             }
 
-//            System.out.println((countright-t1)+"\t"+(extract-t2)+"\t"+(total-t3));
-//            FileUtil.writeFile("data/BIO/all predict/record2.txt",(countright-t1)+"\t"+(extract-t2)+"\t"+(total-t3),true);
+//            System.out.println((countright-t1)+"\t"+(extract-t2)+"\t"+(gold-t3));
+//            FileUtil.writeFile("data/BIO/all predict/record2.txt",(countright-t1)+"\t"+(extract-t2)+"\t"+(gold-t3),true);
         }
         //！！！输出
-        System.out.println(countright+"\t"+extract+"\t"+total);
-        System.out.println(countright*1.0/total);
-        System.out.println(countright*1.0/extract);
+        System.out.println(countright+"\t"+predict+"\t"+gold);
+        System.out.println(countright*1.0/gold);
+        System.out.println(countright*1.0/predict);
     }
 
     public static void main(String [] args) {
-        evel("data/BIO/error/withouttrigger.txt");
+        evel("output/SpaceEval2015/processed_data/SRL/QSNoTrigger/train.txt");
     }
 }
