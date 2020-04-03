@@ -158,13 +158,13 @@ public class GetRelation_SRL {
             }
             if (i % 100 == 0) {
                 System.out.println(count_all);
-                FileUtil.writeFile(outputdir + filename, output);
+                FileUtil.writeFile(outputdir + filename, output,true);
                 output.clear();
             }
 
         }
         System.out.println(count_all);
-        FileUtil.writeFile(outputdir + filename, output);
+        FileUtil.writeFile(outputdir + filename, output,true);
     }
 
     private static String buildtags(String line, List<BratEvent> eventList, BratDocumentwithList bratDocument) {

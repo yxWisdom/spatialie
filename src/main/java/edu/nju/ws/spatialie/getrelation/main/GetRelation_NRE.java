@@ -187,12 +187,12 @@ public class GetRelation_NRE {
             output.add(object.toJSONString());
             if (i % 100 == 0) {
                 System.out.println(count_all);
-                FileUtil.writeFile(outputdir+filename,output);
+                FileUtil.writeFile(outputdir+filename,output,true);
                 output.clear();
             }
         }
         System.out.println(count_all);
-        FileUtil.writeFile(outputdir+filename,output);
+        FileUtil.writeFile(outputdir+filename,output,true);
     }
 
     private static List<BratEvent> Combinecompany(List<BratEvent> eventList, BratDocumentwithList bratDocument) throws CloneNotSupportedException {
