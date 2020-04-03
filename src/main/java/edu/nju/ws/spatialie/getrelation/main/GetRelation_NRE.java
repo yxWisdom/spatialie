@@ -20,9 +20,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class GetRelation_NRE {
-    static String inputdir = "data/SpaceEval2015/processed_data/openNRE/AllLink_12_4/";
+    static String inputdir = "data/SpaceEval2015/processed_data/openNRE/AllLink_12_5/";
     static String outputdir = inputdir.replaceFirst("data","output");
-    static String filename = "train_edited.txt";
+    static String filename = "train.txt";
 
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {
         NLPUtil.init();
@@ -49,6 +49,8 @@ public class GetRelation_NRE {
 
             JSONObject object = JSONObject.parseObject(line);
             List<String> words = JSON.parseArray(object.getJSONArray("token").toJSONString(), String.class);
+            object = FindTagUtil.trimWords(object,words);
+
             String content = StringUtils.join(words, " ");
             List<BratEvent> eventList;
 //                System.out.println(line);
