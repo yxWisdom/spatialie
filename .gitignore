@@ -1,6 +1,7 @@
-data/
+data/SpaceEval2015/
 .idea/
 target/
 .gitignore
 spatial-ie.iml
 output/
+/data/relation/findtag

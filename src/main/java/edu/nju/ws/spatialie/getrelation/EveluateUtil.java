@@ -27,8 +27,9 @@ public class EveluateUtil {
             int this_gold = 0;
             for (BratEvent event2 : eventList2) {
                 int num = judgeSame(event1, event2);
-                int num2 = judgeSameReverse(event1, event2);
-                this_gold += max(num, num2);
+//                int num2 = judgeSameReverse(event1, event2);
+//                this_gold += max(num, num2);
+                this_gold+=num;
             }
             int v = gold.get(translateType(event1.getType()));
             gold.put(translateType(event1.getType()), v + this_gold);
@@ -293,4 +294,20 @@ public class EveluateUtil {
         return res;
     }
 
+    public static List<BratEvent> removeRedundancy_notrigger(List<BratEvent> eventList, BratDocumentwithList bratDocument) {
+        List<BratEvent> res = new ArrayList<>();
+        if (bratDocument.getTrigger() != null) {
+            for (BratEvent e : eventList) {
+                Collection<String> listmap = e.getRoleMap().get("trigger");
+                if (listmap != null&&listmap.size()>0) res.add(e);
+                listmap = e.getRoleMap().get("val");
+                if (listmap != null&&listmap.size()>0) res.add(e);
+            }
+        } else {
+            for (BratEvent e : eventList) {
+                if (e.getRoleMap().get("trigger").size() == 0 && e.getRoleMap().get("val").size() == 0) res.add(e);
+            }
+        }
+        return res;
+    }
 }

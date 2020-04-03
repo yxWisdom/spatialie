@@ -110,6 +110,6 @@ public class EvaluationforEditedFile {
     }
 
     public static void main(String [] args) {
-        evel("output/SRL/AllLink/train.txt");
+        evel("output/SpaceEval2015/processed_data/SRL/QSNoTrigger/train.txt");
     }
 }
