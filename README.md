@@ -2,7 +2,7 @@ GetRelation_SRL_new: 新的SRL格式输出
 
 生成SRL格式输出：GetRelation_SRL_new.java内buildtags函数
 
-data/relation/: 词表文件
+resource/relation/: 词表文件
 
 输入输出文件指定：
 ```$xslt
