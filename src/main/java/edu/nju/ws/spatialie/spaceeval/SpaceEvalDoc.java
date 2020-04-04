@@ -80,6 +80,7 @@ public class SpaceEvalDoc {
                 }
             }
         }
+        Collections.sort(elements);
         parseTokens(root);
         dealNullRole();
     }
@@ -473,6 +474,6 @@ public class SpaceEvalDoc {
 //        for (File file: files) {
 //            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
 //        }
-        SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc("data/SpaceEval2015/raw_data/training++/ANC/WhereToJapan/Ginza.xml");
+        SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc("data/SpaceEval2015/raw_data/training++/ANC/WhereToMadrid/Modern_Madrid.xml");
     }
 }
