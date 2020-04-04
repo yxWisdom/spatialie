@@ -11,6 +11,11 @@ public class JudgeEntity {
         bratDocument=bratDocument1;
     }
 
+    public static boolean canbeLandmark_strict(BratEntity e){
+        String tag = e.getTag();
+        return BratUtil.subType(tag).equals(BratUtil.PLACE);
+    }
+
     public static boolean canbeLandmark(BratEntity e){
         String tag = e.getTag();
         return BratUtil.subType(tag).equals(BratUtil.PLACE)||BratUtil.subType(tag).equals(BratUtil.SPATIAL_ENTITY);
