@@ -15,9 +15,9 @@ import java.io.File;
 import java.util.*;
 
 public class GetRelation_SRL_new {
-    static String inputdir = "data/SpaceEval2015/processed_data/SRL/QSNoTrigger/";
+    static String inputdir = "data/SpaceEval2015/processed_data/SRL/AllLink/";
     static String outputdir = inputdir.replaceFirst("data", "output");
-    static String filename = "train.txt";
+    static String filename = "test.txt";
 
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {
         NLPUtil.init();
@@ -44,18 +44,15 @@ public class GetRelation_SRL_new {
                 samesentences.add(lines.get(i));
             }
 
-//            line ="-1 -1\tThe route sees few foreigners , and nearly every person on the roadside asked me ‘ Â¿de donde viene ? , ’ or where do you come from .\tO B-PATH O O B-SPATIAL_ENTITY O O O O B-SPATIAL_ENTITY B-SPATIAL_SIGNAL O B-PATH O B-SPATIAL_ENTITY O O O O O O O O B-PLACE O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O\tO B-landmark O O B-trajector O O O O O O O O O O O O O O O O O O O O O O O O\n";
+//            line ="40 40\tMachu Picho , Cusco to Bolivia , and a year on the road Wednesday , November 15th , 2006 On the one year anniversary of my journey â € “ a year of bicycling from California â € “ I took a train to see the ruins of Machu Pichu , the famous Incan ruins that were never destroyed by the Spanish ( they were n’t found ) .\tO O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL B-PLACE O O O O O O B-SPATIAL_ENTITY B-MOTION_SIGNAL O O B-SPATIAL_ENTITY B-SPATIAL_SIGNAL B-PLACE I-PLACE O O O O O O O O O O O O O O O O O O O\tO O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O B-trigger O B-mover O O O O O O O O O O O O O O O O O O O O O O O O O O\n";
 //            samesentences.clear();
-//            samesentences.add(line);
+//            samesentences.addAll(Arrays.asList(line.split("\n")));
 
-//            if (line.contains(" Cars and Politics in Caracas 7/18 Floods and Climate Cha")){
-//                System.out.print(" ");
-//            }
+//            System.out.println(line);
             BratDocumentwithList bratDocument = new BratDocumentwithList(samesentences);
             JudgeEntity.init(bratDocument);
-//            System.out.println(line);
-//            if (!bratDocument.c) continue;
-//            System.out.println(1);
+//            if (true) continue;
+
             bratDocument.dealCompany();
             int idx = 0;
             for (BratEntity entity : bratDocument.getEntityList()) {
@@ -161,18 +158,24 @@ public class GetRelation_SRL_new {
 //            }
 
             count_all.add(evel);
-            if (evel.precision() != 1) {
+            if (evel.precision() != 1&&eventList.size()!=0) {
                 System.out.println(lines.get(i));
-//                System.out.println("landmark:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A1").getRoleId("landmark")).getText());
-//                System.out.println("Trajector:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A1").getRoleId("trajector")).getText());
+//                System.out.println("landmark:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A0").getRoleId("landmark")).getText());
+//                System.out.println("Trajector:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A0").getRoleId("trajector")).getText());
 //                System.out.println();
+//                for (BratEvent e:eventList){
+//                    if (e.getRuleid().equals("NT13")) {
+//                        System.out.println("landmark:" + e.getEntities().get(e.getRoleId("landmark")).getText());
+//                        System.out.println("trajector:" + e.getEntities().get(e.getRoleId("trajector")).getText());
+//                    }
+//                }
             }
 
             for (String line_ : samesentences) {
                 String res = buildtags(line_, eventList, bratDocument);
                 output.add(res);
             }
-            System.out.println(count_all);
+//            System.out.println(count_all);
             FileUtil.writeFile(outputdir + filename, output, true);
             output.clear();
 

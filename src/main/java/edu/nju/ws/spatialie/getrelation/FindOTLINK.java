@@ -492,17 +492,21 @@ public class FindOTLINK extends FindLINK {
 
         int idx_last1;
         int idx_next1;
+        int idx_last2;
 
         if (level <= 2) {
             idx_last1 = getLast_ignoremeasure(i, bratDocument);
+            idx_last2 = getLast_ignoremeasure(idx_last1, bratDocument);
             idx_next1 = getNext_ignoremeasure(i, bratDocument);
         } else {
             idx_last1 = getLast(i, bratDocument);
+            idx_last2 = getLast(idx_last1, bratDocument);
             idx_next1 = getNext(i, bratDocument);
         }
 
         BratEntity last1 = getEntity(idx_last1, entityList);
         BratEntity next1 = getEntity(idx_next1, entityList);
+        BratEntity last2 = getEntity(idx_last2, entityList);
 
 
 //        if (last1!=null&&last1.getText().toLowerCase().equals("s")&&trajector.getText().equals("fountains")){
@@ -552,7 +556,7 @@ public class FindOTLINK extends FindLINK {
             }
         }
 
-        // 记录删除
+//        // 记录删除
 //        //<landmark(there/here)>[v]<trajector[n]>
 //        //5
 //        if (level == 5 && last1 != null) {
@@ -562,7 +566,7 @@ public class FindOTLINK extends FindLINK {
 //                    if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark(last1)) {
 //                        OTLINK newlink = new OTLINK(-1);
 //                        //TODO:先换一下顺序
-//                        setLink( i, idx_last1,newlink);
+//                        setLink( i, idx_last1,newlink,entityList);
 //                        newlink.setRule_id("NT3");
 //                        bratDocument.noCandidate(idx_last1);
 //                        bratDocument.noCandidate(i);
@@ -598,7 +602,7 @@ public class FindOTLINK extends FindLINK {
 //                    && hasNoNV(bratDocument, i, idx_next1)&&hasNoPrep(bratDocument,i,idx_next1, "from")) {
 //                if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark(next1)) {
 //                    OTLINK newlink = new OTLINK(-1);
-//                    setLink(idx_next1, i, newlink);
+//                    setLink(idx_next1, i, newlink,entityList);
 //                    bratDocument.noCandidate(idx_next1);
 //                    return newlink;
 //                }
@@ -608,7 +612,8 @@ public class FindOTLINK extends FindLINK {
         //<trajector>of<landmark>
         //1
         if (level == 1 && next1 != null) {
-            if (inSegment_true(bratDocument, i, idx_next1) && getSegment(bratDocument, i, idx_next1).contains(" of ")
+            if (inSegment_true(bratDocument, i, idx_next1) &&
+                    (getSegment(bratDocument, i, idx_next1).contains(" of "))
                     && hasNoNV(bratDocument, i, idx_next1)&&hasNoPrep(bratDocument,i,idx_next1, "of")
                     &&countNoun(bratDocument,i,idx_next1)==0 &&!getSegment(bratDocument, i, idx_next1).contains("out of")) {
                 if (!trajector.getText().equals("one")&&!trajector.getText().startsWith("one ")) {
@@ -625,27 +630,29 @@ public class FindOTLINK extends FindLINK {
             }
         }
 
-        if (level == 1 && next1 != null) {
-            if (inSegment_true(bratDocument, i, idx_next1) && getSegment(bratDocument, i, idx_next1).contains(" of ")
-                    && hasNoNV(bratDocument, i, idx_next1)&&hasNoPrep(bratDocument,i,idx_next1, "of")
-                    &&countNoun(bratDocument,i,idx_next1)==0 &&!getSegment(bratDocument, i, idx_next1).contains("out of")) {
-                if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark(next1)) {
-                    if (trajector.getText().equals("one") || trajector.getText().startsWith("one ")
-                    ||WordData.getNot_notrigger_of().contains(bratDocument.getParseTree().getLemma(trajector.getStart()).toLowerCase())) {
-                        bratDocument.noCandidate(i);
-                    }
-                }
-            }
-        }
+//        if (level == 1 && next1 != null) {
+//            if (inSegment_true(bratDocument, i, idx_next1) &&
+//                    (getSegment(bratDocument, i, idx_next1).contains(" of "))
+//                    && hasNoNV(bratDocument, i, idx_next1)&&hasNoPrep(bratDocument,i,idx_next1, "of")
+//                    &&countNoun(bratDocument,i,idx_next1)==0 &&!getSegment(bratDocument, i, idx_next1).contains("out of")) {
+//                if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark(next1)) {
+//                    if (trajector.getText().equals("one") || trajector.getText().startsWith("one ")
+//                    ||WordData.getNot_notrigger_of().contains(bratDocument.getParseTree().getLemma(trajector.getStart()).toLowerCase())) {
+//                        bratDocument.noCandidate(i);
+//                    }
+//                }
+//            }
+//        }
 
 //        //<trajector>to<landmark>
 //        //1
 //        if (level == 1 && next1 != null) {
 //            if (inSegment(bratDocument, i, idx_next1) && getSegment(bratDocument, i, idx_next1).contains(" to ")
-//                    && hasNoNV(bratDocument, i, idx_next1)&&hasNoPrep(bratDocument,i,idx_next1, "to")) {
+//                    && hasNoNV(bratDocument, i, idx_next1)&&hasNoPrep(bratDocument,i,idx_next1, "to")
+//                    &&getSegment(bratDocument, i, idx_next1).split(" ").length<=3) {
 //                if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark(next1)) {
 //                    OTLINK newlink = new OTLINK(-1);
-//                    setLink(idx_next1, i, newlink);
+//                    setLink(idx_next1, i, newlink,entityList);
 //                    bratDocument.noCandidate(idx_next1);
 //                    return newlink;
 //                }
@@ -655,26 +662,43 @@ public class FindOTLINK extends FindLINK {
 
         if (bratDocument.getTrigger()==null){
 
-//            //<landmark>to<trajector[v]>
-//            //1
-//            //no trigger
-//            if (level == 1 && last1 != null) {
-//                if (inSegment_true(bratDocument, idx_last1, i) && getSegment(bratDocument, idx_last1, i).contains(" to ")
+            //<landmark>to<trajector[v]>
+            //1
+            //no trigger
+            if (level == 1 && last1 != null) {
+                if (inSegment_true(bratDocument, idx_last1, i) && getSegment(bratDocument, idx_last1, i).equals(" to ")){
 //                        && countNoun(bratDocument, idx_last1, i) <= 1 && countVerb(bratDocument, idx_last1, i) == 0
 //                        &&hasNoPrep(bratDocument,idx_last1, i, "to")) {
-//                    if (JudgeEntity.isEvent(trajector) && JudgeEntity.canbeLandmark(last1)) {
-//                        OTLINK newlink = new OTLINK(-1);
-//                        setLink(idx_last1, i, newlink);
-////                    bratDocument.noCandidate(idx_next1);
-//                        return newlink;
-//                    }
-//                }
-//            }
+                    if (JudgeEntity.isEvent(trajector) && JudgeEntity.canbeLandmark(last1)) {
+                        OTLINK newlink = new OTLINK(-1);
+                        setLink(idx_last1, i, newlink,entityList);
+//                    bratDocument.noCandidate(idx_next1);
+                        return newlink;
+                    }
+                }
+            }
+
+
+            //<landmark>(that)[n]<Trajector[v]>
+            //1
+            if (level==1&&last2!=null){
+                if (last1.getEnd()+1==trajector.getStart()){
+                    if (getSegment(bratDocument,idx_last2,idx_last1).equals(" ")||getSegment(bratDocument,idx_last2,idx_last1).equals(" that ")){
+                        if (JudgeEntity.canbeMover_NotStrict(last1)&&JudgeEntity.isEvent(trajector)&&JudgeEntity.canbeLandmark(last2)){
+                            OTLINK newlink = new OTLINK(-1);
+                            newlink.setRule_id("NT16");
+                            setLink(idx_last2, i, newlink, entityList);
+                            return newlink;
+                        }
+                    }
+                }
+            }
 
             //<trajector>at<landmark>
             //1
             if (level == 1 && next1 != null) {
-                if (inSegment(bratDocument, i, idx_next1) && getSegment(bratDocument, i, idx_next1).contains(" at ")
+                if (inSegment(bratDocument, i, idx_next1) &&
+                        (getSegment(bratDocument, i, idx_next1).contains(" at "))
                         && hasNoNV(bratDocument, i, idx_next1)&&hasNoPrep(bratDocument,i,idx_next1,"at")
                         &&countNoun(bratDocument,i,idx_next1)==0) {
                     if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark(next1)) {
@@ -687,21 +711,41 @@ public class FindOTLINK extends FindLINK {
                 }
             }
 
-//            //<landmark>with<trajector>
-//            //1
-//            //no trigger
-//            if (level == 1 && last1 != null) {
-//                if (inSegment_true(bratDocument, idx_last1, i) && getSegment(bratDocument, idx_last1, i).contains(" with ")
-//                        && hasNoNV(bratDocument, idx_last1, i)&&hasNoPrep(bratDocument,idx_last1, i, "with")) {
-//                    if (JudgeEntity.canbeLandmark(last1)) {
-//                        OTLINK newlink = new OTLINK(-1);
-//                        setLink(idx_last1, i, newlink);
-//                        if (!JudgeEntity.isEvent(trajector)) bratDocument.noCandidate(i);
-////                    bratDocument.noCandidate(idx_next1);
-//                        return newlink;
-//                    }
-//                }
-//            }
+            //<landmark>with<trajector>
+            //1
+            //no trigger
+            if (level == 1 && last1 != null) {
+                if (inSegment_true(bratDocument, idx_last1, i) &&
+                        (getSegment(bratDocument, idx_last1, i).contains(" with ")||getSegment(bratDocument, idx_last1, i).startsWith("with "))
+                        && hasNoNV(bratDocument, idx_last1, i)&&hasNoPrep(bratDocument,idx_last1, i, "with")) {
+                    if (JudgeEntity.canbeLandmark(last1)) {
+                        OTLINK newlink = new OTLINK(-1);
+                        newlink.setRule_id("NT15");
+                        setLink(idx_last1, i, newlink,entityList);
+                        if (!JudgeEntity.isEvent(trajector)) bratDocument.noCandidate(i);
+//                    bratDocument.noCandidate(idx_next1);
+                        return newlink;
+                    }
+                }
+            }
+
+            //<trajector>which be<landmark>
+            //1
+            //no trigger
+            if (level == 1 && last1 != null) {
+                if (inSegment_true(bratDocument, idx_last1, i) &&
+                        (getSegmentOrigin(bratDocument, idx_last1, i).contains("which be "))
+                        && countNoun_position(bratDocument,last1.getStart(),trajector.getEnd())==2&&hasNoPrep(bratDocument,idx_last1, i, "")) {
+                    if (JudgeEntity.canbeLandmark(last1)) {
+                        OTLINK newlink = new OTLINK(-1);
+                        newlink.setRule_id("NT14");
+                        setLink(i,idx_last1, newlink,entityList);
+                        if (!JudgeEntity.isEvent(trajector)) bratDocument.noCandidate(i);
+//                    bratDocument.noCandidate(idx_next1);
+                        return newlink;
+                    }
+                }
+            }
 //
 //            //<landmark>with<trajector>
 //            //5
@@ -745,7 +789,7 @@ public class FindOTLINK extends FindLINK {
 //                        && countNoun_position(bratDocument, last1.getStart(), last1.getEnd()) == 1) {
 //                    if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark(last1)) {
 //                        OTLINK newlink = new OTLINK(-1);
-//                        setLink(idx_last1, i, newlink);
+//                        setLink(idx_last1, i, newlink,entityList);
 //                        bratDocument.noCandidate(idx_last1);
 //                        return newlink;
 //                    }
@@ -760,7 +804,7 @@ public class FindOTLINK extends FindLINK {
 //                        && hasNoNV(bratDocument, idx_last1, i)&&hasNoPrep(bratDocument,idx_last1, i, "for")) {
 //                    if (JudgeEntity.canbeLandmark(last1)) {
 //                        OTLINK newlink = new OTLINK(-1);
-//                        setLink(idx_last1, i, newlink);
+//                        setLink(idx_last1, i, newlink,entityList);
 //                        if (!JudgeEntity.isEvent(trajector)) bratDocument.noCandidate(i);
 ////                    bratDocument.noCandidate(idx_next1);
 //                        return newlink;
@@ -811,15 +855,23 @@ public class FindOTLINK extends FindLINK {
 //            //5
 //            //no trigger
 //            if (level == 5 && next1 != null) {
-//                if (inSegment(bratDocument, i, idx_next1) && getSegmentOrigin(bratDocument, i, idx_next1).contains(" be ")
-//                        && countVerb(bratDocument, i, idx_next1) <= 1
+//                if (inSegment(bratDocument, i, idx_next1)
+//                        && (getSegmentOrigin(bratDocument, i, idx_next1).startsWith("be ")||getSegmentOrigin(bratDocument, i, idx_next1).contains(" be "))
+//                        && countVerb_all_strict(bratDocument, i, idx_next1) <= 1
 //                        && (countNoun_position(bratDocument, trajector.getStart(), next1.getEnd()) <= 2||countNoun(bratDocument,i,idx_next1)==0)
-//                        &&!getSegment(bratDocument,i,idx_next1).contains(",")) {
-//                    if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark(next1)) {
-//                        OTLINK newlink = new OTLINK(-1);
-//                        setLink(idx_next1, i, newlink);
-//                        bratDocument.noCandidate(idx_next1);
-//                        return newlink;
+//                        &&!getSegment(bratDocument,i,idx_next1).contains(",")
+//                        &&!getSegment(bratDocument,i,idx_next1).contains("which")) {
+//                    if (!next1.getText().equals("place")&&!next1.getText().equals("avenue")) {
+//                        if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark_strict(next1)) {
+//                            OTLINK newlink = new OTLINK(-1);
+//                            newlink.setRule_id("NT13");
+//                            if (trajector.getText().toLowerCase().contains("here"))
+//                                setLink(i,idx_next1, newlink, entityList);
+//                            else
+//                                setLink(idx_next1, i, newlink, entityList);
+//                            bratDocument.noCandidate(idx_next1);
+//                            return newlink;
+//                        }
 //                    }
 //                }
 //            }
@@ -828,12 +880,12 @@ public class FindOTLINK extends FindLINK {
 //            //5
 //            //no trigger
 //            if (level == 5 && next1 != null) {
-//                if (inSegment(bratDocument, i, idx_next1) && getSegmentOrigin(bratDocument, i, idx_next1).contains(" have ")
+//                if (inSegment(bratDocument, i, idx_next1) && (" "+getSegmentOrigin(bratDocument, i, idx_next1)).contains(" have ")
 //                        && countVerb_all(bratDocument, i, idx_next1) <= 1
 //                        && (countNoun_position(bratDocument, trajector.getStart(), next1.getEnd()) == 2||countNoun(bratDocument,i,idx_next1)==0)) {
 //                    if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark(next1)) {
 //                        OTLINK newlink = new OTLINK(-1);
-//                        setLink(idx_next1, i, newlink);
+//                        setLink(i,idx_next1, newlink,entityList);
 //                        bratDocument.noCandidate(idx_next1);
 //                        return newlink;
 //                    }
@@ -844,7 +896,8 @@ public class FindOTLINK extends FindLINK {
             //5
             //no trigger
             if (level == 5 && last1 != null) {
-                if (inSegment(bratDocument, idx_last1, i) && getSegmentOrigin(bratDocument, idx_last1, i).contains(" be ")
+                if (inSegment(bratDocument, idx_last1, i)
+                        && (getSegmentOrigin(bratDocument, idx_last1,i).startsWith("be ")||getSegmentOrigin(bratDocument, idx_last1,i).contains(" be "))
                         && countNoun(bratDocument, idx_last1, i) == 0
                         && countVerb(bratDocument, idx_last1, i) == 0) {
                     if (JudgeEntity.canbeLandmark(last1) && JudgeEntity.isEvent(trajector)
@@ -864,7 +917,7 @@ public class FindOTLINK extends FindLINK {
         //<trajector>is part of<landmark>
         //4
         if (level == 4 && next1 != null) {
-            if (inSegment(bratDocument, i, idx_next1) && getSegmentOrigin(bratDocument, i, idx_next1).contains(" be part of ")) {
+            if (inSegment(bratDocument, i, idx_next1) && getSegmentOrigin(bratDocument, i, idx_next1).contains("be part of ")) {
                 if (JudgeEntity.canbeTrajector(trajector) && JudgeEntity.canbeLandmark(next1)) {
                     OTLINK newlink = new OTLINK(-1);
                     newlink.setRule_id("NT10");
@@ -879,14 +932,37 @@ public class FindOTLINK extends FindLINK {
         //<landmark>is home to<trajector>
         //4
         if (level == 4 && last1 != null) {
-            if (inSegment(bratDocument, idx_last1, i) && getSegmentOrigin(bratDocument, idx_last1, i).contains(" be home to ")) {
-                if (JudgeEntity.canbeLandmark(last1) && JudgeEntity.canbeTrajector(trajector)) {
-                    OTLINK newlink = new OTLINK(-1);
-                    setLink(idx_last1, i, newlink, entityList);
-                    newlink.setRule_id("NT11");
-                    bratDocument.noCandidate(idx_last1);
+            if (inSegment(bratDocument, idx_last1, i) && getSegmentOrigin(bratDocument, idx_last1, i).contains("be home to ")) {
+                if (countNoun_position(bratDocument,last1.getStart(),trajector.getEnd())==3||countNoun(bratDocument,idx_last1,i)==1) {
+                    if (countVerb_all(bratDocument,idx_last1,i)==1) {
+                        if (JudgeEntity.canbeLandmark(last1) && JudgeEntity.canbeTrajector(trajector)) {
+                            OTLINK newlink = new OTLINK(-1);
+                            setLink(idx_last1, i, newlink, entityList);
+                            newlink.setRule_id("NT11");
+                            bratDocument.noCandidate(idx_last1);
 //                    bratDocument.noCandidate(i);
-                    return newlink;
+                            return newlink;
+                        }
+                    }
+                }
+            }
+        }
+
+        //<landmark>is rich in<trajector>
+        //4
+        if (level == 4 && last1 != null) {
+            if (inSegment(bratDocument, idx_last1, i) && getSegmentOrigin(bratDocument, idx_last1, i).contains("be rich in ")) {
+                if (countNoun_position(bratDocument,last1.getStart(),trajector.getEnd())==2||countNoun(bratDocument,idx_last1,i)==0) {
+                    if (countVerb_all(bratDocument,idx_last1,i)==1) {
+                        if (JudgeEntity.canbeLandmark(last1) && JudgeEntity.canbeTrajector(trajector)) {
+                            OTLINK newlink = new OTLINK(-1);
+                            setLink(idx_last1, i, newlink, entityList);
+                            newlink.setRule_id("NT12");
+                            bratDocument.noCandidate(idx_last1);
+//                    bratDocument.noCandidate(i);
+                            return newlink;
+                        }
+                    }
                 }
             }
         }
@@ -905,10 +981,22 @@ public class FindOTLINK extends FindLINK {
         return count;
     }
 
+    private static int countVerb_all_strict(BratDocumentwithList bratDocument, int idx1, int idx2) {
+        int p1 = bratDocument.getEntityList().get(idx1).getEnd();
+        int p2 = bratDocument.getEntityList().get(idx2).getStart();
+        ParseTree t = bratDocument.getParseTree();
+        int count = 0;
+        for (int p=p1;p<p2;p++){
+            String POS = t.getPOS(p);
+            if (POS!=null&&POS.startsWith("V")) count++;
+        }
+        return count;
+    }
+
     private static boolean hasNoPrep(BratDocumentwithList bratDocument, int i, int idx_next1, String except) {
         String seg = getSegmentOrigin(bratDocument,i,idx_next1);
         for (String word: WordData.getPrepList()){
-            if ((seg.equals(word)||seg.contains(word+" ")||seg.contains(" "+word))&&!word.equals(except)) return false;
+            if ((seg.equals(word)||seg.startsWith(word+" ")||seg.endsWith(" "+word)||seg.contains(" "+word+" "))&&!word.equals(except)) return false;
         }
         return true;
     }
