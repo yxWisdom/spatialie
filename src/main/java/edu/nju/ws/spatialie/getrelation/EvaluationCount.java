@@ -124,7 +124,7 @@ public class EvaluationCount {
         res = res+"p:"+"\t"+precision()+"\t"+"r:"+"\t"+recall()+"\n";
         for (String key:predict.keySet()){
             if (key.contains("LINK")||key.contains(NOTRIGGER)) continue;
-            res = res+key+"\t" +predict.get(key)+"\t"+(correct.keySet().contains(key)?correct.get(key):0)+"\n";
+            res = res+key+"\t"+(correct.keySet().contains(key)?correct.get(key):0)+"\t" +predict.get(key)+"\n";
         }
         return res;
     }

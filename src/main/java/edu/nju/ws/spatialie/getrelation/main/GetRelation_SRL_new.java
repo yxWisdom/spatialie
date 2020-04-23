@@ -15,9 +15,9 @@ import java.io.File;
 import java.util.*;
 
 public class GetRelation_SRL_new {
-    static String inputdir = "data/SpaceEval2015/processed_data/SRL/AllLink/";
+    static String inputdir = "data/SpaceEval2015/processed_data/SRL/DLink/";
     static String outputdir = inputdir.replaceFirst("data", "output");
-    static String filename = "test.txt";
+    static String filename = "train.txt";
 
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {
         NLPUtil.init();
@@ -44,7 +44,10 @@ public class GetRelation_SRL_new {
                 samesentences.add(lines.get(i));
             }
 
-//            line ="40 40\tMachu Picho , Cusco to Bolivia , and a year on the road Wednesday , November 15th , 2006 On the one year anniversary of my journey â € “ a year of bicycling from California â € “ I took a train to see the ruins of Machu Pichu , the famous Incan ruins that were never destroyed by the Spanish ( they were n’t found ) .\tO O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL B-PLACE O O O O O O B-SPATIAL_ENTITY B-MOTION_SIGNAL O O B-SPATIAL_ENTITY B-SPATIAL_SIGNAL B-PLACE I-PLACE O O O O O O O O O O O O O O O O O O O\tO O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O B-trigger O B-mover O O O O O O O O O O O O O O O O O O O O O O O O O O\n";
+//            line ="28 28\tThe Andean Paramo – the future of the mountaintops Monday , June 19th , 2006 Before biking out of Bogota , a young professor from a local university took me into the mountains that overlook the city .\tO O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL I-MOTION_SIGNAL B-PLACE O O O B-SPATIAL_ENTITY O O O O B-MOTION B-SPATIAL_ENTITY B-MOTION_SIGNAL O B-PLACE O B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O O O O O O O O B-mover O O O O B-trigger O O O O O O O O O\n" +
+//                    "34 34\tThe Andean Paramo – the future of the mountaintops Monday , June 19th , 2006 Before biking out of Bogota , a young professor from a local university took me into the mountains that overlook the city .\tO O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL I-MOTION_SIGNAL B-PLACE O O O B-SPATIAL_ENTITY O O O O B-MOTION B-SPATIAL_ENTITY B-MOTION_SIGNAL O B-PLACE O B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O B-trajector O B-trigger O B-landmark O\n" +
+//                    "16 16\tThe Andean Paramo – the future of the mountaintops Monday , June 19th , 2006 Before biking out of Bogota , a young professor from a local university took me into the mountains that overlook the city .\tO O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL I-MOTION_SIGNAL B-PLACE O O O B-SPATIAL_ENTITY O O O O B-MOTION B-SPATIAL_ENTITY B-MOTION_SIGNAL O B-PLACE O B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O B-trigger O O O O O O O O O O O O B-mover O O O O O O O O\n";
+//
 //            samesentences.clear();
 //            samesentences.addAll(Arrays.asList(line.split("\n")));
 
@@ -159,7 +162,11 @@ public class GetRelation_SRL_new {
 
             count_all.add(evel);
             if (evel.precision() != 1&&eventList.size()!=0) {
-                System.out.println(lines.get(i));
+                for (String line_ : samesentences) {
+                    System.out.println(line_);
+
+                }
+                System.out.println(evel+"\n");
 //                System.out.println("landmark:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A0").getRoleId("landmark")).getText());
 //                System.out.println("Trajector:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A0").getRoleId("trajector")).getText());
 //                System.out.println();
@@ -175,7 +182,7 @@ public class GetRelation_SRL_new {
                 String res = buildtags(line_, eventList, bratDocument);
                 output.add(res);
             }
-//            System.out.println(count_all);
+
             FileUtil.writeFile(outputdir + filename, output, true);
             output.clear();
 

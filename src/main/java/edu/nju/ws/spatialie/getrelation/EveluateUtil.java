@@ -9,30 +9,29 @@ import edu.nju.ws.spatialie.data.BratEvent;
 
 import java.util.*;
 
-import static java.lang.Integer.max;
-
 public class EveluateUtil {
     public static void eveluate(BratDocumentwithList bratDocument, List<BratEvent> eventList, EvaluationCount evel) {
         List<BratEvent> bratEvents = new ArrayList<>();
         for (BratEvent e : bratDocument.getEventMap().values()) {
             bratEvents.add(e);
         }
-        countLinkTypes(bratEvents, evel.gold);
-        countLinkTypes(eventList, evel.predict);
+        countLinkTypes(bratEvents, evel.gold,"gold");
+        countLinkTypes(eventList, evel.predict,"predict");
         countCorrect(bratEvents, eventList, evel.correct);
     }
 
-    private static void countCorrect(List<BratEvent> eventList1, List<BratEvent> eventList2, Map<String, Integer> gold) {
-        for (BratEvent event1 : eventList1) {
+    private static void countCorrect(List<BratEvent> eventList1, List<BratEvent> eventList2, Map<String, Integer> correct) {
+        for (BratEvent event2 : eventList2) {
             int this_gold = 0;
-            for (BratEvent event2 : eventList2) {
+            for (BratEvent event1 : eventList1) {
                 int num = judgeSame(event1, event2);
 //                int num2 = judgeSameReverse(event1, event2);
 //                this_gold += max(num, num2);
                 this_gold+=num;
             }
-            int v = gold.get(translateType(event1.getType()));
-            gold.put(translateType(event1.getType()), v + this_gold);
+            int v = correct.get(translateType(event2.getType()));
+            correct.put(translateType(event2.getType()), v + this_gold);
+            correct.put(event2.getRuleid(),(correct.containsKey(event2.getRuleid())?correct.get(event2.getRuleid()):0)+this_gold);
         }
     }
 
@@ -70,12 +69,15 @@ public class EveluateUtil {
         return 0;
     }
 
-    private static void countLinkTypes(List<BratEvent> values, Map<String, Integer> evel) {
+    private static void countLinkTypes(List<BratEvent> values, Map<String, Integer> evel, String labeltype) {
         for (BratEvent event : values) {
             String type = translateType(event.getType());
             int num = count(event);
             int v = evel.get(type);
             evel.put(type, v + num);
+            if (labeltype.equals("predict")){
+                evel.put(event.getRuleid(),(evel.containsKey(event.getRuleid())?evel.get(event.getRuleid()):0)+num);
+            }
         }
     }
 
@@ -295,6 +297,7 @@ public class EveluateUtil {
     }
 
     public static List<BratEvent> removeRedundancy_notrigger(List<BratEvent> eventList, BratDocumentwithList bratDocument) {
+        //针对SRL_new，每次只过滤有trigger/无trigger情况
         List<BratEvent> res = new ArrayList<>();
         if (bratDocument.getTrigger() != null) {
             for (BratEvent e : eventList) {

@@ -236,7 +236,7 @@ public class FindDLINK extends FindLINK {
                         dlink.setRule_id("DL2");
                         bratDocument.noCandidate(index);
                         bratDocument.noCandidate(idx_next1);
-                        bratDocument.noCandidate(idx_last1);
+//                        bratDocument.noCandidate(idx_last1);
                         return dlink;
                     }
                 }
