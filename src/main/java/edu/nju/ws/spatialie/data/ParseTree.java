@@ -6,7 +6,6 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.ling.Word;
 import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
 import edu.stanford.nlp.semgraph.SemanticGraphEdge;
@@ -33,12 +32,6 @@ public class ParseTree {
         graph = sentences.get(0).get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
         nodeMap = new HashMap<>();
         DFS(tree);
-//        graph.getNodeByIndex()
-//        for (SemanticGraphEdge edge:graph.edgeListSorted()){
-//            IndexedWord target = edge.getTarget();
-//            IndexedWord source = edge.getSource();
-//            String relation = edge.getRelation().getShortName();
-//        }
         for(CoreMap word_temp: sentences) {
             for (CoreLabel token: word_temp.get(CoreAnnotations.TokensAnnotation.class)) {
                 String lema = token.get(CoreAnnotations.LemmaAnnotation.class);  // 获取对应上面word的词元信息，即我所需要的词形还原后的单词
@@ -50,12 +43,12 @@ public class ParseTree {
 
     }
 
-    public List<IndexedWord> getPossibleSubj(int index){
+    public List<IndexedWord> getPossibleSubj(int index,boolean allow_acl){
         IndexedWord node = graph.getNodeByIndex(index);
-        return DFS_Graph(node);
+        return DFS_Graph(node,allow_acl);
     }
 
-    private List<IndexedWord> DFS_Graph(IndexedWord node) {
+    private List<IndexedWord> DFS_Graph(IndexedWord node, boolean allow_acl) {
         List<IndexedWord> res=new ArrayList<>();
 
         for (SemanticGraphEdge edge:graph.getOutEdgesSorted(node)){
@@ -65,15 +58,23 @@ public class ParseTree {
                 res.add(target);
             }
         }
+
+        for (SemanticGraphEdge edge:graph.getIncomingEdgesSorted(node)){
+            IndexedWord next = edge.getSource();
+            String relation = edge.getRelation().getShortName();
+            if (allow_acl&&relation.equals("acl:relcl"))
+                res.add(next);
+        }
+
         if (res.size()>0) return res;
 
         for (SemanticGraphEdge edge:graph.getIncomingEdgesSorted(node)){
             IndexedWord next = edge.getSource();
             String relation = edge.getRelation().getShortName();
-//            if (relation.equals("acl:relcl"))
+//            if (allow_acl&&relation.equals("acl:relcl"))
 //                res.add(next);
 //            else
-                res.addAll(DFS_Graph(next));
+                res.addAll(DFS_Graph(next, allow_acl));
         }
         return res;
     }

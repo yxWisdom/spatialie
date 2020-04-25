@@ -36,4 +36,6 @@ public class WordData {
     public static List<String> getVerb2objList() {
         return verb2objList;
     }
+
+    public static String getReverseVerbSpatialSig(){ return "surround,overlook,border,line,pack,connect";}
 }

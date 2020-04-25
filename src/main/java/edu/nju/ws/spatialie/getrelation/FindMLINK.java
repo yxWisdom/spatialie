@@ -56,7 +56,7 @@ public class FindMLINK extends FindLINK {
                     idx++;
                 }
                 idx++;
-                List<IndexedWord> subj = bratDocument.getParseTree().getPossibleSubj(idx);
+                List<IndexedWord> subj = bratDocument.getParseTree().getPossibleSubj(idx,false);
                 if (subj.size()>0){
                     for (IndexedWord word :subj){
                         for (int t = 1;t<=50;t++){
