@@ -239,7 +239,7 @@ public class FindOTLINK extends FindLINK {
 
             //<trajector[n]><trigger>-<landmark>
             //2
-            if ((level == 2 || level == 4) && last1 != null && next1 != null) {
+            if ((level == 2) && last1 != null && next1 != null) {
                 if (inSegment_true(bratDocument, idx_last1, idx_next1)) {
                     if (!hasPOS("N", bratDocument, idx_last1, index) && !hasPOS("V", bratDocument, idx_last1, index) && hasNoNV(bratDocument, index, idx_next1)) {
                         if (JudgeEntity.canbeLandmark(next1) && JudgeEntity.canbeTrajector(last1)) {
@@ -251,17 +251,20 @@ public class FindOTLINK extends FindLINK {
 //                            setifHasDLINK(idx_next1, idx_last1, dlink, bratDocument, otlink.getRule_id());
                             //<trajector[v]><trajector[n]><trigger><landmark>
                             //4
-                            if (level == 4 && last2 != null) {
-                                if (inSegment(bratDocument, idx_last2, idx_last1) && hasNoNV(bratDocument, idx_last2, idx_last1)) {
-                                    if (JudgeEntity.isEvent(last2)) {
-                                        otlink.addTrajectors(idx_last2);
-                                        otlink.setRule_id("OT11");
-                                        bratDocument.noCandidate(idx_last2);
-                                        bratDocument.noCandidate(idx_last1);
-                                        if (dlink != null) {
-                                            dlink.addTrajectors(idx_last2);
-                                            dlink.setRule_id("DOT11");
-                                        }
+                            if (last2 != null) {
+                                if (WordData.getMovement_trajector().contains(bratDocument.getParseTree().getLemma(last2.getStart()))) {
+                                    if (inSegment(bratDocument, idx_last2, idx_last1) && hasNoNV(bratDocument, idx_last2, idx_last1)) {
+                                        if (JudgeEntity.isEvent(last2)) {
+                                            if (!WordData.getMovement_trajector_with_obj().contains(bratDocument.getParseTree().getLemma(last2.getStart()))) otlink.removeTrajector(idx_last1);
+                                            System.out.println("OT11trajector:" + last2.getText());
+                                            otlink.addTrajectors(idx_last2);
+                                            otlink.setRule_id("OT11");
+                                            bratDocument.noCandidate(idx_last2);
+                                            bratDocument.noCandidate(idx_last1);
+                                            if (dlink != null) {
+                                                dlink.addTrajectors(idx_last2);
+                                                dlink.setRule_id("DOT11");
+                                            }
 //                                        <trajector[n]><trajector[v]><trajector[n]><trigger><landmark>
 //                                        if (last3 != null) {
 //                                            if (inSentence(bratDocument, idx_last3, idx_last2)) {
@@ -272,6 +275,7 @@ public class FindOTLINK extends FindLINK {
 //                                                }
 //                                            }
 //                                        }
+                                        }
                                     }
                                 }
                             }
@@ -381,8 +385,8 @@ public class FindOTLINK extends FindLINK {
                         }
                         p += word.length() + 1;
                     }
-                    if (WordData.getReverseVerbSpatialSig().contains(bratDocument.getParseTree().getLemma(p)))
-                        ispassorrevers = !ispassorrevers;
+//                    if (WordData.getReverseVerbSpatialSig().contains(bratDocument.getParseTree().getLemma(p)))
+//                        ispassorrevers = !ispassorrevers;
                     int idx = 0;
                     for (int tp = 0; tp < p; tp = bratDocument.getContent().indexOf(' ', tp + 1) + 1) {
                         idx++;
@@ -629,7 +633,7 @@ public class FindOTLINK extends FindLINK {
                         OTLINK newlink = new OTLINK(-1);
                         setLink(idx_next1, i, newlink, entityList);
                         newlink.setRule_id("NT2");
-                        bratDocument.noCandidate(idx_next1);
+//                        bratDocument.noCandidate(idx_next1);
 //                        bratDocument.noCandidate(i);
                         return newlink;
                     }

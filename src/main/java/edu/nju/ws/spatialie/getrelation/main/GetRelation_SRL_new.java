@@ -15,7 +15,7 @@ import java.io.File;
 import java.util.*;
 
 public class GetRelation_SRL_new {
-    static String inputdir = "data/SpaceEval2015/processed_data/SRL/DLink/";
+    static String inputdir = "data/SpaceEval2015/processed_data/SRL/AllLink/";
     static String outputdir = inputdir.replaceFirst("data", "output");
     static String filename = "train.txt";
 
@@ -43,10 +43,8 @@ public class GetRelation_SRL_new {
                 i++;
                 samesentences.add(lines.get(i));
             }
-
-//            line ="28 28\tThe Andean Paramo – the future of the mountaintops Monday , June 19th , 2006 Before biking out of Bogota , a young professor from a local university took me into the mountains that overlook the city .\tO O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL I-MOTION_SIGNAL B-PLACE O O O B-SPATIAL_ENTITY O O O O B-MOTION B-SPATIAL_ENTITY B-MOTION_SIGNAL O B-PLACE O B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O O O O O O O O B-mover O O O O B-trigger O O O O O O O O O\n" +
-//                    "34 34\tThe Andean Paramo – the future of the mountaintops Monday , June 19th , 2006 Before biking out of Bogota , a young professor from a local university took me into the mountains that overlook the city .\tO O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL I-MOTION_SIGNAL B-PLACE O O O B-SPATIAL_ENTITY O O O O B-MOTION B-SPATIAL_ENTITY B-MOTION_SIGNAL O B-PLACE O B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O B-trajector O B-trigger O B-landmark O\n" +
-//                    "16 16\tThe Andean Paramo – the future of the mountaintops Monday , June 19th , 2006 Before biking out of Bogota , a young professor from a local university took me into the mountains that overlook the city .\tO O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL I-MOTION_SIGNAL B-PLACE O O O B-SPATIAL_ENTITY O O O O B-MOTION B-SPATIAL_ENTITY B-MOTION_SIGNAL O B-PLACE O B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O B-trigger O O O O O O O O O O O O B-mover O O O O O O O O\n";
+//
+//            line ="25 25\t( Family friends from home – the Vexlers , shown left – also made a cameo appearance as they were on vacation for a week in Peru – thanks for the dinner ! )\tO O O O O O O O O O O O O O O O O O O O O B-NONMOTION_EVENT O O O B-SPATIAL_SIGNAL B-PLACE O O O O O O O\tO O O O O O O O O O O O O O O O O O O O O B-trajector O O O B-trigger B-landmark O O O O O O O\n";
 //
 //            samesentences.clear();
 //            samesentences.addAll(Arrays.asList(line.split("\n")));
@@ -161,12 +159,14 @@ public class GetRelation_SRL_new {
 //            }
 
             count_all.add(evel);
-            if (evel.precision() != 1&&eventList.size()!=0) {
+
+            if (evel.precision()<1&&eventList.size()>0) {
                 for (String line_ : samesentences) {
                     System.out.println(line_);
 
                 }
                 System.out.println(evel+"\n");
+
 //                System.out.println("landmark:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A0").getRoleId("landmark")).getText());
 //                System.out.println("Trajector:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A0").getRoleId("trajector")).getText());
 //                System.out.println();
@@ -336,6 +336,25 @@ public class GetRelation_SRL_new {
                                 newe.addEntity(bratDocument.getEntitybyID(companyid));
                             }
                         } else {
+                            //特殊情况：connect
+                            // trajector connect landmark-> connects trajector and landmark
+                            if (bratDocument.getCompanyMap().get(id).size()>=1){
+                                if (event.getRoleId("trigger")!=null&&event.getEntities().get(event.getRoleId("trigger"))!=null) {
+                                    if (event.getEntities().get(event.getRoleId("trigger")).getText().toLowerCase().contains("connect")) {
+                                        for (String companyid : bratDocument.getCompanyMap().get(id)) {
+                                            newe.removeEntity(newe.getRoleId("landmark"));
+                                            newe.removeRole("landmark");
+                                            newe.removeEntity(newe.getRoleId("trajector"));
+                                            newe.removeRole("trajector");
+                                            newe.addRole("landmark", companyid);
+                                            newe.addEntity(bratDocument.getEntitybyID(companyid));
+                                            newe.addRole("trajector", id);
+                                            newe.addEntity(bratDocument.getEntitybyID(id));
+                                        }
+                                        continue;
+                                    }
+                                }
+                            }
                             for (String companyid : bratDocument.getCompanyMap().get(id)) {
                                 newe.addRole(role, companyid);
                                 newe.addEntity(bratDocument.getEntitybyID(companyid));

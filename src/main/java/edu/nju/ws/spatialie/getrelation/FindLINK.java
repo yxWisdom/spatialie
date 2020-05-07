@@ -267,7 +267,7 @@ public class FindLINK {
         for (int p=p1;p<p2;p++){
             String POS = t.getPOS(p);
             if (POS!=null){
-                if (POS.startsWith("P")) return false;
+//                if (POS.startsWith("P")) return false;
                 if (POS.startsWith("V")) return false;
             }
         }

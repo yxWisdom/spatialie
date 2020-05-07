@@ -9,6 +9,7 @@ import edu.nju.ws.spatialie.getrelation.FindLINK;
 import edu.nju.ws.spatialie.getrelation.FindTagUtil;
 import edu.nju.ws.spatialie.getrelation.JudgeEntity;
 import edu.nju.ws.spatialie.utils.FileUtil;
+import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 
 import java.util.*;
 
@@ -259,6 +260,8 @@ public class BratDocumentwithList extends BratDocument {
                 }
             }
         }
+
+        companyMap = getParseTree().getSemanticCompany(this);
 
         for (int i = 0; i < entityList.size() - 1; i++) {
             if (!getIsCandidate(i)) continue;

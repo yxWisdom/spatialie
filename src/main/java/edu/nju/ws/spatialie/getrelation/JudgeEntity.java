@@ -26,6 +26,7 @@ public class JudgeEntity {
         if (tag.equals(BratUtil.EVENT)){
             if (FindLINK.hasPOSinEntity("N",bratDocument,e)) return true;
         }
+        if (e.getText().toLowerCase().contains("where")) return false;
         return BratUtil.subType(tag).equals(BratUtil.PLACE)||BratUtil.subType(tag).equals(BratUtil.SPATIAL_ENTITY);
     }
 

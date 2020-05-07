@@ -56,17 +56,19 @@ public class EveluateUtil {
         int size1 = count(event1);
         if (event1.is(event2)) return size1;
         if (size1 == 1) return 0;
-        //TODO:标准有问题
+        int count = 0;
         for (String role : event1.getRoleMap().keySet()) {
             if (event1.getRoleMap().get(role).size() > 1) {
-                int count = 0;
                 for (String id : event1.getRoleMap().get(role)) {
                     if (event2.getRoleMap().get(role).contains(id)) count++;
                 }
-                return count;
+            } else {
+                if (!event2.getRoleMap().get(role).containsAll(event1.getRoleMap().get(role))){
+                    return 0;
+                }
             }
         }
-        return 0;
+        return count;
     }
 
     private static void countLinkTypes(List<BratEvent> values, Map<String, Integer> evel, String labeltype) {

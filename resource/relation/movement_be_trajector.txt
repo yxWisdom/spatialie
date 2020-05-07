@@ -1,0 +1,14 @@
+park
+leave
+exhibit
+conflict
+demand
+join
+meet
+dodge
+stay
+camp
+proceed
+feed
+visit
+give
