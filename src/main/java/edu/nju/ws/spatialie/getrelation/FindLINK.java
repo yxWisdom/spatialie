@@ -58,23 +58,32 @@ public class FindLINK {
     }
 
     static boolean inSegment_true(BratDocumentwithList bratDocument, int idx1,int idx2){
-        BratEntity e1 = bratDocument.getEntityList().get(idx1);
-        BratEntity e2 = bratDocument.getEntityList().get(idx2);
-        String s = bratDocument.getContent().substring(e1.getEnd(),e2.getStart());
-        String punctuation = "—––--.?!,()\"{}[]*&^%$#@~`-:：";
-        for (char c:punctuation.toCharArray()){
-            if (c=='-'){
-                if (s.contains("- ")||s.contains(" -")) return false; else continue;
+        try {
+            BratEntity e1 = bratDocument.getEntityList().get(idx1);
+            BratEntity e2 = bratDocument.getEntityList().get(idx2);
+            String s = bratDocument.getContent().substring(e1.getEnd(), e2.getStart());
+            String punctuation = "—––--.?!,()\"{}[]*&^%$#@~`-:：";
+            for (char c : punctuation.toCharArray()) {
+                if (c == '-') {
+                    if (s.contains("- ") || s.contains(" -")) return false;
+                    else continue;
+                }
+                if (s.indexOf(c) != -1) return false;
             }
-            if (s.indexOf(c)!=-1) return false;
+            return true;
+        } catch (Exception e){
+            return false;
         }
-        return true;
     }
 
     public static String getSegment(BratDocumentwithList bratDocument, int idx1, int idx2) {
-        int p1 = bratDocument.getEntityList().get(idx1).getEnd();
-        int p2 = bratDocument.getEntityList().get(idx2).getStart();
-        return bratDocument.getContent().substring(p1,p2);
+        try{
+            int p1 = bratDocument.getEntityList().get(idx1).getEnd();
+            int p2 = bratDocument.getEntityList().get(idx2).getStart();
+            return bratDocument.getContent().substring(p1, p2);
+        } catch (Exception e){
+            return "";
+        }
     }
 
     static String getSegmentOrigin(BratDocumentwithList bratDocument, int idx1, int idx2) {
@@ -247,7 +256,11 @@ public class FindLINK {
         int p1 = bratDocument.getEntityList().get(idx1).getEnd();
         int p2 = bratDocument.getEntityList().get(idx2).getStart();
         //TODO:特别加入
-        if (bratDocument.getContent().substring(p1,p2).contains(" and ")) return false;
+        try {
+            if (bratDocument.getContent().substring(p1, p2).contains(" and ")) return false;
+        } catch (Exception e){
+            return false;
+        }
         ParseTree t = bratDocument.getParseTree();
         for (int p=p1;p<p2;p++){
             String POS = t.getPOS(p);

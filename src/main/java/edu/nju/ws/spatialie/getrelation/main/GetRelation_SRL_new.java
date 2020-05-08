@@ -44,7 +44,7 @@ public class GetRelation_SRL_new {
                 samesentences.add(lines.get(i));
             }
 //
-//            line ="25 25\t( Family friends from home – the Vexlers , shown left – also made a cameo appearance as they were on vacation for a week in Peru – thanks for the dinner ! )\tO O O O O O O O O O O O O O O O O O O O O B-NONMOTION_EVENT O O O B-SPATIAL_SIGNAL B-PLACE O O O O O O O\tO O O O O O O O O O O O O O O O O O O O O B-trajector O O O B-trigger B-landmark O O O O O O O\n";
+//            line ="12 12\tThe steep slope and the thick carpet of fallen leaves hindered the descent and very precise determination of the confluence point , but we managed to pinpoint and take photos within sufficient accuracy from ' zero point ' . We congratulated ourselves and made the necessary photos to immortalize for eternity our conquest .\tO O B-PATH O O O B-SPATIAL_ENTITY O O O O O B-MOTION O O O O O O O B-PLACE O O B-SPATIAL_ENTITY O O B-NONMOTION_EVENT O B-NONMOTION_EVENT O B-MEASURE I-MEASURE I-MEASURE O O B-PLACE I-PLACE O O B-SPATIAL_ENTITY O O O O O O O O O O O O O O\tO O O O O O O O O O O O B-trigger O O O O O O O O O O B-mover O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O\n";
 //
 //            samesentences.clear();
 //            samesentences.addAll(Arrays.asList(line.split("\n")));

@@ -261,7 +261,7 @@ public class BratDocumentwithList extends BratDocument {
             }
         }
 
-        companyMap = getParseTree().getSemanticCompany(this);
+
 
         for (int i = 0; i < entityList.size() - 1; i++) {
             if (!getIsCandidate(i)) continue;
@@ -346,7 +346,7 @@ public class BratDocumentwithList extends BratDocument {
                 i = FindLINK.getNext(i, this);
             }
         }
-
+        companyMap = getParseTree().getSemanticCompany(this);
     }
 
     public String getNextWord(int pos) {

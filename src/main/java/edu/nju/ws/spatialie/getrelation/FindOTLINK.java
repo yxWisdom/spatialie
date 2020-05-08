@@ -154,7 +154,7 @@ public class FindOTLINK extends FindLINK {
             if (level == 2 && last1 != null && next1 != null) {
                 if (inSegment(bratDocument, idx_last1, idx_next1) && hasNoNV(bratDocument, index, idx_next1)) {
                     String temp_s = getSegment(bratDocument, idx_last1, index);
-                    if (temp_s.contains("that") || temp_s.contains("which") || temp_s.contains("who")) {
+                    if ((temp_s.contains("that") || temp_s.contains("which") || temp_s.contains("who"))&&temp_s.split(" ").length<=4) {
                         if (JudgeEntity.canbeLandmark(next1) && JudgeEntity.canbeTrajector(last1)) {
                             setLink(idx_next1, idx_last1, otlink, entityList);
                             otlink.setRule_id("OT5");

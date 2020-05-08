@@ -75,6 +75,7 @@ public class ParseTree {
                                                 && (FindOTLINK.hasPOSinEntity("N", bratDocument, entity1) || FindOTLINK.hasPOSinEntity("P", bratDocument, entity1)) && (FindOTLINK.hasPOSinEntity("N", bratDocument, entity2) || FindOTLINK.hasPOSinEntity("P", bratDocument, entity2))) {
                                             bratDocument.noCandidate(idx);
                                             bratDocument.companyMap.put(entity1.getId(), entity2.getId());
+                                            entity1.setEnd(entity2.getEnd());
                                         }
                                     }
                                     idx++;
