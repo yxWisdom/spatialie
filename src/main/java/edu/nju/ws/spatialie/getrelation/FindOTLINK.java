@@ -256,7 +256,7 @@ public class FindOTLINK extends FindLINK {
                                     if (inSegment(bratDocument, idx_last2, idx_last1) && hasNoNV(bratDocument, idx_last2, idx_last1)) {
                                         if (JudgeEntity.isEvent(last2)) {
                                             if (!WordData.getMovement_trajector_with_obj().contains(bratDocument.getParseTree().getLemma(last2.getStart()))) otlink.removeTrajector(idx_last1);
-                                            System.out.println("OT11trajector:" + last2.getText());
+//                                            System.out.println("OT11trajector:" + last2.getText());
                                             otlink.addTrajectors(idx_last2);
                                             otlink.setRule_id("OT11");
                                             bratDocument.noCandidate(idx_last2);
@@ -315,7 +315,9 @@ public class FindOTLINK extends FindLINK {
             //4
             if (level == 4 && last1 != null && next1 != null) {
                 if (inSegment(bratDocument, idx_last1, idx_next1)) {
-                    if (countNoun(bratDocument, idx_last1, index) <= 1 && !hasPOS("V", bratDocument, idx_last1, index) && hasNoNV(bratDocument, index, idx_next1)) {
+                    if (countNoun(bratDocument, idx_last1, index) <= 1 && !hasPOS("V", bratDocument, idx_last1, index) && hasNoNV(bratDocument, index, idx_next1)
+//                    && hasNoPrep(bratDocument,index,idx_next1,"to")
+                    ) {
                         if (JudgeEntity.canbeLandmark(next1) && JudgeEntity.isEvent(last1)) {
                             setLink(idx_next1, idx_last1, otlink, entityList);
                             otlink.setRule_id("OT13");
@@ -373,6 +375,8 @@ public class FindOTLINK extends FindLINK {
 //                    }
 //                }
 //            }
+
+
             if (level == 4 && next1 != null) {
                 if (inSentence(bratDocument, index, idx_next1)) {
                     int p = trigger.getStart();
@@ -395,7 +399,7 @@ public class FindOTLINK extends FindLINK {
                     List<IndexedWord> subj = bratDocument.getParseTree().getPossibleSubj(idx, true);
                     if (subj.size() > 0) {
                         for (IndexedWord word : subj) {
-                            for (int t = 1; t <= 50; t++) {
+                            for (int t = 1; t <= 2; t++) {
                                 int i = index;
                                 //保证顺序是index-1 index+1 index-2 index+2...
                                 if (t % 2 != 0) {
@@ -711,6 +715,8 @@ public class FindOTLINK extends FindLINK {
                             return newlink;
                         }
                     }
+                } else {
+//                    bratDocument.noCandidate(idx_next1);
                 }
             }
         }

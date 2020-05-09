@@ -298,15 +298,18 @@ public class EveluateUtil {
         return res;
     }
 
-    public static List<BratEvent> removeRedundancy_notrigger(List<BratEvent> eventList, BratDocumentwithList bratDocument) {
+    public static List<BratEvent> removeRedundancy_notrigger(List<BratEvent> eventList, BratDocumentwithList bratDocument, String deletebyrule) {
+        List<String> deleterules = Arrays.asList(deletebyrule.split(" "));
         //针对SRL_new，每次只过滤有trigger/无trigger情况
         List<BratEvent> res = new ArrayList<>();
         if (bratDocument.getTrigger() != null) {
             for (BratEvent e : eventList) {
-                Collection<String> listmap = e.getRoleMap().get("trigger");
-                if (listmap != null&&listmap.size()>0) res.add(e);
-                listmap = e.getRoleMap().get("val");
-                if (listmap != null&&listmap.size()>0) res.add(e);
+                if (!deleterules.contains(e.getRuleid())) {
+                    Collection<String> listmap = e.getRoleMap().get("trigger");
+                    if (listmap != null && listmap.size() > 0) res.add(e);
+                    listmap = e.getRoleMap().get("val");
+                    if (listmap != null && listmap.size() > 0) res.add(e);
+                }
             }
         } else {
             for (BratEvent e : eventList) {

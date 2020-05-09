@@ -153,6 +153,7 @@ public class FindLINK {
                 }
             }
         }
+//        if (getSegment(bratDocument,idx1,idx2).contains(" and")) count++;
         return count;
     }
 

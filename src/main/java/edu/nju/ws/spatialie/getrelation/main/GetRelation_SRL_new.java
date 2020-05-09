@@ -17,7 +17,7 @@ import java.util.*;
 public class GetRelation_SRL_new {
     static String inputdir = "data/SpaceEval2015/processed_data/SRL/AllLink/";
     static String outputdir = inputdir.replaceFirst("data", "output");
-    static String filename = "train.txt";
+    static String filename = "test.txt";
 
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {
         NLPUtil.init();
@@ -43,8 +43,11 @@ public class GetRelation_SRL_new {
                 i++;
                 samesentences.add(lines.get(i));
             }
-//
-//            line ="12 12\tThe steep slope and the thick carpet of fallen leaves hindered the descent and very precise determination of the confluence point , but we managed to pinpoint and take photos within sufficient accuracy from ' zero point ' . We congratulated ourselves and made the necessary photos to immortalize for eternity our conquest .\tO O B-PATH O O O B-SPATIAL_ENTITY O O O O O B-MOTION O O O O O O O B-PLACE O O B-SPATIAL_ENTITY O O B-NONMOTION_EVENT O B-NONMOTION_EVENT O B-MEASURE I-MEASURE I-MEASURE O O B-PLACE I-PLACE O O B-SPATIAL_ENTITY O O O O O O O O O O O O O O\tO O O O O O O O O O O O B-trigger O O O O O O O O O O B-mover O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O\n";
+
+//            line ="11 11\tHidden in the fog , Andres charged ahead , and I followed through a strange forest of dwarf palm like plants , which can be 100 years old even though they stand only a few feet tall .\tO B-SPATIAL_SIGNAL O B-SPATIAL_ENTITY O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-PLACE B-SPATIAL_SIGNAL O O O B-SPATIAL_ENTITY O O O O O O O O O B-SPATIAL_ENTITY O O O B-MEASURE I-MEASURE O O\tO O O O O O O O O O B-mover B-trigger O O O O O O O O O O O O O O O O O O O O O O O O O O\n" +
+//                    "1 1\tHidden in the fog , Andres charged ahead , and I followed through a strange forest of dwarf palm like plants , which can be 100 years old even though they stand only a few feet tall .\tO B-SPATIAL_SIGNAL O B-SPATIAL_ENTITY O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-PLACE B-SPATIAL_SIGNAL O O O B-SPATIAL_ENTITY O O O O O O O O O B-SPATIAL_ENTITY O O O B-MEASURE I-MEASURE O O\tO B-trigger O B-landmark O B-trajector O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O\n" +
+//                    "6 6\tHidden in the fog , Andres charged ahead , and I followed through a strange forest of dwarf palm like plants , which can be 100 years old even though they stand only a few feet tall .\tO B-SPATIAL_SIGNAL O B-SPATIAL_ENTITY O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-PLACE B-SPATIAL_SIGNAL O O O B-SPATIAL_ENTITY O O O O O O O O O B-SPATIAL_ENTITY O O O B-MEASURE I-MEASURE O O\tO O O O O B-mover B-trigger O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O\n" +
+//                    "16 16\tHidden in the fog , Andres charged ahead , and I followed through a strange forest of dwarf palm like plants , which can be 100 years old even though they stand only a few feet tall .\tO B-SPATIAL_SIGNAL O B-SPATIAL_ENTITY O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-PLACE B-SPATIAL_SIGNAL O O O B-SPATIAL_ENTITY O O O O O O O O O B-SPATIAL_ENTITY O O O B-MEASURE I-MEASURE O O\tO O O O O O O O O O O O O O O B-landmark B-trigger O O O B-trajector O O O O O O O O O O O O O O O O O\n";
 //
 //            samesentences.clear();
 //            samesentences.addAll(Arrays.asList(line.split("\n")));
@@ -151,7 +154,7 @@ public class GetRelation_SRL_new {
 //                eventList = EveluateUtil.removeRedundancy(eventList,bratDocument);
 //            else
 //                eventList = EveluateUtil.removeRedundancy_notrigger(eventList,bratDocument);
-            eventList = EveluateUtil.removeRedundancy_notrigger(eventList, bratDocument);
+            eventList = EveluateUtil.removeRedundancy_notrigger(eventList, bratDocument,"OT7");
             EveluateUtil.eveluate(bratDocument, eventList, evel);
 
 //            if (bratDocument.getTrigger()==null){
