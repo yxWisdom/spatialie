@@ -44,10 +44,7 @@ public class GetRelation_SRL_new {
                 samesentences.add(lines.get(i));
             }
 
-//            line ="11 11\tHidden in the fog , Andres charged ahead , and I followed through a strange forest of dwarf palm like plants , which can be 100 years old even though they stand only a few feet tall .\tO B-SPATIAL_SIGNAL O B-SPATIAL_ENTITY O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-PLACE B-SPATIAL_SIGNAL O O O B-SPATIAL_ENTITY O O O O O O O O O B-SPATIAL_ENTITY O O O B-MEASURE I-MEASURE O O\tO O O O O O O O O O B-mover B-trigger O O O O O O O O O O O O O O O O O O O O O O O O O O\n" +
-//                    "1 1\tHidden in the fog , Andres charged ahead , and I followed through a strange forest of dwarf palm like plants , which can be 100 years old even though they stand only a few feet tall .\tO B-SPATIAL_SIGNAL O B-SPATIAL_ENTITY O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-PLACE B-SPATIAL_SIGNAL O O O B-SPATIAL_ENTITY O O O O O O O O O B-SPATIAL_ENTITY O O O B-MEASURE I-MEASURE O O\tO B-trigger O B-landmark O B-trajector O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O\n" +
-//                    "6 6\tHidden in the fog , Andres charged ahead , and I followed through a strange forest of dwarf palm like plants , which can be 100 years old even though they stand only a few feet tall .\tO B-SPATIAL_SIGNAL O B-SPATIAL_ENTITY O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-PLACE B-SPATIAL_SIGNAL O O O B-SPATIAL_ENTITY O O O O O O O O O B-SPATIAL_ENTITY O O O B-MEASURE I-MEASURE O O\tO O O O O B-mover B-trigger O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O\n" +
-//                    "16 16\tHidden in the fog , Andres charged ahead , and I followed through a strange forest of dwarf palm like plants , which can be 100 years old even though they stand only a few feet tall .\tO B-SPATIAL_SIGNAL O B-SPATIAL_ENTITY O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL O O B-PLACE B-SPATIAL_SIGNAL O O O B-SPATIAL_ENTITY O O O O O O O O O B-SPATIAL_ENTITY O O O B-MEASURE I-MEASURE O O\tO O O O O O O O O O O O O O O B-landmark B-trigger O O O B-trajector O O O O O O O O O O O O O O O O O\n";
+//            line ="30 31\tBEST VIDEOS : A bombero celebrates his birthday in Medellin , Colombia Bicycle commuters in Bogota , Colombia A bike is faster than an ambulance in Caracas , Venezuela Truck full of kids yelling ‘ gringo !\tO O O O O B-NONMOTION_EVENT O O B-SPATIAL_SIGNAL B-PLACE I-PLACE I-PLACE O B-SPATIAL_ENTITY B-SPATIAL_SIGNAL B-PLACE I-PLACE I-PLACE O O O O O O O O B-PLACE I-PLACE I-PLACE B-SPATIAL_ENTITY B-SPATIAL_SIGNAL I-SPATIAL_SIGNAL B-SPATIAL_ENTITY O O O O\tO O O O O O O O O O O O O O O O O O O O O O O O O O O O O B-landmark B-trigger I-trigger B-trajector O O O O\n";
 //
 //            samesentences.clear();
 //            samesentences.addAll(Arrays.asList(line.split("\n")));
@@ -154,7 +151,7 @@ public class GetRelation_SRL_new {
 //                eventList = EveluateUtil.removeRedundancy(eventList,bratDocument);
 //            else
 //                eventList = EveluateUtil.removeRedundancy_notrigger(eventList,bratDocument);
-            eventList = EveluateUtil.removeRedundancy_notrigger(eventList, bratDocument,"OT7");
+            eventList = EveluateUtil.removeRedundancy_notrigger(eventList, bratDocument,"OT6 NT6");
             EveluateUtil.eveluate(bratDocument, eventList, evel);
 
 //            if (bratDocument.getTrigger()==null){

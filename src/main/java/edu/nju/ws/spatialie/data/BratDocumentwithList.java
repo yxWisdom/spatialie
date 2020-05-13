@@ -369,4 +369,12 @@ public class BratDocumentwithList extends BratDocument {
             return (e.getRoleMap().keySet().size() >= 3);
         }
     }
+
+    public boolean isComplete(BratEvent e) {
+        if (e.getType().equals("MLINK")||trigger==null) {
+            return (e.getRoleMap().keySet().size() >= 2);
+        } else {
+            return (e.getRoleMap().keySet().size() >= 3);
+        }
+    }
 }
