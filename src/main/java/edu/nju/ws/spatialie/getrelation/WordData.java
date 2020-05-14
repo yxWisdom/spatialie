@@ -1,10 +1,12 @@
 package edu.nju.ws.spatialie.getrelation;
 
 import edu.nju.ws.spatialie.utils.FileUtil;
+import edu.stanford.nlp.util.ArrayMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class WordData {
     static List<String> prepList = FileUtil.readLines("resource/relation/prep.txt");
@@ -14,6 +16,21 @@ public class WordData {
     static List<String> not_notrigger_of = FileUtil.readLines("resource/relation/not_notrigger_of.txt");
     static List<String> changelt = FileUtil.readLines("resource/relation/changelt.txt");
     static List<String> movement_trajector = FileUtil.readLines("resource/relation/movement_be_trajector.txt");
+    static Map<String,String> confidenceMap = readMap("resource/relation/confidence.txt");
+
+    public static Map<String, String> getConfidenceMap() {
+        return confidenceMap;
+    }
+
+    private static Map<String, String> readMap(String path) {
+        List<String> lines = FileUtil.readLines(path);
+        Map<String,String> cm = new ArrayMap<>();
+        for (String line:lines){
+            String[] linec = line.split("\t");
+            cm.put(linec[0],linec[1]);
+        }
+        return cm;
+    }
 
     public static List<String> getChangelt() {
         return changelt;
