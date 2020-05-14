@@ -308,19 +308,19 @@ public class EveluateUtil {
                     Collection<String> listmap = e.getRoleMap().get("trigger");
 
                     //去掉对于不完整关系的识别
-                    if (listmap.size()>0) {
-                        String trigger = (String) listmap.toArray()[0];
-                        boolean isnotc = false;
-                        for (BratEvent eb : bratDocument.getEventMap().values()) {
-                            if (eb.getRoleId("trigger") != null && eb.getRoleId("trigger").equals(trigger)) {
-                                if (!bratDocument.isComplete(eb)) {
-                                    isnotc = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (isnotc) continue;
-                    }
+//                    if (listmap.size()>0) {
+//                        String trigger = (String) listmap.toArray()[0];
+//                        boolean isnotc = false;
+//                        for (BratEvent eb : bratDocument.getEventMap().values()) {
+//                            if (eb.getRoleId("trigger") != null && eb.getRoleId("trigger").equals(trigger)) {
+//                                if (!bratDocument.isComplete(eb)) {
+//                                    isnotc = true;
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                        if (isnotc) continue;
+//                    }
 
                     if (listmap != null && listmap.size() > 0) res.add(e);
                     listmap = e.getRoleMap().get("val");
