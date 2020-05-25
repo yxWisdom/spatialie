@@ -3,6 +3,7 @@ package edu.nju.ws.spatialie.spaceeval;
 import com.google.common.collect.Multimap;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.utils.FileUtil;
+import edu.stanford.nlp.util.ArrayHeap;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
@@ -13,6 +14,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static edu.nju.ws.spatialie.utils.CollectionUtils.union;
 
 
 public class SpaceEvalUtils {
@@ -35,6 +37,11 @@ public class SpaceEvalUtils {
     static final String TRAJECTOR="trajector";
     static final String LANDMARK="landmark";
     static final String VAL="val";
+
+    static final String TOPOLOGICAL="TOPOLOGICAL";
+    static final String DIRECTIONAL="DIRECTIONAL";
+    static final String DIR_TOP="DIR_TOP";
+
 
 
     static final Set<String> allLinkTags = new HashSet<>(Arrays.asList(QSLINK, OLINK, MOVELINK, MEASURELINK));
@@ -579,15 +586,52 @@ public class SpaceEvalUtils {
                 for (int i = 0; i < links.size(); i++) {
                     for (int j = i + 1; j < links.size(); j++) {
                         BratEvent link1 = links.get(i), link2 = links.get(j);
-                        if (link1.hasRole(TRAJECTOR) && link2.hasRole(TRAJECTOR) && link1.hasRole(LANDMARK) && link2.hasRole(LANDMARK)) {
-                            Collection<String> trajectors1 = link1.getRoleIds(TRAJECTOR),landmarks1 = link1.getRoleIds(LANDMARK);
-                            Collection<String> trajectors2 = link2.getRoleIds(TRAJECTOR),landmarks2 = link2.getRoleIds(LANDMARK);
-                            trajectors1.retainAll(landmarks2);
-                            trajectors2.retainAll(landmarks1);
-                            if (!trajectors1.isEmpty() || !trajectors2.isEmpty()) {
-                                System.out.println(file.getName() + " " + spaceEvalDoc.getAllTokenOfLink(link1).stream().map(o -> o.text).collect(Collectors.joining(" ")));
+                        if (link1.hasRole(TRAJECTOR) && link2.hasRole(LANDMARK)) {
+//                            Collection<String> trajectors1 = ,landmarks1 = ;
+                            Set<String> trajectors = new HashSet<>(link1.getRoleIds(TRAJECTOR)), landmarks = new HashSet<>(link2.getRoleIds(LANDMARK));
+                            List<String> intersections = trajectors.stream().filter(landmarks::contains).collect(Collectors.toList());
+                            if (!intersections.isEmpty()) {
+                                System.out.println();
+                                System.out.println(file.getName() + "\n" + spaceEvalDoc.getAllTokenOfLink(link1).stream().map(o -> o.text).collect(Collectors.joining(" ")));
+                                System.out.println();
                             }
                         }
+
+                        if (link1.hasRole(LANDMARK) && link2.hasRole(TRAJECTOR)) {
+                            Set<String> trajectors = new HashSet<>(link2.getRoleIds(TRAJECTOR));
+                            Set<String>  landmarks = new HashSet<>(link1.getRoleIds(LANDMARK));
+                            List<String> intersections = trajectors.stream().filter(landmarks::contains).collect(Collectors.toList());
+                            if (!intersections.isEmpty()) {
+                                System.out.println();
+                                System.out.println(file.getName() + "\n" + spaceEvalDoc.getAllTokenOfLink(link1).stream().map(o -> o.text).collect(Collectors.joining(" ")));
+                                System.out.println();
+                            }
+                        }
+
+
+                        if (link1.getType().equals(link2.getType()) && (link1.hasRole(TRAJECTOR) || link1.hasRole(LANDMARK))
+                                && (link2.hasRole(TRAJECTOR) ||  link2.hasRole(LANDMARK))) {
+                            Collection<String> trajectors1 = link1.getRoleIds(TRAJECTOR),landmarks1 = link1.getRoleIds(LANDMARK);
+                            Collection<String> trajectors2 = link2.getRoleIds(TRAJECTOR),landmarks2 = link2.getRoleIds(LANDMARK);
+                            if (trajectors1.size() == 0 || landmarks1.size() == 0 || trajectors2.size() == 0 || landmarks2.size() == 0) {
+                                System.out.println();
+                            }
+                            if (union(trajectors1, trajectors2).size() == 0 && union(landmarks1, landmarks2).size() == 0) {
+                                System.out.println();
+                                System.out.println("***" + file.getName() + "\n" + spaceEvalDoc.getAllTokenOfLink(link1).stream().map(o -> o.text).collect(Collectors.joining(" ")));
+                                System.out.println();
+                            }
+                        }
+//
+//                        if (link1.hasRole(TRAJECTOR) && link2.hasRole(TRAJECTOR) && link1.hasRole(LANDMARK) && link2.hasRole(LANDMARK)) {
+//                            Collection<String> trajectors1 = link1.getRoleIds(TRAJECTOR),landmarks1 = link1.getRoleIds(LANDMARK);
+//                            Collection<String> trajectors2 = link2.getRoleIds(TRAJECTOR),landmarks2 = link2.getRoleIds(LANDMARK);
+//                            trajectors1.retainAll(landmarks2);
+//                            trajectors2.retainAll(landmarks1);
+//                            if (!trajectors1.isEmpty() || !trajectors2.isEmpty()) {
+//                                System.out.println(file.getName() + " " + spaceEvalDoc.getAllTokenOfLink(link1).stream().map(o -> o.text).collect(Collectors.joining(" ")));
+//                            }
+//                        }
                     }
                 }
             });
@@ -606,8 +650,8 @@ public class SpaceEvalUtils {
 //        SpaceEvalUtils.checkLinkPattern("data/SpaceEval2015/raw_data/training++");
 //        SpaceEvalUtils.checkLinkPattern("data/SpaceEval2015/raw_data/gold++");
 
-        SpaceEvalUtils.checkMaxDistanceOfLink("data/SpaceEval2015/raw_data/training++");
-        SpaceEvalUtils.checkMaxDistanceOfLink("data/SpaceEval2015/raw_data/gold++");
+//        SpaceEvalUtils.checkMaxDistanceOfLink("data/SpaceEval2015/raw_data/training++");
+//        SpaceEvalUtils.checkMaxDistanceOfLink("data/SpaceEval2015/raw_data/gold++");
 //        SpaceEvalUtils.checkQSAndOLinkTrigger("data/SpaceEval2015/raw_data/training++",
 //                "data/SpaceEval2015/raw_data/gold++");
 
@@ -620,11 +664,11 @@ public class SpaceEvalUtils {
 //        SpaceEvalUtils.checkInvalidToken("data/SpaceEval2015/raw_data/training++");
 //        SpaceEvalUtils.checkInvalidToken("data/SpaceEval2015/raw_data/gold++");
 
-//        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/training++");
-//        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/gold++");
+        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/training++");
+        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/gold++");
 
-        SpaceEvalUtils.checkMaxElementNumMapBetweenElements("data/SpaceEval2015/raw_data/training++");
-        SpaceEvalUtils.checkMaxElementNumMapBetweenElements("data/SpaceEval2015/raw_data/gold++");
+//        SpaceEvalUtils.checkMaxElementNumMapBetweenElements("data/SpaceEval2015/raw_data/training++");
+//        SpaceEvalUtils.checkMaxElementNumMapBetweenElements("data/SpaceEval2015/raw_data/gold++");
 
     }
 }

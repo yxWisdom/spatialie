@@ -13,6 +13,9 @@ public class Span implements Comparable<Span> {
     public String label;
     public int start;
     public int end;
+
+    public String semantic_type="";
+
     Span(String id, String text, String label, int start, int end) {
         this.id = id;
         this.text = text;
