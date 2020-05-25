@@ -1,5 +1,9 @@
 package edu.nju.ws.spatialie.data;
 
+import com.google.common.collect.Multimap;
+import edu.nju.ws.spatialie.getrelation.FindLINK;
+import edu.nju.ws.spatialie.getrelation.FindOTLINK;
+import edu.nju.ws.spatialie.getrelation.JudgeEntity;
 import edu.nju.ws.spatialie.getrelation.NLPUtil;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -46,6 +50,47 @@ public class ParseTree {
     public List<IndexedWord> getPossibleSubj(int index,boolean allow_acl){
         IndexedWord node = graph.getNodeByIndex(index);
         return DFS_Graph(node,allow_acl);
+    }
+
+    public Multimap<String, String> getSemanticCompany(BratDocumentwithList bratDocument){
+        int pos = 0;
+        String[] words = bratDocument.getContent().split(" ");
+        for (int i = 0;i<words.length;i++){
+            try {
+                for (SemanticGraphEdge edge : bratDocument.getParseTree().graph.outgoingEdgeList(bratDocument.getParseTree().graph.getNodeByIndex(i + 1))) {
+                    IndexedWord target = edge.getTarget();
+                    if (edge.getRelation().getShortName().equals("conj")) {
+                        int b1 = pos;
+                        int e1 = pos + words[i].length();
+                        int b2 = target.beginPosition();
+                        int e2 = target.endPosition();
+                        int idx1 = 0;
+                        for (BratEntity entity1 : bratDocument.getEntityList()) {
+                            if (entity1.getStart() <= b1 && entity1.getEnd() >= e1) {
+                                int idx = 0;
+                                for (BratEntity entity2 : bratDocument.getEntityList()) {
+                                    if (entity2.getStart() <= b2 && entity2.getEnd() >= e2) {
+                                        if (JudgeEntity.canbeLandmark(entity1) && JudgeEntity.canbeLandmark(entity2)
+                                                && !FindOTLINK.hasPOS("N", bratDocument, idx1, idx) && !FindOTLINK.hasPOS("V", bratDocument, idx1, idx) && !FindOTLINK.hasPOS("IN", bratDocument, idx1, idx)
+                                                && (FindOTLINK.hasPOSinEntity("N", bratDocument, entity1) || FindOTLINK.hasPOSinEntity("P", bratDocument, entity1)) && (FindOTLINK.hasPOSinEntity("N", bratDocument, entity2) || FindOTLINK.hasPOSinEntity("P", bratDocument, entity2))) {
+                                            bratDocument.noCandidate(idx);
+                                            bratDocument.companyMap.put(entity1.getId(), entity2.getId());
+                                            entity1.setEnd(entity2.getEnd());
+                                        }
+                                    }
+                                    idx++;
+                                }
+                            }
+                            idx1++;
+                        }
+                    }
+                }
+            } catch (Exception e){
+
+            }
+            pos+=words[i].length()+1;
+        }
+        return bratDocument.companyMap;
     }
 
     private List<IndexedWord> DFS_Graph(IndexedWord node, boolean allow_acl) {

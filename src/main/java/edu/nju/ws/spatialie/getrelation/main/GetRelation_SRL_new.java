@@ -15,9 +15,10 @@ import java.io.File;
 import java.util.*;
 
 public class GetRelation_SRL_new {
-    static String inputdir = "data/SpaceEval2015/processed_data/SRL/DLink/";
+    static String inputdir = "data/SpaceEval2015/processed_data/SRL/AllLink/";
     static String outputdir = inputdir.replaceFirst("data", "output");
-    static String filename = "train.txt";
+    static String filename = "test.txt";
+    static String confidencefile="confidenceoutput.txt";
 
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {
         NLPUtil.init();
@@ -31,6 +32,7 @@ public class GetRelation_SRL_new {
         List<String> lines = FileUtil.readLines(filepath);
 
         List<String> output = new ArrayList<>();
+        List<String> confidence_output = new ArrayList<>();
 
         UserComparator comparator = new UserComparator();
         lines.sort(comparator);
@@ -44,9 +46,7 @@ public class GetRelation_SRL_new {
                 samesentences.add(lines.get(i));
             }
 
-//            line ="28 28\tThe Andean Paramo – the future of the mountaintops Monday , June 19th , 2006 Before biking out of Bogota , a young professor from a local university took me into the mountains that overlook the city .\tO O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL I-MOTION_SIGNAL B-PLACE O O O B-SPATIAL_ENTITY O O O O B-MOTION B-SPATIAL_ENTITY B-MOTION_SIGNAL O B-PLACE O B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O O O O O O O O B-mover O O O O B-trigger O O O O O O O O O\n" +
-//                    "34 34\tThe Andean Paramo – the future of the mountaintops Monday , June 19th , 2006 Before biking out of Bogota , a young professor from a local university took me into the mountains that overlook the city .\tO O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL I-MOTION_SIGNAL B-PLACE O O O B-SPATIAL_ENTITY O O O O B-MOTION B-SPATIAL_ENTITY B-MOTION_SIGNAL O B-PLACE O B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O B-trajector O B-trigger O B-landmark O\n" +
-//                    "16 16\tThe Andean Paramo – the future of the mountaintops Monday , June 19th , 2006 Before biking out of Bogota , a young professor from a local university took me into the mountains that overlook the city .\tO O O O O O O O O O O O O O O O B-MOTION B-MOTION_SIGNAL I-MOTION_SIGNAL B-PLACE O O O B-SPATIAL_ENTITY O O O O B-MOTION B-SPATIAL_ENTITY B-MOTION_SIGNAL O B-PLACE O B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O B-trigger O O O O O O O O O O O O B-mover O O O O O O O O\n";
+//            line ="3 3\tAndres and I drove from 8,500 feet at Bogota to 11,000 feet and the national park of Chingaza .\tB-SPATIAL_ENTITY O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL B-MEASURE I-MEASURE O B-PLACE B-MOTION_SIGNAL B-MEASURE I-MEASURE O O B-PLACE I-PLACE I-PLACE I-PLACE O\tB-mover O B-mover B-trigger O O O O O O O O O O O O O O O\n";
 //
 //            samesentences.clear();
 //            samesentences.addAll(Arrays.asList(line.split("\n")));
@@ -153,7 +153,7 @@ public class GetRelation_SRL_new {
 //                eventList = EveluateUtil.removeRedundancy(eventList,bratDocument);
 //            else
 //                eventList = EveluateUtil.removeRedundancy_notrigger(eventList,bratDocument);
-            eventList = EveluateUtil.removeRedundancy_notrigger(eventList, bratDocument);
+            eventList = EveluateUtil.removeRedundancy_notrigger(eventList, bratDocument,"NT6 DL1 DL2 DL3 DL4 DL5 DOT9");
             EveluateUtil.eveluate(bratDocument, eventList, evel);
 
 //            if (bratDocument.getTrigger()==null){
@@ -161,12 +161,14 @@ public class GetRelation_SRL_new {
 //            }
 
             count_all.add(evel);
-            if (evel.precision() != 1&&eventList.size()!=0) {
+
+            if (evel.precision()<1&&eventList.size()>0) {
                 for (String line_ : samesentences) {
                     System.out.println(line_);
 
                 }
                 System.out.println(evel+"\n");
+
 //                System.out.println("landmark:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A0").getRoleId("landmark")).getText());
 //                System.out.println("Trajector:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A0").getRoleId("trajector")).getText());
 //                System.out.println();
@@ -180,10 +182,15 @@ public class GetRelation_SRL_new {
 
             for (String line_ : samesentences) {
                 String res = buildtags(line_, eventList, bratDocument);
+                int pos = res.indexOf("\n");
+                String confidence = res.substring(0,pos);
+                res = res.substring(pos+1);
                 output.add(res);
+                confidence_output.add(confidence);
             }
 
             FileUtil.writeFile(outputdir + filename, output, true);
+            FileUtil.writeFile(outputdir + confidencefile, confidence_output, true);
             output.clear();
 
         }
@@ -228,7 +235,17 @@ public class GetRelation_SRL_new {
                 }
             }
             boolean inlabel = false;
-            String res = "";
+            String confidence;
+            if (event_==null){
+                confidence="0";
+            } else {
+                if (WordData.getConfidenceMap().get(event_.getRuleid()) != null) {
+                    confidence = WordData.getConfidenceMap().get(event_.getRuleid());
+                } else {
+                    confidence = "-1";
+                }
+            }
+            String res = confidence+"\n";
             String label = null;
             int end = 0;
             pos = 0;
@@ -336,6 +353,25 @@ public class GetRelation_SRL_new {
                                 newe.addEntity(bratDocument.getEntitybyID(companyid));
                             }
                         } else {
+                            //特殊情况：connect
+                            // trajector connect landmark-> connects trajector and landmark
+                            if (bratDocument.getCompanyMap().get(id).size()>=1){
+                                if (event.getRoleId("trigger")!=null&&event.getEntities().get(event.getRoleId("trigger"))!=null) {
+                                    if (event.getEntities().get(event.getRoleId("trigger")).getText().toLowerCase().contains("connect")) {
+                                        for (String companyid : bratDocument.getCompanyMap().get(id)) {
+                                            newe.removeEntity(newe.getRoleId("landmark"));
+                                            newe.removeRole("landmark");
+                                            newe.removeEntity(newe.getRoleId("trajector"));
+                                            newe.removeRole("trajector");
+                                            newe.addRole("landmark", companyid);
+                                            newe.addEntity(bratDocument.getEntitybyID(companyid));
+                                            newe.addRole("trajector", id);
+                                            newe.addEntity(bratDocument.getEntitybyID(id));
+                                        }
+                                        continue;
+                                    }
+                                }
+                            }
                             for (String companyid : bratDocument.getCompanyMap().get(id)) {
                                 newe.addRole(role, companyid);
                                 newe.addEntity(bratDocument.getEntitybyID(companyid));

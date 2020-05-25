@@ -56,17 +56,19 @@ public class EveluateUtil {
         int size1 = count(event1);
         if (event1.is(event2)) return size1;
         if (size1 == 1) return 0;
-        //TODO:标准有问题
+        int count = 0;
         for (String role : event1.getRoleMap().keySet()) {
             if (event1.getRoleMap().get(role).size() > 1) {
-                int count = 0;
                 for (String id : event1.getRoleMap().get(role)) {
                     if (event2.getRoleMap().get(role).contains(id)) count++;
                 }
-                return count;
+            } else {
+                if (!event2.getRoleMap().get(role).containsAll(event1.getRoleMap().get(role))){
+                    return 0;
+                }
             }
         }
-        return 0;
+        return count;
     }
 
     private static void countLinkTypes(List<BratEvent> values, Map<String, Integer> evel, String labeltype) {
@@ -296,15 +298,34 @@ public class EveluateUtil {
         return res;
     }
 
-    public static List<BratEvent> removeRedundancy_notrigger(List<BratEvent> eventList, BratDocumentwithList bratDocument) {
+    public static List<BratEvent> removeRedundancy_notrigger(List<BratEvent> eventList, BratDocumentwithList bratDocument, String deletebyrule) {
+        List<String> deleterules = Arrays.asList(deletebyrule.split(" "));
         //针对SRL_new，每次只过滤有trigger/无trigger情况
         List<BratEvent> res = new ArrayList<>();
         if (bratDocument.getTrigger() != null) {
             for (BratEvent e : eventList) {
-                Collection<String> listmap = e.getRoleMap().get("trigger");
-                if (listmap != null&&listmap.size()>0) res.add(e);
-                listmap = e.getRoleMap().get("val");
-                if (listmap != null&&listmap.size()>0) res.add(e);
+                if (!deleterules.contains(e.getRuleid())) {
+                    Collection<String> listmap = e.getRoleMap().get("trigger");
+
+                    //去掉对于不完整关系的识别
+//                    if (listmap.size()>0) {
+//                        String trigger = (String) listmap.toArray()[0];
+//                        boolean isnotc = false;
+//                        for (BratEvent eb : bratDocument.getEventMap().values()) {
+//                            if (eb.getRoleId("trigger") != null && eb.getRoleId("trigger").equals(trigger)) {
+//                                if (!bratDocument.isComplete(eb)) {
+//                                    isnotc = true;
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                        if (isnotc) continue;
+//                    }
+
+                    if (listmap != null && listmap.size() > 0) res.add(e);
+                    listmap = e.getRoleMap().get("val");
+                    if (listmap != null && listmap.size() > 0) res.add(e);
+                }
             }
         } else {
             for (BratEvent e : eventList) {

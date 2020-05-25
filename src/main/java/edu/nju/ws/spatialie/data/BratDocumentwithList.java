@@ -9,6 +9,7 @@ import edu.nju.ws.spatialie.getrelation.FindLINK;
 import edu.nju.ws.spatialie.getrelation.FindTagUtil;
 import edu.nju.ws.spatialie.getrelation.JudgeEntity;
 import edu.nju.ws.spatialie.utils.FileUtil;
+import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 
 import java.util.*;
 
@@ -260,6 +261,8 @@ public class BratDocumentwithList extends BratDocument {
             }
         }
 
+
+
         for (int i = 0; i < entityList.size() - 1; i++) {
             if (!getIsCandidate(i)) continue;
             BratEntity e1 = entityList.get(i);
@@ -343,7 +346,7 @@ public class BratDocumentwithList extends BratDocument {
                 i = FindLINK.getNext(i, this);
             }
         }
-
+        companyMap = getParseTree().getSemanticCompany(this);
     }
 
     public String getNextWord(int pos) {
@@ -360,6 +363,14 @@ public class BratDocumentwithList extends BratDocument {
 
     public boolean isComplete() {
         BratEvent e = getEventMap().get("A1");
+        if (e.getType().equals("MLINK")||trigger==null) {
+            return (e.getRoleMap().keySet().size() >= 2);
+        } else {
+            return (e.getRoleMap().keySet().size() >= 3);
+        }
+    }
+
+    public boolean isComplete(BratEvent e) {
         if (e.getType().equals("MLINK")||trigger==null) {
             return (e.getRoleMap().keySet().size() >= 2);
         } else {
