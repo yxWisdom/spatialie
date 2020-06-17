@@ -14,7 +14,7 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
 
-public class ConvertBratToXML {
+public class ConvertSRLToXML {
 
     //xml文件目录
     private static String originxmldir = "data/SpaceEval2015/raw_xml";
