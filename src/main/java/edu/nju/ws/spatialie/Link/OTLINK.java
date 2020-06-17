@@ -5,6 +5,7 @@ import java.util.List;
 
 public class OTLINK extends LINK{
     int trigger=-1;
+    int flag = -1;
     List<Integer> trajectors= new ArrayList<>();
     List<Integer> landmarks= new ArrayList<>();
 
@@ -26,6 +27,14 @@ public class OTLINK extends LINK{
 
     public void setTrigger(int trigger) {
         this.trigger = trigger;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public int getFlag() {
+        return flag;
     }
 
     public int getTrajector(int idx) {
