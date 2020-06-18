@@ -1,5 +1,7 @@
 package edu.nju.ws.spatialie.getrelation;
 
+import edu.nju.ws.spatialie.data.BratEvent;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,8 @@ public class EvaluationCount {
     String MLINK = "MLINK";
     String DLINK = "DLINK";
     String NOTRIGGER = "NOTRIGGER";
+
+
 
     public void addCorrectbyId(String id){
         if (correct.keySet().contains(id)){
