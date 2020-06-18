@@ -23,7 +23,6 @@ public class TranslateUtil {
     private static final String LANDMARK = "landmark";
     private static final String TRAJECTOR = "trajector";
     private static final String CONJ = "conj";
-    private static final String FLAG = "flag";
 
     static public BratEvent translateOTlink(OTLINK tlink, BratEvent event, BratDocumentwithList bratDocument){
         List<BratEntity>  entityList = bratDocument.getEntityList();
@@ -31,12 +30,6 @@ public class TranslateUtil {
            event.setT_start_end(entityList.get(tlink.getTrigger()).getStart(),entityList.get(tlink.getTrigger()).getEnd());
            event.setMembers(TRIGGER,entityList.get(tlink.getTrigger()).getId());
             event.setEntities(entityList.get(tlink.getTrigger()).getId(),entityList.get(tlink.getTrigger()));
-        }
-
-        if (tlink.getFlag()!=-1){
-            event.setT_start_end(entityList.get(tlink.getFlag()).getStart(),entityList.get(tlink.getFlag()).getEnd());
-            event.setMembers(FLAG,entityList.get(tlink.getFlag()).getId());
-            event.setEntities(entityList.get(tlink.getFlag()).getId(),entityList.get(tlink.getFlag()));
         }
 
         for (int idx:tlink.getLandmarks()){

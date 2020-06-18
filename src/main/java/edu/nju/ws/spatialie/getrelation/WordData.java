@@ -17,28 +17,6 @@ public class WordData {
     static List<String> changelt = FileUtil.readLines("resource/relation/changelt.txt");
     static List<String> movement_trajector = FileUtil.readLines("resource/relation/movement_be_trajector.txt");
     static Map<String,String> confidenceMap = readMap("resource/relation/confidence.txt");
-    static List<String> notriggersortList = FileUtil.readLines("resource/relation/notrigger_rules_sort.txt");
-    static List<String> flagverbList = FileUtil.readLines("resource/relation/flagwords_v.txt");
-    static List<String> flagextraList = FileUtil.readLines("resource/relation/flagwords_extra.txt");
-
-    public static List<String> getFlagextraList() {
-        return flagextraList;
-    }
-
-    public static List<String> getFlagverbList() {
-        return flagverbList;
-    }
-
-    public static List<String> getNotriggersortList() {
-        return notriggersortList;
-    }
-
-    public static Integer getNoTriggerRuleWeight(String rule){
-        for (int i = 0;i<notriggersortList.size();i++){
-            if (rule.equals(notriggersortList.get(i))) return notriggersortList.size()-i;
-        }
-        return 0;
-    }
 
     public static Map<String, String> getConfidenceMap() {
         return confidenceMap;

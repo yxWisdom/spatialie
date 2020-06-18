@@ -22,10 +22,6 @@ public class BratDocumentwithList extends BratDocument {
     ParseTree parseTree;
     BratEntity trigger = null;
 
-    public List<Boolean> getIsCandidate() {
-        return isCandidate;
-    }
-
     public BratDocumentwithList(List<String> samesentences) {
         super(samesentences.get(0).split("\t")[1]);
         String[] t = samesentences.get(0).split("\t");
@@ -117,7 +113,6 @@ public class BratDocumentwithList extends BratDocument {
                 "MEASURE Measure\n" +
                 "SPATIAL_SIGNAL SpatialSignal\n" +
                 "MOTION Motion\n" +
-                "SpatialFlag SpatialFlag\n" +
                 "MOTION_SIGNAL MotionSignal\n" +
                 "LITERAL Literal").split("\n"));
         Map<String, String> tagMap = new HashMap<>();
@@ -145,7 +140,7 @@ public class BratDocumentwithList extends BratDocument {
                         newEvent.setType("DLINK");
                         newEvent.removeRole(label);
                         newEvent.addRole("val", entity.getId());
-                    } else if (entity.getTag().equals(BratUtil.SPATIAL_SIGNAL)||entity.getTag().equals("SpatialFlag")) {
+                    } else if (entity.getTag().equals(BratUtil.SPATIAL_SIGNAL)) {
                         newEvent.setType("OTLINK");
                     }
                 }

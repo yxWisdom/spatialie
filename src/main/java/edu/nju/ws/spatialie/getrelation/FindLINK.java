@@ -68,7 +68,7 @@ public class FindLINK {
                     if (s.contains("- ") || s.contains(" -")) return false;
                     else continue;
                 }
-                if (s.contains(" " + c + " ")) return false;
+                if (s.indexOf(c) != -1) return false;
             }
             return true;
         } catch (Exception e){
@@ -171,8 +171,7 @@ public class FindLINK {
                 the_last_is_noun = true;
             } else {
                 if (POS!=null) {
-                    if (!POS.startsWith("TO")&&!POS.startsWith("PREP")&&!POS.startsWith("DT")&&!POS.startsWith("IN")
-                            &&!POS.startsWith("VBG")&&!POS.startsWith("VBN")&&!(POS.startsWith("VBD")&&bratDocument.getContent().substring(p,p+6).equals("capped")))
+                    if (!POS.startsWith("TO")&&!POS.startsWith("PREP")&&!POS.startsWith("DT")&&!POS.startsWith("IN"))
                         the_last_is_noun = false;
                 }
             }
@@ -268,7 +267,7 @@ public class FindLINK {
             String POS = t.getPOS(p);
             if (POS!=null){
                 //TODO:是否保留
-                if (POS.startsWith("N")&&!bratDocument.getContent().substring(p,p+3).equals("ft ")) return false;
+//                if (POS.startsWith("N")) return false;
                 if (POS.startsWith("V")&&!POS.equals("VBG")&&!POS.equals("VBN")) return false;
             }
         }

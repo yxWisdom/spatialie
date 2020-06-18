@@ -15,9 +15,9 @@ import java.io.File;
 import java.util.*;
 
 public class GetRelation_SRL_new {
-    static String inputdir = "data/SpaceEval2015/processed_data/SRL/NoTriggerLink/";
+    static String inputdir = "data/SpaceEval2015/processed_data/SRL/AllLink/";
     static String outputdir = inputdir.replaceFirst("data", "output");
-    static String filename = "train.txt";
+    static String filename = "test.txt";
     static String confidencefile="confidenceoutput.txt";
 
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {

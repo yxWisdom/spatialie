@@ -42,7 +42,7 @@ public class GenerateSRLCorpus {
 //        return mergedLinks;
 //    }
 
-    private static List<String> getSRLFormatLinkLines(String srcDir, Collection<String> linkTypes, boolean includeTrigger, boolean includeXmlInfo, boolean shuffle) {
+    private static List<String> getSRLFormatLinkLines(String srcDir, Collection<String> linkTypes, boolean includeTrigger, boolean shuffle) {
         List<File> files = FileUtil.listFiles(srcDir);
         List<String> lines = new ArrayList<>();
         for (File file: files) {
@@ -63,7 +63,6 @@ public class GenerateSRLCorpus {
                 List<String> tokens = new ArrayList<>();
                 List<String> labels = new ArrayList<>();
                 List<String> roles = new ArrayList<>();
-                List<String> originids = new ArrayList<>();
 
                 Multimap<String, String> usedRoleMap = HashMultimap.create();
                 List<Span> roleTags = new ArrayList<>();
@@ -96,14 +95,11 @@ public class GenerateSRLCorpus {
                 for (Span token : tokensOfLink) {
                     Span tmpTag = new Span("", "", "", token.start, token.end);
                     String label = "O", role = "O";
-                    String originid = "O";
                     int index = Collections.binarySearch(elements, tmpTag);
                     if (index >= 0) {
                         label = "B-" + elements.get(index).label;
-                        originid = "B-"+elements.get(index).id;
                     } else if ((index = -index - 2) >= 0 && token.end <= elements.get(index).end) {
                         label = "I-" + elements.get(index).label;
-                        originid = "I"+elements.get(index).id;
                     }
 
                     index = Collections.binarySearch(roleTags, tmpTag);
@@ -115,7 +111,6 @@ public class GenerateSRLCorpus {
                     tokens.add(token.text);
                     labels.add(label);
                     roles.add(role);
-                    originids.add(originid);
                 }
 
                 if (!includeTrigger && tokensOfLink.stream().map(x->x.text).collect(Collectors.joining(" ")).startsWith("Calle de Alcalá merges with ")) {
@@ -124,13 +119,8 @@ public class GenerateSRLCorpus {
 
                 int predicateStartIdx = roles.indexOf("B-trigger");
                 int predicateEndIndex = Math.max(roles.lastIndexOf("I-trigger"), roles.lastIndexOf("B-trigger"));
-                String line =null;
-                if (includeXmlInfo)
-                    line= String.format("%d %d\t%s\t%s\t%s\t%s\t%s", predicateStartIdx, predicateEndIndex, String.join(" ", tokens)
-                            , String.join(" ", labels), String.join(" ", roles),file.getName(), String.join(" ", originids));
-                else
-                    line= String.format("%d %d\t%s\t%s\t%s", predicateStartIdx, predicateEndIndex, String.join(" ", tokens)
-                            , String.join(" ", labels), String.join(" ", roles));
+                String line = String.format("%d %d\t%s\t%s\t%s", predicateStartIdx, predicateEndIndex, String.join(" ", tokens)
+                        , String.join(" ", labels), String.join(" ", roles));
                 if (includeTrigger && predicateStartIdx >= 0) {
                     lines.add(line);
                 }
@@ -149,15 +139,15 @@ public class GenerateSRLCorpus {
 
     // 生成SRL格式的语料
     private static void run(String srcDir, String targetFilePath, String mode, boolean shuffle) {
-        List<String> allLinkLines = getSRLFormatLinkLines(srcDir, Arrays.asList(MOVELINK, QSLINK, OLINK), true,true,shuffle);
-        List<String> moveLinkLines = getSRLFormatLinkLines(srcDir, Arrays.asList(MOVELINK), true,true,shuffle);
-        List<String> nonMoveLinkLines = getSRLFormatLinkLines(srcDir, Arrays.asList(QSLINK, OLINK), true,true,shuffle);
-        List<String> qsLinkLines = getSRLFormatLinkLines(srcDir, Arrays.asList(QSLINK), true,true,shuffle);
-        List<String> oLinkLines = getSRLFormatLinkLines(srcDir, Arrays.asList(OLINK), true,true,shuffle);
-        List<String> measureLinkLines =  getSRLFormatLinkLines(srcDir, Arrays.asList(MEASURELINK), true,true,shuffle);
-        List<String> qsNoTriggerLink = getSRLFormatLinkLines(srcDir, Arrays.asList(QSLINK), false,true,shuffle);
-        List<String> oNoTriggerLink = getSRLFormatLinkLines(srcDir, Arrays.asList(OLINK), false,true,shuffle);
-        List<String> noTriggerLink = getSRLFormatLinkLines(srcDir, Arrays.asList(OLINK, QSLINK), false,true,shuffle);
+        List<String> allLinkLines = getSRLFormatLinkLines(srcDir, Arrays.asList(MOVELINK, QSLINK, OLINK), true,shuffle);
+        List<String> moveLinkLines = getSRLFormatLinkLines(srcDir, Arrays.asList(MOVELINK), true,shuffle);
+        List<String> nonMoveLinkLines = getSRLFormatLinkLines(srcDir, Arrays.asList(QSLINK, OLINK), true,shuffle);
+        List<String> qsLinkLines = getSRLFormatLinkLines(srcDir, Arrays.asList(QSLINK), true,shuffle);
+        List<String> oLinkLines = getSRLFormatLinkLines(srcDir, Arrays.asList(OLINK), true,shuffle);
+        List<String> measureLinkLines =  getSRLFormatLinkLines(srcDir, Arrays.asList(MEASURELINK), true,shuffle);
+        List<String> qsNoTriggerLink = getSRLFormatLinkLines(srcDir, Arrays.asList(QSLINK), false,shuffle);
+        List<String> oNoTriggerLink = getSRLFormatLinkLines(srcDir, Arrays.asList(OLINK), false,shuffle);
+        List<String> noTriggerLink = getSRLFormatLinkLines(srcDir, Arrays.asList(OLINK, QSLINK), false,shuffle);
 
         FileUtil.writeFile(targetFilePath + "/" + "NonMoveLink/" + mode + ".txt", nonMoveLinkLines);
         FileUtil.writeFile(targetFilePath + "/" + "MoveLink/" + mode + ".txt", moveLinkLines);
@@ -172,12 +162,12 @@ public class GenerateSRLCorpus {
 
     public static void main(String [] args) {
         GenerateSRLCorpus.run("data/SpaceEval2015/raw_data/training++",
-                "data/SpaceEval2015/processed_data/SRL_xml", "train", true);
+                "data/SpaceEval2015/processed_data/SRL", "train", true);
 
         GenerateSRLCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/SRL_xml", "dev", false);
+                "data/SpaceEval2015/processed_data/SRL", "dev", false);
 
         GenerateSRLCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/SRL_xml", "test", false);
+                "data/SpaceEval2015/processed_data/SRL", "test", false);
     }
 }

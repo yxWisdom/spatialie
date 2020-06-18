@@ -2,11 +2,8 @@ package edu.nju.ws.spatialie.getrelation;
 
 import edu.nju.ws.spatialie.annprocess.BratUtil;
 import edu.nju.ws.spatialie.data.BratDocument;
-import edu.nju.ws.spatialie.data.BratDocumentwithList;
 import edu.nju.ws.spatialie.data.BratEntity;
 import edu.nju.ws.spatialie.data.BratEvent;
-import edu.nju.ws.spatialie.getrelation.main.GetRelation_SRL_notrigger_new;
-import edu.nju.ws.spatialie.utils.FileUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -86,37 +83,8 @@ public class GetFeatureWords {
 //            }
         }
     }
-
-    public static void CountLINKsinSRL(String filepath){
-        NLPUtil.init();
-        List<String> lines = FileUtil.readLines(filepath);
-        GetRelation_SRL_notrigger_new.UserComparator comparator = new GetRelation_SRL_notrigger_new.UserComparator();
-        lines.sort(comparator);
-        for (int i = 0; i < lines.size(); i++) {
-            List<String> samesentences = new ArrayList<>();
-            String line = lines.get(i);
-            samesentences.add(line);
-            while (i + 1 < lines.size() && lines.get(i + 1).split("\t")[1].equals(line.split("\t")[1])) {
-                i++;
-                samesentences.add(lines.get(i));
-            }
-            BratDocumentwithList bratDocument = new BratDocumentwithList(samesentences);
-            System.out.println(bratDocument.getContent());
-            for (BratEvent e:bratDocument.getEventMap().values()){
-                for (String role:e.getRoleMap().keySet()){
-                    String eid = e.getRoleId(role);
-                    BratEntity entity = e.getEntities().get(eid);
-                    System.out.print(role+":"+entity.getText()+"\t");
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
-    }
-
     public static void main(String [] args) {
-        CountLINKsinSRL("data/SpaceEval2015/processed_data/SRL/NoTriggerLink/train.txt");
-//        GetFeatureWords.CountLINKs("data/SpaceEval2015/brat_format_data/train");
-//        GetFeatureWords.CountLINKs("data/SpaceEval2015/brat_format_data/test");
+        GetFeatureWords.CountLINKs("data/SpaceEval2015/brat_format_data/train");
+        GetFeatureWords.CountLINKs("data/SpaceEval2015/brat_format_data/test");
     }
 }
