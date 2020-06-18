@@ -334,4 +334,16 @@ public class EveluateUtil {
         }
         return res;
     }
+
+    public static int compareSimilarity(BratEvent event1, BratEvent event2) {
+        String t1 = event1.getRoleId("trajector");
+        String t2 = event2.getRoleId("trajector");
+        String l1 = event1.getRoleId("landmark");
+        String l2 = event2.getRoleId("landmark");
+        if (t1.equals(t2)){
+            if (l1.equals(l2)) return 2; else return 1;
+        } else {
+            if  (l1.equals(l2)) return 1; else return 0;
+        }
+    }
 }

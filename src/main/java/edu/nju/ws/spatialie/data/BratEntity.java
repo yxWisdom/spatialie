@@ -37,6 +37,13 @@ public class BratEntity {
         init(id, text, tag, start, end, "");
     }
 
+    public BratEntity(BratDocumentwithList bratDocument,String text, String tag, int start, int end) {
+        int idx = bratDocument.getEntityList().size();
+        init("T"+idx, text, tag, start, end,bratDocument.getContent());
+        bratDocument.getEntityList().add(this);
+        bratDocument.isCandidate.add(true);
+    }
+
     public BratEntity(String rawText, String content) {
         String [] t1 = rawText.split("\t");
         String [] t2 = t1[1].split(" ");

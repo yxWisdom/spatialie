@@ -1,31 +1,27 @@
 package edu.nju.ws.spatialie.getrelation.main;
 
-import edu.nju.ws.spatialie.Link.DLINK;
 import edu.nju.ws.spatialie.Link.LINK;
-import edu.nju.ws.spatialie.Link.MLINK;
 import edu.nju.ws.spatialie.Link.OTLINK;
-import edu.nju.ws.spatialie.annprocess.BratUtil;
 import edu.nju.ws.spatialie.data.BratDocumentwithList;
 import edu.nju.ws.spatialie.data.BratEntity;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.getrelation.*;
 import edu.nju.ws.spatialie.utils.FileUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.*;
 
-public class GetRelation_SRL_new {
+public class Generate_Flag_HandCraft_SRL_notrigger {
     static String inputdir = "data/SpaceEval2015/processed_data/SRL/NoTriggerLink/";
     static String outputdir = inputdir.replaceFirst("data", "output");
     static String filename = "train.txt";
-    static String confidencefile="confidenceoutput.txt";
+    static String confidencefile = "confidenceoutput.txt";
 
     static private void generateCorpus(String filepath) throws CloneNotSupportedException {
         NLPUtil.init();
 
-        List<DLINK> dlinkList = new ArrayList<>();
         List<OTLINK> otlinkList = new ArrayList<>();
-        List<MLINK> mlinkList = new ArrayList<>();
         List<LINK> linkList = new ArrayList<>();
         EvaluationCount count_all = new EvaluationCount();
 
@@ -45,157 +41,116 @@ public class GetRelation_SRL_new {
                 i++;
                 samesentences.add(lines.get(i));
             }
-
-//            line ="3 3\tAndres and I drove from 8,500 feet at Bogota to 11,000 feet and the national park of Chingaza .\tB-SPATIAL_ENTITY O B-SPATIAL_ENTITY B-MOTION B-MOTION_SIGNAL B-MEASURE I-MEASURE O B-PLACE B-MOTION_SIGNAL B-MEASURE I-MEASURE O O B-PLACE I-PLACE I-PLACE I-PLACE O\tB-mover O B-mover B-trigger O O O O O O O O O O O O O O O\n";
+            if (samesentences.size()<=1) continue;
+//            if (line.split("\t")[1].substring(0,5).compareTo("N")<0) continue;
+//
+//            line ="-1 -1\tPeru Monday , October 16th , 2006 As I said in the last entry , Peru ’s coast is home to one of the driest deserts in the world .\tO O O O O O O O B-SPATIAL_ENTITY O O O O O O O O B-PATH O O O B-PLACE O O O B-PLACE B-SPATIAL_SIGNAL O B-PLACE O\tO O O O O O O O O O O O O O O O O B-landmark O O O B-trajector O O O O O O O O\n";
 //
 //            samesentences.clear();
 //            samesentences.addAll(Arrays.asList(line.split("\n")));
 
 //            System.out.println(line);
-            BratDocumentwithList bratDocument = new BratDocumentwithList(samesentences);
-            JudgeEntity.init(bratDocument);
-//            if (true) continue;
 
-            bratDocument.dealCompany();
-            int idx = 0;
-            for (BratEntity entity : bratDocument.getEntityList()) {
-                if (bratDocument.getIsCandidate(idx)) {
-                    switch (entity.getTag()) {
-                        case BratUtil.MOTION:
-                            mlinkList.add(new MLINK(idx));
-                            break;
-                        case BratUtil.MEASURE:
-                            dlinkList.add(new DLINK(idx));
-                            break;
-                        case BratUtil.SPATIAL_SIGNAL:
-                            otlinkList.add(new OTLINK(idx));
-                            break;
+            for (String s:samesentences){
+                BratDocumentwithList bratDocument = new BratDocumentwithList(s);
+                System.out.println(bratDocument.getContent());
+                for (BratEvent event : bratDocument.getEventMap().values()) {
+                    for (String role : event.getRoleMap().keySet()) {
+                        String eid = event.getRoleId(role);
+                        BratEntity entity = event.getEntities().get(eid);
+                        System.out.print(role + ":" + entity.getText() + "\t");
                     }
-                }
-                idx++;
-            }
-
-            Collections.reverse(dlinkList);
-            Collections.reverse(otlinkList);
-            Collections.reverse(mlinkList);
-
-            int level = 0;
-            while (level <= 5) {
-                LINK link;
-                boolean f = false;
-
-                if (level == 4) {
-                    Collections.reverse(dlinkList);
-                    Collections.reverse(otlinkList);
-                    Collections.reverse(mlinkList);
-                }
-
-                for (int k = bratDocument.getEntityList().size() - 1; k >= 0; k--) {
-                    if ((link = FindOTLINK.findOTLINKwithoutTrigger(bratDocument, level, k)) != null) {
-                        boolean fl = false;
-                        for (LINK link_t : linkList) {
-                            if (link_t.getClass().getSimpleName().equals("OTLINK")) {
-                                OTLINK otlink_t = (OTLINK) link_t;
-                                if (otlink_t.getTrigger() == -1) {
-                                    OTLINK otlink = (OTLINK) link;
-                                    if (otlink.getLandmarks().equals(otlink_t.getLandmarks()) && otlink.getTrajectors().equals(otlink_t.getTrajectors())) {
-                                        fl = true;
-                                        break;
-                                    }
+                    System.out.println();
+                    String str=new Scanner(System.in).nextLine();
+                    int pos = -1;
+                    while (true) {
+                        pos = bratDocument.getContent().indexOf(str, pos + 1);
+                        if (pos != -1) {
+                            int begin = pos > 10 ? pos - 10 : 0;
+                            int end = pos + 10 > bratDocument.getContent().length() ? bratDocument.getContent().length() : pos + 10;
+                            System.out.println("neighbors:" + bratDocument.getContent().substring(begin, end));
+                            String str2=new Scanner(System.in).nextLine();
+                            if (str2.equals("y"))
+                                break;
+                            else {
+                                if (str2.equals("n")) {
+                                    continue;
+                                } else {
+                                    pos = -1;
+                                    str = str2;
                                 }
                             }
+                        } else {
+                            Scanner scan2 = new Scanner(System.in);
+                            String str2 = null;
+                            if (scan2.hasNext()) {
+                                str2 = scan2.next();
+                            }
+                            pos = -1;
+                            str = str2;
                         }
-                        if (fl) continue;
-                        linkList.add(link);
-                        f = true;
                     }
+                    BratEntity e = new BratEntity(bratDocument, str, "SpatialFlag", pos, pos + str.length());
+                    List<BratEvent> eventList = new ArrayList<>();
+                    BratEvent event_new = new BratEvent();
+                    event_new.addEntity(e);
+                    event_new.addRole("flag", e.getId());
+                    eventList.add(event_new);
+                    String res = addFlag(s, bratDocument, eventList.get(0));
+                    FileUtil.writeFile("output/multiFlagLink/" + filename, res, true);
+                    eventList.clear();
                 }
-                if (f) {
-                    level = 0;
-                    continue;
-                }
-
-                // 同时识别一些和otlink搅在一起的dlink
-                if ((link = FindOTLINK.findOTLINK(bratDocument, otlinkList, level, dlinkList)) != null) {
-                    linkList.add(link);
-                    level = 0;
-                    continue;
-                }
-                if ((link = FindDLINK.findDLINK(bratDocument, dlinkList, level)) != null) {
-//                    linkList.add(link);
-                    level = 0;
-                    continue;
-                }
-                if ((link = FindMLINK.findMLINK(bratDocument, mlinkList, level)) != null) {
-                    linkList.add(link);
-                    level = 0;
-                    continue;
-                }
-                level++;
             }
+//            if (bratDocument.getContent().charAt(0)<'D') continue;
 
-//            addMatchlink(linkList,(List<LINK>)(Object)otlinkList);
-//            addMatchlink(linkList,(List<LINK>)(Object)mlinkList);
-            addMatchlink(linkList, (List<LINK>) (Object) dlinkList);
-
-            otlinkList.clear();
-            mlinkList.clear();
-            dlinkList.clear();
-
-
-            EvaluationCount evel = new EvaluationCount();
-            List<BratEvent> eventList = getTranslate(linkList, filepath, bratDocument);
-            linkList.clear();
-
-            eventList = Combinecompany(eventList, bratDocument);
-
-//            if (bratDocument.getTrigger()!=null)
-//                eventList = EveluateUtil.removeRedundancy(eventList,bratDocument);
-//            else
-//                eventList = EveluateUtil.removeRedundancy_notrigger(eventList,bratDocument);
-            eventList = EveluateUtil.removeRedundancy_notrigger(eventList, bratDocument,"NT6 DL1 DL2 DL3 DL4 DL5 DOT9");
-            EveluateUtil.eveluate(bratDocument, eventList, evel);
-
-//            if (bratDocument.getTrigger()==null){
-//                if (evel.recall() == 1) evel.predict=evel.gold;
-//            }
-
-            count_all.add(evel);
-
-            if (evel.precision()<1&&eventList.size()>0) {
-                for (String line_ : samesentences) {
-                    System.out.println(line_);
-
-                }
-                System.out.println(evel+"\n");
-
-//                System.out.println("landmark:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A0").getRoleId("landmark")).getText());
-//                System.out.println("Trajector:"+bratDocument.getEntitybyID(bratDocument.getEventMap().get("A0").getRoleId("trajector")).getText());
-//                System.out.println();
-//                for (BratEvent e:eventList){
-//                    if (e.getRuleid().equals("NT13")) {
-//                        System.out.println("landmark:" + e.getEntities().get(e.getRoleId("landmark")).getText());
-//                        System.out.println("trajector:" + e.getEntities().get(e.getRoleId("trajector")).getText());
-//                    }
-//                }
-            }
-
-            for (String line_ : samesentences) {
-                String res = buildtags(line_, eventList, bratDocument);
-                int pos = res.indexOf("\n");
-                String confidence = res.substring(0,pos);
-                res = res.substring(pos+1);
-                output.add(res);
-                confidence_output.add(confidence);
-            }
-
-            FileUtil.writeFile(outputdir + filename, output, true);
-            FileUtil.writeFile(outputdir + confidencefile, confidence_output, true);
-            output.clear();
 
         }
-        System.out.println(count_all);
-//        FileUtil.writeFile(outputdir + filename, output, true);
+    }
+
+    private static String addFlag(String originline, BratDocumentwithList bratDocument, BratEvent event) {
+        String content = bratDocument.getContent();
+        String[] tags = originline.split("\t")[2].split(" ");
+        String[] labels = originline.split("\t")[3].split(" ");
+        BratEntity e = event.getEntities().get(event.getRoleId("flag"));
+//        System.out.println(e);
+//        System.out.println(content);
+        int start = e.getStart();
+        int p = 0, i = 0;
+
+        while (true) {
+            if (p == start) break;
+            p = content.indexOf(' ', p) + 1;
+            i++;
+//            System.out.println(p);
+        }
+        int begini = i;
+        while (true) {
+//            System.out.print(p);
+            if (p == e.getEnd()) break;
+            p = content.indexOf(' ', p + 1);
+            if (p == -1) {
+                p = content.length();
+            }
+            i++;
+        }
+        int endi = begini+e.getText().split(" ").length-1;
+        String res = begini + " " + endi + "\t" + content;
+        for (i = 0; i < tags.length; i++) {
+            if (i == begini) {
+                tags[i] = "B-" + e.getTag();
+            } else if (i > begini && i < endi) {
+                tags[i] = "I-" + e.getTag();
+            }
+        }
+        for (i = 0; i < labels.length; i++) {
+            if (i == begini) {
+                labels[i] = "B-flag";
+            } else if (i > begini && i < endi) {
+                labels[i] = "I-flag";
+            }
+        }
+        res = res + "\t" + StringUtils.join(tags, " ") + "\t" + StringUtils.join(labels, " ");
+        return res;
     }
 
     public static class UserComparator implements Comparator<String> {
@@ -236,8 +191,8 @@ public class GetRelation_SRL_new {
             }
             boolean inlabel = false;
             String confidence;
-            if (event_==null){
-                confidence="0";
+            if (event_ == null) {
+                confidence = "0";
             } else {
                 if (WordData.getConfidenceMap().get(event_.getRuleid()) != null) {
                     confidence = WordData.getConfidenceMap().get(event_.getRuleid());
@@ -245,7 +200,7 @@ public class GetRelation_SRL_new {
                     confidence = "-1";
                 }
             }
-            String res = confidence+"\n";
+            String res = confidence + "\n";
             String label = null;
             int end = 0;
             pos = 0;
@@ -355,8 +310,8 @@ public class GetRelation_SRL_new {
                         } else {
                             //特殊情况：connect
                             // trajector connect landmark-> connects trajector and landmark
-                            if (bratDocument.getCompanyMap().get(id).size()>=1){
-                                if (event.getRoleId("trigger")!=null&&event.getEntities().get(event.getRoleId("trigger"))!=null) {
+                            if (bratDocument.getCompanyMap().get(id).size() >= 1) {
+                                if (event.getRoleId("trigger") != null && event.getEntities().get(event.getRoleId("trigger")) != null) {
                                     if (event.getEntities().get(event.getRoleId("trigger")).getText().toLowerCase().contains("connect")) {
                                         for (String companyid : bratDocument.getCompanyMap().get(id)) {
                                             newe.removeEntity(newe.getRoleId("landmark"));
