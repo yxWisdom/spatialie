@@ -1,6 +1,8 @@
 package edu.nju.ws.spatialie.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class CollectionUtils {
@@ -19,6 +21,19 @@ public class CollectionUtils {
         }
         if (!tmp.isEmpty())
             res.add(tmp);
+        return res;
+    }
+
+
+    public static<T> List<T> union(Collection<T> a, Collection<T> b) {
+        List<T> res = new ArrayList<>(a);
+        a.addAll(b);
+        return res;
+    }
+
+    public static<T> List<T> intersect(Collection<T> a, Collection<T> b) {
+        List<T> res = new ArrayList<>(a);
+        a.retainAll(b);
         return res;
     }
 }

@@ -320,6 +320,11 @@ public class BratEvent implements Cloneable{
         this.end = end;
     }
 
+    public void setStartEnd(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+
     public boolean is(Object obj)
     {
         if (this == obj) return true;

@@ -12,8 +12,7 @@ import org.dom4j.Element;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.MOTION_SIGNAL;
-import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.invalidCharFixedMap;
+import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.*;
 
 public class SpaceEvalDoc {
     private String document;
@@ -21,7 +20,7 @@ public class SpaceEvalDoc {
     private Map<String, Span> elementMap = new HashMap<>();
     private List<Span> tokens = new ArrayList<>();
     private List<List<Span>> sentences=new ArrayList<>();
-//    private List<BratEvent> qsLinks=new ArrayList<>();;
+    //    private List<BratEvent> qsLinks=new ArrayList<>();;
 //    private List<BratEvent> oLinks=new ArrayList<>();;
 //    private List<BratEvent> moveLinks=new ArrayList<>();;
 //    private List<BratEvent> measureLinks = new ArrayList<>();
@@ -31,6 +30,7 @@ public class SpaceEvalDoc {
     // Link中的所有element的id集合
     private Set<String> elementIdInLinks = new HashSet<>();
     private String path;
+    private List<BratEvent> links;
 
     SpaceEvalDoc() {}
 
@@ -93,6 +93,7 @@ public class SpaceEvalDoc {
         int end = Integer.valueOf(element.attributeValue("end"));
         String label = element.getName();
         Span span = new Span(id, text, label, start, end);
+        span.semantic_type=element.attributeValue("semantic_type");
         elements.add(span);
         elementMap.put(id, span);
     }
@@ -418,7 +419,37 @@ public class SpaceEvalDoc {
             bratEvent.setRoleMap(map);
             mergedLinks.add(bratEvent);
         }
-        return mergedLinks;
+
+        for (BratEvent link: mergedLinks) {
+
+            List<Span> senElements = getAllTokenOfLink(link);
+
+            if (senElements.size() > 0) {
+                link.setStartEnd(senElements.get(0).start, senElements.get(senElements.size()-1).end);
+            }
+
+        }
+        return mergedLinks.stream().sorted(Comparator.comparingInt(BratEvent::getStart)
+                .thenComparing(BratEvent::getType))
+                .collect(Collectors.toList());
+    }
+
+
+    public  List<BratEvent> getLinksInSpan(List<BratEvent> links, int start, int end) {
+        List<BratEvent> res = links.stream().filter(link -> {
+            int link_start = link.getStart(), link_end = link.getEnd();
+            if (link.hasRole(TRIGGER)) {
+                Span trigger  = this.elementMap.get(link.getRoleId(TRIGGER));
+                link_start = trigger.start;
+                link_end = trigger.end;
+            } else if (link.hasRole(VAL)) {
+                Span val  = this.elementMap.get(link.getRoleId(VAL));
+                link_start = val.start;
+                link_end = val.end;
+            }
+            return start <= link_start && link_end <= end;
+        }).collect(Collectors.toList());
+        return res;
     }
 
     public String getDocument() { return this.document; }
