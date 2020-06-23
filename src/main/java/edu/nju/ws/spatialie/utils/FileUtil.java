@@ -81,9 +81,11 @@ public class FileUtil {
         List<String> rst= new ArrayList<>();
         String allText = readFile(path);
         if (allText != null) {
-            String [] lines = allText.split("\n");
+            String [] lines = allText.split("\r?\n");
             for (String line: lines) {
-                rst.add(line.trim());
+                if (line.endsWith("\r"))
+                    line = line.substring(0, line.length()-1);
+                rst.add(line);
             }
         }
         return rst;
