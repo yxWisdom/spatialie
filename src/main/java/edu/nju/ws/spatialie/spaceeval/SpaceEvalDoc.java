@@ -173,22 +173,28 @@ public class SpaceEvalDoc {
             for (Iterator t_it = element.elementIterator(); t_it.hasNext();) {
                 Element tokenElement = (Element) t_it.next();
                 String text = tokenElement.getText();
-                String id = tokenElement.attributeValue("id");
-                id = id == null ? "" : id;
+//                String id = tokenElement.attributeValue("id");
+//                id = id == null ? "" : id;
                 int start = Integer.valueOf(tokenElement.attributeValue("begin"));
                 int end = Integer.valueOf(tokenElement.attributeValue("end"));
 
                 /* WARNING  此处id的取值需要注意*/
 //                Span token = new Span(String.valueOf(tokenIdx++), text, "O", start, end);
-                Span token = new Span(id, text, "O", start, end);
+                Span token = new Span("", text, "O", start, end);
                 int index = Collections.binarySearch(this.elements, token);
                 if (index >= 0) {
                     token.label = "B-" + this.elements.get(index).label;
+                    token.id = this.elements.get(index).id;
+//                    if (!id.equals(this.elements.get(index).id)) {
+//                        System.out.println(123);
+//                    }
                 } else if(index < -1) {
                     index = -index - 2;
                     if (token.end <= elements.get(index).end) {
                         token.label = "I-" + elements.get(index).label;
+                        token.id = this.elements.get(index).id;
                     }
+
                 }
 //                this.tokens.add(token);
                 sentence.add(token);
@@ -505,6 +511,6 @@ public class SpaceEvalDoc {
 //        for (File file: files) {
 //            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
 //        }
-        SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc("data/SpaceEval2015/raw_data/training++/ANC/WhereToMadrid/Modern_Madrid.xml");
+        SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc("data/SpaceEval2015/raw_data/gold++/CP/48_N_27_E.xml");
     }
 }

@@ -145,12 +145,13 @@ public class GenerateMultiHeadCorpus {
         label  = StringUtils.rightPad(label, 16);
         relations = StringUtils.rightPad(relations, maxRelationLength);
         heads = StringUtils.rightPad(heads, 5);
+        isTrigger = StringUtils.rightPad(isTrigger, 3);
         return String.format("%d\t%s\t%s\t%s\t%s\t%s", idx, token, relations, heads, label, isTrigger);
     }
 
 
-    private static List<String> getMultiHeadFormatLinkLines(String srcDir, Collection<String> linkTypes,
-                                                            boolean bidirectional,boolean use_head, boolean shuffle) {
+    private static List<String> getMultiHeadFormatLinkLines(String srcDir, Collection<String> linkTypes, boolean bidirectional,
+                                                            boolean use_head, boolean includeXmlInfo, boolean shuffle) {
         List<File> files = FileUtil.listFiles(srcDir);
         List<String> lines = new ArrayList<>();
         int maxTokenLength = 0, maxRelationLength = 0;
@@ -174,7 +175,6 @@ public class GenerateMultiHeadCorpus {
                 String sentenceText = tokens.stream().map(o->o.text).collect(Collectors.joining(" "));
 //                if (sentenceText.startsWith("05-Oct-2001"))
 //                    System.out.println("XXX");
-
 
                 int sentenceStart = tokens.get(0).start, sentenceEnd = tokens.get(tokens.size()-1).end;
                 List<Triple<Span, String, Span>> triplesInSentence = triples.stream().filter(o -> {
@@ -223,6 +223,9 @@ public class GenerateMultiHeadCorpus {
                     continue;
                 }
 
+                if (includeXmlInfo) {
+                    lines.add(file.getName());
+                }
 
                 for (int i=0; i < tokens.size();i++) {
                     Span token = tokens.get(i);
@@ -253,21 +256,21 @@ public class GenerateMultiHeadCorpus {
 
                     maxTokenLength = Math.max(token.text.length(), maxTokenLength);
                     maxRelationLength = Math.max(relationsStr.length(), maxRelationLength);
-                    lines.add(lineFormat(i, token.text, relationsStr, headStr, token.label, isTrigger));
+                    String line = lineFormat(i, token.text, relationsStr, headStr, token.label, isTrigger);
+                    if (includeXmlInfo) {
+                        line += "\t" + token.id;
+                    }
+                    lines.add(line);
                 }
 
 
-
-//
-//
 //                pairRelations.forEach((k,v)-> {
 //                    if (v.size() > 1) {
 //                        System.out.println(2);
 //                    }
 //                });
 
-
-                lines.add("\n");
+                lines.add("");
             }
         }
         System.out.println(maxTokenLength + " " + maxRelationLength);
@@ -276,16 +279,20 @@ public class GenerateMultiHeadCorpus {
 
 
     // 生成Multi-head selection格式的语料
-    private static void run(String srcDir, String targetFilePath,List<String> linkTypes, String mode, boolean shuffle) {
+    private static void run(String srcDir, String targetFilePath,List<String> linkTypes, String mode,
+                            boolean includeXmlInfo,  boolean shuffle) {
+
+        FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
+
         List<String> lines;
-        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true,shuffle);
+        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true, includeXmlInfo,shuffle);
         FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", lines);
 
 //        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, true, true, shuffle);
 //        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Head/" + mode + ".txt", lines);
 
-        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,false,shuffle);
-        FileUtil.writeFile(targetFilePath + "/" + "AllLink-Tail/" + mode + ".txt", lines);
+//        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,false,includeXmlInfo, shuffle);
+//        FileUtil.writeFile(targetFilePath + "/" + "AllLink-Tail/" + mode + ".txt", lines);
 
 //        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, true, false, shuffle);
 //        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Tail/" + mode + ".txt", lines);
@@ -308,12 +315,28 @@ public class GenerateMultiHeadCorpus {
         List<String> linkTypes = Arrays.asList(MOVELINK, QSLINK, OLINK, MEASURELINK);
 
         GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/training++",
-                "data/SpaceEval2015/processed_data/MHS", linkTypes, "train", false);
+                "data/SpaceEval2015/processed_data/MHS", linkTypes,
+                "train", false, false);
 
         GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/MHS", linkTypes, "dev", false);
+                "data/SpaceEval2015/processed_data/MHS", linkTypes,
+                "dev", false, false);
 
         GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/MHS", linkTypes, "test", false);
+                "data/SpaceEval2015/processed_data/MHS", linkTypes,
+                "test", false, false);
+
+
+        GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/training++",
+                "data/SpaceEval2015/processed_data/MHS_xml", linkTypes,
+                "train", true, false);
+
+        GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/gold++",
+                "data/SpaceEval2015/processed_data/MHS_xml", linkTypes,
+                "dev", true, false);
+
+        GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/gold++",
+                "data/SpaceEval2015/processed_data/MHS_xml", linkTypes,
+                "test", true, false);
     }
 }

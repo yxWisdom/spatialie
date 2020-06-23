@@ -1,14 +1,10 @@
 package edu.nju.ws.spatialie.spaceeval;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sun.org.apache.bcel.internal.generic.LAND;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.utils.FileUtil;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-import org.javatuples.Tuple;
 
 import java.io.File;
 import java.util.*;
@@ -16,65 +12,75 @@ import java.util.stream.Collectors;
 
 import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.*;
 
-public class GenerateTraditionalRelationCorpus {
+public class GenerateOpenNRECorpus {
 
     // 生成传统关系抽取格式的语料
     public static void main(String [] args) {
 
+//        GenerateOpenNRECorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
 
-        for (int i = 6; i <= 16; i+=2) {
-            GenerateTraditionalRelationCorpus.moveLinkDistanceLimit = i;
-            GenerateTraditionalRelationCorpus.nonMoveLinkDistanceLimit = i;
+        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/training++",
+                "data/SpaceEval2015/processed_data/openNRE", "train", true);
 
-//            GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
+        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+                "data/SpaceEval2015/processed_data/openNRE", "val", false);
 
-            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/training++",
-                    "data/SpaceEval2015/processed_data/openNRE", "train", true);
+        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+                "data/SpaceEval2015/processed_data/openNRE", "test", false);
 
-            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                    "data/SpaceEval2015/processed_data/openNRE", "val", false);
-
-            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                    "data/SpaceEval2015/processed_data/openNRE", "test", false);
-        }
-
-        for (int j = 1; j <= 7; j++) {
-            GenerateTraditionalRelationCorpus.moveLinkDistanceLimit = 12;
-            GenerateTraditionalRelationCorpus.nonMoveLinkDistanceLimit = 12;
-            GenerateTraditionalRelationCorpus.internalElementNumLimit = j;
-
-            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/training++",
-                    "data/SpaceEval2015/processed_data/openNRE", "train", true);
-
-            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                    "data/SpaceEval2015/processed_data/openNRE", "val", false);
-
-            GenerateTraditionalRelationCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                    "data/SpaceEval2015/processed_data/openNRE", "test", false);
-        }
-
-
-//        GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
+//        GenerateOpenNRECorpus.run_no_trigger("data/SpaceEval2015/raw_data/training++",
+//                "data/SpaceEval2015/processed_data/openNRE", "train", true);
 //
-//        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/training++",
-//                "data/SpaceEval2015/processed_data/openNRE", "train", false);
-//
-//        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
+//        GenerateOpenNRECorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
 //                "data/SpaceEval2015/processed_data/openNRE", "val", false);
 //
-//        GenerateTraditionalRelationCorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
+//        GenerateOpenNRECorpus.run_no_trigger("data/SpaceEval2015/raw_data/gold++",
 //                "data/SpaceEval2015/processed_data/openNRE", "test", false);
 
+//        for (int i = 6; i <= 16; i+=2) {
+//            GenerateOpenNRECorpus.moveLinkDistanceLimit = i;
+//            GenerateOpenNRECorpus.nonMoveLinkDistanceLimit = i;
+//
+////            GenerateTraditionalRelationCorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
+//
+//            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/training++",
+//                    "data/SpaceEval2015/processed_data/openNRE", "train", true);
+//
+//            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+//                    "data/SpaceEval2015/processed_data/openNRE", "val", false);
+//
+//            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+//                    "data/SpaceEval2015/processed_data/openNRE", "test", false);
+//        }
+//
+//        for (int j = 1; j <= 7; j++) {
+//            GenerateOpenNRECorpus.moveLinkDistanceLimit = 12;
+//            GenerateOpenNRECorpus.nonMoveLinkDistanceLimit = 12;
+//            GenerateOpenNRECorpus.internalElementNumLimit = j;
+//
+//            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/training++",
+//                    "data/SpaceEval2015/processed_data/openNRE", "train", true);
+//
+//            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+//                    "data/SpaceEval2015/processed_data/openNRE", "val", false);
+//
+//            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+//                    "data/SpaceEval2015/processed_data/openNRE", "test", false);
+//        }
     }
-    //    public static void get
-    private  static int moveLinkDistanceLimit = 12;
-    private  static int nonMoveLinkDistanceLimit = 12;
 
-    private  static int internalElementNumLimit = 5;
+    // 对于moveLink 两个元素之间的距离最大值，以字符为单位
+    private  static int moveLinkDistanceLimit = 1000;
+
+    // 对于非moveLink 两个元素之间的距离最大值，以字符为单位
+    private  static int nonMoveLinkDistanceLimit = 1000;
+
+    // 两个元素之间的最大元素个数
+    private  static int internalElementNumLimit = 100;
 //    private final static int binaryNonMoveLinkDistanceLimit = 15;
 
     private final static String NONE="None";
-    private final static String LOCATED_IN = "LocatedIn";
+    private final static String LOCATED_IN = "locatedIn";
 
 
     private static Set<Triple<String, String, String>> getGoldTriples(List<BratEvent> links, String ...types) {
@@ -335,7 +341,7 @@ public class GenerateTraditionalRelationCorpus {
         FileUtil.createDir(dirname);
         FileUtil.writeFile(dirname + mode + ".txt", allLinkLines);
 
-        GenerateTraditionalRelationCorpus.saveRelationMap(dirname + "rel2id.json");
+        GenerateOpenNRECorpus.saveRelationMap(dirname + "rel2id.json");
     }
 
 
