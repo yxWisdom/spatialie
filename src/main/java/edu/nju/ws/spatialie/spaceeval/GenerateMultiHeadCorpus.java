@@ -2,6 +2,7 @@ package edu.nju.ws.spatialie.spaceeval;
 
 import com.google.common.collect.Multimap;
 import edu.nju.ws.spatialie.data.BratEvent;
+import edu.nju.ws.spatialie.utils.CollectionUtils;
 import edu.nju.ws.spatialie.utils.FileUtil;
 import javafx.util.Pair;
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +12,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.*;
 
@@ -279,7 +281,7 @@ public class GenerateMultiHeadCorpus {
 
 
     // 生成Multi-head selection格式的语料
-    private static void run(String srcDir, String targetFilePath,List<String> linkTypes, String mode,
+    private static void run_config3(String srcDir, String targetFilePath,List<String> linkTypes, String mode,
                             boolean includeXmlInfo,  boolean shuffle) {
 
         FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
@@ -299,6 +301,59 @@ public class GenerateMultiHeadCorpus {
 
     }
 
+    // 生成Multi-head selection格式的语料
+    private static void run_config2(String srcDir, String targetFilePath,List<String> linkTypes, String mode,
+                                    boolean includeXmlInfo,  boolean shuffle) {
+
+        FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
+        List<String> lines;
+        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true, includeXmlInfo,shuffle);
+        lines = lines.stream().map(line->line.replaceAll("SPATIAL_SIGNAL(_.)+\t", "SPATIAL_SIGNAL\t"))
+                .collect(Collectors.toList());
+        FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", lines);
+    }
+
+    private static void run_config1(String srcDir, String targetFilePath, String elementPredPath, List<String> linkTypes, String mode,
+                                    boolean includeXmlInfo,  boolean shuffle) {
+        List<String> predElementLines = FileUtil.readLines(elementPredPath);
+        List<String> oriGoldLines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true, includeXmlInfo,shuffle);
+        oriGoldLines = oriGoldLines.stream().map(line->line.replaceAll("SPATIAL_SIGNAL(_.)+\t", "SPATIAL_SIGNAL\t"))
+                .collect(Collectors.toList());
+        List<String> newGoldLines = new ArrayList<>();
+
+        List<List<String>> predGroups = CollectionUtils.split(predElementLines, "");
+        List<List<String>> goldGroups = CollectionUtils.split(oriGoldLines, "");
+        int idx = 0;
+        for (List<String> goldGroup : goldGroups) {
+            String goldSen = goldGroup.stream().map(x -> x.split("\\s+")[1]).collect(Collectors.joining(" "));;
+//            try {
+//                goldSen = goldGroup.stream().map(x -> x.split("\\s+")[1]).collect(Collectors.joining(" "));
+//            } catch (Exception e) {
+//                System.err.println(1);
+//            }
+
+            do {
+                List<String> predGroup = predGroups.get(idx++);
+                if (goldGroup.size() != predGroup.size()) continue;
+                String predSen = predGroup.stream().map(x -> x.split(" ")[0]).collect(Collectors.joining(" "));
+                if (goldSen.equals(predSen)) {
+                    for (int j = 0; j < goldGroup.size(); j++) {
+                        String[] goldArr = goldGroup.get(j).split("\t");
+                        String[] predArr = predGroup.get(j).split(" ");
+                        String oriLabel = goldArr[goldArr.length - 2];
+                        goldArr[goldArr.length - 2] = StringUtils.rightPad(predArr[2], oriLabel.length());
+                        goldGroup.set(j, String.join("\t", goldArr));
+                    }
+                    break;
+                }
+            } while (true);
+            newGoldLines.addAll(goldGroup);
+            newGoldLines.add("");
+        }
+        FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
+        FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", newGoldLines);
+    }
+
 
     public static void main(String [] args) {
 //        List<String> linkTypes = Arrays.asList(MOVELINK, QSLINK, OLINK);
@@ -314,29 +369,43 @@ public class GenerateMultiHeadCorpus {
 
         List<String> linkTypes = Arrays.asList(MOVELINK, QSLINK, OLINK, MEASURELINK);
 
-        GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/training++",
-                "data/SpaceEval2015/processed_data/MHS", linkTypes,
-                "train", false, false);
+        String train_path = "data/SpaceEval2015/raw_data/training++";
+        String gold_path = "data/SpaceEval2015/raw_data/gold++";
+        String target_dir;
+//
+//        target_dir = "data/SpaceEval2015/processed_data/MHS/configuration3";
+//        GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
+//        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
+//        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
+//
+//
+//        target_dir = "data/SpaceEval2015/processed_data/MHS_xml/configuration3";
+//        GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",true, false);
+//        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", true, false);
+//        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", true, false);
+//
+//
+//        target_dir = "data/SpaceEval2015/processed_data/MHS/configuration2";
+//        GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",false, false);
+//        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "dev", false, false);
+//        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "test", false, false);
+//
+//        target_dir = "data/SpaceEval2015/processed_data/MHS_xml/configuration2";
+//        GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",true, false);
+//        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "dev", true, false);
+//        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "test", true, false);
 
-        GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/MHS", linkTypes,
-                "dev", false, false);
 
-        GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/MHS", linkTypes,
-                "test", false, false);
+        String elementPredPath = "data/SpaceEval2015/processed_data/NER/config1/predict.txt";
+        target_dir = "data/SpaceEval2015/processed_data/MHS/configuration1";
 
+        GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",false, false);
+        GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"dev",false, false);
+        GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"test",false, false);
 
-        GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/training++",
-                "data/SpaceEval2015/processed_data/MHS_xml", linkTypes,
-                "train", true, false);
-
-        GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/MHS_xml", linkTypes,
-                "dev", true, false);
-
-        GenerateMultiHeadCorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/MHS_xml", linkTypes,
-                "test", true, false);
+        target_dir = "data/SpaceEval2015/processed_data/MHS_xml/configuration1";
+        GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",true, false);
+        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"dev",true, false);
+        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"test",true, false);
     }
 }

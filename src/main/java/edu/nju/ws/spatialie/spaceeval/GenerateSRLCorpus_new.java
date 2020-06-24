@@ -378,9 +378,9 @@ public class GenerateSRLCorpus_new {
         String testDir = "data/SpaceEval2015/raw_data/gold++";
         String targetDir = "data/SpaceEval2015/processed_data/SRL_new";
 
-//        GenerateSRLCorpus_new.run(trainDir, targetDir, "train", false, false);
-//        GenerateSRLCorpus_new.run(devDir, targetDir, "dev", false, false);
-//        GenerateSRLCorpus_new.run(testDir, targetDir, "test", false, false);
+        GenerateSRLCorpus_new.run(trainDir, targetDir, "train", false, false);
+        GenerateSRLCorpus_new.run(devDir, targetDir, "dev", false, false);
+        GenerateSRLCorpus_new.run(testDir, targetDir, "test", false, false);
 
         targetDir = "data/SpaceEval2015/processed_data/SRL_new_xml";
         GenerateSRLCorpus_new.run(trainDir, targetDir, "train", true, false);
