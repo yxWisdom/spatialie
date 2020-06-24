@@ -20,13 +20,24 @@ public class GenerateOpenNRECorpus {
 //        GenerateOpenNRECorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
 
         GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/training++",
-                "data/SpaceEval2015/processed_data/openNRE", "train", true);
+                "data/SpaceEval2015/processed_data/openNRE", "train", true,false);
 
         GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/openNRE", "val", false);
+                "data/SpaceEval2015/processed_data/openNRE", "val", false,false);
 
         GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/openNRE", "test", false);
+                "data/SpaceEval2015/processed_data/openNRE", "test", false,false);
+
+
+        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/training++",
+                "data/SpaceEval2015/processed_data/openNRE_xml", "train", true,true);
+
+        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+                "data/SpaceEval2015/processed_data/openNRE_xml", "val", false,true);
+
+        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+                "data/SpaceEval2015/processed_data/openNRE_xml", "test", false,true);
+
 
 //        GenerateOpenNRECorpus.run_no_trigger("data/SpaceEval2015/raw_data/training++",
 //                "data/SpaceEval2015/processed_data/openNRE", "train", true);
@@ -128,7 +139,7 @@ public class GenerateOpenNRECorpus {
     }
 
 
-    private static String getRelLine(String relation, List<Span> tokens, Span head, Span tail) {
+    private static String getRelLine(String relation, List<Span> tokens, Span head, Span tail, String xmlFileName, boolean includeXmlInfo) {
         int head_start=-1, head_end=-1, tail_start=-1, tail_end=-1;
         for (int i = 0; i < tokens.size(); i++) {
             Span token = tokens.get(i);
@@ -143,8 +154,17 @@ public class GenerateOpenNRECorpus {
         JSONObject tail_entity = new JSONObject(true);
         head_entity.put("name", head.text);
         head_entity.put("pos", new Integer[] {head_start, head_end});
+
         tail_entity.put("name", tail.text);
         tail_entity.put("pos", new Integer[] {tail_start, tail_end});
+
+        if (includeXmlInfo){
+            jsonObject.put("xmlfile",xmlFileName);
+            head_entity.put("id",head.id);
+            tail_entity.put("id",tail.id);
+            head_entity.put("semantic_type",head.semantic_type);
+            tail_entity.put("semantic_type",tail.semantic_type);
+        }
         jsonObject.put("token", tokenList);
         jsonObject.put("h", head_entity);
         jsonObject.put("t", tail_entity);
@@ -183,10 +203,10 @@ public class GenerateOpenNRECorpus {
                         int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(trajector, landmark));
                         int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(trajector, landmark));
                         if (goldTriples.contains(new ImmutableTriple<>(trajector.id, LOCATED_IN, landmark.id))) {
-                            linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark));
+                            linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark, file.getName(), false));
                         } else if (trajectorTypes.contains(trajector.label) && landmarkTypes.contains(landmark.label) &&
                                 distance <= nonMoveLinkDistanceLimit && elementNum <= internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark));
+                            linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark, file.getName(), false));
                         }
                     }
                 }
@@ -197,7 +217,7 @@ public class GenerateOpenNRECorpus {
     }
 
 
-    private static List<String> getQSAndOLinkWithTrigger(String srcDir, String...linkTypes) {
+    private static List<String> getQSAndOLinkWithTrigger(String srcDir,boolean includeXmlInfo, String...linkTypes) {
         List<File> files = FileUtil.listFiles(srcDir);
         List<String> linkLines = new ArrayList<>();
         Set<String> linkTypeSet = new HashSet<>(Arrays.asList(linkTypes));
@@ -226,14 +246,14 @@ public class GenerateOpenNRECorpus {
                         int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(trigger, element));
                         int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(element, trigger));
                         if (inGoldTriple(goldTriples, element.id, trigger.id, TRAJECTOR)) {
-                            linkLines.add(getRelLine(TRAJECTOR, tokensInSentence, element, trigger));
+                            linkLines.add(getRelLine(TRAJECTOR, tokensInSentence, element, trigger,file.getName(),includeXmlInfo));
                         } else if (inGoldTriple(goldTriples, element.id, trigger.id, LANDMARK)){
-                            linkLines.add(getRelLine(LANDMARK, tokensInSentence, element, trigger));
+                            linkLines.add(getRelLine(LANDMARK, tokensInSentence, element, trigger, file.getName(), includeXmlInfo));
                         } else if (!inGoldTriple(goldTriples, element.id, trigger.id)
                                 && trajectorTypes.contains(element.label)
                                 && distance <= nonMoveLinkDistanceLimit
                                 && elementNum <= internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, element, trigger));
+                            linkLines.add(getRelLine(NONE, tokensInSentence, element, trigger, file.getName(), includeXmlInfo));
                         }
                     }
                 }
@@ -244,11 +264,11 @@ public class GenerateOpenNRECorpus {
                         int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(trajector, landmark));
                         int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(trajector, landmark));
                         if (goldTriples.contains(new ImmutableTriple<>(trajector.id, LOCATED_IN, landmark.id))) {
-                            linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark));
+                            linkLines.add(getRelLine(LOCATED_IN, tokensInSentence, trajector, landmark, file.getName(), includeXmlInfo));
                         } else if (!inGoldTriple(goldTriples,trajector.id,landmark.id) &&
                                 trajectorTypes.contains(trajector.label) && landmarkTypes.contains(landmark.label) &&
                                 distance <= nonMoveLinkDistanceLimit && elementNum <= internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark));
+                            linkLines.add(getRelLine(NONE, tokensInSentence, trajector, landmark, file.getName(), includeXmlInfo));
                         }
                     }
                 }
@@ -259,7 +279,7 @@ public class GenerateOpenNRECorpus {
 
 
 
-    private static List<String> getMoveLinkLines(String srcDir) {
+    private static List<String> getMoveLinkLines(String srcDir,boolean includeXmlInfo) {
         List<File> files = FileUtil.listFiles(srcDir);
         List<String> linkLines = new ArrayList<>();
         for (File file : files) {
@@ -283,12 +303,12 @@ public class GenerateOpenNRECorpus {
                         int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(mover, trigger));
                         int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(mover, trigger));
                         if (goldTriples.contains(new ImmutableTriple<>(mover.id, MOVER,trigger.id))) {
-                            linkLines.add(getRelLine(MOVER, tokensInSentence, mover, trigger));
+                            linkLines.add(getRelLine(MOVER, tokensInSentence, mover, trigger, file.getName(), includeXmlInfo));
                         } else if (!inGoldTriple(goldTriples, mover.id,trigger.id, MOVER)
                                 && moverTypes.contains(mover.label)
                                 && distance <= moveLinkDistanceLimit
                                 && elementNum <= internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, mover, trigger));
+                            linkLines.add(getRelLine(NONE, tokensInSentence, mover, trigger, file.getName(), includeXmlInfo));
                         }
                     }
                 }
@@ -322,9 +342,9 @@ public class GenerateOpenNRECorpus {
        });
     }
 
-    private static void run(String srcDir, String targetFilePath, String mode, boolean shuffle) {
-        List<String> nonMoveLinkLines = getQSAndOLinkWithTrigger(srcDir, QSLINK, OLINK);
-        List<String> moveLinkLines = getMoveLinkLines(srcDir);
+    private static void run(String srcDir, String targetFilePath, String mode, boolean shuffle,boolean includeXmlInfo) {
+        List<String> nonMoveLinkLines = getQSAndOLinkWithTrigger(srcDir, includeXmlInfo, QSLINK, OLINK);
+        List<String> moveLinkLines = getMoveLinkLines(srcDir,includeXmlInfo);
         List<String> allLinkLines = new ArrayList<>();
         allLinkLines.addAll(nonMoveLinkLines);
         allLinkLines.addAll(moveLinkLines);

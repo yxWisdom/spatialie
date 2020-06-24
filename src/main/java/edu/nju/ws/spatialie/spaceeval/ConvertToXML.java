@@ -1,5 +1,6 @@
 package edu.nju.ws.spatialie.spaceeval;
 
+import com.alibaba.fastjson.JSONObject;
 import edu.nju.ws.spatialie.utils.CollectionUtils;
 import edu.nju.ws.spatialie.utils.FileUtil;
 import edu.nju.ws.spatialie.utils.Pair;
@@ -278,6 +279,92 @@ public class ConvertToXML {
         fileToLinks.forEach(ConvertToXML::saveAsXml);
     }
 
+    public static void convertNREToXML() {
+        Map<String, Map<String, List<List<String>>>> fileToLinks = new LinkedHashMap<>();
+        List<String> xmlInfoLines = FileUtil.readLines(xmlInfoPath);
+        List<String> predictLines = FileUtil.readLines(inputPath);
+        JSONObject lastT = null;
+        String lastFile = null;
+        List<Pair<String, Map<String, List<String>>>> linkAttrMapList = null;
+        Map<String, List<String>> attrMap = null;
+        String linkType = null;
+        String lastType = null;
+        boolean isDirTopLink = false;
+        for (int k=0;k<predictLines.size();k++){
+            JSONObject line = JSONObject.parseObject(predictLines.get(k)
+                    .replaceAll("True","'True'")
+                    .replaceAll("False","'False'"));
+            if (line.getString("pred").equals("None")) continue;
+            JSONObject infoLine = JSONObject.parseObject(xmlInfoLines.get(k));
+            String xmlFileName= infoLine.getString("xmlfile");
+            JSONObject t = infoLine.getJSONObject("t");
+            String nreType = line.getString("pred");
+            switch (nreType.toLowerCase()){
+                case "mover":linkType= MOVELINK;break;
+                case "locatedin":linkType= QSLINK;break;
+                default:
+                    if (t.getString(SEMANTIC_TYPE)==null||t.getString(SEMANTIC_TYPE).equals(TOPOLOGICAL))
+                        linkType=QSLINK;
+                    else {
+                        linkType = OLINK;
+                    }
+            }
+            if (!t.equals(lastT)||!linkType.equals(lastType)){
+                if (attrMap!=null) {
+                    linkAttrMapList.add(new Pair<>(lastType, attrMap));
+                    if (isDirTopLink){
+                        Map<String, List<String>> newAttrMap = new LinkedHashMap<>();
+                        for (String attr:linkAttrMap.get(QSLINK)){
+                            newAttrMap.put(attr, new ArrayList<>());
+                        }
+                        for (String attr:essentialAttrMap.get(QSLINK)){
+                            newAttrMap.get(attr).addAll(attrMap.get(attr));
+                        }
+                        linkAttrMapList.add(new Pair<>(QSLINK, newAttrMap));
+                    }
+                }
+
+                if (!xmlFileName.equals(lastFile)){
+                    if (linkAttrMapList!=null) {
+                        if (!fileToLinks.containsKey(lastFile)) {
+                            Map<String, List<List<String>>>  linkMap = new LinkedHashMap<>();
+                            allLinkTypes.forEach(link -> linkMap.put(link, new ArrayList<>()));
+                            fileToLinks.put(lastFile, linkMap);
+                        }
+                        String finalLastFile = lastFile;
+                        linkAttrMapList.forEach(pair -> {
+                            String linkTypet = pair.first;
+                            Map<String, List<String>> attrMapt = pair.second;
+                            List<List<String>> decomposedList = getDecomposedLinks(linkTypet, attrMapt);
+                            fileToLinks.get(finalLastFile).get(linkTypet).addAll(decomposedList);
+                        });
+                    }
+                    linkAttrMapList = new ArrayList<>();
+                }
+
+                if (linkType.equals(OLINK)&&t.getString(SEMANTIC_TYPE).equals(DIR_TOP))
+                    isDirTopLink = true;
+                else
+                    isDirTopLink = false;
+                attrMap = new LinkedHashMap<>();
+                for (String attr:linkAttrMap.get(linkType)){
+                    attrMap.put(attr, new ArrayList<>());
+                }
+            }
+            String tid= infoLine.getJSONObject("t").getString("id");
+            String hid = infoLine.getJSONObject("h").getString("id");
+            switch (nreType.toLowerCase()){
+                case "mover":attrMap.get(MOVER).add(hid);if (!attrMap.get(TRIGGER).contains(tid)) attrMap.get(TRIGGER).add(tid);break;
+                case "locatedin":attrMap.get(TRAJECTOR).add(hid);attrMap.get(LANDMARK).add(tid);break;
+                case "landmark":attrMap.get(LANDMARK).add(hid);if (!attrMap.get(TRIGGER).contains(tid)) attrMap.get(TRIGGER).add(tid);break;
+                case "trajector":attrMap.get(TRAJECTOR).add(hid);if (!attrMap.get(TRIGGER).contains(tid)) attrMap.get(TRIGGER).add(tid);break;
+            }
+            lastT = t;
+            lastFile= xmlFileName;
+            lastType=linkType;
+        }
+        fileToLinks.forEach(ConvertToXML::saveAsXml);
+    }
 
     public static void convertMHSToXML() {
         Map<String, Map<String, List<List<String>>>> fileToLinks = new LinkedHashMap<>();
@@ -355,16 +442,22 @@ public class ConvertToXML {
 
 
     public static void main(String[] args) {
-        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath = "data/SpaceEval2015/processed_data/SRL_new_xml/AllLink/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/SpRL/configuration3/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/SpRL/configuration3/XML";
-        convertSRLToXML();
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath = "data/SpaceEval2015/processed_data/SRL_new_xml/AllLink/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/SpRL/configuration3/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/SpRL/configuration3/XML";
+//        convertSRLToXML();
+
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/XML";
+//        convertMHSToXML();
 
         originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/AllLink-Head/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/XML";
-        convertMHSToXML();
+        xmlInfoPath =  "data/SpaceEval2015/processed_data/openNRE_xml/AllLink_1000_100/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/NRE/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/NRE/XML";
+        convertNREToXML();
     }
 }
