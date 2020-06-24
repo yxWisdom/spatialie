@@ -28,6 +28,7 @@ public class SpaceEvalUtils {
     static final String MEASURE="MEASURE";
     static final String QSLINK="QSLINK";
     static final String OLINK="OLINK";
+    static final String OTLINK="OTLINK";
     static final String MOVELINK="MOVELINK";
     static final String MEASURELINK="MEASURELINK";
     static final String METALINK="METALINK";
@@ -37,6 +38,7 @@ public class SpaceEvalUtils {
     static final String TRAJECTOR="trajector";
     static final String LANDMARK="landmark";
     static final String VAL="val";
+    static final String SEMANTIC_TYPE ="semantic_type";
 
     static final String TOPOLOGICAL="TOPOLOGICAL";
     static final String DIRECTIONAL="DIRECTIONAL";
