@@ -18,6 +18,10 @@ import java.util.stream.Collectors;
 import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.*;
 
 
+enum Config {
+    CONFIG_1, CONFIG_2, CONFIG_3
+}
+
 public class ConvertToXML {
 
     //xml文件目录
@@ -35,8 +39,36 @@ public class ConvertToXML {
     private static List<String> allLinkTypes = Arrays.asList(QSLINK, OLINK, MOVELINK, MEASURELINK);
 
     private static Map<String, List<String>> elementAttrMap = new HashMap<String, List<String>>(){{
-        String placeTypeStr = "comment continent countable country ctv dcl dimensionality domain elevation form gazref gquant latLong mod scopes state text type";
-        put(PLACE, Arrays.asList(placeTypeStr.trim().split(" ")));
+        String placeAttrs = "comment continent countable country ctv dcl dimensionality domain elevation end form gazref gquant id latLong mod scopes start state text type";
+        String pathAttrs = "beginID comment countable dcl dimensionality domain elevation end endID form gazref gquant id latLong midIDs mod scopes start text type";
+        String seAttrs = "comment countable dcl dimensionality domain elevation end form gquant id latLong mod scopes start text type";
+        String ssAttrs = "cluster comment end id semantic_type start text";
+        String motionAttrs = "comment countable domain elevation end gquant id latLong mod motion_class motion_sense motion_type scopes start text";
+        String eventAttrs = "comment countable domain elevation end gquant id latLong mod scopes start text";
+        String msAttrs = "comment end id motion_signal_type start text";
+        String measureAttrs = "comment end id start text unit value";
+
+        put(PLACE, Arrays.asList(placeAttrs.trim().split(" ")));
+        put(PATH, Arrays.asList(pathAttrs.trim().split(" ")));
+        put(SPATIAL_ENTITY, Arrays.asList(seAttrs.trim().split(" ")));
+        put(SPATIAL_SIGNAL, Arrays.asList(ssAttrs.trim().split(" ")));
+        put(MOTION, Arrays.asList(motionAttrs.trim().split(" ")));
+        put(NONMOTION_EVENT, Arrays.asList(eventAttrs.trim().split(" ")));
+        put(MOTION_SIGNAL, Arrays.asList(msAttrs.trim().split(" ")));
+        put(MEASURE, Arrays.asList(measureAttrs.trim().split(" ")));
+    }};
+
+
+    private static Map<String, String> elementAbbrMap = new HashMap<String, String>() {{
+        put(PLACE, "pl");
+        put(PATH, "p");
+        put(SPATIAL_ENTITY, "se");
+        put(SPATIAL_SIGNAL, "s");
+        put(MOTION, "m");
+        put(NONMOTION_EVENT, "e");
+        put(MOTION_SIGNAL, "ms");
+        put(MEASURE, "me");
+//        put("BE", "pl");
     }};
 
 
@@ -78,6 +110,7 @@ public class ConvertToXML {
         put(MEASURELINK, "ml");
     }};
 
+
 //    private static Map<String,Map<String,Integer>> countElementMap = new HashMap<>();
 
 //    private static Map<String, Integer> countElementInit(Element root) {
@@ -88,13 +121,27 @@ public class ConvertToXML {
 //    }
 
 
-    private static void constructNullPlace(int id, Element nullPlace) {
-        nullPlace.addAttribute("id","pl"+id)
-                .addAttribute("start","-1")
-                .addAttribute("end","-1");
-        for (String attr: elementAttrMap.get(PLACE)){
-            nullPlace.addAttribute(attr,"");
+//    private static void constructNullPlace(int id, Element nullPlace) {
+//        nullPlace.addAttribute("id","pl"+id)
+//                .addAttribute("start","-1")
+//                .addAttribute("end","-1");
+//        for (String attr: elementAttrMap.get(PLACE)){
+//            nullPlace.addAttribute(attr,"");
+//        }
+//    }
+
+    private static void constructNullPlace(Element nullPlace) {
+        constructElement(nullPlace, new Span("pl1000", "", PLACE, -1, -1));
+    }
+
+    private static void constructElement(Element element, Span spElement) {
+        for (String attr: elementAttrMap.get(spElement.label)){
+            element.addAttribute(attr,"");
         }
+        element.addAttribute("id", spElement.id);
+        element.addAttribute("start", String.valueOf(spElement.start));
+        element.addAttribute("end", String.valueOf(spElement.end));
+        element.addAttribute("text", spElement.text);
     }
 
     // 如果link的role有多个元素，按照笛卡尔积的形式分解为多个link，即{a,b}×{c} → {a,c}, {b,c}
@@ -145,32 +192,49 @@ public class ConvertToXML {
         return decomposedList;
     }
 
-
     private static void saveAsXml(String filename, Map<String, List<List<String>>> linkMap) {
+        saveAsXml(filename, linkMap, null);
+    }
+
+    private static void saveAsXml(String filename, Map<String, List<List<String>>> linkMap, Map<String, Span> predElementMap) {
         String xmlPath = originXmlDir + File.separator + filename;
         SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(xmlPath);
-        Map<String, Span> idToElementMap = spaceEvalDoc.getElementMap();
 
         Element root = XmlUtil.getRootElement(xmlPath);
         Element tagsRoot = root.element("TAGS");
         List<Element> removedElements = new ArrayList<>();
         for (Object obj: tagsRoot.elements()) {
             Element element = (Element) obj;
-            switch (element.getName()) {
-                case SpaceEvalUtils.QSLINK:
-                case SpaceEvalUtils.OLINK:
-                case SpaceEvalUtils.MOVELINK:
-                case SpaceEvalUtils.MEASURELINK:
-                case SpaceEvalUtils.METALINK:removedElements.add(element);
+            if (allElementTags.contains(element.getName())) {
+                if (predElementMap == null || predElementMap.containsKey(element.attributeValue("id")))
+                    continue;
             }
+            removedElements.add(element);
         }
-
         for (Element element: removedElements) {
             tagsRoot.remove(element);
         }
+        Map<String, Span> goldElementMap = spaceEvalDoc.getElementMap();
+        Map<String, Span> idToElementMap;
+
+        if (predElementMap != null) {
+            predElementMap.forEach((id, element)-> {
+                if (goldElementMap.containsKey(id)) {
+                    predElementMap.put(id, goldElementMap.get(id));
+                } else {
+                    Element xmlElement = tagsRoot.addElement(element.label);
+                    constructElement(xmlElement, element);
+                }
+//                Span spElement = goldElementMap.getOrDefault(id, element);
+//                predElementMap.put(id, spElement);
+            });
+            idToElementMap = predElementMap;
+        } else {
+            idToElementMap = goldElementMap;
+        }
 
         Element nullPlace = tagsRoot.addElement(PLACE);
-        constructNullPlace(1000, nullPlace);
+        constructNullPlace(nullPlace);
 
         Map<String, Integer> linkCountMap = new HashMap<>();
         allLinkTypes.forEach(tag -> linkCountMap.put(tag, 0));
@@ -287,7 +351,7 @@ public class ConvertToXML {
         String lastFile = null;
         List<Pair<String, Map<String, List<String>>>> linkAttrMapList = null;
         Map<String, List<String>> attrMap = null;
-        String linkType = null;
+        String linkType;
         String lastType = null;
         boolean isDirTopLink = false;
         for (int k=0;k<predictLines.size();k++){
@@ -342,10 +406,7 @@ public class ConvertToXML {
                     linkAttrMapList = new ArrayList<>();
                 }
 
-                if (linkType.equals(OLINK)&&t.getString(SEMANTIC_TYPE).equals(DIR_TOP))
-                    isDirTopLink = true;
-                else
-                    isDirTopLink = false;
+                isDirTopLink = linkType.equals(OLINK) && t.getString(SEMANTIC_TYPE).equals(DIR_TOP);
                 attrMap = new LinkedHashMap<>();
                 for (String attr:linkAttrMap.get(linkType)){
                     attrMap.put(attr, new ArrayList<>());
@@ -366,20 +427,78 @@ public class ConvertToXML {
         fileToLinks.forEach(ConvertToXML::saveAsXml);
     }
 
-    public static void convertMHSToXML() {
+    public static void convertMHSToXML(Config config ) {
         Map<String, Map<String, List<List<String>>>> fileToLinks = new LinkedHashMap<>();
+        Map<String, Map<String, Span>> fileToElements = new LinkedHashMap<>();
         List<String> xmlInfoLines = FileUtil.readLines(xmlInfoPath);
         List<String> predictLines = FileUtil.readLines(inputPath);
 
         List<List<String>> xmlInfoGroups = CollectionUtils.split(xmlInfoLines, "");
         List<List<String>> predGroups = CollectionUtils.split(predictLines, "");
 
+        int idCount = 2000;
+
         for(int k = 0; k < predGroups.size(); k++) {
             List<String> xmlGroup = xmlInfoGroups.get(k);
-            List<String> predGroup = predGroups.get(k);
+            List<String []> predGroup = predGroups.get(k).stream()
+                    .map(line -> line.replaceAll(" ", "").split("\t"))
+                    .collect(Collectors.toList());
+
             String curFilename = xmlGroup.get(0);
-            List<String> elementIds= xmlGroup.subList(1, xmlGroup.size()).stream()
-                    .map(o->o.substring(o.lastIndexOf("\t") + 1)).collect(Collectors.toList());
+//            List<String> elementIds= xmlGroup.subList(1, xmlGroup.size()).stream()
+//                    .map(o->o.substring(o.lastIndexOf("\t") + 1)).collect(Collectors.toList());
+            List<String> elementIds;
+
+            if (config == Config.CONFIG_1) {
+                List<Span> tokens = xmlGroup.subList(1, xmlGroup.size()).stream()
+                        .map(line -> {
+                            String [] lineArr= line.replace(" ", "").split("\t", -1);
+                            String elementId = lineArr[lineArr.length-1], spanStr = lineArr[lineArr.length-2];
+                            String [] span = spanStr.substring(1, spanStr.length()-1).split(",");
+                            int start = Integer.valueOf(span[0]), end = Integer.valueOf(span[1]);
+                            return new Span(elementId, lineArr[1], lineArr[4],start, end);
+                        }).collect(Collectors.toList());
+
+                Map<String, Span> elementMap = new HashMap<>();
+                for (int i = 0; i < predGroup.size(); i++) {
+                    String label = predGroup.get(i)[1];
+                    if (label.equals("O"))
+                        tokens.get(i).id = "";
+                    else if (label.startsWith("B-")){
+                        label = label.substring(2);
+                        Span element = tokens.get(i);
+                        if (element.id.equals("")) {
+//                            if (!elementAbbrMap.containsKey(label)) {
+//                                System.err.println("unexpected label: "+label);
+//                            }
+
+                            element.id = elementAbbrMap.getOrDefault(label, "se") + idCount++;
+                            StringBuilder text = new StringBuilder(element.text);
+                            while(i + 1 < predGroup.size() && predGroup.get(i+1)[1].equals("I-"+label)) {
+                                Span token = tokens.get(i+1);
+                                token.id = element.id;
+                                for (int j = element.end; j < token.start; j++) {
+                                    text.append(" ");
+                                }
+                                element.end = token.end;
+                                text.append(token.text);
+                                i++;
+                            }
+                            element.text = text.toString();
+                            element.label = elementAttrMap.containsKey(label) ? label: SPATIAL_ENTITY; // 处理BE标签
+                        }
+                        elementMap.put(element.id, element);
+                    }
+                }
+                elementIds = tokens.stream().map(t -> t.id).collect(Collectors.toList());
+//                fileToElements.put(curFilename, elementMap);
+                fileToElements.putIfAbsent(curFilename, new HashMap<>());
+                elementMap.forEach((id, element)-> fileToElements.get(curFilename).put(id, element));
+            } else {
+                elementIds= xmlGroup.subList(1, xmlGroup.size()).stream()
+                        .map(o->o.substring(o.lastIndexOf("\t") + 1)).collect(Collectors.toList());
+            }
+
 
             if (!fileToLinks.containsKey(curFilename)) {
                 Map<String, List<List<String>>>  linkMap = new LinkedHashMap<>();
@@ -389,8 +508,7 @@ public class ConvertToXML {
             List<Pair<String, Map<String, List<String>>>> linkAttrMapList = new ArrayList<>();
 
             for (int i = 0; i < predGroup.size(); i++) {
-                String line = predGroup.get(i).replaceAll(" ", "");
-                String [] arr = line.trim().split("\t");
+                String [] arr = predGroup.get(i);
 
                 String roleStr = arr[4], headStr = arr[5];
                 if (roleStr.equals("[NA]")) continue;
@@ -405,6 +523,10 @@ public class ConvertToXML {
                     String [] roleArr = roles.get(j).split("_");
                     String role = roleArr[0], elementId = elementIds.get(heads.get(j));
                     String linkType;
+
+                    if (elementId.equals("")) {
+                        System.out.println(1);
+                    }
 
                     if (roleArr.length == 1) {
                         linkType = role.equals("locatedIn") ? QSLINK: MOVELINK;
@@ -423,10 +545,22 @@ public class ConvertToXML {
                         attrMap.get(TRAJECTOR).add(fromID);
                         attrMap.get(LANDMARK).add(elementId);
                         linkAttrMapList.add(new Pair<>(linkType, attrMap));
+
+                        if (fromID.equals("")) {
+                            System.out.println(1);
+                        }
+
                     } else {
                         linkTypeToAttrMap.get(linkType).get(role).add(elementId);
                     }
                 }
+
+                linkTypeToAttrMap.forEach((linkType, attrMap) -> {
+                    if (!linkType.equals(MOVELINK) && !attrMap.get(TRIGGER).isEmpty() &&
+                            attrMap.get(TRAJECTOR).isEmpty() && attrMap.get(LANDMARK).isEmpty()) {
+                        System.out.println("asdfasdfa");
+                    }
+                });
                 linkTypeToAttrMap.forEach((linkType, attrMap)-> linkAttrMapList.add(new Pair<>(linkType,attrMap)));
             }
             linkAttrMapList.forEach(pair -> {
@@ -436,7 +570,10 @@ public class ConvertToXML {
                 fileToLinks.get(curFilename).get(linkType).addAll(decomposedList);
             });
         }
-        fileToLinks.forEach(ConvertToXML::saveAsXml);
+        fileToLinks.forEach((filename, links) -> {
+            Map<String, Span> elementMap = fileToElements.getOrDefault(filename, null);
+            saveAsXml(filename, links, elementMap);
+        });
     }
 
 
@@ -447,17 +584,40 @@ public class ConvertToXML {
 //        inputPath = "data/SpaceEval2015/predict_result/SpRL/configuration3/predict.txt";
 //        outputDir = "data/SpaceEval2015/predict_result/SpRL/configuration3/XML";
 //        convertSRLToXML();
+//
+//
+        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration1_1/AllLink-Head/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration1_1/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration1_1/XML";
+        convertMHSToXML(Config.CONFIG_1);
 
-//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/AllLink-Head/test.txt";
-//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/predict.txt";
-//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/XML";
-//        convertMHSToXML();
 
         originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath =  "data/SpaceEval2015/processed_data/openNRE_xml/AllLink_1000_100/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/NRE/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/NRE/XML";
-        convertNREToXML();
+        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration1_2/AllLink-Head/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration1_2/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration1_2/XML";
+        convertMHSToXML(Config.CONFIG_1);
+//
+//
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration2/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration2/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration2/XML";
+//        convertMHSToXML(Config.CONFIG_2);
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration3/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/XML";
+//        convertMHSToXML(Config.CONFIG_3);
+//
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/openNRE_xml/AllLink_1000_100/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/openNRE/configuration3/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/openNRE/configuration3/XML";
+//        convertNREToXML();
     }
 }
