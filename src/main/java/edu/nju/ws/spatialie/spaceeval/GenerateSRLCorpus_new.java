@@ -12,6 +12,11 @@ import java.util.stream.Collectors;
 import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.*;
 
 public class GenerateSRLCorpus_new {
+
+
+    static Set<String> acceptedLabels = null;
+
+
 //    private static List<BratEvent> mergeLink(List<BratEvent> links) {
 //        Map<String, List<BratEvent>> group = new HashMap<>();
 //        List<BratEvent> mergedLinks = new ArrayList<>();
@@ -305,6 +310,15 @@ public class GenerateSRLCorpus_new {
                     roles.add(role);
                     oriElementIds.add(oriElementId);
                 }
+
+                if (acceptedLabels != null) {
+                    labels = labels.stream().map(x -> {
+                        if (!x.equals("O") && !acceptedLabels.contains(x.substring(2))) return x.substring(0,2) + "Element";
+                        return x;
+                    }).collect(Collectors.toList());
+                }
+
+
                 if (!includeTrigger && tokensOfLink.stream().map(x->x.text).collect(Collectors.joining(" ")).startsWith("Calle de Alcalá merges with ")) {
                     System.out.println();
                 }
@@ -414,6 +428,23 @@ public class GenerateSRLCorpus_new {
         GenerateSRLCorpus_new.run(trainDir, targetDir, "train", true, false);
         GenerateSRLCorpus_new.run(devDir, targetDir, "dev", true, false);
         GenerateSRLCorpus_new.run(testDir, targetDir, "test", true, false);
+
+
+        targetDir = "data/SpaceEval2015/processed_data/SRL_trigger";
+        acceptedLabels = new HashSet<String>(){{add(SPATIAL_SIGNAL); add(MOTION);}};
+        GenerateSRLCorpus_new.run(trainDir, targetDir, "train", false, false);
+        GenerateSRLCorpus_new.run(devDir, targetDir, "dev", false, false);
+        GenerateSRLCorpus_new.run(testDir, targetDir, "test", false, false);
+
+        targetDir = "data/SpaceEval2015/processed_data/SRL_trigger_xml";
+        GenerateSRLCorpus_new.run(trainDir, targetDir, "train", true, false);
+        GenerateSRLCorpus_new.run(devDir, targetDir, "dev", true, false);
+        GenerateSRLCorpus_new.run(testDir, targetDir, "test", true, false);
+
+        acceptedLabels = null;
+
+
+
 
 //        GenerateSRLCorpus_new.run(testDir,targetDir, "test", false);
 

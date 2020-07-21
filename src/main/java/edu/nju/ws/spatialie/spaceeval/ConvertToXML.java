@@ -510,7 +510,7 @@ public class ConvertToXML {
             for (int i = 0; i < predGroup.size(); i++) {
                 String [] arr = predGroup.get(i);
 
-                String roleStr = arr[4], headStr = arr[5];
+                String roleStr = arr[4], headStr = arr[5], label = arr[1];
                 if (roleStr.equals("[NA]")) continue;
 
                 Map<String, Map<String, List<String>>> linkTypeToAttrMap = new HashMap<>();
@@ -552,6 +552,7 @@ public class ConvertToXML {
 
                     } else {
                         linkTypeToAttrMap.get(linkType).get(role).add(elementId);
+                        linkTypeToAttrMap.get(linkType).get(TRIGGER).add(elementIds.get(i));
                     }
                 }
 
@@ -579,13 +580,13 @@ public class ConvertToXML {
 
 
     public static void main(String[] args) {
-//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-//        xmlInfoPath = "data/SpaceEval2015/processed_data/SRL_new_xml/AllLink/test.txt";
-//        inputPath = "data/SpaceEval2015/predict_result/SpRL/configuration3/predict.txt";
-//        outputDir = "data/SpaceEval2015/predict_result/SpRL/configuration3/XML";
-//        convertSRLToXML();
-//
-//
+        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+        xmlInfoPath = "data/SpaceEval2015/processed_data/SRL_new_xml/AllLink/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/SpRL/configuration3/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/SpRL/configuration3/XML";
+        convertSRLToXML();
+
+
         originXmlDir = "data/SpaceEval2015/raw_data/gold";
         xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration1_1/AllLink-Head/test.txt";
         inputPath = "data/SpaceEval2015/predict_result/MHS/configuration1_1/predict.txt";
@@ -598,26 +599,39 @@ public class ConvertToXML {
         inputPath = "data/SpaceEval2015/predict_result/MHS/configuration1_2/predict.txt";
         outputDir = "data/SpaceEval2015/predict_result/MHS/configuration1_2/XML";
         convertMHSToXML(Config.CONFIG_1);
-//
-//
-//
-//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration2/AllLink-Head/test.txt";
-//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration2/predict.txt";
-//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration2/XML";
-//        convertMHSToXML(Config.CONFIG_2);
-//
-//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration3/AllLink-Head/test.txt";
-//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/predict.txt";
-//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/XML";
-//        convertMHSToXML(Config.CONFIG_3);
-//
-//
-//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-//        xmlInfoPath =  "data/SpaceEval2015/processed_data/openNRE_xml/AllLink_1000_100/test.txt";
-//        inputPath = "data/SpaceEval2015/predict_result/openNRE/configuration3/predict.txt";
-//        outputDir = "data/SpaceEval2015/predict_result/openNRE/configuration3/XML";
-//        convertNREToXML();
+
+
+
+        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration2/AllLink-Head/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration2/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration2/XML";
+        convertMHSToXML(Config.CONFIG_2);
+
+        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration3/AllLink-Head/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/XML";
+        convertMHSToXML(Config.CONFIG_3);
+
+
+        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration3/AllLink-Head/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3_2/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3_2/XML";
+        convertMHSToXML(Config.CONFIG_3);
+
+
+        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration3/AllLink-Head/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3_3/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3_3/XML";
+        convertMHSToXML(Config.CONFIG_3);
+
+        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+        xmlInfoPath =  "data/SpaceEval2015/processed_data/openNRE_xml/AllLink_1000_100/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/openNRE/configuration3/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/openNRE/configuration3/XML";
+        convertNREToXML();
     }
 }
