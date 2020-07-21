@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.*;
 
 public class GenerateMultiHeadCorpus {
+    static Set<String> acceptedLabels = null;
 
 
 //    private static List<Triple<String, String, String>> getBidirectionalSPOTriples(List<BratEvent> links) {
@@ -287,6 +288,17 @@ public class GenerateMultiHeadCorpus {
                     lines.add(file.getName());
                 }
 
+                if (acceptedLabels != null) {
+                    for (Span token: tokens) {
+                        String label = token.label;
+                        if (!label.equals("O") && !acceptedLabels.contains(label.substring(2))) {
+                            token.label = label.substring(0,2) + "Element";
+                        }
+                    }
+                }
+
+
+
                 for (int i=0; i < tokens.size();i++) {
                     Span token = tokens.get(i);
                     if (relations.get(i).size() == 0) {
@@ -313,6 +325,7 @@ public class GenerateMultiHeadCorpus {
                             if (j < tokens.size()-1 && !tokens.get(j+1).label.startsWith("I-")) break;
                         }
                     }
+
 
                     maxTokenLength = Math.max(token.text.length(), maxTokenLength);
                     maxRelationLength = Math.max(relationsStr.length(), maxRelationLength);
@@ -445,6 +458,14 @@ public class GenerateMultiHeadCorpus {
         String train_path = "data/SpaceEval2015/raw_data/training++";
         String gold_path = "data/SpaceEval2015/raw_data/gold++";
         String target_dir;
+
+        //
+        target_dir = "data/SpaceEval2015/processed_data/MHS/configuration3_trigger";
+        acceptedLabels = new HashSet<String>(){{add(SPATIAL_SIGNAL); add(MOTION);}};
+        GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
+        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
+        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
+        acceptedLabels = null;
 
         target_dir = "data/SpaceEval2015/processed_data/MHS/configuration3";
         GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
