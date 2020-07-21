@@ -195,27 +195,55 @@ public class GenerateSRLCorpus_new {
                 triggerInLinks.addAll(link.getRoleIds(VAL));
             }
 
-            List<Span> spatialSignals = elements.stream()
-                    .filter(e -> e.label.equals(SPATIAL_SIGNAL) && !triggerInLinks.contains(e.id))
-                    .collect(Collectors.toList());
+//            List<Span> triggers = elements.stream()
+//                    .filter(e -> e.label.equals(SPATIAL_SIGNAL) || e.label.equals(MOTION))
+//                    .filter(e -> !triggerInLinks.contains(e.id))
+//                    .collect(Collectors.toList());
+            elements.stream()
+                    .filter(e -> e.label.equals(SPATIAL_SIGNAL) || e.label.equals(MOTION))
+                    .filter(e -> !triggerInLinks.contains(e.id))
+                    .forEach(e -> {
+                        List<String> links = new ArrayList<>();
+                        if (e.label.equals(SPATIAL_SIGNAL)) {
+                            if (e.semantic_type.equals(DIR_TOP) || e.semantic_type.equals(TOPOLOGICAL))
+                                links.add(QSLINK);
+                            if (e.semantic_type.equals(DIR_TOP) || e.semantic_type.equals(DIRECTIONAL))
+                                links.add(OLINK);
+                        } else if (e.label.equals(MOTION)) {
+                            links.add(MOVELINK);
+                        }
+                        links.forEach(linkType->{
+                            BratEvent link = new BratEvent();
+                            link.setType(linkType);
+                            link.getRoleMap().put(TRIGGER, e.id);
+                            link.setStartEnd(e.start, e.end);
+                            allMergedLinks.add(link);
+                        });
+                    });
 
-            spatialSignals.forEach(ss -> {
-                if (ss.semantic_type.equals(DIR_TOP) || ss.semantic_type.equals(TOPOLOGICAL)) {
-                    BratEvent link = new BratEvent();
-                    link.setType(QSLINK);
-                    link.getRoleMap().put(TRIGGER, ss.id);
-                    link.setStartEnd(ss.start, ss.end);
-                    allMergedLinks.add(link);
-                }
-                if (ss.semantic_type.equals(DIR_TOP) || ss.semantic_type.equals(DIRECTIONAL)) {
-                    BratEvent link = new BratEvent();
-                    link.setType(OLINK);
-                    link.getRoleMap().put(TRIGGER, ss.id);
-                    link.setStartEnd(ss.start, ss.end);
-                    allMergedLinks.add(link);
-                }
-            });
-
+//            List<Span> spatialSignals = elements.stream()
+//                    .filter(e -> e.label.equals(SPATIAL_SIGNAL) && !triggerInLinks.contains(e.id))
+//                    .collect(Collectors.toList());
+//
+//            spatialSignals.forEach(ss -> {
+//                List<String> types = new ArrayList<>();
+//                if (ss.semantic_type.equals(DIR_TOP) || ss.semantic_type.equals(TOPOLOGICAL)) types.add(QSLINK);
+//                if (ss.semantic_type.equals(DIR_TOP) || ss.semantic_type.equals(DIRECTIONAL)) types.add(OLINK);
+//                types.forEach(linkType->{
+//                    BratEvent link = new BratEvent();
+//                    link.setType(linkType);
+//                    link.getRoleMap().put(TRIGGER, ss.id);
+//                    link.setStartEnd(ss.start, ss.end);
+//                    allMergedLinks.add(link);
+//                });
+//            });
+//
+//            List<Span> motions = elements.stream()
+//                    .filter(e -> e.label.equals(MOTION) && !triggerInLinks.contains(e.id))
+//                    .collect(Collectors.toList());
+//            motions.forEach(motion->{
+//
+//            });
 
             Set<String> acceptRoles = new HashSet<>(Arrays.asList("trajector", "landmark", "trigger", "mover"));
             for (BratEvent link : allMergedLinks) {
@@ -378,9 +406,9 @@ public class GenerateSRLCorpus_new {
         String testDir = "data/SpaceEval2015/raw_data/gold++";
         String targetDir = "data/SpaceEval2015/processed_data/SRL_new";
 
-//        GenerateSRLCorpus_new.run(trainDir, targetDir, "train", false, false);
-//        GenerateSRLCorpus_new.run(devDir, targetDir, "dev", false, false);
-//        GenerateSRLCorpus_new.run(testDir, targetDir, "test", false, false);
+        GenerateSRLCorpus_new.run(trainDir, targetDir, "train", false, false);
+        GenerateSRLCorpus_new.run(devDir, targetDir, "dev", false, false);
+        GenerateSRLCorpus_new.run(testDir, targetDir, "test", false, false);
 
         targetDir = "data/SpaceEval2015/processed_data/SRL_new_xml";
         GenerateSRLCorpus_new.run(trainDir, targetDir, "train", true, false);
