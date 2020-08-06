@@ -1,6 +1,6 @@
-data/
+./data/
 .idea/
-target/
-.gitignore
+./target/
 spatial-ie.iml
-output/
+spatialie.iml
+./output/
