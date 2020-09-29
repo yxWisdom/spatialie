@@ -114,19 +114,19 @@ public class GenerateOpenNRECorpus {
                         goldTriples.add(new ImmutableTriple<>(source, SOURCE,trigger))));
             }
             if (typeSet.contains(MOVELINK) && link.hasRole(PATH_M) && link.hasRole(TRIGGER)) {
-                Collection<String> sources = link.getRoleIds(PATH_M), triggers = link.getRoleIds(TRIGGER);
-                sources.forEach(source -> triggers.forEach(trigger->
-                        goldTriples.add(new ImmutableTriple<>(source, PATH_M,trigger))));
+                Collection<String> paths = link.getRoleIds(PATH_M), triggers = link.getRoleIds(TRIGGER);
+                paths.forEach(path -> triggers.forEach(trigger->
+                        goldTriples.add(new ImmutableTriple<>(path, PATH_M,trigger))));
             }
             if (typeSet.contains(MOVELINK) && link.hasRole(MOTION_SIGNAL_M) && link.hasRole(TRIGGER)) {
-                Collection<String> sources = link.getRoleIds(MOTION_SIGNAL_M), triggers = link.getRoleIds(TRIGGER);
-                sources.forEach(source -> triggers.forEach(trigger->
-                        goldTriples.add(new ImmutableTriple<>(source, MOTION_SIGNAL_M,trigger))));
+                Collection<String> msigs = link.getRoleIds(MOTION_SIGNAL_M), triggers = link.getRoleIds(TRIGGER);
+                msigs.forEach(msig -> triggers.forEach(trigger->
+                        goldTriples.add(new ImmutableTriple<>(msig, MOTION_SIGNAL_M,trigger))));
             }
             if (typeSet.contains(MOVELINK) && link.hasRole(LANDMARK_M) && link.hasRole(TRIGGER)) {
-                Collection<String> sources = link.getRoleIds(LANDMARK_M), triggers = link.getRoleIds(TRIGGER);
-                sources.forEach(source -> triggers.forEach(trigger->
-                        goldTriples.add(new ImmutableTriple<>(source, LANDMARK_M,trigger))));
+                Collection<String> landmarks = link.getRoleIds(LANDMARK_M), triggers = link.getRoleIds(TRIGGER);
+                landmarks.forEach(landmark -> triggers.forEach(trigger->
+                        goldTriples.add(new ImmutableTriple<>(landmark, LANDMARK_M,trigger))));
             }
 
 
@@ -152,7 +152,7 @@ public class GenerateOpenNRECorpus {
     }
 
     private static boolean inGoldTriple(Set<Triple<String, String, String>> triples, String head, String tail) {
-        return inGoldTriple(triples, head, tail, TRAJECTOR, LANDMARK, MOVER, LOCATED_IN);
+        return inGoldTriple(triples, head, tail, TRAJECTOR, LANDMARK, MOVER, LOCATED_IN, GOAL, MOTION_SIGNAL_M, SOURCE,PATH_M);
     }
 
     private static boolean inGoldTriple(Set<Triple<String, String, String>> triples, String head, String tail, String ...types) {
@@ -332,11 +332,27 @@ public class GenerateOpenNRECorpus {
                         int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(mover, trigger));
                         if (goldTriples.contains(new ImmutableTriple<>(mover.id, MOVER,trigger.id))) {
                             linkLines.add(getRelLine(MOVER, tokensInSentence, mover, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, mover.id,trigger.id, MOVER)
+                        } else if (!inGoldTriple(goldTriples, mover.id,trigger.id)
                                 && moverTypes.contains(mover.label)
                                 && distance <= moveLinkDistanceLimit
                                 && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, mover, trigger, file.getName(), includeXmlInfo));
+                        }
+                    }
+                }
+                for (Span motion_signal : elementsInSentence) {
+                    for (Span trigger : triggers) {
+                        if (motion_signal.equals(trigger))
+                            continue;
+                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(motion_signal, trigger));
+                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(motion_signal, trigger));
+                        if (goldTriples.contains(new ImmutableTriple<>(motion_signal.id, MOTION_SIGNAL_M,trigger.id))) {
+                            linkLines.add(getRelLine(MOTION_SIGNAL_M, tokensInSentence, motion_signal, trigger, file.getName(), includeXmlInfo));
+                        } else if (!inGoldTriple(goldTriples, motion_signal.id,trigger.id)
+                                && mothonsigTypes.contains(motion_signal.label)
+                                && distance <= moveLinkDistanceLimit
+                                && elementNum <= internalElementNumLimit) {
+                            linkLines.add(getRelLine(NONE, tokensInSentence, motion_signal, trigger, file.getName(), includeXmlInfo));
                         }
                     }
                 }
@@ -348,8 +364,8 @@ public class GenerateOpenNRECorpus {
                         int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(goal, trigger));
                         if (goldTriples.contains(new ImmutableTriple<>(goal.id, GOAL,trigger.id))) {
                             linkLines.add(getRelLine(GOAL, tokensInSentence, goal, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, goal.id,trigger.id, GOAL)
-                                && moverTypes.contains(goal.label)
+                        } else if (!inGoldTriple(goldTriples, goal.id,trigger.id)
+                                && goalsourceTypes.contains(goal.label)
                                 && distance <= moveLinkDistanceLimit
                                 && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, goal, trigger, file.getName(), includeXmlInfo));
@@ -364,8 +380,8 @@ public class GenerateOpenNRECorpus {
                         int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(source, trigger));
                         if (goldTriples.contains(new ImmutableTriple<>(source.id, SOURCE,trigger.id))) {
                             linkLines.add(getRelLine(SOURCE, tokensInSentence, source, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, source.id,trigger.id, SOURCE)
-                                && moverTypes.contains(source.label)
+                        } else if (!inGoldTriple(goldTriples, source.id,trigger.id)
+                                && goalsourceTypes.contains(source.label)
                                 && distance <= moveLinkDistanceLimit
                                 && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, source, trigger, file.getName(), includeXmlInfo));
@@ -380,8 +396,8 @@ public class GenerateOpenNRECorpus {
                         int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(path, trigger));
                         if (goldTriples.contains(new ImmutableTriple<>(path.id, PATH_M,trigger.id))) {
                             linkLines.add(getRelLine(PATH_M, tokensInSentence, path, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, path.id,trigger.id, PATH_M)
-                                && moverTypes.contains(path.label)
+                        } else if (!inGoldTriple(goldTriples, path.id,trigger.id)
+                                && pathTypes.contains(path.label)
                                 && distance <= moveLinkDistanceLimit
                                 && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, path, trigger, file.getName(), includeXmlInfo));
@@ -396,8 +412,8 @@ public class GenerateOpenNRECorpus {
                         int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(landmark, trigger));
                         if (goldTriples.contains(new ImmutableTriple<>(landmark.id, LANDMARK_M,trigger.id))) {
                             linkLines.add(getRelLine(LANDMARK_M, tokensInSentence, landmark, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, landmark.id,trigger.id, LANDMARK_M)
-                                && moverTypes.contains(landmark.label)
+                        } else if (!inGoldTriple(goldTriples, landmark.id,trigger.id)
+                                && landmarkTypes.contains(landmark.label)
                                 && distance <= moveLinkDistanceLimit
                                 && elementNum <= internalElementNumLimit) {
                             linkLines.add(getRelLine(NONE, tokensInSentence, landmark, trigger, file.getName(), includeXmlInfo));
@@ -444,7 +460,7 @@ public class GenerateOpenNRECorpus {
 
 
 
-        allLinkLines=removeConflict(allLinkLines);
+//        allLinkLines=removeConflict(allLinkLines);
         checkConflict(allLinkLines);
         if (shuffle) {
             Collections.shuffle(allLinkLines);
