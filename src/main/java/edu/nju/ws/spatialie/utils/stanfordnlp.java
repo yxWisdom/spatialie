@@ -54,12 +54,6 @@ public class stanfordnlp {
         return doc.tokens();
     }
 
-    public static List<CoreSentence> getCoreSentence(String content) {
-        CoreDocument doc = new CoreDocument(content);
-        pipeline.annotate(doc);
-        return doc.sentences();
-    }
-
     public static List<Sentence> getSentences(String text){
         if (pipeline == null) {
             init();
