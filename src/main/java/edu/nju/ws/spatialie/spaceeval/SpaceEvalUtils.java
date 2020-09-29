@@ -39,6 +39,12 @@ public class SpaceEvalUtils {
     static final String LANDMARK="landmark";
     static final String VAL="val";
     static final String SEMANTIC_TYPE ="semantic_type";
+    static final String GOAL ="goal";
+    static final String SOURCE="source";
+    static final String PATH_M="pathID";
+    static final String LANDMARK_M="landmark";
+    static final String MOTION_SIGNAL_M="motion_signalID";
+
 
     static final String TOPOLOGICAL="TOPOLOGICAL";
     static final String DIRECTIONAL="DIRECTIONAL";
