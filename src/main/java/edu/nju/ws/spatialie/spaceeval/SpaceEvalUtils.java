@@ -70,9 +70,6 @@ public class SpaceEvalUtils {
 
 
     final static Set<String> moverTypes = new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE));
-    final static Set<String> goalsourceTypes = new HashSet<>(Arrays.asList(PATH));
-    final static Set<String> mothonsigTypes = new HashSet<>(Arrays.asList(MOTION_SIGNAL));
-    final static Set<String> pathTypes = new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE));
     final static Set<String>  trajectorTypes= new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE, MOTION, NONMOTION_EVENT));
     final static Set<String>  landmarkTypes= new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE));
 
