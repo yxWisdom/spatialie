@@ -90,7 +90,7 @@ public class GenerateCorpus {
 //        List<String> train_lines = lines.subList(0, pos);
 //        List<String> test_lines = lines.subList(pos, lines.size());
         FileUtil.writeFile(out_dir+"/train.txt", train_lines, false);
-        FileUtil.writeFile(out_dir+"/dev.txt", test_lines, false);
+        FileUtil.writeFile(out_dir+"/test.txt", test_lines, false);
         FileUtil.writeFile(out_dir+"/test.txt", test_lines, false);
 
 //        System.out.println(tags.toString());
@@ -159,7 +159,7 @@ public class GenerateCorpus {
         List<String> train_data = data.subList(0, pos).stream().filter(o->!o.equals("")).collect(Collectors.toList());
         List<String> test_data = data.subList(pos, data.size()).stream().filter(o->!o.equals("")).collect(Collectors.toList());
         FileUtil.writeFile(dirPath + "/train.txt", train_data, false);
-        FileUtil.writeFile(dirPath + "/dev.txt", test_data, false);
+        FileUtil.writeFile(dirPath + "/test.txt", test_data, false);
         FileUtil.writeFile(dirPath + "/test.txt", test_data, false);
     }
 
@@ -257,7 +257,7 @@ public class GenerateCorpus {
                 if (!FileUtil.exists(path))
                     FileUtil.createDir(path);
                 FileUtil.writeFile(path + "/" + "train.txt", train_lines);
-                FileUtil.writeFile(path + "/" + "dev.txt", test_lines);
+                FileUtil.writeFile(path + "/" + "test.txt", test_lines);
                 FileUtil.writeFile(path + "/" + "test.txt", test_lines);
             }
         }
@@ -431,20 +431,20 @@ public class GenerateCorpus {
                 true,  true, 100, true, seed);
 
 
-        GenerateCorpus.removeSpatialEntity("data/processed_data/msra/ner/joint_random/dev.txt",
+        GenerateCorpus.removeSpatialEntity("data/processed_data/msra/ner/joint_random/test.txt",
                 "data/processed_data/msra/ner/joint_random/train.txt", "line");
 
-        GenerateCorpus.removeSpatialEntity("data/processed_data/msra/ner/random/dev.txt",
+        GenerateCorpus.removeSpatialEntity("data/processed_data/msra/ner/random/test.txt",
                 "data/processed_data/msra/ner/random/train.txt", "");
 
         FileUtil.mergeFile("data/processed_data/msra/ner/random/train.txt", "data/processed_data/ner_final/random/train.txt");
-        FileUtil.mergeFile("data/processed_data/msra/ner/random/dev.txt", "data/processed_data/ner_final/random/dev.txt");
-        FileUtil.mergeFile("data/processed_data/msra/ner/random/dev.txt", "data/processed_data/ner_final/random/test.txt");
+        FileUtil.mergeFile("data/processed_data/msra/ner/random/test.txt", "data/processed_data/ner_final/random/test.txt");
+        FileUtil.mergeFile("data/processed_data/msra/ner/random/test.txt", "data/processed_data/ner_final/random/test.txt");
 
 
         FileUtil.mergeFile("data/processed_data/msra/ner/joint_random/train.txt", "data/processed_data/ner_final/joint_random/train.txt");
-        FileUtil.mergeFile("data/processed_data/msra/ner/joint_random/dev.txt", "data/processed_data/ner_final/joint_random/dev.txt");
-        FileUtil.mergeFile("data/processed_data/msra/ner/joint_random/dev.txt", "data/processed_data/ner_final/joint_random/test.txt");
+        FileUtil.mergeFile("data/processed_data/msra/ner/joint_random/test.txt", "data/processed_data/ner_final/joint_random/test.txt");
+        FileUtil.mergeFile("data/processed_data/msra/ner/joint_random/test.txt", "data/processed_data/ner_final/joint_random/test.txt");
 
     }
 
@@ -474,7 +474,7 @@ public class GenerateCorpus {
 
 //        GenerateCorpus.generateCorpus("data/annotation/0-49", "data/processed_data/ner_v3/joint/train.txt",
 //                true, false, 100, true, random_1);
-//        GenerateCorpus.generateCorpus("data/annotation/msra", "data/processed_data/ner_v3/joint/dev.txt",
+//        GenerateCorpus.generateCorpus("data/annotation/msra", "data/processed_data/ner_v3/joint/test.txt",
 //                true, false, 100, false, null);
 //        GenerateCorpus.generateCorpus("data/annotation/msra", "data/processed_data/ner_v3/joint/test.txt",
 //                true, false, 100, false, null);
@@ -482,7 +482,7 @@ public class GenerateCorpus {
 //
 //        GenerateCorpus.generateCorpus("data/annotation/0-49", "data/processed_data/ner_v3/normal/train.txt",
 //                false, false, 100, true, random_1);
-//        GenerateCorpus.generateCorpus("data/annotation/msra", "data/processed_data/ner_v3/normal/dev.txt",
+//        GenerateCorpus.generateCorpus("data/annotation/msra", "data/processed_data/ner_v3/normal/test.txt",
 //                false, false, 100, false, null);
 //        GenerateCorpus.generateCorpus("data/annotation/msra", "data/processed_data/ner_v3/normal/test.txt",
 //                false, false, 100, false, null);
@@ -554,12 +554,12 @@ public class GenerateCorpus {
 //                false, 0, true, false);
 
 //        GenerateCorpus.filterMLINK("data/processed_data/srl_link/with_conj/TOMLINK/train.txt");
-//        GenerateCorpus.filterMLINK("data/processed_data/srl_link/with_conj/TOMLINK/dev.txt");
+//        GenerateCorpus.filterMLINK("data/processed_data/srl_link/with_conj/TOMLINK/test.txt");
 //        GenerateCorpus.filterMLINK("data/processed_data/srl_link/with_conj/TOMLINK/test.txt");
 
 
 //        GenerateCorpus.filterMLINK("data/processed_data/srl_link/without_conj/TOMLINK/train.txt");
-//        GenerateCorpus.filterMLINK("data/processed_data/srl_link/without_conj/TOMLINK/dev.txt");
+//        GenerateCorpus.filterMLINK("data/processed_data/srl_link/without_conj/TOMLINK/test.txt");
 //        GenerateCorpus.filterMLINK("data/processed_data/srl_link/without_conj/TOMLINK/test.txt");
 //        GenerateCorpus.filterMLINK("data/processed_data/srl_link/without_conj/TOMLINK/test.txt");
 
