@@ -39,6 +39,12 @@ public class SpaceEvalUtils {
     static final String LANDMARK="landmark";
     static final String VAL="val";
     static final String SEMANTIC_TYPE ="semantic_type";
+    static final String GOAL ="goal";
+    static final String SOURCE="source";
+    static final String PATH_M="pathID";
+    static final String LANDMARK_M="landmark";
+    static final String MOTION_SIGNAL_M="motion_signalID";
+
 
     static final String TOPOLOGICAL="TOPOLOGICAL";
     static final String DIRECTIONAL="DIRECTIONAL";
@@ -64,6 +70,9 @@ public class SpaceEvalUtils {
 
 
     final static Set<String> moverTypes = new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE));
+    final static Set<String> goalsourceTypes = new HashSet<>(Arrays.asList(PATH));
+    final static Set<String> mothonsigTypes = new HashSet<>(Arrays.asList(MOTION_SIGNAL));
+    final static Set<String> pathTypes = new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE));
     final static Set<String>  trajectorTypes= new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE, MOTION, NONMOTION_EVENT));
     final static Set<String>  landmarkTypes= new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE));
 

@@ -112,6 +112,46 @@ public class GenerateMultiHeadCorpus {
                         }
                     }
                 }
+                if (roleMap.containsKey(GOAL) && roleMap.containsKey(TRIGGER)) {
+                    for (String mover: roleMap.get(GOAL)) {
+                        for (String trigger: roleMap.get(TRIGGER)) {
+                            triples.add(new ImmutableTriple<>(trigger, GOAL, mover));
+//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
+                        }
+                    }
+                }
+                if (roleMap.containsKey(LANDMARK_M) && roleMap.containsKey(TRIGGER)) {
+                    for (String mover: roleMap.get(LANDMARK_M)) {
+                        for (String trigger: roleMap.get(TRIGGER)) {
+                            triples.add(new ImmutableTriple<>(trigger, LANDMARK_M+"_M", mover));
+//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
+                        }
+                    }
+                }
+                if (roleMap.containsKey(SOURCE) && roleMap.containsKey(TRIGGER)) {
+                    for (String mover: roleMap.get(SOURCE)) {
+                        for (String trigger: roleMap.get(TRIGGER)) {
+                            triples.add(new ImmutableTriple<>(trigger, SOURCE, mover));
+//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
+                        }
+                    }
+                }
+                if (roleMap.containsKey(PATH_M) && roleMap.containsKey(TRIGGER)) {
+                    for (String mover : roleMap.get(PATH_M)) {
+                        for (String trigger : roleMap.get(TRIGGER)) {
+                            triples.add(new ImmutableTriple<>(trigger, PATH_M, mover));
+//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
+                        }
+                    }
+                }
+                if (roleMap.containsKey(MOTION_SIGNAL_M) && roleMap.containsKey(TRIGGER)) {
+                    for (String mover : roleMap.get(MOTION_SIGNAL_M)) {
+                        for (String trigger : roleMap.get(TRIGGER)) {
+                            triples.add(new ImmutableTriple<>(trigger, MOTION_SIGNAL_M, mover));
+//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
+                        }
+                    }
+                }
             } else {
                 if (roleMap.containsKey("trigger") || roleMap.containsKey("val")) {
                     for (String trajector: roleMap.get(TRAJECTOR)) {
@@ -212,6 +252,7 @@ public class GenerateMultiHeadCorpus {
 //            }
 
             SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+//            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc("data\\SpaceEval2015\\raw_data\\training++\\CP\\47_N_22_E.xml");
             Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
             List<BratEvent> allLinks = spaceEvalDoc.getAllLinks().stream()
                     .filter(o -> linkTypes.contains(o.getType()))
@@ -459,7 +500,7 @@ public class GenerateMultiHeadCorpus {
         String gold_path = "data/SpaceEval2015/raw_data/gold++";
         String target_dir;
 
-        //
+
         target_dir = "data/SpaceEval2015/processed_data/MHS/configuration3_trigger";
         acceptedLabels = new HashSet<String>(){{add(SPATIAL_SIGNAL); add(MOTION);}};
         GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);

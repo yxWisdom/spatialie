@@ -250,7 +250,7 @@ public class GenerateSRLCorpus_new {
 //
 //            });
 
-            Set<String> acceptRoles = new HashSet<>(Arrays.asList("trajector", "landmark", "trigger", "mover"));
+            Set<String> acceptRoles = new HashSet<>(Arrays.asList("trajector", "landmark", "trigger", "mover","goal","source","pathID","motion_signalID"));
             for (BratEvent link : allMergedLinks) {
                 List<String> tokens = new ArrayList<>();
                 List<String> labels = new ArrayList<>();
