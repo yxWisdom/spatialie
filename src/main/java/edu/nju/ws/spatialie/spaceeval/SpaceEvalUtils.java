@@ -1,6 +1,7 @@
 package edu.nju.ws.spatialie.spaceeval;
 
 import com.google.common.collect.Multimap;
+import com.sun.org.apache.bcel.internal.generic.LAND;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.utils.FileUtil;
 import edu.stanford.nlp.util.ArrayHeap;
@@ -651,6 +652,63 @@ public class SpaceEvalUtils {
     }
 
 
+    public static void statistics_links(String srcDir) {
+        List<File> files = FileUtil.listFiles(srcDir);
+        int qs_num=0, o_num=0, move_num=0;
+        int qs_no_trigger = 0, o_no_trigger = 0, qs_no_trigger_1 = 0, o_no_trigger_1 = 0, m_no_trigger=0;
+        for (File file: files) {
+            System.out.println(file.getName());
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            List<BratEvent> allLinks = spaceEvalDoc.getAllLinks();
+            Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
+            for (BratEvent link: allLinks) {
+                if (link.getType().equals(QSLINK)) {
+                    qs_num++;
+                    if (link.getRoleIds(TRIGGER).size() == 0) {
+                        qs_no_trigger++;
+//                        String trajector  = link.getRoleId(TRAJECTOR);
+//                        String landmark  = link.getRoleId(LANDMARK);
+//                        System.out.println("QSLINK: " + elementMap.get(trajector).text + "  :  "
+//                                + elementMap.get(landmark).text);
+
+                        if (link.getRoleIds(TRAJECTOR).isEmpty() || link.getRoleIds(LANDMARK).isEmpty()) {
+                            qs_no_trigger_1 ++;
+                        }
+                    }
+                }
+                if (link.getType().equals(OLINK)) {
+                    o_num++;
+                    if (link.getRoleIds(TRIGGER).size() == 0) {
+                        o_no_trigger ++;
+                        if (link.getRoleIds(TRAJECTOR).isEmpty() || link.getRoleIds(LANDMARK).isEmpty()) {
+                            o_no_trigger_1 ++;
+                        }
+                    }
+                }
+                if (link.getType().equals(MOVELINK)) {
+                    move_num++;
+                    if (link.getRoleIds(TRIGGER).isEmpty()) {
+                        m_no_trigger ++;
+                    }
+                }
+            }
+        }
+
+        System.out.println(qs_num);
+        System.out.println(o_num);
+        System.out.println(move_num);
+        System.out.println(qs_no_trigger);
+        System.out.println(o_no_trigger);
+        System.out.println(m_no_trigger);
+        System.out.println(qs_no_trigger_1);
+        System.out.println(o_no_trigger_1);
+
+        System.out.println(qs_num - qs_no_trigger);
+        System.out.println(o_num - o_no_trigger);
+
+
+    }
+
     public static void main(String [] args) {
 //        SpaceEvalUtils.checkSentenceContainLink("data/SpaceEval2015/raw_data/training++");
 //        SpaceEvalUtils.checkSentenceContainLink("data/SpaceEval2015/raw_data/gold++");
@@ -675,11 +733,13 @@ public class SpaceEvalUtils {
 //        SpaceEvalUtils.checkInvalidToken("data/SpaceEval2015/raw_data/training++");
 //        SpaceEvalUtils.checkInvalidToken("data/SpaceEval2015/raw_data/gold++");
 
-        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/training++");
-        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/gold++");
+//        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/training++");
+//        SpaceEvalUtils.checkDifferencesOfSameTrigger("data/SpaceEval2015/raw_data/gold++");
 
 //        SpaceEvalUtils.checkMaxElementNumMapBetweenElements("data/SpaceEval2015/raw_data/training++");
 //        SpaceEvalUtils.checkMaxElementNumMapBetweenElements("data/SpaceEval2015/raw_data/gold++");
 
+        SpaceEvalUtils.statistics_links("data/SpaceEval2015/raw_data/gold++");
+        SpaceEvalUtils.statistics_links("data/SpaceEval2015/raw_data/training++");
     }
 }
