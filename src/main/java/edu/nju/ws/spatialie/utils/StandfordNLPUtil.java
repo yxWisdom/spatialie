@@ -2,26 +2,22 @@ package edu.nju.ws.spatialie.utils;
 
 import edu.nju.ws.spatialie.data.Sentence;
 import edu.stanford.nlp.coref.data.CorefChain;
-import edu.stanford.nlp.ie.machinereading.structure.EntityMention;
 import edu.stanford.nlp.ie.util.RelationTriple;
 import edu.stanford.nlp.io.IOUtils;
-import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.semgraph.SemanticGraph;
+import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.trees.Tree;
-import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.ling.CoreAnnotations.NormalizedNamedEntityTagAnnotation;
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.BasicDependenciesAnnotation;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class stanfordnlp {
+public class StandfordNLPUtil {
     private static StanfordCoreNLP pipeline=null;
     private static CoreDocument document;
 
@@ -31,7 +27,7 @@ public class stanfordnlp {
 //        props.setProperty("annotators", "tokenize,ssplit,pos,lemma,ner");
 //        props.setProperty("coref.algorithm", "neural");
         if (mode.toLowerCase().equals("en")) {
-            props.setProperty("annotators", "tokenize, ssplit");
+            props.setProperty("annotators", "tokenize,ssplit,pos,lemma,depparse");
         } else {
             try {
                 props.load(IOUtils.readerFromString("StanfordCoreNLP-chinese.properties"));
@@ -75,32 +71,44 @@ public class stanfordnlp {
             List<String> nerTags = new ArrayList<>();
             List<String> norms = new ArrayList<>();
             int idx = 0;
-            for (CoreEntityMention em: coreSentence.entityMentions()) {
-                List<CoreLabel>  ts = em.tokens();
-                int start = ts.get(0).index()-1;
-                while (idx < start) {
+            if (coreSentence.entityMentions() != null) {
+                for (CoreEntityMention em: coreSentence.entityMentions()) {
+                    List<CoreLabel>  ts = em.tokens();
+                    int start = ts.get(0).index()-1;
+                    while (idx < start) {
+                        mentions.add(tokens.get(idx));
+                        nerTags.add("O");
+                        norms.add("");
+                        idx++;
+                    }
+                    mentions.add(ts.stream().map(CoreLabel::word).collect(Collectors.joining("")));
+                    nerTags.add(em.entityType());
+                    if ((em.entityType().equals("DATE")||em.entityType().equals("TIME"))  &&
+                            em.coreMap().containsKey(NormalizedNamedEntityTagAnnotation.class)) {
+                        norms.add(em.coreMap().get(NormalizedNamedEntityTagAnnotation.class));
+                    }else {
+                        norms.add("");
+                    }
+                    idx+=ts.size();
+                }
+                while (idx < tokens.size()) {
                     mentions.add(tokens.get(idx));
                     nerTags.add("O");
                     norms.add("");
                     idx++;
                 }
-                mentions.add(String.join("",  ts.stream().map(CoreLabel::word).collect(Collectors.toList())));
-                nerTags.add(em.entityType());
-                if ((em.entityType().equals("DATE")||em.entityType().equals("TIME"))  &&
-                        em.coreMap().containsKey(NormalizedNamedEntityTagAnnotation.class)) {
-                    norms.add(em.coreMap().get(NormalizedNamedEntityTagAnnotation.class));
-                }else {
-                    norms.add("");
-                }
-                idx+=ts.size();
             }
-            while (idx < tokens.size()) {
-                mentions.add(tokens.get(idx));
-                nerTags.add("O");
-                norms.add("");
-                idx++;
+
+            SemanticGraph graph = coreSentence.coreMap().get(BasicDependenciesAnnotation.class);
+//            SemanticGraph graph = coreSentence.dependencyParse();
+            List<Pair<Integer, String>> dependencyHeads = new ArrayList<>(Collections.nCopies(tokens.size(), null));
+            for (SemanticGraphEdge edge: graph.edgeIterable()) {
+                int sourceId = edge.getSource().index() - 1;
+                int targetId = edge.getTarget().index() - 1;
+                dependencyHeads.set(targetId, new Pair<>(sourceId, edge.getRelation().getShortName()));
             }
-            Sentence sentence = new Sentence(coreSentence.text(), tokens,  labels, mentions, nerTags, norms);
+
+            Sentence sentence = new Sentence(coreSentence.text(), tokens,  labels, mentions, nerTags, norms, dependencyHeads);
             sentenceList.add(sentence);
         }
         return sentenceList;
@@ -115,12 +123,9 @@ public class stanfordnlp {
             "He sent a postcard to his sister Jane Smith. " +
             "After hearing about Joe's trip, Jane decided she might go to France one day.";
 
-    public static void main(String[] args) {
-        List<Sentence> sentences = stanfordnlp.getSentences("2018-04-12 00:13:01 3点30发生了一起重要得交通事故");
 
-        System.out.println(sentences.toString());
-        sentences.forEach(x->System.out.println(x.getTokens().toString()));
 
+    public void officialExamples() {
         // set up pipeline properties
         Properties props = new Properties();
         // set the list of annotators to run
@@ -172,7 +177,11 @@ public class stanfordnlp {
         // dependency parse for the second sentence
         SemanticGraph dependencyParse = sentence.dependencyParse();
         System.out.println("Example: dependency parse");
-        System.out.println(dependencyParse);
+        for (SemanticGraphEdge edge: dependencyParse.edgeIterable()) {
+            System.out.println(edge);
+        }
+//        System.out.println(dependencyParse);
+        System.out.println(dependencyParse.toString(CoreLabel.OutputFormat.WORD_INDEX));
         System.out.println();
 
         // kbp relations found in fifth sentence
@@ -219,6 +228,13 @@ public class stanfordnlp {
         System.out.println("Example: canonical speaker of quote");
         System.out.println(quote.canonicalSpeaker().get());
         System.out.println();
+    }
 
+    public static void main(String[] args) {
+//        List<Sentence> sentences = StandfordNLPUtil.getSentences("2018-04-12 00:13:01 3点30发生了一起重要得交通事故");
+        List<Sentence> sentences = StandfordNLPUtil.getSentences("In 2017, he went to Paris, France in the summer.");
+        StandfordNLPUtil.init();
+        System.out.println(sentences.toString());
+        sentences.forEach(x->System.out.println(x.getTokens().toString()));
     }
 }

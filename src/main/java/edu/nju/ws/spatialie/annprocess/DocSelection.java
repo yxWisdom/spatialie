@@ -99,7 +99,7 @@ public class DocSelection {
 //                continue;
             int entityCount = 0;
             int relationCount = 0;
-            List<Sentence> sentences = stanfordnlp.getSentences(article.getArticleContent());
+            List<Sentence> sentences = StandfordNLPUtil.getSentences(article.getArticleContent());
             for (Sentence sentence:sentences) {
                 for (String token: sentence.getTokens()) {
                     int degree = relationRelevance(token);
@@ -412,7 +412,7 @@ public class DocSelection {
             String [] phrases = doc.split("\n");
             List<Sentence> sentences = new ArrayList<>();
             for (String phrase: phrases) {
-                List<Sentence> list = stanfordnlp.getSentences(phrase);
+                List<Sentence> list = StandfordNLPUtil.getSentences(phrase);
                 sentences.addAll(list);
             }
             for (int i = 0; i < sentences.size(); i++) {
@@ -488,7 +488,7 @@ public class DocSelection {
 
             String [] phrases = content.split("\n");
             for (String phrase: phrases) {
-                List<Sentence> sentences = stanfordnlp.getSentences(phrase);
+                List<Sentence> sentences = StandfordNLPUtil.getSentences(phrase);
 //                List<Sentence> sentences = new ArrayList<Sentence>(){{add(new Sentence(phrase));}};
 //                List<Sentence> sentences = stanfordnlp.getSentences("《 人民日报 》（ 2018年01月06日 03 版）");
                 for (Sentence sentence: sentences) {
@@ -622,7 +622,7 @@ public class DocSelection {
 
             String [] phrases = content.split("\n");
             for (String phrase: phrases) {
-                List<Sentence> sentences = stanfordnlp.getSentences(phrase);
+                List<Sentence> sentences = StandfordNLPUtil.getSentences(phrase);
 //                List<Sentence> sentences = new ArrayList<Sentence>(){{add(new Sentence(phrase));}};
 //                List<Sentence> sentences = stanfordnlp.getSentences("《 人民日报 》（ 2018年01月06日 03 版）");
                 for (Sentence sentence: sentences) {
@@ -764,7 +764,7 @@ public class DocSelection {
 
                 String [] phrases = doc.split("\n");
                 for (String phrase: phrases) {
-                    List<Sentence> sentences = stanfordnlp.getSentences(phrase);
+                    List<Sentence> sentences = StandfordNLPUtil.getSentences(phrase);
                     for (Sentence sentence:sentences) {
                         offset = newContent.length();
                         String sentenceText = sentence.getText();

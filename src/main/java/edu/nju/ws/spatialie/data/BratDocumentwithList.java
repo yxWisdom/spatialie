@@ -3,13 +3,10 @@ package edu.nju.ws.spatialie.data;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import edu.nju.ws.spatialie.annprocess.BratUtil;
 import edu.nju.ws.spatialie.getrelation.EveluateUtil;
 import edu.nju.ws.spatialie.getrelation.FindLINK;
 import edu.nju.ws.spatialie.getrelation.FindTagUtil;
 import edu.nju.ws.spatialie.getrelation.JudgeEntity;
-import edu.nju.ws.spatialie.utils.FileUtil;
-import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 
 import java.util.*;
 

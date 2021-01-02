@@ -12,12 +12,12 @@ import org.apache.commons.lang3.tuple.Triple;
 import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.*;
 
 public class GenerateMultiHeadCorpus {
     static Set<String> acceptedLabels = null;
+    static boolean onlyCoreRole = true;
 
 
 //    private static List<Triple<String, String, String>> getBidirectionalSPOTriples(List<BratEvent> links) {
@@ -103,77 +103,32 @@ public class GenerateMultiHeadCorpus {
         for (BratEvent link: links) {
             char linkType = link.getType().charAt(0);
             Multimap<String, String> roleMap = link.getRoleMap();
-            if (link.getType().equals(SpaceEvalUtils.MOVELINK)) {
-                if (roleMap.containsKey(MOVER) && roleMap.containsKey(TRIGGER)) {
-                    for (String mover: roleMap.get(MOVER)) {
-                        for (String trigger: roleMap.get(TRIGGER)) {
-                            triples.add(new ImmutableTriple<>(trigger, MOVER, mover));
-//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
-                        }
-                    }
-                }
-                if (roleMap.containsKey(GOAL) && roleMap.containsKey(TRIGGER)) {
-                    for (String mover: roleMap.get(GOAL)) {
-                        for (String trigger: roleMap.get(TRIGGER)) {
-                            triples.add(new ImmutableTriple<>(trigger, GOAL, mover));
-//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
-                        }
-                    }
-                }
-                if (roleMap.containsKey(LANDMARK_M) && roleMap.containsKey(TRIGGER)) {
-                    for (String mover: roleMap.get(LANDMARK_M)) {
-                        for (String trigger: roleMap.get(TRIGGER)) {
-                            triples.add(new ImmutableTriple<>(trigger, LANDMARK_M+"_M", mover));
-//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
-                        }
-                    }
-                }
-                if (roleMap.containsKey(SOURCE) && roleMap.containsKey(TRIGGER)) {
-                    for (String mover: roleMap.get(SOURCE)) {
-                        for (String trigger: roleMap.get(TRIGGER)) {
-                            triples.add(new ImmutableTriple<>(trigger, SOURCE, mover));
-//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
-                        }
-                    }
-                }
-                if (roleMap.containsKey(PATH_M) && roleMap.containsKey(TRIGGER)) {
-                    for (String mover : roleMap.get(PATH_M)) {
-                        for (String trigger : roleMap.get(TRIGGER)) {
-                            triples.add(new ImmutableTriple<>(trigger, PATH_M, mover));
-//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
-                        }
-                    }
-                }
-                if (roleMap.containsKey(MOTION_SIGNAL_M) && roleMap.containsKey(TRIGGER)) {
-                    for (String mover : roleMap.get(MOTION_SIGNAL_M)) {
-                        for (String trigger : roleMap.get(TRIGGER)) {
-                            triples.add(new ImmutableTriple<>(trigger, MOTION_SIGNAL_M, mover));
-//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER, trigger));
-                        }
-                    }
+            if (link.getType().equals(MOVELINK)) {
+                Collection<String> triggers = roleMap.get(TRIGGER);
+
+                Set<String> roleTypes = new HashSet<String>(){{add(MOVER);}};
+                if (!onlyCoreRole) roleTypes.addAll(mLinkOptionalRoles);
+
+                for (String roleType: roleTypes) {
+                    Collection<String> roles = roleMap.get(roleType);
+                    roles.forEach(role -> triggers.forEach(trigger ->
+                            triples.add(new ImmutableTriple<>(trigger, roleType, role))));
                 }
             } else {
-                if (roleMap.containsKey("trigger") || roleMap.containsKey("val")) {
-                    for (String trajector: roleMap.get(TRAJECTOR)) {
-                        for (String trigger: roleMap.get(TRIGGER)) {
-//                            triples.add(new ImmutableTriple<>(trajector, TRAJECTOR, trigger));
-                            triples.add(new ImmutableTriple<>(trigger, TRAJECTOR + "_" + linkType, trajector));
-//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER + "_" + linkType, trigger));
-                        }
-                    }
-                    for (String landmark: roleMap.get(LANDMARK)) {
-                        for (String trigger: roleMap.get(TRIGGER)) {
-//                            triples.add(new ImmutableTriple<>(landmark, LANDMARK, trigger));
-                            triples.add(new ImmutableTriple<>(trigger, LANDMARK + "_" + linkType, landmark));
-//                            triples.add(new ImmutableTriple<>(trigger, TRIGGER + "_" + linkType, trigger));
-                        }
-                    }
+                Collection<String> trajectors = roleMap.get(TRAJECTOR);
+                Collection<String> landmarks = roleMap.get(LANDMARK);
+                if (roleMap.containsKey(TRIGGER) || roleMap.containsKey(VAL)) {
+                    Collection<String> triggers = roleMap.containsKey(TRIGGER) ? roleMap.get(TRIGGER) : roleMap.get(VAL);
+                    triggers.forEach(trigger -> {
+                        trajectors.forEach(trajector ->
+                                triples.add(new ImmutableTriple<>(trigger, TRAJECTOR + "_" + linkType, trajector)));
+                        landmarks.forEach(landmark ->
+                                triples.add(new ImmutableTriple<>(trigger, LANDMARK + "_" + linkType, landmark)));
+                    });
                 } else {
-                    for (String trajector: roleMap.get(TRAJECTOR)) {
-                        for (String landmark: roleMap.get(LANDMARK)) {
-                            triples.add(new ImmutableTriple<>(trajector, "locatedIn", landmark));
-                        }
-                    }
+                    trajectors.forEach(trajector ->
+                            landmarks.forEach(landmark ->
+                                    triples.add(new ImmutableTriple<>(trajector, "locatedIn", landmark))));
                 }
             }
         }
@@ -446,7 +401,7 @@ public class GenerateMultiHeadCorpus {
         List<List<String>> goldGroups = CollectionUtils.split(oriGoldLines, "");
         int idx = 0;
         for (List<String> goldGroup : goldGroups) {
-            String goldSen = goldGroup.stream().map(x -> x.split("\\s+")[1]).collect(Collectors.joining(" "));;
+            String goldSen = goldGroup.stream().map(x -> x.split("\\s+")[1]).collect(Collectors.joining(" "));
             do {
                 List<String> predGroup = predGroups.get(idx++);
                 if (goldGroup.size() != predGroup.size()) continue;
@@ -498,64 +453,68 @@ public class GenerateMultiHeadCorpus {
 
         String train_path = "data/SpaceEval2015/raw_data/training++";
         String gold_path = "data/SpaceEval2015/raw_data/gold++";
-        String target_dir;
+        String base_dir, target_dir;
+
+        for (int i=0; i<2; i++) {
+            onlyCoreRole = i > 0;
+            String mode = onlyCoreRole ? "part" : "full";
+            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration3_trigger";
+            acceptedLabels = new HashSet<String>(){{add(SPATIAL_SIGNAL); add(MOTION);}};
+            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
+            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
+            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
+            acceptedLabels = null;
+
+            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration3";
+            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
+            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
+            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
 
 
-        target_dir = "data/SpaceEval2015/processed_data/MHS/configuration3_trigger";
-        acceptedLabels = new HashSet<String>(){{add(SPATIAL_SIGNAL); add(MOTION);}};
-        GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
-        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
-        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
-        acceptedLabels = null;
-
-        target_dir = "data/SpaceEval2015/processed_data/MHS/configuration3";
-        GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
-        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
-        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
+            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration3";
+            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",true, false);
+            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", true, false);
+            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", true, false);
 
 
-        target_dir = "data/SpaceEval2015/processed_data/MHS_xml/configuration3";
-        GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",true, false);
-        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", true, false);
-        GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", true, false);
+            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration2";
+            GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",false, false);
+            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "dev", false, false);
+            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "test", false, false);
+
+            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration2";
+            GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",true, false);
+            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "dev", true, false);
+            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "test", true, false);
 
 
-        target_dir = "data/SpaceEval2015/processed_data/MHS/configuration2";
-        GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",false, false);
-        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "dev", false, false);
-        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "test", false, false);
+            String elementPredPath = "data/SpaceEval2015/processed_data/NER/config1/predict.txt";
+            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration1_1";
 
-        target_dir = "data/SpaceEval2015/processed_data/MHS_xml/configuration2";
-        GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",true, false);
-        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "dev", true, false);
-        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "test", true, false);
+            GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",false, false);
+            GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"dev",false, false);
+            GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"test",false, false);
 
-
-        String elementPredPath = "data/SpaceEval2015/processed_data/NER/config1/predict.txt";
-        target_dir = "data/SpaceEval2015/processed_data/MHS/configuration1_1";
-
-        GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",false, false);
-        GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"dev",false, false);
-        GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"test",false, false);
-
-        target_dir = "data/SpaceEval2015/processed_data/MHS_xml/configuration1_1";
-        GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",true, false);
-        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"dev",true, false);
-        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"test",true, false);
+            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration1_1";
+            GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",true, false);
+            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"dev",true, false);
+            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"test",true, false);
 
 
-        String elementTrainPath = "data/SpaceEval2015/processed_data/NER/config2/train.txt";
-        elementPredPath = "data/SpaceEval2015/processed_data/NER/config2/predict.txt";
-        target_dir = "data/SpaceEval2015/processed_data/MHS/configuration1_2";
+            String elementTrainPath = "data/SpaceEval2015/processed_data/NER/config2/train.txt";
+            elementPredPath = "data/SpaceEval2015/processed_data/NER/config2/predict.txt";
+            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration1_2";
 
-        GenerateMultiHeadCorpus.run_config1(train_path, target_dir, elementTrainPath,linkTypes,"train",false, false);
-        GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"dev",false, false);
-        GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"test",false, false);
+            GenerateMultiHeadCorpus.run_config1(train_path, target_dir, elementTrainPath,linkTypes,"train",false, false);
+            GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"dev",false, false);
+            GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"test",false, false);
 
-        target_dir = "data/SpaceEval2015/processed_data/MHS_xml/configuration1_2";
-        GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",true, false);
-        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"dev",true, false);
-        GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"test",true, false);
+            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration1_2";
+            GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",true, false);
+            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"dev",true, false);
+            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"test",true, false);
+        }
+
 
     }
 }

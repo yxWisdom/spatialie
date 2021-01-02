@@ -1,5 +1,6 @@
 package edu.nju.ws.spatialie.data;
 
+import edu.nju.ws.spatialie.utils.Pair;
 import edu.stanford.nlp.ling.CoreLabel;
 import jdk.nashorn.internal.parser.Token;
 
@@ -16,6 +17,7 @@ public class Sentence {
     private List<String> nerTags;
     private List<String> normalizations;
     private List<Integer> offsets;
+    private List<Pair<Integer, String>> dependencyHeads;
 
 
     public Sentence(String text) {
@@ -30,13 +32,14 @@ public class Sentence {
 
 
     public Sentence(String text, List<String> tokens, List<String> labels, List<String> mentions, List<String> nerTags,
-                    List<String> norms) {
+                    List<String> norms, List<Pair<Integer, String>> dependencyHeads) {
         this.text = text;
         this.tokens=tokens;
         this.labels = labels;
         this.mentions = mentions;
         this.nerTags = nerTags;
         this.normalizations = norms;
+        this.dependencyHeads = dependencyHeads;
         length = this.labels.size();
         setOffsets();
     }

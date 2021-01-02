@@ -1,10 +1,7 @@
 package edu.nju.ws.spatialie.annprocess;
 
 import com.google.common.collect.Multimap;
-import edu.nju.ws.spatialie.data.BratDocument;
-import edu.nju.ws.spatialie.data.BratEntity;
-import edu.nju.ws.spatialie.data.BratEvent;
-import edu.nju.ws.spatialie.data.BratRelation;
+import edu.nju.ws.spatialie.data.*;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 

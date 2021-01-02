@@ -1,6 +1,6 @@
 package edu.nju.ws.spatialie.spaceeval;
 
-import edu.nju.ws.spatialie.annprocess.BratUtil;
+import edu.nju.ws.spatialie.data.BratUtil;
 import edu.nju.ws.spatialie.utils.FileUtil;
 import edu.nju.ws.spatialie.utils.UnionFind;
 import edu.nju.ws.spatialie.utils.XmlUtil;

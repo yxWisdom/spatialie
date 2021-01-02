@@ -19,24 +19,28 @@ public class GenerateOpenNRECorpus {
 
 //        GenerateOpenNRECorpus.saveRelationMap("data/SpaceEval2015/processed_data/openNRE/rel2id.json");
 
-        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/training++",
-                "data/SpaceEval2015/processed_data/openNRE", "train", true,false);
+        for (int i=0; i<2; i++) {
+            GenerateOpenNRECorpus.onlyCoreRole = i > 0;
 
-        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/openNRE", "val", false,false);
+            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/training++",
+                    "data/SpaceEval2015/processed_data/openNRE", "train", true,false);
 
-        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/openNRE", "test", false,false);
+            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+                    "data/SpaceEval2015/processed_data/openNRE", "val", false,false);
+
+            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+                    "data/SpaceEval2015/processed_data/openNRE", "test", false,false);
 
 
-        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/training++",
-                "data/SpaceEval2015/processed_data/openNRE_xml", "train", true,true);
+            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/training++",
+                    "data/SpaceEval2015/processed_data/openNRE_xml", "train", true,true);
 
-        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/openNRE_xml", "val", false,true);
+            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+                    "data/SpaceEval2015/processed_data/openNRE_xml", "val", false,true);
 
-        GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/processed_data/openNRE_xml", "test", false,true);
+            GenerateOpenNRECorpus.run("data/SpaceEval2015/raw_data/gold++",
+                    "data/SpaceEval2015/processed_data/openNRE_xml", "test", false,true);
+        }
 
 
 //        GenerateOpenNRECorpus.run_no_trigger("data/SpaceEval2015/raw_data/training++",
@@ -81,65 +85,60 @@ public class GenerateOpenNRECorpus {
     }
 
     // 对于moveLink 两个元素之间的距离最大值，以字符为单位
-    private  static int moveLinkDistanceLimit = 1000;
+    private  static final int moveLinkDistanceLimit = 1000;
 
     // 对于非moveLink 两个元素之间的距离最大值，以字符为单位
-    private  static int nonMoveLinkDistanceLimit = 1000;
+    private  static final int nonMoveLinkDistanceLimit = 1000;
 
     // 两个元素之间的最大元素个数
-    private  static int internalElementNumLimit = 100;
+    private  static final int internalElementNumLimit = 100;
 //    private final static int binaryNonMoveLinkDistanceLimit = 15;
 
     private final static String NONE="None";
     private final static String LOCATED_IN = "locatedIn";
+
+    private static boolean onlyCoreRole = true;
 
 
     private static Set<Triple<String, String, String>> getGoldTriples(List<BratEvent> links, String ...types) {
         Set<Triple<String, String, String>> goldTriples = new HashSet<>();
         Set<String> typeSet = new HashSet<>(Arrays.asList(types));
         for (BratEvent link: links) {
-            if (typeSet.contains(MOVELINK) && link.hasRole(MOVER) && link.hasRole(TRIGGER)) {
-                Collection<String> movers = link.getRoleIds(MOVER), triggers = link.getRoleIds(TRIGGER);
-                movers.forEach(mover -> triggers.forEach(trigger->
-                        goldTriples.add(new ImmutableTriple<>(mover, MOVER,trigger))));
+            if (typeSet.contains(MOVELINK) && link.hasRole(TRIGGER)) {
+//                // TODO: 记得删掉
+//                if (link.getRoleIds(TRIGGER).size() > 1) {
+//                    System.out.println("不止一个trigger");
+//                }
+//                Collection<String> triggers = link.getRoleIds(TRIGGER);
+//                mLinkCoreRoles.forEach(roleType -> {
+//                    link.getRoleIds(roleType).forEach(role -> triggers.forEach(trigger->
+//                            goldTriples.add(new ImmutableTriple<>(role, roleType, trigger))));
+//                });
+//                if (!onlyCoreRole) {
+//                    mLinkOptionalRoles.forEach(roleType -> {
+//                        link.getRoleIds(roleType).forEach(role -> triggers.forEach(trigger->
+//                                goldTriples.add(new ImmutableTriple<>(role, roleType, trigger))));
+//                    });
+//                }
+//                Collection<String> triggers = link.getRoleIds(TRIGGER);
+                String trigger = link.getRoleId(TRIGGER);
+                mLinkCoreRoles.forEach(roleType -> {
+                    link.getRoleIds(roleType).forEach(role ->
+                            goldTriples.add(new ImmutableTriple<>(role, roleType, trigger)));
+                });
+                if (!onlyCoreRole) {
+                    mLinkOptionalRoles.forEach(roleType -> {
+                        link.getRoleIds(roleType).forEach(role ->
+                                goldTriples.add(new ImmutableTriple<>(role, roleType, trigger)));
+                    });
+                }
             }
-            if (typeSet.contains(MOVELINK) && link.hasRole(GOAL) && link.hasRole(TRIGGER)) {
-                Collection<String> goals = link.getRoleIds(GOAL), triggers = link.getRoleIds(TRIGGER);
-                goals.forEach(goal -> triggers.forEach(trigger->
-                        goldTriples.add(new ImmutableTriple<>(goal, GOAL,trigger))));
-            }
-            if (typeSet.contains(MOVELINK) && link.hasRole(SOURCE) && link.hasRole(TRIGGER)) {
-                Collection<String> sources = link.getRoleIds(SOURCE), triggers = link.getRoleIds(TRIGGER);
-                sources.forEach(source -> triggers.forEach(trigger->
-                        goldTriples.add(new ImmutableTriple<>(source, SOURCE,trigger))));
-            }
-            if (typeSet.contains(MOVELINK) && link.hasRole(PATH_M) && link.hasRole(TRIGGER)) {
-                Collection<String> paths = link.getRoleIds(PATH_M), triggers = link.getRoleIds(TRIGGER);
-                paths.forEach(path -> triggers.forEach(trigger->
-                        goldTriples.add(new ImmutableTriple<>(path, PATH_M,trigger))));
-            }
-            if (typeSet.contains(MOVELINK) && link.hasRole(MOTION_SIGNAL_M) && link.hasRole(TRIGGER)) {
-                Collection<String> msigs = link.getRoleIds(MOTION_SIGNAL_M), triggers = link.getRoleIds(TRIGGER);
-                msigs.forEach(msig -> triggers.forEach(trigger->
-                        goldTriples.add(new ImmutableTriple<>(msig, MOTION_SIGNAL_M,trigger))));
-            }
-            if (typeSet.contains(MOVELINK) && link.hasRole(LANDMARK_M) && link.hasRole(TRIGGER)) {
-                Collection<String> landmarks = link.getRoleIds(LANDMARK_M), triggers = link.getRoleIds(TRIGGER);
-                landmarks.forEach(landmark -> triggers.forEach(trigger->
-                        goldTriples.add(new ImmutableTriple<>(landmark, LANDMARK_M,trigger))));
-            }
-
-
             if (typeSet.contains(OLINK) || typeSet.contains(QSLINK) ||  typeSet.contains(MEASURELINK)) {
                 Collection<String> trajectors = link.getRoleIds(TRAJECTOR), landmarks = link.getRoleIds(LANDMARK);
                 if (link.hasRole(VAL) || link.hasRole(TRIGGER)) {
                     String trigger = link.hasRole(VAL) ? link.getRoleId(VAL) : link.getRoleId(TRIGGER);
-                    if (link.hasRole(TRAJECTOR)) {
-                        trajectors.forEach(trajector -> goldTriples.add(new ImmutableTriple<>(trajector, TRAJECTOR, trigger)));
-                    }
-                    if (link.hasRole(LANDMARK)) {
-                        landmarks.forEach(landmark -> goldTriples.add(new ImmutableTriple<>(landmark, LANDMARK, trigger)));
-                    }
+                    trajectors.forEach(trajector -> goldTriples.add(new ImmutableTriple<>(trajector, TRAJECTOR, trigger)));
+                    landmarks.forEach(landmark -> goldTriples.add(new ImmutableTriple<>(landmark, LANDMARK, trigger)));
                 } else {
                     if (link.hasRole(TRAJECTOR) && link.hasRole(LANDMARK)) {
                         trajectors.forEach(trajector -> landmarks.forEach(landmark ->
@@ -152,7 +151,7 @@ public class GenerateOpenNRECorpus {
     }
 
     private static boolean inGoldTriple(Set<Triple<String, String, String>> triples, String head, String tail) {
-        return inGoldTriple(triples, head, tail, TRAJECTOR, LANDMARK, MOVER, LOCATED_IN, GOAL, MOTION_SIGNAL_M, SOURCE,PATH_M);
+        return inGoldTriple(triples, head, tail, LOCATED_IN, TRAJECTOR, LANDMARK, MOVER, SOURCE, MID_POINT, GOAL, PATH_ID, GROUND, MOTION_SIGNAL_ID);
     }
 
     private static boolean inGoldTriple(Set<Triple<String, String, String>> triples, String head, String tail, String ...types) {
@@ -256,7 +255,7 @@ public class GenerateOpenNRECorpus {
             List<BratEvent> links = spaceEvalDoc.getAllLinks().stream().filter(o -> linkTypeSet.contains(o.getType()))
                     .collect(Collectors.toList());
 
-            Set<Triple<String, String, String>> goldTriples = getGoldTriples(links, OLINK, QSLINK, MOVELINK);
+            Set<Triple<String, String, String>> goldTriples = getGoldTriples(links, OLINK, QSLINK);
             for (List<Span> tokensInSentence : sentences) {
                 int start = tokensInSentence.get(0).start;
                 int end = tokensInSentence.get(tokensInSentence.size() - 1).end;
@@ -316,7 +315,7 @@ public class GenerateOpenNRECorpus {
             List<BratEvent> links = spaceEvalDoc.getMoveLink();
             List<Span> allElements = spaceEvalDoc.getElements().stream().filter(o -> o.start >= 0).collect(Collectors.toList());
 
-            Set<Triple<String, String, String>> goldTriples = getGoldTriples(links, OLINK, QSLINK, MOVELINK);
+            Set<Triple<String, String, String>> goldTriples = getGoldTriples(links, MOVELINK);
             for (List<Span> tokensInSentence : sentences) {
                 int start = tokensInSentence.get(0).start;
                 int end = tokensInSentence.get(tokensInSentence.size() - 1).end;
@@ -324,99 +323,25 @@ public class GenerateOpenNRECorpus {
                 List<Span> triggers = elementsInSentence.stream()
                         .filter(o -> o.label.equals(MOTION))
                         .collect(Collectors.toList());
-                for (Span mover : elementsInSentence) {
-                    for (Span trigger : triggers) {
-                        if (mover.equals(trigger))
-                            continue;
-                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(mover, trigger));
-                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(mover, trigger));
-                        if (goldTriples.contains(new ImmutableTriple<>(mover.id, MOVER,trigger.id))) {
-                            linkLines.add(getRelLine(MOVER, tokensInSentence, mover, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, mover.id,trigger.id)
-                                && moverTypes.contains(mover.label)
-                                && distance <= moveLinkDistanceLimit
-                                && elementNum <= internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, mover, trigger, file.getName(), includeXmlInfo));
-                        }
-                    }
-                }
-                for (Span motion_signal : elementsInSentence) {
-                    for (Span trigger : triggers) {
-                        if (motion_signal.equals(trigger))
-                            continue;
-                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(motion_signal, trigger));
-                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(motion_signal, trigger));
-                        if (goldTriples.contains(new ImmutableTriple<>(motion_signal.id, MOTION_SIGNAL_M,trigger.id))) {
-                            linkLines.add(getRelLine(MOTION_SIGNAL_M, tokensInSentence, motion_signal, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, motion_signal.id,trigger.id)
-                                && mothonsigTypes.contains(motion_signal.label)
-                                && distance <= moveLinkDistanceLimit
-                                && elementNum <= internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, motion_signal, trigger, file.getName(), includeXmlInfo));
-                        }
-                    }
-                }
-                for (Span goal : elementsInSentence) {
-                    for (Span trigger : triggers) {
-                        if (goal.equals(trigger))
-                            continue;
-                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(goal, trigger));
-                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(goal, trigger));
-                        if (goldTriples.contains(new ImmutableTriple<>(goal.id, GOAL,trigger.id))) {
-                            linkLines.add(getRelLine(GOAL, tokensInSentence, goal, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, goal.id,trigger.id)
-                                && goalsourceTypes.contains(goal.label)
-                                && distance <= moveLinkDistanceLimit
-                                && elementNum <= internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, goal, trigger, file.getName(), includeXmlInfo));
-                        }
-                    }
-                }
-                for (Span source : elementsInSentence) {
-                    for (Span trigger : triggers) {
-                        if (source.equals(trigger))
-                            continue;
-                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(source, trigger));
-                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(source, trigger));
-                        if (goldTriples.contains(new ImmutableTriple<>(source.id, SOURCE,trigger.id))) {
-                            linkLines.add(getRelLine(SOURCE, tokensInSentence, source, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, source.id,trigger.id)
-                                && goalsourceTypes.contains(source.label)
-                                && distance <= moveLinkDistanceLimit
-                                && elementNum <= internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, source, trigger, file.getName(), includeXmlInfo));
-                        }
-                    }
-                }
-                for (Span path : elementsInSentence) {
-                    for (Span trigger : triggers) {
-                        if (path.equals(trigger))
-                            continue;
-                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(path, trigger));
-                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(path, trigger));
-                        if (goldTriples.contains(new ImmutableTriple<>(path.id, PATH_M,trigger.id))) {
-                            linkLines.add(getRelLine(PATH_M, tokensInSentence, path, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, path.id,trigger.id)
-                                && pathTypes.contains(path.label)
-                                && distance <= moveLinkDistanceLimit
-                                && elementNum <= internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, path, trigger, file.getName(), includeXmlInfo));
-                        }
-                    }
-                }
-                for (Span landmark : elementsInSentence) {
-                    for (Span trigger : triggers) {
-                        if (landmark.equals(trigger))
-                            continue;
-                        int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(landmark, trigger));
-                        int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(landmark, trigger));
-                        if (goldTriples.contains(new ImmutableTriple<>(landmark.id, LANDMARK_M,trigger.id))) {
-                            linkLines.add(getRelLine(LANDMARK_M, tokensInSentence, landmark, trigger, file.getName(), includeXmlInfo));
-                        } else if (!inGoldTriple(goldTriples, landmark.id,trigger.id)
-                                && landmarkTypes.contains(landmark.label)
-                                && distance <= moveLinkDistanceLimit
-                                && elementNum <= internalElementNumLimit) {
-                            linkLines.add(getRelLine(NONE, tokensInSentence, landmark, trigger, file.getName(), includeXmlInfo));
+
+                Set<String> roleTypes = new HashSet<>(mLinkCoreRoles);
+                if (!onlyCoreRole)  roleTypes.addAll(mLinkOptionalRoles);
+
+                for (Span candidate: elementsInSentence) {
+                    for (Span trigger: triggers) {
+                        for (String roleType: roleTypes) {
+                            if (candidate.equals(trigger)) continue;
+                            int distance = calElementTokenLevelDistance(tokensInSentence, Arrays.asList(candidate, trigger));
+                            int elementNum = calElementNumBetweenElements(allElements, Arrays.asList(candidate, trigger));
+
+                            if (goldTriples.contains(new ImmutableTriple<>(candidate.id, roleType, trigger.id))) {
+                                linkLines.add(getRelLine(roleType, tokensInSentence, candidate, trigger, file.getName(), includeXmlInfo));
+                            } else if (!inGoldTriple(goldTriples, candidate.id, trigger.id)
+                                    && validCandidateRoleType(candidate, roleType)
+                                    && distance <= moveLinkDistanceLimit
+                                    && elementNum <= internalElementNumLimit ) {
+                                linkLines.add(getRelLine(NONE, tokensInSentence, candidate, trigger, file.getName(), includeXmlInfo));
+                            }
                         }
                     }
                 }
@@ -426,7 +351,11 @@ public class GenerateOpenNRECorpus {
     }
 
     private static void saveRelationMap(String targetFilePath) {
-        List<String> relations = Arrays.asList(NONE, TRAJECTOR, LANDMARK, MOVER, LOCATED_IN,GOAL,SOURCE,PATH_M,MOTION_SIGNAL_M);
+        List<String> relations = new ArrayList<>(Arrays.asList(NONE, TRAJECTOR, LANDMARK, LOCATED_IN));
+        relations.addAll(mLinkCoreRoles);
+        if (!onlyCoreRole) {
+            relations.addAll(mLinkOptionalRoles);
+        }
         JSONObject relationsObj = new JSONObject(true);
         for (int i=0; i<relations.size();i++) {
             relationsObj.put(relations.get(i), i);
@@ -435,19 +364,19 @@ public class GenerateOpenNRECorpus {
     }
 
     private static void checkConflict(List<String> lines) {
-       Map<String, List<String>> map = new TreeMap<>();
-       for (String line: lines) {
-           int index = line.indexOf("\"relation\":");
-           String key = line.substring(0, index);
-           map.putIfAbsent(key, new ArrayList<>());
-           map.get(key).add(line.substring(index));
-       }
+        Map<String, List<String>> map = new TreeMap<>();
+        for (String line: lines) {
+            int index = line.indexOf("\"relation\":");
+            String key = line.substring(0, index);
+            map.putIfAbsent(key, new ArrayList<>());
+            map.get(key).add(line.substring(index));
+        }
 
-       map.forEach((x,y)-> {
-           if (y.size() > 1) {
-               System.out.println(x + y);
-           }
-       });
+        map.forEach((x,y)-> {
+            if (y.size() > 1) {
+                System.out.println(x + y);
+            }
+        });
     }
 
     private static void run(String srcDir, String targetFilePath, String mode, boolean shuffle,boolean includeXmlInfo) {
@@ -465,12 +394,12 @@ public class GenerateOpenNRECorpus {
         if (shuffle) {
             Collections.shuffle(allLinkLines);
         }
-
-        String dirname = targetFilePath + "/AllLink_" + moveLinkDistanceLimit + "_" + internalElementNumLimit + "/";
+        String dirname = String.format("%s/AllLink_%d_%d", targetFilePath, moveLinkDistanceLimit, internalElementNumLimit);
+        if (!onlyCoreRole) dirname += "_full";
         FileUtil.createDir(dirname);
-        FileUtil.writeFile(dirname + mode + ".txt", allLinkLines);
+        FileUtil.writeFile(String.format("%s/%s.txt", dirname, mode), allLinkLines);
 
-        GenerateOpenNRECorpus.saveRelationMap(dirname + "rel2id.json");
+        GenerateOpenNRECorpus.saveRelationMap(dirname + "/rel2id.json");
     }
 
     private static List<String> removeConflict(List<String> lines) {

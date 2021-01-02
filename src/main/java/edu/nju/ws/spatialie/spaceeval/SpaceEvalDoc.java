@@ -2,11 +2,13 @@ package edu.nju.ws.spatialie.spaceeval;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import edu.nju.ws.spatialie.data.BratAttribute;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.data.BratRelation;
 import edu.nju.ws.spatialie.utils.XmlUtil;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.dom4j.Attribute;
 import org.dom4j.Element;
 
 import java.util.*;
@@ -41,13 +43,13 @@ public class SpaceEvalDoc {
         String document = root.element("TEXT").getStringValue();
         Element tags = root.element("TAGS");
         this.document = document;
-        for(Iterator it = tags.elementIterator(); it.hasNext();) {
+        for(Iterator<?> it = tags.elementIterator(); it.hasNext();) {
             Element element = (Element) it.next();
             if (SpaceEvalUtils.allElementTags.contains(element.getName())) {
                 parseElement(element);
             }
         }
-        for(Iterator it = tags.elementIterator(); it.hasNext();) {
+        for(Iterator<?> it = tags.elementIterator(); it.hasNext();) {
             Element element = (Element) it.next();
             String tag = element.getName();
             if (SpaceEvalUtils.allLinkTags.contains(tag)) {
@@ -89,8 +91,8 @@ public class SpaceEvalDoc {
     private void parseElement(Element element) {
         String id = element.attributeValue("id");
         String text = element.attributeValue("text");
-        int start = Integer.valueOf(element.attributeValue("start"));
-        int end = Integer.valueOf(element.attributeValue("end"));
+        int start = Integer.parseInt(element.attributeValue("start"));
+        int end = Integer.parseInt(element.attributeValue("end"));
         String label = element.getName();
         Span span = new Span(id, text, label, start, end);
         span.semantic_type=element.attributeValue("semantic_type");
@@ -162,21 +164,20 @@ public class SpaceEvalDoc {
 
     private void parseTokens(Element rootElement) {
         Element tokens = rootElement.element("TOKENS");
-//        int tokenIdx = 0;
         List<List<Span>> sentencesTmp = new ArrayList<>();
-        for(Iterator it = tokens.elementIterator(); it.hasNext();) {
+        for(Iterator<?> it = tokens.elementIterator(); it.hasNext();) {
             Element element = (Element) it.next();
             if (!element.getName().equals("s"))
                 // WARNING: 有的语料中有不在<s></s>中的<lex>
                 continue;
             List<Span> sentence = new ArrayList<>();
-            for (Iterator t_it = element.elementIterator(); t_it.hasNext();) {
+            for (Iterator<?> t_it = element.elementIterator(); t_it.hasNext();) {
                 Element tokenElement = (Element) t_it.next();
                 String text = tokenElement.getText();
 //                String id = tokenElement.attributeValue("id");
 //                id = id == null ? "" : id;
-                int start = Integer.valueOf(tokenElement.attributeValue("begin"));
-                int end = Integer.valueOf(tokenElement.attributeValue("end"));
+                int start = Integer.parseInt(tokenElement.attributeValue("begin"));
+                int end = Integer.parseInt(tokenElement.attributeValue("end"));
 
                 /* WARNING  此处id的取值需要注意*/
 //                Span token = new Span(String.valueOf(tokenIdx++), text, "O", start, end);
@@ -290,6 +291,13 @@ public class SpaceEvalDoc {
                 this.elementIdInLinks.add(eid);
             }
         }
+
+        for (String attributeType: attributeTypes) {
+            String attrValue = element.attributeValue(attributeType, "");
+            if (attrValue.trim().isEmpty()) break;
+            bratEvent.addAttribute(new BratAttribute("", attributeType, attrValue, id));
+        }
+
         allLinks.add(bratEvent);
 //        switch(tag) {
 //            case SpaceEvalUtils.QSLINK: qsLinks.add(bratEvent);break;

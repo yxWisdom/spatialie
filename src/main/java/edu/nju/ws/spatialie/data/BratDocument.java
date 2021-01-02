@@ -2,7 +2,6 @@ package edu.nju.ws.spatialie.data;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import edu.nju.ws.spatialie.annprocess.BratUtil;
 import edu.nju.ws.spatialie.utils.FileUtil;
 import org.apache.commons.lang3.tuple.*;
 
@@ -12,7 +11,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static edu.nju.ws.spatialie.annprocess.BratUtil.subtypeMap;
+import static edu.nju.ws.spatialie.data.BratUtil.subtypeMap;
 
 
 public class BratDocument {

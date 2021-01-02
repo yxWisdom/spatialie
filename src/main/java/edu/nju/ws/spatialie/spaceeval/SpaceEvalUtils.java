@@ -1,10 +1,9 @@
 package edu.nju.ws.spatialie.spaceeval;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sun.org.apache.bcel.internal.generic.LAND;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.utils.FileUtil;
-import edu.stanford.nlp.util.ArrayHeap;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
@@ -41,10 +40,14 @@ public class SpaceEvalUtils {
     static final String VAL="val";
     static final String SEMANTIC_TYPE ="semantic_type";
     static final String GOAL ="goal";
+    static final String MID_POINT = "midPoint";
     static final String SOURCE="source";
-    static final String PATH_M="pathID";
-    static final String LANDMARK_M="landmark";
-    static final String MOTION_SIGNAL_M="motion_signalID";
+    static final String GROUND = "ground";
+    static final String PATH_ID="pathID";
+    static final String MOTION_SIGNAL_ID="motion_signalID";
+
+//    static final String LANDMARK_M="landmark";
+//    static final String MOTION_SIGNAL_M="motion_signalID";
 
 
     static final String TOPOLOGICAL="TOPOLOGICAL";
@@ -69,13 +72,18 @@ public class SpaceEvalUtils {
     final static Set<String> allRoles = new HashSet<>(Arrays.asList("trajector", "landmark", "trigger", "val",
             "mover", "source", "midPoint", "goal", "ground", "motion_signalID", "pathID", "referencePt"));
 
+    final static Set<String> mLinkCoreRoles = new HashSet<>(Arrays.asList(MOVER, TRIGGER));
+    final static Set<String> mLinkOptionalRoles = new HashSet<>(Arrays.asList(SOURCE, MID_POINT, GOAL, GROUND, MOTION_SIGNAL_ID, PATH_ID));
 
     final static Set<String> moverTypes = new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE));
-    final static Set<String> goalsourceTypes = new HashSet<>(Arrays.asList(PATH));
-    final static Set<String> mothonsigTypes = new HashSet<>(Arrays.asList(MOTION_SIGNAL));
-    final static Set<String> pathTypes = new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE));
+    //    final static Set<String> pathTypes = new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE));
     final static Set<String>  trajectorTypes= new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE, MOTION, NONMOTION_EVENT));
     final static Set<String>  landmarkTypes= new HashSet<>(Arrays.asList(SPATIAL_ENTITY, PATH, PLACE));
+
+    final static Set<String> attributeTypes = new HashSet<String>() {{add("relType");}};
+
+//    final static Set<String> goalsourceTypes = new HashSet<>(Arrays.asList(PATH));
+//    final static Set<String> mothonsigTypes = new HashSet<>(Arrays.asList(MOTION_SIGNAL));
 
     final static Set<Pair<String ,String>> moveLinkPatterns = new HashSet<Pair<String ,String>>(){{
         add(new ImmutablePair<>(SPATIAL_ENTITY, MOTION)); // 648
@@ -104,7 +112,6 @@ public class SpaceEvalUtils {
         put("â€œ", "“");
         put("â€\u009D", "”");
     }};
-
 
     //计算元素之间的最大距离
     static int calcElementDistance(Span...elements) {
@@ -154,6 +161,17 @@ public class SpaceEvalUtils {
             return -1;
         }
         return endIndex - startIndex;
+    }
+
+    static boolean validCandidateRoleType(Span candidate, String roleType) {
+        String elementType = candidate.label;
+        switch (roleType) {
+            case TRAJECTOR: return trajectorTypes.contains(elementType);
+            case MOVER: return moverTypes.contains(elementType);
+            case PATH_ID: return elementType.equals(PATH);
+            case MOTION_SIGNAL_ID: return elementType.equals(MOTION_SIGNAL);
+            default: return landmarkTypes.contains(elementType);
+        }
     }
 
 
@@ -652,7 +670,7 @@ public class SpaceEvalUtils {
     }
 
 
-    public static void statistics_links(String srcDir) {
+    public static void statisticsLinks(String srcDir) {
         List<File> files = FileUtil.listFiles(srcDir);
         int qs_num=0, o_num=0, move_num=0;
         int qs_no_trigger = 0, o_no_trigger = 0, qs_no_trigger_1 = 0, o_no_trigger_1 = 0, m_no_trigger=0;
@@ -660,7 +678,6 @@ public class SpaceEvalUtils {
             System.out.println(file.getName());
             SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
             List<BratEvent> allLinks = spaceEvalDoc.getAllLinks();
-            Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
             for (BratEvent link: allLinks) {
                 if (link.getType().equals(QSLINK)) {
                     qs_num++;
@@ -694,19 +711,121 @@ public class SpaceEvalUtils {
             }
         }
 
-        System.out.println(qs_num);
-        System.out.println(o_num);
-        System.out.println(move_num);
-        System.out.println(qs_no_trigger);
-        System.out.println(o_no_trigger);
-        System.out.println(m_no_trigger);
-        System.out.println(qs_no_trigger_1);
-        System.out.println(o_no_trigger_1);
+        System.out.format("qs_num: %d\n", qs_num);
+        System.out.format("o_num: %d\n", o_num);
+        System.out.format("move_num: %d\n", move_num);
+        System.out.format("qs_no_trigger_num: %d\n", qs_no_trigger);
+        System.out.format("o_no_trigger_num: %d\n", o_no_trigger);
+        System.out.format("m_no_trigger_num: %d\n", m_no_trigger);
+        System.out.format("qs_no_trigger_1_num: %d\n", qs_no_trigger_1);
+        System.out.format("o_no_trigger_1_num: %d\n", o_no_trigger_1);
 
         System.out.println(qs_num - qs_no_trigger);
         System.out.println(o_num - o_no_trigger);
+    }
 
 
+    private static String linkWithSentence(BratEvent link, List<Span> tokensOfLink, Map<String, Span> elementMap) {
+        String relType = link.getAttribute("relType");
+        String linkType = link.getType();
+        String info = String.format("[%s/%s] ", linkType, relType);
+
+        Multimap<String, Span> roleMap = HashMultimap.create();
+        link.getRoleMap().forEach((k,v) -> roleMap.put(k, elementMap.get(v)));
+        StringBuilder sb = new StringBuilder(info);
+        tokensOfLink.forEach(token -> {
+            roleMap.forEach((roleType, role) -> {
+                if (role.start == token.start) {
+                    sb.append("【");
+                }
+            });
+            sb.append(token.text).append(" ");
+            roleMap.forEach((roleType, role) -> {
+                if (role.end == token.end) {
+                    sb.deleteCharAt(sb.length() - 1).append("】(").append(roleType).append("/").append(role.label).append(") ");
+                }
+            });
+        });
+        return sb.toString();
+    }
+
+    public static void getLinksWithoutTrigger(String srcDir, String targetPath) {
+        List<String> examples = new ArrayList<>();
+        List<File> files = FileUtil.listFiles(srcDir);
+        for (File file: files) {
+            examples.add(file.getName());
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
+            List<BratEvent> allLinks = spaceEvalDoc.getAllLinks();
+
+            for(BratEvent link: allLinks) {
+                String linkType = link.getType();
+                if ((linkType.equals(QSLINK) || linkType.equals(OLINK))) {
+//                    List<Span> roles = new ArrayList<>();
+//                    oLinkRoles.forEach(role -> {
+//                        if (link.hasRole(role)) {
+//                            roles.add(elementMap.get(link.getRoleId(role)));
+//                        }
+//                    });
+                    if (link.hasRole(TRIGGER)) {
+                        List<Span> tokensOfLink = spaceEvalDoc.getAllTokenOfLink(link);
+
+                        Span trigger = elementMap.get(link.getRoleId(TRIGGER));
+                        String triggerText = trigger.text.toLowerCase().trim();
+                        if (triggerText.equals("from") || triggerText.equals("of")) {
+                            System.out.println(trigger.text);
+                            System.out.println(tokensOfLink.stream().map(x -> x.text).collect(Collectors.joining(" ")));
+                            System.out.println(linkWithSentence(link, tokensOfLink, elementMap));
+                            System.out.println();
+                        }
+                    }
+
+                    if (!link.hasRole(TRIGGER) && link.hasRole(TRAJECTOR) && link.hasRole(LANDMARK)) {
+                        List<Span> tokensOfLink = spaceEvalDoc.getAllTokenOfLink(link);
+//                        StringBuilder sb = new StringBuilder();
+//                        Span trajector = elementMap.get(link.getRoleId(TRAJECTOR));
+//                        Span landmark = elementMap.get(link.getRoleId(LANDMARK));
+//                        tokensOfLink.forEach(token -> {
+//                            if (token.start == trajector.start || token.start == landmark.start) {
+//                                sb.append("【");
+//                            }
+//                            sb.append(token.text).append(" ");
+//                            if (token.end == trajector.end || token.end == landmark.end) {
+//                                String role = token.end == trajector.end ? "T" : "L";
+//                                sb.append("】").append(role).append(" ");
+//                            }
+//
+//                        });
+//                        String relType = link.getAttribute("relType");
+//                        String otherInfo = String.format("[%s/%s]", linkType, relType);
+//                        sb.append(otherInfo);
+                        examples.add(tokensOfLink.stream().map(x -> x.text).collect(Collectors.joining(" ")));
+                        examples.add(linkWithSentence(link, tokensOfLink, elementMap));
+                        examples.add("");
+                    }
+                }
+            }
+        }
+        FileUtil.writeFile(targetPath, examples);
+    }
+    public static void analyseSpatialSignalTypes(String srcDir, String targetPath) {
+        List<File> files = FileUtil.listFiles(srcDir);
+        Map<String, Integer> word2cnt = new HashMap<>();
+        for (File file: files) {
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
+            elementMap.forEach((id, ele) -> {
+                if (ele.label.equals(SPATIAL_SIGNAL)) {
+                    String word = ele.text.toLowerCase();
+                    int cnt = word2cnt.getOrDefault(word, 0);
+                    word2cnt.put(word, cnt+1);
+                }
+            });
+        }
+        List<String> lines = new ArrayList<>();
+        word2cnt.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEach(e -> lines.add(e.getKey() + "\t" + e.getValue()));
+        FileUtil.writeFile(targetPath, lines);
     }
 
     public static void main(String [] args) {
@@ -739,7 +858,20 @@ public class SpaceEvalUtils {
 //        SpaceEvalUtils.checkMaxElementNumMapBetweenElements("data/SpaceEval2015/raw_data/training++");
 //        SpaceEvalUtils.checkMaxElementNumMapBetweenElements("data/SpaceEval2015/raw_data/gold++");
 
-        SpaceEvalUtils.statistics_links("data/SpaceEval2015/raw_data/gold++");
-        SpaceEvalUtils.statistics_links("data/SpaceEval2015/raw_data/training++");
+//        SpaceEvalUtils.statisticsLinks("data/SpaceEval2015/raw_data/gold++");
+//        SpaceEvalUtils.statisticsLinks("data/SpaceEval2015/raw_data/training++");
+
+//        SpaceEvalUtils.getLinksWithoutTrigger("data/SpaceEval2015/raw_data/training++",
+//                "data/SpaceEval2015/analysis/train_noTrigger.txt");
+
+        SpaceEvalUtils.getLinksWithoutTrigger("data/SpaceEval2015/raw_data/gold++",
+                "data/SpaceEval2015/analysis/test_noTrigger.txt");
+
+//        SpaceEvalUtils.analyseSpatialSignalTypes("data/SpaceEval2015/raw_data/training++",
+//                "data/SpaceEval2015/analysis/train_SS.txt");
+//
+//        SpaceEvalUtils.analyseSpatialSignalTypes("data/SpaceEval2015/raw_data/gold++",
+//                "data/SpaceEval2015/analysis/test_SS.txt");
+
     }
 }

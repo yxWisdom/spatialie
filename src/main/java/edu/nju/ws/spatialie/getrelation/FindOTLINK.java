@@ -2,7 +2,7 @@ package edu.nju.ws.spatialie.getrelation;
 
 import edu.nju.ws.spatialie.Link.DLINK;
 import edu.nju.ws.spatialie.Link.OTLINK;
-import edu.nju.ws.spatialie.annprocess.BratUtil;
+import edu.nju.ws.spatialie.data.BratUtil;
 import edu.nju.ws.spatialie.data.BratDocumentwithList;
 import edu.nju.ws.spatialie.data.BratEntity;
 import edu.nju.ws.spatialie.data.ParseTree;

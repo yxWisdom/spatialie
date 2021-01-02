@@ -1,6 +1,5 @@
 package edu.nju.ws.spatialie.data;
 
-import edu.nju.ws.spatialie.annprocess.BratUtil;
 import edu.nju.ws.spatialie.utils.FileUtil;
 
 import java.util.ArrayList;

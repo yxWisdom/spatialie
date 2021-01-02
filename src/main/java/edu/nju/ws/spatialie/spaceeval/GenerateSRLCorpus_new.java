@@ -2,6 +2,7 @@ package edu.nju.ws.spatialie.spaceeval;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.sun.org.apache.bcel.internal.generic.LAND;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.utils.FileUtil;
 
@@ -15,6 +16,7 @@ public class GenerateSRLCorpus_new {
 
 
     static Set<String> acceptedLabels = null;
+    static boolean onlyCoreRole = true;
 
 
 //    private static List<BratEvent> mergeLink(List<BratEvent> links) {
@@ -250,7 +252,12 @@ public class GenerateSRLCorpus_new {
 //
 //            });
 
-            Set<String> acceptRoles = new HashSet<>(Arrays.asList("trajector", "landmark", "trigger", "mover","goal","source","pathID","motion_signalID"));
+            Set<String> acceptRoles = new HashSet<>(Arrays.asList(TRAJECTOR, LANDMARK, TRIGGER, MOVER));
+            if (!onlyCoreRole) {
+                acceptRoles.addAll(mLinkOptionalRoles);
+            }
+
+//            Set<String> acceptRoles = new HashSet<>(Arrays.asList("trajector", "landmark", "trigger", "mover","goal","source","pathID","motion_signalID"));
             for (BratEvent link : allMergedLinks) {
                 List<String> tokens = new ArrayList<>();
                 List<String> labels = new ArrayList<>();
@@ -418,30 +425,38 @@ public class GenerateSRLCorpus_new {
         String trainDir = "data/SpaceEval2015/raw_data/training++";
         String devDir = "data/SpaceEval2015/raw_data/gold++";
         String testDir = "data/SpaceEval2015/raw_data/gold++";
-        String targetDir = "data/SpaceEval2015/processed_data/SRL_new";
+        String targetDir;
 
-        GenerateSRLCorpus_new.run(trainDir, targetDir, "train", false, false);
-        GenerateSRLCorpus_new.run(devDir, targetDir, "dev", false, false);
-        GenerateSRLCorpus_new.run(testDir, targetDir, "test", false, false);
+        for (int i = 0; i<2; i++) {
+            onlyCoreRole = i > 0;
+            String mode = onlyCoreRole ? "part" : "full";
 
-        targetDir = "data/SpaceEval2015/processed_data/SRL_new_xml";
-        GenerateSRLCorpus_new.run(trainDir, targetDir, "train", true, false);
-        GenerateSRLCorpus_new.run(devDir, targetDir, "dev", true, false);
-        GenerateSRLCorpus_new.run(testDir, targetDir, "test", true, false);
+            targetDir = "data/SpaceEval2015/processed_data/SRL_new/" + mode;
+            GenerateSRLCorpus_new.run(trainDir, targetDir, "train", false, false);
+            GenerateSRLCorpus_new.run(devDir, targetDir, "dev", false, false);
+            GenerateSRLCorpus_new.run(testDir, targetDir, "test", false, false);
+
+            targetDir = "data/SpaceEval2015/processed_data/SRL_new_xml/" + mode;
+            GenerateSRLCorpus_new.run(trainDir, targetDir, "train", true, false);
+            GenerateSRLCorpus_new.run(devDir, targetDir, "dev", true, false);
+            GenerateSRLCorpus_new.run(testDir, targetDir, "test", true, false);
 
 
-        targetDir = "data/SpaceEval2015/processed_data/SRL_trigger";
-        acceptedLabels = new HashSet<String>(){{add(SPATIAL_SIGNAL); add(MOTION);}};
-        GenerateSRLCorpus_new.run(trainDir, targetDir, "train", false, false);
-        GenerateSRLCorpus_new.run(devDir, targetDir, "dev", false, false);
-        GenerateSRLCorpus_new.run(testDir, targetDir, "test", false, false);
+            targetDir = "data/SpaceEval2015/processed_data/SRL_trigger/" + mode;
+            acceptedLabels = new HashSet<String>(){{add(SPATIAL_SIGNAL); add(MOTION);}};
+            GenerateSRLCorpus_new.run(trainDir, targetDir, "train", false, false);
+            GenerateSRLCorpus_new.run(devDir, targetDir, "dev", false, false);
+            GenerateSRLCorpus_new.run(testDir, targetDir, "test", false, false);
 
-        targetDir = "data/SpaceEval2015/processed_data/SRL_trigger_xml";
-        GenerateSRLCorpus_new.run(trainDir, targetDir, "train", true, false);
-        GenerateSRLCorpus_new.run(devDir, targetDir, "dev", true, false);
-        GenerateSRLCorpus_new.run(testDir, targetDir, "test", true, false);
+            targetDir = "data/SpaceEval2015/processed_data/SRL_trigger_xml/" + mode;
+            GenerateSRLCorpus_new.run(trainDir, targetDir, "train", true, false);
+            GenerateSRLCorpus_new.run(devDir, targetDir, "dev", true, false);
+            GenerateSRLCorpus_new.run(testDir, targetDir, "test", true, false);
 
-        acceptedLabels = null;
+            acceptedLabels = null;
+        }
+
+
 
 
 
