@@ -1,5 +1,6 @@
 package edu.nju.ws.spatialie.spaceeval;
 
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.data.Sentence;
@@ -128,7 +129,16 @@ public class GenerateMultiHeadCorpus {
                                 triples.add(new ImmutableTriple<>(trigger, TRAJECTOR + "_" + linkType, trajector)));
                         landmarks.forEach(landmark ->
                                 triples.add(new ImmutableTriple<>(trigger, LANDMARK + "_" + linkType, landmark)));
+
+                        if (useRelType) {
+                            String relType = link.getAttribute("relType").trim();
+                            if (relType.isEmpty()) {
+                                System.out.println("relType为空！");
+                            }
+                            triples.add(new ImmutableTriple<>(trigger, relType, trigger));
+                        }
                     });
+
                 } else {
                     trajectors.forEach(trajector ->
                             landmarks.forEach(landmark ->
@@ -507,23 +517,42 @@ public class GenerateMultiHeadCorpus {
 //            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
 //            acceptedLabels = null
 
-            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration3";
+//            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration3";
+//            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
+//            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
+//            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
+//
+//            SpaceEvalDoc.useCoreference = true;
+//            target_dir = "data/SpaceEval2015/processed_data/MHS_new/" + mode + "/configuration3";
+//            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
+//            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
+//            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
+//            SpaceEvalDoc.useCoreference = false;
+//
+//            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration3";
+//            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",true, false);
+//            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", true, false);
+//            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", true, false);
+
+
+            useRelType = true;
+            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration3b";
             GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
             GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
             GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
 
-            SpaceEvalDoc.useCoreference = true;
-            target_dir = "data/SpaceEval2015/processed_data/MHS_new/" + mode + "/configuration3";
-            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
-            SpaceEvalDoc.useCoreference = false;
+//            SpaceEvalDoc.useCoreference = true;
+//            target_dir = "data/SpaceEval2015/processed_data/MHS_new/" + mode + "/configuration3b";
+//            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
+//            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
+//            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
+//            SpaceEvalDoc.useCoreference = false;
 
-            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration3";
+            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration3b";
             GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",true, false);
             GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", true, false);
             GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", true, false);
-
+            useRelType = false;
 //
 //            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration2";
 //            GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",false, false);

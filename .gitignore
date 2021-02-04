@@ -1,7 +1,6 @@
-./data/
+/data/
 .idea/
-./target/
+target/
 spatial-ie.iml
 spatialie.iml
-./output/
-data/
+/output/
