@@ -23,14 +23,14 @@ public class ConvertToBratFormat {
     private String path;
     private String document;
 
-    private Map<String, Span> id2EntityMap = new HashMap<>();
-    private List<String> bratLines = new ArrayList<>();
-    private Map<String, String> SE2BratLabelMap= new HashMap<>();
+    private final Map<String, Span> id2EntityMap = new HashMap<>();
+    private final List<String> bratLines = new ArrayList<>();
+    private final Map<String, String> SE2BratLabelMap= new HashMap<>();
     //    private Map<String, String> idMap = new HashMap<>();
-    private List<Span> allTokens = new ArrayList<>();
-    private Set<String> nullEntities = new HashSet<>();
+    private final List<Span> allTokens = new ArrayList<>();
+    private final Set<String> nullEntities = new HashSet<>();
 
-    private Set<String> elementIdInLinks = new HashSet<>();
+    private final Set<String> elementIdInLinks = new HashSet<>();
 
     private  final Span NullSpan = new Span("", "", "",-1, -1);
 
@@ -271,7 +271,7 @@ public class ConvertToBratFormat {
 
         String O_type=element.attributeValue("relType");
         String frame_type = element.attributeValue("frame_type");
-        String projective = element.attributeValue("frame_type");
+        String projective = element.attributeValue("projective");
         addAttribute(nextAttributeId(), eid, "O_type", O_type);
         addAttribute(nextAttributeId(), eid, "frame_type", frame_type);
         addAttribute(nextAttributeId(), eid, "projective", projective);
@@ -391,7 +391,7 @@ public class ConvertToBratFormat {
 //        for (Span span: id2EntityMap.values()) {
 //            addEntity(span.id, span.label, span.start, span.end, span.text);
 //        }
-        for(Iterator it=tags.elementIterator(); it.hasNext();) {
+        for(Iterator<?> it=tags.elementIterator(); it.hasNext();) {
             Element element = (Element) it.next();
             String elementTag = element.getName();
             if (!SE2BratLabelMap.containsKey(elementTag))
@@ -420,14 +420,14 @@ public class ConvertToBratFormat {
         Element tags = rootElement.element("TAGS");
         Element tokens = rootElement.element("TOKENS");
 
-        for(Iterator it = tokens.elementIterator(); it.hasNext();) {
+        for(Iterator<?> it = tokens.elementIterator(); it.hasNext();) {
             Element element = (Element) it.next();
             if (!element.getName().equals("s")) continue;
-            for (Iterator t_it = element.elementIterator(); t_it.hasNext();) {
+            for (Iterator<?> t_it = element.elementIterator(); t_it.hasNext();) {
                 Element tokenElement = (Element) t_it.next();
                 String tokenText = tokenElement.getText();
-                int start = Integer.valueOf(tokenElement.attributeValue("begin"));
-                int end = Integer.valueOf(tokenElement.attributeValue("end"));
+                int start = Integer.parseInt(tokenElement.attributeValue("begin"));
+                int end = Integer.parseInt(tokenElement.attributeValue("end"));
                 Span token = new Span("", tokenText, "", start, end);
                 this.allTokens.add(token);
             }
@@ -437,15 +437,15 @@ public class ConvertToBratFormat {
 
         Set<String> pathAttrs= new HashSet<>(Arrays.asList("beginID", "endID", "midIDs"));
 
-        for(Iterator it=tags.elementIterator(); it.hasNext();) {
+        for(Iterator<?> it=tags.elementIterator(); it.hasNext();) {
             Element element = (Element) it.next();
             String elementTag = element.getName();
             if (SpaceEvalUtils.allElementTags.contains(elementTag)) {
                 String tag = element.getName();
                 String id = element.attributeValue("id");
                 String text = element.attributeValue("text");
-                int start = Integer.valueOf(element.attributeValue("start"));
-                int end = Integer.valueOf(element.attributeValue("end"));
+                int start = Integer.parseInt(element.attributeValue("start"));
+                int end = Integer.parseInt(element.attributeValue("end"));
                 id2EntityMap.put(id, new Span(nextEntityId(), text, tag, start, end));
 
                 if (start == -1) {
@@ -508,9 +508,9 @@ public class ConvertToBratFormat {
 
         for (Set<String> set: disjointSet) {
             List<String> nonNullEntityList = set.stream().filter(o -> id2EntityMap.get(o).start > -1)
-                    .sorted(Comparator.comparing(o->id2EntityMap.get(o))).collect(Collectors.toList());
+                    .sorted(Comparator.comparing(id2EntityMap::get)).collect(Collectors.toList());
             List<String> nullEntityList = set.stream().filter(o -> id2EntityMap.get(o).start == -1)
-                    .sorted(Comparator.comparing(o->id2EntityMap.get(o))).collect(Collectors.toList());
+                    .sorted(Comparator.comparing(id2EntityMap::get)).collect(Collectors.toList());
 //            Span midSpan = id2EntityMap.get(nonNullEntityList.get((nonNullEntityList.size()) / 2));
             Span midSpan = id2EntityMap.get(nonNullEntityList.get(0));
 

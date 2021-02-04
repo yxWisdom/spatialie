@@ -107,4 +107,12 @@ public class Sentence {
         }
         this.offsets = tmp.stream().distinct().collect(Collectors.toList());
     }
+
+    public List<Pair<Integer, String>> getDependencyHeads() {
+        return dependencyHeads;
+    }
+
+    public void setDependencyHeads(List<Pair<Integer, String>> dependencyHeads) {
+        this.dependencyHeads = dependencyHeads;
+    }
 }

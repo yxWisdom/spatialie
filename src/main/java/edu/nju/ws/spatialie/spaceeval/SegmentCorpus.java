@@ -1,7 +1,7 @@
 package edu.nju.ws.spatialie.spaceeval;
 
 import edu.nju.ws.spatialie.utils.XmlUtil;
-import edu.nju.ws.spatialie.utils.StandfordNLPUtil;
+import edu.nju.ws.spatialie.utils.StanfordNLPUtil;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.CoreSentence;
 import org.dom4j.Element;
@@ -15,11 +15,11 @@ import java.util.List;
 
 public class SegmentCorpus {
     public static void process(String inPath, String outPath) throws IOException {
-        StandfordNLPUtil.init();
+        StanfordNLPUtil.init();
         Element root = XmlUtil.getRootElement(inPath);
         Element tokens = root.addElement("TOKENS");
         String text = root.elementText("TEXT");
-        List<CoreSentence> sentences = StandfordNLPUtil.getCoreSentence(text);
+        List<CoreSentence> sentences = StanfordNLPUtil.getCoreSentence(text);
         for (CoreSentence sentence: sentences) {
             Element sen = tokens.addElement("s");
             for (CoreLabel coreLabel: sentence.tokens()) {

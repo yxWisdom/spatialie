@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class StandfordNLPUtil {
+public class StanfordNLPUtil {
     private static StanfordCoreNLP pipeline=null;
     private static CoreDocument document;
 
@@ -45,6 +45,9 @@ public class StandfordNLPUtil {
     }
 
     public static List<CoreLabel> getCoreLabel(String content) {
+        if (pipeline == null) {
+            init();
+        }
         CoreDocument doc = new CoreDocument(content);
         pipeline.annotate(doc);
         return doc.tokens();
@@ -55,6 +58,20 @@ public class StandfordNLPUtil {
         pipeline.annotate(doc);
         return doc.sentences();
     }
+
+
+//    public static Sentence onlyOneSentence(String text) {
+//        List<Sentence> sentences = getSentences(text);
+//        Sentence sentence = sentences.get(0);
+//        if (sentences.size() > 1) {
+//            int totalLen = sentences.get(0).size();
+//            for (int i=1; i<sentences.size(); i++) {
+//                int finalTotalLen = totalLen;
+//                sentences.get(i).getDependencyHeads().forEach(x -> x.setFirst(x.first + finalTotalLen));
+//                totalLen += sentences.get(i).size();
+//            }
+//        }
+//    }
 
     public static List<Sentence> getSentences(String text){
         if (pipeline == null) {
@@ -101,7 +118,10 @@ public class StandfordNLPUtil {
 
             SemanticGraph graph = coreSentence.coreMap().get(BasicDependenciesAnnotation.class);
 //            SemanticGraph graph = coreSentence.dependencyParse();
-            List<Pair<Integer, String>> dependencyHeads = new ArrayList<>(Collections.nCopies(tokens.size(), null));
+            List<Pair<Integer, String>> dependencyHeads = new ArrayList<>();
+            for (int i = 0; i < tokens.size(); i++) {
+                dependencyHeads.add(new Pair<>(i, "ROOT"));
+            }
             for (SemanticGraphEdge edge: graph.edgeIterable()) {
                 int sourceId = edge.getSource().index() - 1;
                 int targetId = edge.getTarget().index() - 1;
@@ -232,8 +252,8 @@ public class StandfordNLPUtil {
 
     public static void main(String[] args) {
 //        List<Sentence> sentences = StandfordNLPUtil.getSentences("2018-04-12 00:13:01 3点30发生了一起重要得交通事故");
-        List<Sentence> sentences = StandfordNLPUtil.getSentences("In 2017, he went to Paris, France in the summer.");
-        StandfordNLPUtil.init();
+        List<Sentence> sentences = StanfordNLPUtil.getSentences("In 2017, he went to Paris, France in the summer.");
+        StanfordNLPUtil.init();
         System.out.println(sentences.toString());
         sentences.forEach(x->System.out.println(x.getTokens().toString()));
     }

@@ -27,13 +27,13 @@ public class CollectionUtils {
 
     public static<T> List<T> union(Collection<T> a, Collection<T> b) {
         List<T> res = new ArrayList<>(a);
-        a.addAll(b);
+        res.addAll(b);
         return res;
     }
 
     public static<T> List<T> intersect(Collection<T> a, Collection<T> b) {
         List<T> res = new ArrayList<>(a);
-        a.retainAll(b);
+        res.retainAll(b);
         return res;
     }
 }

@@ -5,12 +5,16 @@ import com.google.common.collect.Multimap;
 import edu.nju.ws.spatialie.data.BratAttribute;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.data.BratRelation;
+import edu.nju.ws.spatialie.data.Sentence;
+import edu.nju.ws.spatialie.utils.FileUtil;
+import edu.nju.ws.spatialie.utils.StanfordNLPUtil;
 import edu.nju.ws.spatialie.utils.XmlUtil;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.dom4j.Attribute;
 import org.dom4j.Element;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,23 +22,29 @@ import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.*;
 
 public class SpaceEvalDoc {
     private String document;
-    private List<Span> elements = new ArrayList<>();
-    private Map<String, Span> elementMap = new HashMap<>();
+    private final List<Span> elements = new ArrayList<>();
+    private final Map<String, Span> elementMap = new HashMap<>();
     private List<Span> tokens = new ArrayList<>();
-    private List<List<Span>> sentences=new ArrayList<>();
+    private final List<List<Span>> sentences=new ArrayList<>();
     //    private List<BratEvent> qsLinks=new ArrayList<>();;
 //    private List<BratEvent> oLinks=new ArrayList<>();;
 //    private List<BratEvent> moveLinks=new ArrayList<>();;
 //    private List<BratEvent> measureLinks = new ArrayList<>();
-    private List<BratRelation> relations = new ArrayList<>();
-    private List<BratEvent> allLinks = new ArrayList<>();
+    private final List<BratRelation> relations = new ArrayList<>();
+    private final List<BratEvent> allLinks = new ArrayList<>();
 
     // Link中的所有element的id集合
-    private Set<String> elementIdInLinks = new HashSet<>();
-    private String path;
-    private List<BratEvent> links;
+    private final Set<String> elementIdInLinks = new HashSet<>();
+    private final String path;
 
-    SpaceEvalDoc() {}
+    private boolean useTokenizer = true;
+
+    public static boolean ignoreElementNotInLink = false;
+    public static boolean useCoreference = false;
+
+//    private List<BratEvent> links;
+
+//    SpaceEvalDoc() {}
 
     SpaceEvalDoc(String filePath) {
         this.path = filePath;
@@ -60,29 +70,36 @@ public class SpaceEvalDoc {
             }
         }
 
-        Collections.sort(elements);
-        for (int i = 0; i < elements.size(); i++) {
-            Span element = elements.get(i);
-            if (element.text.endsWith(" ")) {
-                // WARNING:
-                element.text = element.text.trim();
-                element.end -= 1;
-            }
-            if (i > 0) {
-                Span preElement = elements.get(i-1);
-                // 此处是为了解决一个短语可能被标记为了多个标记，大多是MOTION_SIGNAL和其他类型， 这里优先选择其他类型
-                if (preElement.end > element.start) {
-                    if (preElement.label.equals(MOTION_SIGNAL)) {
-                        preElement.start = -1;
-                        preElement.end = -1;
-                    } else if (element.label.equals(MOTION_SIGNAL)) {
-                        element.start = -1;
-                        element.end = -1;
-                    }
-                }
-            }
-        }
-        Collections.sort(elements);
+        elements.sort(Comparator.comparing((Span o) -> o.start).thenComparing((Span o) -> !elementIdInLinks.contains(o.id)));
+
+//        Collections.sort(elements);
+//        for (int i = 0; i < elements.size(); i++) {
+//            Span element = elements.get(i);
+//            if (element.text.endsWith(" ")) {
+//                // WARNING: 处理element末尾为空格的情况
+//                element.text = element.text.trim();
+//                element.end -= 1;
+//            }
+//            if (i > 0) {
+//                Span preElement = elements.get(i-1);
+//                // TODO: 此处是为了解决一个短语可能被标记为了多个标记，大多是MOTION_SIGNAL和其他类型， 这里优先选择其他类型
+//                if (preElement.end > element.start) {
+//
+//                    System.out.println("Pre Element: " + preElement);
+//                    System.out.println("Current Element: " + element);
+//                    System.out.println();
+//
+//                    if (preElement.label.equals(MOTION_SIGNAL)) {
+//                        preElement.start = -1;
+//                        preElement.end = -1;
+//                    } else if (element.label.equals(MOTION_SIGNAL)) {
+//                        element.start = -1;
+//                        element.end = -1;
+//                    }
+//                }
+//            }
+//        }
+//        Collections.sort(elements);
         parseTokens(root);
         dealNullRole();
     }
@@ -109,13 +126,16 @@ public class SpaceEvalDoc {
             return tokens;
         }
 
+//        int len = StanfordNLPUtil.getCoreLabel(span.text).size();
+
         List<String> wordList = new ArrayList<>();
         StringBuilder tmp = new StringBuilder();
 
         for (int i = 0; i < text.length();) {
+            text = text.replace("\u00AD", "-");
             int index;
             if (text.startsWith("â€", i)) {
-                if (text.substring(i,i+3).equals("â€™") && i != 0 && i+3 != text.length()) {
+                if (text.startsWith("â€™", i) && i != 0 && i+3 != text.length()) {
                     tmp.append(invalidCharFixedMap.get("â€™")).append("  ");
                     i += 3;
                     continue;
@@ -128,7 +148,11 @@ public class SpaceEvalDoc {
                 index = i + 1;
             } else if (text.charAt(i) == '?' || text.charAt(i) == '(' || text.charAt(i) == '…') {
                 index = i + 1;
-            } else {
+            }
+//            else if (text.charAt(i) == '.' && !Character.isDigit(text.charAt(i-1)) && len > 1){
+//                index = i + 1;
+//            }
+            else {
                 tmp.append(text.charAt(i));
                 i++;
                 continue;
@@ -143,6 +167,7 @@ public class SpaceEvalDoc {
         if (tmp.length() > 0) {
             wordList.add(tmp.toString());
         }
+
         int start = span.start;
         for (String word: wordList) {
             String t = invalidCharFixedMap.getOrDefault(word, word).replaceAll("\\s+", "");
@@ -153,17 +178,30 @@ public class SpaceEvalDoc {
     }
 
     private List<Span> processInvalidChars(List<Span> tokens) {
+
+        List<Span> newTokens = new ArrayList<>();
+
+        // 处理â€“等符号
+        for (int i = 0; i < tokens.size(); i++) {
+            Span token = tokens.get(i);
+            if (token.text.equals("â")) {
+                token.text = token.text + tokens.get(i + 1).text + tokens.get(i + 2).text;
+                token.end = tokens.get(i+2).end;
+                i+=2;
+            }
+            newTokens.add(token);
+        }
+
         List<Span> res = new ArrayList<>();
-        for (Span token: tokens) {
+        for (Span token: newTokens) {
             res.addAll(split(token));
         }
         return res;
     }
 
-
-
     private void parseTokens(Element rootElement) {
         Element tokens = rootElement.element("TOKENS");
+        if (tokens == null) return;
         List<List<Span>> sentencesTmp = new ArrayList<>();
         for(Iterator<?> it = tokens.elementIterator(); it.hasNext();) {
             Element element = (Element) it.next();
@@ -182,31 +220,42 @@ public class SpaceEvalDoc {
                 /* WARNING  此处id的取值需要注意*/
 //                Span token = new Span(String.valueOf(tokenIdx++), text, "O", start, end);
                 Span token = new Span("", text, "O", start, end);
-                int index = Collections.binarySearch(this.elements, token);
-                if (index >= 0) {
-                    token.label = "B-" + this.elements.get(index).label;
-                    token.id = this.elements.get(index).id;
-//                    if (!id.equals(this.elements.get(index).id)) {
-//                        System.out.println(123);
+//                int index = Collections.binarySearch(this.elements, token);
+//                if (index >= 0) {
+//                    token.label = "B-" + this.elements.get(index).label;
+//                    token.id = this.elements.get(index).id;
+////                    if (!id.equals(this.elements.get(index).id)) {
+////                        System.out.println(123);
+////                    }
+//                } else if(index < -1) {
+//                    index = -index - 2;
+//                    if (token.end <= elements.get(index).end) {
+//                        token.label = "I-" + elements.get(index).label;
+//                        token.id = this.elements.get(index).id;
 //                    }
-                } else if(index < -1) {
-                    index = -index - 2;
-                    if (token.end <= elements.get(index).end) {
-                        token.label = "I-" + elements.get(index).label;
-                        token.id = this.elements.get(index).id;
-                    }
-
-                }
+//
+//                }
 //                this.tokens.add(token);
                 sentence.add(token);
             }
             sentencesTmp.add(sentence);
         }
-
+        // 移除空实体
         List<Span> elements = this.elements.stream().filter(x -> x.start != -1).sorted().collect(Collectors.toList());
+
+        if (ignoreElementNotInLink) {
+            elements = elements.stream().filter(x -> elementIdInLinks.contains(x.id) || (!x.label.equals(MOTION)&& !x.label.equals(SPATIAL_SIGNAL)))
+                    .sorted().collect(Collectors.toList());
+        }
+
         int k = 0;
 
         for (List<Span> sentence: sentencesTmp) {
+
+//            if (sentence.get(0).text.equals("CP")) {
+//                System.out.println("1");
+//            }
+
             sentence = processInvalidChars(sentence);
             List<Span> newSentence = new ArrayList<>();
             for (int i = 0; i < sentence.size();) {
@@ -246,18 +295,86 @@ public class SpaceEvalDoc {
                     i++;
                 }
             }
-//            if (sentence.size() != newSentence.size()) {
-//                System.out.println("长度不一致");
-//            } else {
-//                for (int i = 0; i < newSentence.size(); i++) {
-//                    if (!newSentence.get(i).equals(sentence.get(i))) {
-//                        System.out.println(newSentence.get(i) + " " + sentence.get(i));
+
+            String sentenceText = newSentence.stream().map(x -> x.text).collect(Collectors.joining(" "));
+            List<Sentence> subSentences = StanfordNLPUtil.getSentences(sentenceText);
+            // 语料中的分句与 Stanford CoreNLP 不一致, 且第二句第一个词首字母大写
+
+            int idx = 0;
+            for (int i = 0; i<subSentences.size(); i++) {
+                List<Span> newSubSentence = new ArrayList<>();
+                List<String> words = subSentences.get(i).getTokens();
+                for (int j = 0; j < words.size(); j++) {
+                    StringBuilder word = new StringBuilder();
+                    Span curToken = newSentence.get(idx);
+                    int offset = curToken.start;
+                    if (words.get(j).length() > curToken.text.length()) {
+                        // 神坑，分词会出现char 160
+                        String curWord = words.get(j).replaceAll("\\h", "");
+                        StringBuilder tmpToken = new StringBuilder(curToken.text);
+                        while(!tmpToken.toString().equals(curWord)) {
+                            tmpToken.append(newSentence.get(++idx).text);
+                        }
+                        newSubSentence.add(new Span(curToken.id, tmpToken.toString(), curToken.label, offset, newSentence.get(idx++).end));
+                    } else {
+                        List<Span> tmpTokenGroup = new ArrayList<>();
+                        while (true){
+                            String curWord = words.get(j);
+                            Span newToken = new Span(curToken.id, curWord, curToken.label, offset, offset+curWord.length());
+                            if (tmpTokenGroup.size() > 0 && curToken.label.startsWith("B-")) {
+                                newToken.label = "I-" + newToken.label.substring(2);
+                            }
+                            offset += curWord.length();
+                            word.append(curWord);
+                            if (word.toString().equals(curToken.text)) {
+                                newToken.end = curToken.end;
+                                tmpTokenGroup.add(newToken);
+                                newSubSentence.addAll(tmpTokenGroup);
+                                idx++;
+                                break;
+                            }
+                            tmpTokenGroup.add(newToken);
+                            j++;
+                            if (j >= words.size()) {
+                                System.out.println(1);
+                            }
+                        }
+                    }
+                }
+                if (i > 0) {
+                    char ch = subSentences.get(i).getTokens().get(0).charAt(0);
+                    if (!Character.isUpperCase(ch) && ch != '(') {
+                        this.sentences.get(this.sentences.size()-1).addAll(newSubSentence);
+                        continue;
+                    }
+                }
+                this.sentences.add(newSubSentence);
+            }
+
+//            if (subSentences.size() > 1 ) {
+//                char ch = subSentences.get(1).getTokens().get(0).charAt(0);
+//                if (Character.isUpperCase(ch) || ch == '(') {
+//                    int idx = 0;
+//                    for (Sentence subSentence: subSentences) {
+//                        List<Span> newSubSentence = new ArrayList<>();
+//                        List<String> words = subSentence.getTokens();
+//                        for (int i = 0; i<words.size(); i++) {
+//                            StringBuilder word = new StringBuilder(words.get(i));
+//                            while(!word.toString().equals(newSentence.get(idx).text)) {
+//                                word.append(words.get(++i));
+//                            }
+//                            newSubSentence.add(newSentence.get(idx++));
+//                        }
+//                        this.sentences.add(newSubSentence);
 //                    }
 //                }
+//                else {
+//                    this.sentences.add(newSentence);
+//                }
+//            } else {
+//                this.sentences.add(newSentence);
 //            }
-            this.sentences.add(newSentence);
         }
-
         this.tokens = this.sentences.stream().flatMap(Collection::stream).collect(Collectors.toList());
     }
 
@@ -380,21 +497,24 @@ public class SpaceEvalDoc {
             for (Map.Entry<String, String> entry: tmpRoleMap.entries()) {
                 String role = entry.getKey(), elementId = entry.getValue();
                 Span element = this.elementMap.get(elementId);
-                for (BratRelation relation: relations) {
-                    String sourceId = relation.getSourceId(), targetId = relation.getTargetId();
-                    Span source = elementMap.get(sourceId), target = elementMap.get(targetId);
-                    if (relation.getTag().equals("SUBCOREFERENCE")) {
+
+                if (useCoreference) {
+                    for (BratRelation relation: relations) {
+                        String sourceId = relation.getSourceId(), targetId = relation.getTargetId();
+                        Span source = elementMap.get(sourceId), target = elementMap.get(targetId);
+                        if (relation.getTag().equals("SUBCOREFERENCE")) {
 //                        if (elementId.equals(sourceId)) {
 //                            System.out.println("abc");
 //                        }
-                        if (elementId.equals(targetId)) {
-                            if (linkStart <= source.start && source.end <= linkEnd &&
-                                    !elementIdInLinks.contains(sourceId)) {
-                                link.addRole(role, sourceId);
-                            }
+                            if (elementId.equals(targetId)) {
+                                if (linkStart <= source.start && source.end <= linkEnd &&
+                                        !elementIdInLinks.contains(sourceId)) {
+                                    link.addRole(role, sourceId);
+                                }
 //                            else {
 //                                System.out.println("def");
 //                            }
+                            }
                         }
                     }
                 }
@@ -514,11 +634,15 @@ public class SpaceEvalDoc {
     }
 
     public static void main(String [] args) {
-//        List<File> files = FileUtil.listFiles("data/SpaceEval2015/raw_data/training++");
-//        files.addAll(FileUtil.listFiles("data/SpaceEval2015/raw_data/gold++"));
-//        for (File file: files) {
-//            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
-//        }
-        SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc("data/SpaceEval2015/raw_data/gold++/CP/48_N_27_E.xml");
+        List<File> files = FileUtil.listFiles("data/SpaceEval2015/raw_data/training++");
+        files.addAll(FileUtil.listFiles("data/SpaceEval2015/raw_data/gold++"));
+        for (File file: files) {
+            System.out.println(file.getName());
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+        }
+//        SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc("data/SpaceEval2015/raw_data/gold++/RFC/SanDiego.xml");
+//        SpaceEvalDoc.ignoreElementNotInLink=true;
+//        SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc("data/SpaceEval2015/raw_data/gold/RideForClimateUSA.xml");
+//        System.out.println(1);
     }
 }

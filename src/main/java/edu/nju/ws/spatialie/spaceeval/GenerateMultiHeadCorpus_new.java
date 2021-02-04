@@ -1,13 +1,14 @@
 package edu.nju.ws.spatialie.spaceeval;
 
 import com.google.common.collect.Multimap;
+import com.sun.org.apache.bcel.internal.generic.LAND;
+import edu.nju.ws.spatialie.Link.LINK;
 import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.data.Sentence;
 import edu.nju.ws.spatialie.utils.CollectionUtils;
 import edu.nju.ws.spatialie.utils.FileUtil;
 import edu.nju.ws.spatialie.utils.Pair;
 import edu.nju.ws.spatialie.utils.StanfordNLPUtil;
-//import javafx.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
@@ -18,10 +19,11 @@ import java.util.stream.Collectors;
 
 import static edu.nju.ws.spatialie.spaceeval.SpaceEvalUtils.*;
 
-public class GenerateMultiHeadCorpus {
+
+// INFO: 取消trajector和landmark的后缀(_Q, _O), 通过trigger的semantic type判断是，
+public class GenerateMultiHeadCorpus_new {
     static Set<String> acceptedLabels = null;
     static boolean onlyCoreRole = true;
-    static boolean useRelType = false;
 
 
 //    private static List<Triple<String, String, String>> getBidirectionalSPOTriples(List<BratEvent> links) {
@@ -103,32 +105,55 @@ public class GenerateMultiHeadCorpus {
 
 
     private static List<Triple<String, String, String>> getSPOTriples(List<BratEvent> links) {
+        Map<String, String> trigger2linkType = new HashMap<>();
+        Map<String, Map<String, String>> trigger2roleMap = new HashMap<>();
+
         List<Triple<String, String, String>> triples = new ArrayList<>();
         for (BratEvent link: links) {
-            char linkType = link.getType().charAt(0);
+            String linkType = link.getType();
             Multimap<String, String> roleMap = link.getRoleMap();
             if (link.getType().equals(MOVELINK)) {
                 Collection<String> triggers = roleMap.get(TRIGGER);
-
                 Set<String> roleTypes = new HashSet<String>(){{add(MOVER);}};
                 if (!onlyCoreRole) roleTypes.addAll(mLinkOptionalRoles);
 
                 for (String roleType: roleTypes) {
                     Collection<String> roles = roleMap.get(roleType);
-                    roles.forEach(role -> triggers.forEach(trigger ->
-                            triples.add(new ImmutableTriple<>(trigger, roleType, role))));
+                    roles.forEach(roleId -> triggers.forEach(trigger -> {
+                        trigger2linkType.putIfAbsent(trigger, linkType);
+                        trigger2roleMap.putIfAbsent(trigger, new HashMap<>());
+                        if (!linkType.equals(trigger2linkType.get(trigger))) {
+                            System.out.println("trigger有多个link type!");
+                            System.exit(-1);
+                        }
+                        trigger2roleMap.get(trigger).putIfAbsent(roleId, roleType);
+                        String curRoleType = trigger2roleMap.get(trigger).get(roleId);
+                        if (!curRoleType.equals(roleType)) {
+                            System.out.println("MoveLink: 一个token与trigger有多个role type!");
+                        }
+                    }));
                 }
             } else {
                 Collection<String> trajectors = roleMap.get(TRAJECTOR);
                 Collection<String> landmarks = roleMap.get(LANDMARK);
+                Set<String> roleTypes = new HashSet<>(Arrays.asList(TRAJECTOR, LANDMARK));
                 if (roleMap.containsKey(TRIGGER) || roleMap.containsKey(VAL)) {
                     Collection<String> triggers = roleMap.containsKey(TRIGGER) ? roleMap.get(TRIGGER) : roleMap.get(VAL);
-                    triggers.forEach(trigger -> {
-                        trajectors.forEach(trajector ->
-                                triples.add(new ImmutableTriple<>(trigger, TRAJECTOR + "_" + linkType, trajector)));
-                        landmarks.forEach(landmark ->
-                                triples.add(new ImmutableTriple<>(trigger, LANDMARK + "_" + linkType, landmark)));
-                    });
+                    for (String roleType: roleTypes) {
+                        Collection<String> roles = roleMap.get(roleType);
+                        roles.forEach(roleId -> triggers.forEach(trigger -> {
+                            trigger2linkType.putIfAbsent(trigger, linkType);
+                            trigger2roleMap.putIfAbsent(trigger, new HashMap<>());
+                            if (!linkType.equals(trigger2linkType.get(trigger))) {
+                                trigger2linkType.put(trigger, OTLINK);
+                            }
+                            trigger2roleMap.get(trigger).putIfAbsent(roleId, roleType);
+                            String curRoleType = trigger2roleMap.get(trigger).get(roleId);
+                            if (!curRoleType.equals(roleType)) {
+                                System.out.println("一个token与trigger有多个role type!");
+                            }
+                        }));
+                    }
                 } else {
                     trajectors.forEach(trajector ->
                             landmarks.forEach(landmark ->
@@ -136,8 +161,19 @@ public class GenerateMultiHeadCorpus {
                 }
             }
         }
+        trigger2roleMap.forEach((trigger, roleMap) -> {
+            String linkType = trigger2linkType.get(trigger);
+            roleMap.forEach((roleId, roleType) -> {
+                String relation = roleType;
+                if (linkType.equals(QSLINK) || linkType.equals(OLINK)) {
+                    relation = roleType + "_" + linkType.charAt(0);
+                }
+                triples.add(new ImmutableTriple<>(trigger, relation, roleId));
+            });
+        });
         return triples.stream().distinct().collect(Collectors.toList());
     }
+
 
 
     private static List<Triple<String, String, String>> getBidirectionalSPOTriples(List<BratEvent> links) {
@@ -210,13 +246,7 @@ public class GenerateMultiHeadCorpus {
         List<String> lines = new ArrayList<>();
         int maxTokenLength = 0, maxRelationLength = 0;
         for (File file: files) {
-
-//            if (file.getPath().endsWith("RideForClimateUSA.xml")) {
-//                System.out.println(1);
-//            }
-
             SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
-//            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc("data\\SpaceEval2015\\raw_data\\training++\\CP\\47_N_22_E.xml");
             Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
             List<BratEvent> allLinks = spaceEvalDoc.getAllLinks().stream()
                     .filter(o -> linkTypes.contains(o.getType()))
@@ -332,34 +362,35 @@ public class GenerateMultiHeadCorpus {
 
                 for (int i=0; i < tokens.size();i++) {
                     Span token = tokens.get(i);
-                    if (relations.get(i).size() == 0) {
-                        relations.get(i).add("NA");
-                        heads.get(i).add(i);
+                    List<String> relationList = relations.get(i);
+                    List<Integer> headList = heads.get(i);
+                    if (relationList.size() == 0) {
+                        relationList.add("NA");
+                        headList.add(i);
                     }
                     String isTrigger = triggers.get(i);
 //                    String relationsStr = "[" + StringUtils.join(relations.get(i), ",") + "]";
 //                    String headStr = "[" + StringUtils.join(heads.get(i), ",") + "]";
 
-                    String relationsStr = relations.get(i).toString();
-                    String headStr = heads.get(i).toString();
+                    for (String relation: relationList) {
+                        if (relation.endsWith("_O") || relation.endsWith("_Q")) {
+                            String suffix= relation.substring(relation.length()-2);
+                            for (int j=i; j < tokens.size();j++) {
+                                tokens.get(j).label = tokens.get(j).label + suffix;
+                                if (j < tokens.size()-1 && !tokens.get(j+1).label.startsWith("I-")) break;
+                            }
+                            break;
+                        }
+                    }
+
+                    relationList = relationList.stream().map(x -> x.replaceAll("_([OQ])$",""))
+                            .collect(Collectors.toList());
+
+                    String relationsStr = relationList.toString();
+                    String headStr = headList.toString();
 
                     Integer depHead = dependencyHeads.get(i).first;
                     String depLabel = dependencyHeads.get(i).second;
-
-
-                    if (relations.get(i).contains("trajector_Q") || relations.get(i).contains("landmark_Q")) {
-                        for (int j=i; j < tokens.size();j++) {
-                            tokens.get(j).label = tokens.get(j).label + "_Q";
-                            if (j < tokens.size()-1 && !tokens.get(j+1).label.startsWith("I-")) break;
-                        }
-                    }
-                    if (relations.get(i).contains("trajector_O") || relations.get(i).contains("landmark_O")) {
-                        for (int j=i; j < tokens.size();j++) {
-                            tokens.get(j).label = tokens.get(j).label + "_O";
-                            if (j < tokens.size()-1 && !tokens.get(j+1).label.startsWith("I-")) break;
-                        }
-                    }
-
 
                     maxTokenLength = Math.max(token.text.length(), maxTokenLength);
                     maxRelationLength = Math.max(relationsStr.length(), maxRelationLength);
@@ -369,13 +400,6 @@ public class GenerateMultiHeadCorpus {
                     }
                     lines.add(line);
                 }
-
-
-//                pairRelations.forEach((k,v)-> {
-//                    if (v.size() > 1) {
-//                        System.out.println(2);
-//                    }
-//                });
 
                 lines.add("");
             }
@@ -393,85 +417,6 @@ public class GenerateMultiHeadCorpus {
         lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true, includeXmlInfo,shuffle);
         FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
         FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", lines);
-
-//        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, true, true, includeXmlInfo, shuffle);
-//        FileUtil.createDir(targetFilePath + "/" + "Bi-AllLink-Head/");
-//        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Head/" + mode + ".txt", lines);
-
-//        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,false,includeXmlInfo, shuffle);
-//        FileUtil.writeFile(targetFilePath + "/" + "AllLink-Tail/" + mode + ".txt", lines);
-
-//        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, true, false, shuffle);
-//        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Tail/" + mode + ".txt", lines);
-
-    }
-
-    // 生成Multi-head selection格式的语料
-    private static void run_config2(String srcDir, String targetFilePath,List<String> linkTypes, String mode,
-                                    boolean includeXmlInfo,  boolean shuffle) {
-
-        List<String> lines;
-        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true, includeXmlInfo,shuffle);
-        lines = lines.stream().map(line->line.replaceAll("SPATIAL_SIGNAL(_.)+\t", "SPATIAL_SIGNAL\t"))
-                .collect(Collectors.toList());
-        FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
-        FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", lines);
-
-
-        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, true,true, includeXmlInfo,shuffle);
-        lines = lines.stream().map(line->line.replaceAll("SPATIAL_SIGNAL(_.)+\t", "SPATIAL_SIGNAL\t"))
-                .collect(Collectors.toList());
-        FileUtil.createDir(targetFilePath + "/" + "Bi-AllLink-Head/");
-        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Head/" + mode + ".txt", lines);
-
-    }
-
-
-    private static List<String> get_config1_lines(String srcDir, String elementPredPath, List<String> linkTypes,
-                                                  boolean includeXmlInfo,  boolean shuffle, boolean bidirectional) {
-        List<String> predElementLines = FileUtil.readLines(elementPredPath);
-        List<String> oriGoldLines = getMultiHeadFormatLinkLines(srcDir, linkTypes, bidirectional,true, includeXmlInfo,shuffle);
-        oriGoldLines = oriGoldLines.stream().map(line->line.replaceAll("SPATIAL_SIGNAL(_.)+\t", "SPATIAL_SIGNAL\t"))
-                .collect(Collectors.toList());
-        List<String> newGoldLines = new ArrayList<>();
-
-        List<List<String>> predGroups = CollectionUtils.split(predElementLines, "");
-        List<List<String>> goldGroups = CollectionUtils.split(oriGoldLines, "");
-        int idx = 0;
-        for (List<String> goldGroup : goldGroups) {
-            String goldSen = goldGroup.stream().map(x -> x.split("\\s+")[1]).collect(Collectors.joining(" "));
-            do {
-                List<String> predGroup = predGroups.get(idx++);
-                if (goldGroup.size() != predGroup.size()) continue;
-                String predSen = predGroup.stream().map(x -> x.split(" ")[0]).collect(Collectors.joining(" "));
-                if (goldSen.equals(predSen)) {
-                    for (int j = 0; j < goldGroup.size(); j++) {
-                        String[] goldArr = goldGroup.get(j).split("\t");
-                        String[] predArr = predGroup.get(j).split(" ");
-                        String oriLabel = goldArr[goldArr.length - 2];
-                        String newLabel = predArr[predArr.length - 1];
-                        goldArr[goldArr.length - 2] = StringUtils.rightPad(newLabel, oriLabel.length());
-                        goldGroup.set(j, String.join("\t", goldArr));
-                    }
-                    break;
-                }
-            } while (true);
-            newGoldLines.addAll(goldGroup);
-            newGoldLines.add("");
-        }
-        return newGoldLines;
-    }
-
-    private static void run_config1(String srcDir, String targetFilePath, String elementPredPath, List<String> linkTypes, String mode,
-                                    boolean includeXmlInfo,  boolean shuffle) {
-        List<String> lines;
-        lines = get_config1_lines(srcDir, elementPredPath, linkTypes, includeXmlInfo, shuffle, false);
-        FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
-        FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", lines);
-
-        lines = get_config1_lines(srcDir, elementPredPath, linkTypes, includeXmlInfo, shuffle, true);
-        FileUtil.createDir(targetFilePath + "/" + "Bi-AllLink-Head/");
-        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Head/" + mode + ".txt", lines);
     }
 
 
@@ -507,22 +452,22 @@ public class GenerateMultiHeadCorpus {
 //            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
 //            acceptedLabels = null
 
-            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration3";
-            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
+            target_dir = "data/SpaceEval2015/processed_data/MHS_v2/" + mode + "/configuration3";
+//            GenerateMultiHeadCorpus_new.run_config3(train_path, target_dir, linkTypes,"train",false, false);
+            GenerateMultiHeadCorpus_new.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
+            GenerateMultiHeadCorpus_new.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
 
-            SpaceEvalDoc.useCoreference = true;
-            target_dir = "data/SpaceEval2015/processed_data/MHS_new/" + mode + "/configuration3";
-            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
-            SpaceEvalDoc.useCoreference = false;
+//            SpaceEvalDoc.useCoreference = true;
+//            target_dir = "data/SpaceEval2015/processed_data/MHS_new/" + mode + "/configuration3";
+//            GenerateMultiHeadCorpus_new.run_config3(train_path, target_dir, linkTypes,"train",false, false);
+//            GenerateMultiHeadCorpus_new.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
+//            GenerateMultiHeadCorpus_new.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
+//            SpaceEvalDoc.useCoreference = false;
 
-            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration3";
-            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",true, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", true, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", true, false);
+//            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration3";
+//            GenerateMultiHeadCorpus_new.run_config3(train_path, target_dir, linkTypes,"train",true, false);
+//            GenerateMultiHeadCorpus_new.run_config3(gold_path, target_dir, linkTypes, "dev", true, false);
+//            GenerateMultiHeadCorpus_new.run_config3(gold_path, target_dir, linkTypes, "test", true, false);
 
 //
 //            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration2";

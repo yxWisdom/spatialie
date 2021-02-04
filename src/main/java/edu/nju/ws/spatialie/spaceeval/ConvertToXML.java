@@ -1,10 +1,13 @@
 package edu.nju.ws.spatialie.spaceeval;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sun.org.apache.bcel.internal.generic.LAND;
+import edu.nju.ws.spatialie.data.BratEvent;
 import edu.nju.ws.spatialie.utils.CollectionUtils;
 import edu.nju.ws.spatialie.utils.FileUtil;
 import edu.nju.ws.spatialie.utils.Pair;
 import edu.nju.ws.spatialie.utils.XmlUtil;
+import edu.stanford.nlp.util.ArrayHeap;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
@@ -83,6 +86,8 @@ public class ConvertToXML {
         put(MEASURELINK,  Arrays.asList(measureLink.split(" ")));
     }};
 
+//    private static Set<String> multiInstanceRoles = new HashSet<>(Arrays.asList(PATH_ID, MOTION_SIGNAL_ID, MID_POINT));
+    private static Set<String> multiInstanceRoles = new HashSet<>(Arrays.asList(MOTION_SIGNAL_ID));
 
     private static Map<String, Map<String, Integer>> linkAttrToIdxMap =  new HashMap<String, Map<String, Integer>>() {{
         linkAttrMap.forEach((linkType, attrs) -> {
@@ -144,7 +149,93 @@ public class ConvertToXML {
         element.addAttribute("text", spElement.text);
     }
 
+
+    private static final Map<String, Map<String, Set<String>>> file2goldLinksMap = new HashMap<>();
+    static {
+        String goldPath = "data/SpaceEval2015/raw_data/gold++";
+        List<File> files = FileUtil.listFiles(goldPath);
+        for (File file: files) {
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            List<BratEvent> links = spaceEvalDoc.getAllLinks();
+            String fileName = file.getName();
+
+            Map<String, Set<String>> type2triggerSet = new HashMap<>();
+            file2goldLinksMap.putIfAbsent(fileName, new HashMap<>());
+
+            Map<String, Set<String>> link2listMap = file2goldLinksMap.get(fileName);
+            for (BratEvent link: links) {
+                String linkType = link.getType();
+                type2triggerSet.putIfAbsent(linkType, new HashSet<>());
+                link2listMap.putIfAbsent(linkType, new HashSet<>());
+                if (link.hasRole(TRIGGER)) {
+                    String triggerId = link.getRoleId(TRIGGER);
+                    if(!type2triggerSet.get(linkType).contains(triggerId)) {
+                        type2triggerSet.get(linkType).add(triggerId);
+                        if (linkType.equals(MOVELINK)) {
+                            String moverId = link.getRoleId(MOVER);
+                            link2listMap.get(linkType).add(triggerId + "\t" + moverId);
+                        }
+                        else if (linkType.equals(QSLINK) || linkType.equals(OLINK)) {
+                            String trajector = link.getRoleId(TRAJECTOR), landmark = link.getRoleId(LANDMARK);
+                            link2listMap.get(linkType).add(triggerId + "\t" + trajector + "\t" + landmark);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    private static void sortLinks(List<List<String>> links, String filename, String linkType) {
+        if (links.size() < 2) return;
+
+        if (linkType.equals(MOVELINK)) {
+            int triggerIdx = linkAttrMap.get(linkType).indexOf(TRIGGER);
+            int moverIdx = linkAttrMap.get(linkType).indexOf(MOVER);
+            links.sort(Comparator.comparing((List<String> o) -> o.get(triggerIdx))
+                    .thenComparingInt((List<String> o) -> {
+                        String link = o.get(triggerIdx) + "\t" +  o.get(moverIdx);
+                        return file2goldLinksMap.get(filename).get(linkType).contains(link) ? 0 : 1;
+                    }));
+        } else {
+            int triggerIdx = linkAttrMap.get(linkType).indexOf(TRIGGER);
+            int trajectorIdx = linkAttrMap.get(linkType).indexOf(TRAJECTOR);
+            int landmarkIdx = linkAttrMap.get(linkType).indexOf(LANDMARK);
+            links.sort(Comparator.comparing((List<String> o) -> o.get(triggerIdx))
+                    .thenComparingInt((List<String> o) -> {
+                        String link = o.get(triggerIdx) + "\t" +  o.get(trajectorIdx) + "\t" + o.get(landmarkIdx);
+                        return file2goldLinksMap.get(filename).get(linkType).contains(link) ? 0 : 1;
+                    }));
+        }
+    }
+
+
     // 如果link的role有多个元素，按照笛卡尔积的形式分解为多个link，即{a,b}×{c} → {a,c}, {b,c}
+    private  static List<List<String>> decompose(Map<String, List<String>> roleMap) {
+        List<List<String>> res = new ArrayList<>();
+        for (Map.Entry<String, List<String>> entry: roleMap.entrySet()) {
+            String roleType = entry.getKey();
+            List<String> roles = new ArrayList<>();
+            if (multiInstanceRoles.contains(roleType)) {
+                roles.add(String.join(",", entry.getValue()));
+            } else {
+                roles = entry.getValue();
+            }
+            if (res.isEmpty()) {
+                res = roles.stream().map(Arrays::asList).collect(Collectors.toList());
+            } else {
+                List<String> finalRoles = roles;
+                res = res.stream().flatMap(item -> finalRoles.stream().map(item2 -> {
+                    List<String> newList = new ArrayList<>(item);
+                    newList.add(item2);
+                    return newList;
+                })).collect(Collectors.toList());
+            }
+        }
+        return res;
+    }
+
+
     private  static List<List<String>> decompose(Collection<List<String>> lists) {
         List<List<String>> res = new ArrayList<>();
         for (List<String> list: lists) {
@@ -169,7 +260,7 @@ public class ConvertToXML {
         });
 
         Map<String, Integer> attrToIdx = linkAttrToIdxMap.get(linkType);
-        List<List<String>> decomposedList = decompose(attrMap.values());
+        List<List<String>> decomposedList = decompose(attrMap);
 
 //        if (decomposedList.size() > 1) {
 //            System.out.println(1);
@@ -280,7 +371,7 @@ public class ConvertToXML {
         }
     }
 
-     public static void convertSRLToXML() {
+    public static void convertSRLToXML() {
         Map<String, Map<String, List<List<String>>>> fileToLinks = new LinkedHashMap<>();
         List<String> xmlInfoLines = FileUtil.readLines(xmlInfoPath);
         List<String> linkTypes = new ArrayList<>();
@@ -324,6 +415,7 @@ public class ConvertToXML {
             for (int j = 0; j<tokens.size(); j++){
                 if (labels.get(j).startsWith("B-")) {
                     String role = labels.get(j).substring(2);
+                    if (role.equals(GROUND)) role = LANDMARK;
                     if (role.endsWith("trigger")) {
                         role = linkType.equals(MEASURELINK) ? VAL: TRIGGER;
                     }
@@ -441,7 +533,8 @@ public class ConvertToXML {
         for(int k = 0; k < predGroups.size(); k++) {
             List<String> xmlGroup = xmlInfoGroups.get(k);
             List<String []> predGroup = predGroups.get(k).stream()
-                    .map(line -> line.replaceAll(" ", "").split("\t"))
+                    .map(line -> line.replaceAll("(\tERROR$| )", ""))
+                    .map(line -> line.split("\t"))
                     .collect(Collectors.toList());
 
             String curFilename = xmlGroup.get(0);
@@ -455,7 +548,7 @@ public class ConvertToXML {
                             String [] lineArr= line.replace(" ", "").split("\t", -1);
                             String elementId = lineArr[lineArr.length-1], spanStr = lineArr[lineArr.length-2];
                             String [] span = spanStr.substring(1, spanStr.length()-1).split(",");
-                            int start = Integer.valueOf(span[0]), end = Integer.valueOf(span[1]);
+                            int start = Integer.parseInt(span[0]), end = Integer.parseInt(span[1]);
                             return new Span(elementId, lineArr[1], lineArr[4],start, end);
                         }).collect(Collectors.toList());
 
@@ -510,49 +603,68 @@ public class ConvertToXML {
             for (int i = 0; i < predGroup.size(); i++) {
                 String [] arr = predGroup.get(i);
 
-                String roleStr = arr[4], headStr = arr[5], label = arr[1];
+                int columnNum = arr.length;
+                String roleStr = arr[columnNum-2], headStr = arr[columnNum-1], label = arr[columnNum-5];
                 if (roleStr.equals("[NA]")) continue;
-
                 Map<String, Map<String, List<String>>> linkTypeToAttrMap = new HashMap<>();
-                List<Integer> heads = Arrays.stream(headStr.substring(1, headStr.length() - 1).split(","))
-                        .map(Integer::valueOf).collect(Collectors.toList());
+                List<Integer> heads =  new ArrayList<>();
+                try {
+                    heads = Arrays.stream(headStr.substring(1, headStr.length() - 1).split(","))
+                            .map(Integer::valueOf).collect(Collectors.toList());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 
                 List<String> roles = Arrays.asList(roleStr.substring(1, roleStr.length() - 1).split(","));
 
                 for (int j = 0; j < roles.size();j++) {
-                    String [] roleArr = roles.get(j).split("_");
-                    String role = roleArr[0], elementId = elementIds.get(heads.get(j));
+                    try {
+                        String role = roles.get(j);
+                        String elementId = elementIds.get(heads.get(j));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    String role = roles.get(j), elementId = elementIds.get(heads.get(j));
                     String linkType;
 
                     if (elementId.equals("")) {
-                        System.out.println(1);
+                        System.out.println("element id为空！");
+                        continue;
                     }
 
-                    if (roleArr.length == 1) {
-                        linkType = role.equals("locatedIn") ? QSLINK: MOVELINK;
+                    if (role.startsWith(LANDMARK) || role.startsWith(TRAJECTOR)) {
+                        linkType = role.endsWith("O") ? OLINK: QSLINK;
+                        role = role.split("_")[0];
                     } else {
-                        linkType = roleArr[1].equals("O") ? OLINK : QSLINK;
+                        linkType = role.equals("locatedIn") ? QSLINK: MOVELINK;
+                        if (role.equals(GROUND)) role = LANDMARK;
                     }
-                    if (!linkTypeToAttrMap.containsKey(linkType)) {
-                        Map<String, List<String>> attrMap = new LinkedHashMap<>();
-                        linkAttrMap.get(linkType).forEach(attr->attrMap.put(attr, new ArrayList<>()));
-                        linkTypeToAttrMap.put(linkType, attrMap);
-                    }
-                    if (roles.get(j).equals("locatedIn")) {
+
+                    if (role.equals("locatedIn")) {
                         Map<String, List<String>> attrMap = new LinkedHashMap<>();
                         linkAttrMap.get(linkType).forEach(attr->attrMap.put(attr, new ArrayList<>()));
                         String fromID = elementIds.get(i);
                         attrMap.get(TRAJECTOR).add(fromID);
                         attrMap.get(LANDMARK).add(elementId);
                         linkAttrMapList.add(new Pair<>(linkType, attrMap));
-
                         if (fromID.equals("")) {
                             System.out.println(1);
                         }
-
                     } else {
-                        linkTypeToAttrMap.get(linkType).get(role).add(elementId);
-                        linkTypeToAttrMap.get(linkType).get(TRIGGER).add(elementIds.get(i));
+                        if (!linkTypeToAttrMap.containsKey(linkType)) {
+                            Map<String, List<String>> attrMap = new LinkedHashMap<>();
+                            linkAttrMap.get(linkType).forEach(attr->attrMap.put(attr, new ArrayList<>()));
+                            linkTypeToAttrMap.put(linkType, attrMap);
+                        }
+                        try {
+                            linkTypeToAttrMap.get(linkType).get(role).add(elementId);
+                            linkTypeToAttrMap.get(linkType).get(TRIGGER).add(elementIds.get(i));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 }
 
@@ -567,71 +679,137 @@ public class ConvertToXML {
             linkAttrMapList.forEach(pair -> {
                 String linkType = pair.first;
                 Map<String, List<String>>  attrMap = pair.second;
+                attrMap.forEach((key, value) -> attrMap.put(key, new ArrayList<>(new HashSet<>(value))));
                 List<List<String>> decomposedList = getDecomposedLinks(linkType, attrMap);
                 fileToLinks.get(curFilename).get(linkType).addAll(decomposedList);
             });
         }
-        fileToLinks.forEach((filename, links) -> {
+        fileToLinks.forEach((filename, linkMap) -> {
+            linkMap.forEach((linkType, links) -> sortLinks(links, filename, linkType));
             Map<String, Span> elementMap = fileToElements.getOrDefault(filename, null);
-            saveAsXml(filename, links, elementMap);
+            saveAsXml(filename, linkMap, elementMap);
         });
     }
 
 
+    private static void batchTransferSRL() {
+        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+        xmlInfoPath = "data/SpaceEval2015/processed_data/SRL_xml/full/AllLink/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/SpRL/configuration3/full/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/SpRL/configuration3/full/XML";
+        convertSRLToXML();
+    }
+
+    private static void batchTransferMHS() {
+
+        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/full/configuration3/AllLink-Head/test.txt";
+        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/full/predict.txt";
+        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/full/XML";
+        FileUtil.createDir(outputDir);
+        convertMHSToXML(Config.CONFIG_3);
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/old_version/MHS_xml/part/configuration3/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/part/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/part/XML";
+//        FileUtil.createDir(outputDir);
+//        convertMHSToXML(Config.CONFIG_3);
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/full/configuration3/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/full/predict_v2.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/full/XML_v2";
+//        FileUtil.createDir(outputDir);
+//        convertMHSToXML(Config.CONFIG_3);
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/part/configuration3/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/part/predict_v2.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/part/XML_v2";
+//        FileUtil.createDir(outputDir);
+//        convertMHSToXML(Config.CONFIG_3);
+//
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/full/configuration3/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/full/predict_v3.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/full/XML_v3";
+//        FileUtil.createDir(outputDir);
+//        convertMHSToXML(Config.CONFIG_3);
+    }
 
     public static void main(String[] args) {
-        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath = "data/SpaceEval2015/processed_data/SRL_new_xml/AllLink/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/SpRL/configuration3/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/SpRL/configuration3/XML";
-        convertSRLToXML();
+//        batchTransferSRL();
+        batchTransferMHS();
+
+//        String [] modes = {"part", "full"};
+
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath = "data/SpaceEval2015/processed_data/SRL_xml/part/AllLink/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/SpRL/configuration3/part/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/SpRL/configuration3/part/XML";
+//        convertSRLToXML();
+
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath = "data/SpaceEval2015/processed_data/SRL_xml/full/AllLink/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/SpRL/configuration3/full/predict_v6.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/SpRL/configuration3/full/XML";
+//        convertSRLToXML();
+
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration1_1/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration1_1/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration1_1/XML";
+//        convertMHSToXML(Config.CONFIG_1);
+//
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration1_2/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration1_2/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration1_2/XML";
+//        convertMHSToXML(Config.CONFIG_1);
+//
+//
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration2/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration2/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration2/XML";
+//        convertMHSToXML(Config.CONFIG_2);
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/full/configuration3/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/full/predict_v2.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/full/XML";
+//        convertMHSToXML(Config.CONFIG_3);
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/part/configuration3/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/part/predict_v2.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/part/XML";
+//        convertMHSToXML(Config.CONFIG_3);
 
 
-        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration1_1/AllLink-Head/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration1_1/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration1_1/XML";
-        convertMHSToXML(Config.CONFIG_1);
-
-
-        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration1_2/AllLink-Head/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration1_2/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration1_2/XML";
-        convertMHSToXML(Config.CONFIG_1);
-
-
-
-        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration2/AllLink-Head/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration2/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration2/XML";
-        convertMHSToXML(Config.CONFIG_2);
-
-        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration3/AllLink-Head/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3/XML";
-        convertMHSToXML(Config.CONFIG_3);
-
-
-        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration3/AllLink-Head/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3_2/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3_2/XML";
-        convertMHSToXML(Config.CONFIG_3);
-
-
-        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration3/AllLink-Head/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3_3/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3_3/XML";
-        convertMHSToXML(Config.CONFIG_3);
-
-        originXmlDir = "data/SpaceEval2015/raw_data/gold";
-        xmlInfoPath =  "data/SpaceEval2015/processed_data/openNRE_xml/AllLink_1000_100/test.txt";
-        inputPath = "data/SpaceEval2015/predict_result/openNRE/configuration3/predict.txt";
-        outputDir = "data/SpaceEval2015/predict_result/openNRE/configuration3/XML";
-        convertNREToXML();
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration3/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3_2/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3_2/XML";
+//        convertMHSToXML(Config.CONFIG_3);
+//
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/MHS_xml/configuration3/AllLink-Head/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/MHS/configuration3_3/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/MHS/configuration3_3/XML";
+//        convertMHSToXML(Config.CONFIG_3);
+//
+//        originXmlDir = "data/SpaceEval2015/raw_data/gold";
+//        xmlInfoPath =  "data/SpaceEval2015/processed_data/openNRE_xml/AllLink_1000_100/test.txt";
+//        inputPath = "data/SpaceEval2015/predict_result/openNRE/configuration3/predict.txt";
+//        outputDir = "data/SpaceEval2015/predict_result/openNRE/configuration3/XML";
+//        convertNREToXML();
     }
 }
