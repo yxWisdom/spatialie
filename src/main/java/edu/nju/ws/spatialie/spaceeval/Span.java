@@ -1,6 +1,11 @@
 package edu.nju.ws.spatialie.spaceeval;
 
+import org.apache.xpath.operations.Bool;
 import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author xyu
@@ -14,9 +19,10 @@ public class Span implements Comparable<Span> {
     public int start;
     public int end;
 
-    public String semantic_type="";
+    Map<String, String> attributeMap = new HashMap<>();
+//    public String semantic_type="";
 
-    Span(String id, String text, String label, int start, int end) {
+    public Span(String id, String text, String label, int start, int end) {
         this.id = id;
         this.text = text;
         this.label = label;
@@ -32,8 +38,21 @@ public class Span implements Comparable<Span> {
         this.end = span.end;
     }
 
+    public Boolean hasAttribute(String attrName){
+        return attributeMap.containsKey(attrName);
+    }
+
+    public String getAttribute(String attrName) {
+        return attributeMap.getOrDefault(attrName, null);
+    }
+
+    public void setAttribute(String attrName, String attrValue) {
+        attributeMap.put(attrName, attrValue);
+    }
+
     @Override
     public int compareTo(@NonNull Span span) {
+//        return start == span.start ? Integer.compare(end, span.end) : Integer.compare(start, span.start);
         return Integer.compare(start, span.start);
     }
 

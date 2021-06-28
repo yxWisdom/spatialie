@@ -165,9 +165,14 @@ public class BratEvent implements Cloneable{
         bratAttributes.add(bratAttribute);
     }
 
+    public void addAttribute(String attrName, String attrValue) {
+        BratAttribute attr = new BratAttribute("", attrName, attrValue, id);
+        addAttribute(attr);
+    }
+
     @Override
     public String toString() {
-        return this.getId();
+        return String.format("id=%s, role map=%s", id, roleMap.toString());
     }
 
     @Override

@@ -214,9 +214,10 @@ public class GenerateSRLCorpus_new {
                     .forEach(e -> {
                         List<String> links = new ArrayList<>();
                         if (e.label.equals(SPATIAL_SIGNAL)) {
-                            if (e.semantic_type.equals(DIR_TOP) || e.semantic_type.equals(TOPOLOGICAL))
+                            String semanticType = e.getAttribute(SEMANTIC_TYPE);
+                            if (semanticType.equals(DIR_TOP) || semanticType.equals(TOPOLOGICAL))
                                 links.add(QSLINK);
-                            if (e.semantic_type.equals(DIR_TOP) || e.semantic_type.equals(DIRECTIONAL))
+                            if (semanticType.equals(DIR_TOP) || semanticType.equals(DIRECTIONAL))
                                 links.add(OLINK);
                         } else if (e.label.equals(MOTION)) {
                             links.add(MOVELINK);

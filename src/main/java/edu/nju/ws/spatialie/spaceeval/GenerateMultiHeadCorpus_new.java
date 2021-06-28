@@ -157,7 +157,7 @@ public class GenerateMultiHeadCorpus_new {
                 } else {
                     trajectors.forEach(trajector ->
                             landmarks.forEach(landmark ->
-                                    triples.add(new ImmutableTriple<>(trajector, "locatedIn", landmark))));
+                                    triples.add(new ImmutableTriple<>(trajector, linkType, landmark))));
                 }
             }
         }

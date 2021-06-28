@@ -112,7 +112,15 @@ public class SpaceEvalDoc {
         int end = Integer.parseInt(element.attributeValue("end"));
         String label = element.getName();
         Span span = new Span(id, text, label, start, end);
-        span.semantic_type=element.attributeValue("semantic_type");
+
+        if (label.equals(SPATIAL_SIGNAL)) {
+            span.setAttribute(SEMANTIC_TYPE, element.attributeValue(SEMANTIC_TYPE));
+        }
+        if (label.equals(MOTION)) {
+            span.setAttribute(MOTION_TYPE, element.attributeValue(MOTION_TYPE));
+            span.setAttribute(MOTION_CLASS, element.attributeValue(MOTION_CLASS));
+        }
+//        span.semantic_type=element.attributeValue("semantic_type");
         elements.add(span);
         elementMap.put(id, span);
     }

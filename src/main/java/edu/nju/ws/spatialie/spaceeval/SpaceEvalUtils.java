@@ -25,7 +25,7 @@ public class SpaceEvalUtils {
     static final String SPATIAL_ENTITY="SPATIAL_ENTITY";
     static final String NONMOTION_EVENT="NONMOTION_EVENT";
     static final String MOTION ="MOTION";
-    static final String SPATIAL_SIGNAL="SPATIAL_SIGNAL";
+    public static final String SPATIAL_SIGNAL="SPATIAL_SIGNAL";
     static final String MOTION_SIGNAL="MOTION_SIGNAL";
     static final String MEASURE="MEASURE";
     static final String QSLINK="QSLINK";
@@ -37,10 +37,12 @@ public class SpaceEvalUtils {
 
     static final String MOVER="mover";
     static final String TRIGGER="trigger";
-    static final String TRAJECTOR="trajector";
-    static final String LANDMARK="landmark";
+    public static final String TRAJECTOR="trajector";
+    public static final String LANDMARK="landmark";
     static final String VAL="val";
     static final String SEMANTIC_TYPE ="semantic_type";
+    static final String MOTION_TYPE = "motion_type";
+    static final String MOTION_CLASS = "motion_class";
     static final String GOAL ="goal";
     static final String MID_POINT = "midPoint";
     static final String SOURCE="source";
@@ -726,6 +728,69 @@ public class SpaceEvalUtils {
         System.out.println(o_num - o_no_trigger);
     }
 
+    public static void statisticsLink(String srcDir) {
+        List<File> files = FileUtil.listFiles(srcDir);
+        Map<String, Integer> map1 = new HashMap<>();
+        for (File file: files) {
+            System.out.println(file.getName());
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            spaceEvalDoc.getAllLinks().forEach(link -> {
+                String type = link.getType();
+                int cnt1 = map1.getOrDefault(type, 0);
+                map1.put(type, cnt1 + 1);
+            });
+        }
+        int total1 = 0;
+        for (Map.Entry<String, Integer> entry : map1.entrySet()) {
+            String k = entry.getKey();
+            Integer v = entry.getValue();
+            total1 += v;
+            System.out.println(k + " " + v);
+        }
+        System.out.println("total " + total1);
+    }
+
+    public static void statisticsElement(String srcDir) {
+        List<File> files = FileUtil.listFiles(srcDir);
+        Map<String, Integer> map1 = new HashMap<>();
+        Map<String, Integer> map2 = new HashMap<>();
+        for (File file: files) {
+
+            System.out.println(file.getName());
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            List<Span> elements = spaceEvalDoc.getElements();
+            elements.forEach(element -> {
+                String type = element.label;
+                int cnt2 = map2.getOrDefault(type, 0);
+                map2.put(type, cnt2 + 1);
+                if (element.start != -1) {
+                    int cnt1 = map1.getOrDefault(type, 0);
+                    map1.put(type, cnt1 + 1);
+                }
+            });
+        }
+
+        int total1 = 0;
+        for (Map.Entry<String, Integer> entry : map1.entrySet()) {
+            String k = entry.getKey();
+            Integer v = entry.getValue();
+            total1 += v;
+            System.out.println(k + " " + v);
+        }
+        System.out.println("total " + total1);
+        System.out.println();
+        total1 = 0;
+        for (Map.Entry<String, Integer> entry : map2.entrySet()) {
+            String k = entry.getKey();
+            Integer v = entry.getValue();
+            total1 += v;
+            System.out.println(k + " " + v);
+        }
+        System.out.println("total " + total1);
+    }
+
+
+
 
     private static String linkWithSentence(BratEvent link, List<Span> tokensOfLink, Map<String, Span> elementMap) {
         String relType = link.getAttribute("relType");
@@ -835,56 +900,98 @@ public class SpaceEvalUtils {
         List<File> files = FileUtil.listFiles(srcDir);
         Map<String, Integer> oLinkMap = new TreeMap<>();
         Map<String, Integer> qsLinkMap = new TreeMap<>();
+
+        int qsNoTriggerNum = 0;
+        int oNoTriggerNum = 0;
+
+        int validQSNoTriggerNum = 0;
+        int validONoTriggerNum = 0;
+
+
         for (File file: files) {
             SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
             Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
             List<BratEvent> links = spaceEvalDoc.getAllLinks();
-            links.forEach(link -> {
+            for (BratEvent link: links) {
                 if (!link.hasRole(TRIGGER)) {
+                    if (link.getType().equals(QSLINK)) {
+                        qsNoTriggerNum++;
+                    } else {
+                        oNoTriggerNum++;
+                    }
+                }
+                if (!link.hasRole(TRIGGER) && link.hasRole(TRAJECTOR) && link.hasRole(LANDMARK)) {
                     String relType = link.getAttribute("relType");
                     if (link.getType().equals(QSLINK)) {
                         int count = qsLinkMap.getOrDefault(relType, 0);
                         qsLinkMap.put(relType, count+1);
+                        validQSNoTriggerNum++;
                     } else if (link.getType().equals(OLINK)) {
                         String frame_type =  link.getAttribute("frame_type");
                         String key = relType + "\t" + frame_type;
                         int count = oLinkMap.getOrDefault(key, 0);
                         oLinkMap.put(key, count+1);
+                        validONoTriggerNum++;
                     }
                 }
-            });
+            }
+
         }
+
+        System.out.println("no-trigger QSLINk:" + qsNoTriggerNum);
+        System.out.println("no-trigger OLINk:" + oNoTriggerNum);
+        System.out.println("valid no-trigger QSLINk:" + validQSNoTriggerNum);
+        System.out.println("valid no-trigger OLINk:" + validONoTriggerNum);
         List<String> lines = new ArrayList<>();
         qsLinkMap.forEach((k,v) -> lines.add(k + "\t" + v));
         oLinkMap.forEach((k,v) -> lines.add(k + "\t" + v));
         FileUtil.writeFile(targetPath, lines);
     }
 
+
     public static void analyseRelType(String srcDir, String targetPath) {
         List<File> files = FileUtil.listFiles(srcDir);
         Map<String, Map<String, Integer>> oLinkMap = new HashMap<>();
         Map<String, Map<String, Integer>> qsLinkMap = new HashMap<>();
+        Map<String, Map<String, Integer>> qsAndOLinkMap = new HashMap<>();
         for (File file: files) {
             SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
             Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
             List<BratEvent> links = spaceEvalDoc.getAllLinks();
+
+            Map<String, String> qsID2RelType = new HashMap<>();
+            Map<String, String> oID2RelType = new HashMap<>();
+
             links.forEach(link -> {
                 if (link.hasRole(TRIGGER)) {
-                    String trigger = elementMap.get(link.getRoleId(TRIGGER)).text.toLowerCase().trim();
+                    String triggerId = link.getRoleId(TRIGGER);
+                    String trigger = elementMap.get(triggerId).text.toLowerCase().trim();
                     String relType = link.getAttribute("relType");
                     if (link.getType().equals(QSLINK)) {
                         qsLinkMap.putIfAbsent(trigger, new TreeMap<>());
                         int count = qsLinkMap.get(trigger).getOrDefault(relType, 0);
                         qsLinkMap.get(trigger).put(relType, count+1);
+                        qsID2RelType.put(triggerId, relType);
                     } else if (link.getType().equals(OLINK)) {
                         String frame_type =  link.getAttribute("frame_type");
-                        String key = relType + "\t" + frame_type;
+//                        String key = relType + "\t" + frame_type;
                         oLinkMap.putIfAbsent(trigger, new TreeMap<>());
-                        int count = oLinkMap.get(trigger).getOrDefault(key, 0);
-                        oLinkMap.get(trigger).put(key, count+1);
+                        int count = oLinkMap.get(trigger).getOrDefault(relType, 0);
+                        oLinkMap.get(trigger).put(relType, count+1);
+                        oID2RelType.put(triggerId, relType);
                     }
                 }
             });
+
+            Collection<String> triggerIds = CollectionUtils.intersect(qsID2RelType.keySet(), oID2RelType.keySet());
+            triggerIds.forEach(triggerId -> {
+                String trigger = elementMap.get(triggerId).text.toLowerCase().trim();
+                String relType = qsID2RelType.get(triggerId) + " " + oID2RelType.get(triggerId);
+                qsAndOLinkMap.putIfAbsent(trigger, new TreeMap<>());
+                int count = qsAndOLinkMap.get(trigger).getOrDefault(relType, 0);
+                qsAndOLinkMap.get(trigger).put(relType, count+1);
+            });
+
         }
         List<String> lines = new ArrayList<>();
 
@@ -911,8 +1018,73 @@ public class SpaceEvalUtils {
                 lines.add("\t" + k + "\t" + v);
             });
             lines.add("");
+            qsAndOLinkMap.getOrDefault(word, new HashMap<>()).forEach((k,v) -> {
+                lines.add("\t" + k + "\t" + v);
+            });
+            lines.add("");
         });
         FileUtil.writeFile(targetPath, lines);
+    }
+
+    public static void analyseMotionClass(String srcDir, String targetPath) {
+
+        Map<String, String> class2focusMap = new HashMap<String ,String>() {{
+            put("MOVE", "");
+            put("MOVE_EXTERNAL", "ground");
+            put("MOVE_INTERNAL", "ground");
+            put("LEAVE", "source");
+            put("REACH", "goal");
+            put("DETACH", "source");
+            put("HIT","goal");
+            put("CROSS", "midPoint");
+            put("FOLLOW", "pathID");
+            put("DEVIATE", "pathID");
+        }};
+
+
+        List<File> files = FileUtil.listFiles(srcDir);
+        Map<String, Map<String, Integer>> word2MotionMap = new HashMap<>();
+        for (File file: files) {
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
+            List<BratEvent> links = spaceEvalDoc.getAllLinks();
+            links.forEach(link -> {
+                if (link.getType().equals(MOVELINK) && link.hasRole(TRIGGER)) {
+                    String triggerId = link.getRoleId(TRIGGER);
+                    String trigger = elementMap.get(triggerId).text.toLowerCase().trim();
+                    String motionClass = elementMap.get(triggerId).getAttribute(MOTION_CLASS);
+                    word2MotionMap.putIfAbsent(trigger, new TreeMap<>());
+                    int count = word2MotionMap.get(trigger).getOrDefault(motionClass, 0);
+                    word2MotionMap.get(trigger).put(motionClass, count+1);
+
+                    Set<String> roles = new HashSet<>(link.getRoleMap().keys());
+                    roles.removeAll(Arrays.asList(MOVER, TRIGGER, MOTION_SIGNAL_ID,class2focusMap.get(motionClass)));
+
+                    if (!motionClass.equals("MOVE") && !roles.isEmpty()) {
+                        System.out.println(trigger + " " + motionClass + roles.toString());
+                    }
+
+                }
+            });
+        }
+        System.out.println();
+
+        Set<String> motions = new TreeSet<>();
+        word2MotionMap.forEach((k,v) -> motions.addAll(v.keySet()));
+        List<String> lines = new ArrayList<>(motions);
+        lines.add("");
+
+        word2MotionMap.entrySet().stream()
+                .sorted(Comparator.comparing(o -> o.getValue().values().stream().reduce(Integer::sum).orElse(0),
+                        Comparator.reverseOrder()))
+                .forEach(entry -> {
+                    lines.add(entry.getKey());
+                    entry.getValue().forEach((k,v) -> {
+                        lines.add("\t" + k + "\t" + v);
+                    });
+                });
+        FileUtil.writeFile(targetPath, lines);
+
     }
 
     public static void analyseReferencePt(String srcDir, String targetPath) {
@@ -942,7 +1114,95 @@ public class SpaceEvalUtils {
         FileUtil.writeFile(targetPath, examples);
     }
 
+    // 检测一个trigger是否有多个QSLINK或OLINK的RelType
+    public static void checkRelTypesBetweenLinksWithTheSameTrigger(String srcDir) {
+        List<File> files = FileUtil.listFiles(srcDir);
+        for (File file: files) {
+            System.out.println(file.getName());
+//            Map<String, Set<String>> trigger2QSRelTypes = new HashMap<>();
+//            Map<String, Set<String>> trigger2ORelTypes = new HashMap<>();
+
+            Map<String, Set<String>> trigger2RelTypes = new HashMap<>();
+
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            List<BratEvent> allLinks = spaceEvalDoc.getAllLinks();
+            Map<String, List<BratEvent>> map = new HashMap<>();
+            Map<String, Span> elementMap = spaceEvalDoc.getElementMap();
+            allLinks.forEach(link -> {
+                if (link.hasRole(TRIGGER)) {
+                    String linkType = link.getType();
+                    String relType = link.getAttribute("relType");
+                    String triggerID = link.getRoleId(TRIGGER);
+                    String triggerText = elementMap.get(triggerID).text;
+                    String key = triggerID + "\t" + triggerText + "\t" + linkType;
+                    trigger2RelTypes.putIfAbsent(key, new HashSet<>());
+                    trigger2RelTypes.get(key).add(relType);
+                }
+            });
+
+            trigger2RelTypes.forEach((key, set) -> {
+                if (set.size() > 1) {
+                    System.out.println(key + set);
+                }
+            });
+        }
+    }
+    public static void analysisMoveLinkRoleNumber(String srcDir) {
+        List<File> files = FileUtil.listFiles(srcDir);
+        Map<String, List<String>> role2set1 = new HashMap<>();
+        Map<String, List<String>> role2set2 = new HashMap<>();
+        for (File file: files) {
+            System.out.println(file.getName());
+            SpaceEvalDoc spaceEvalDoc = new SpaceEvalDoc(file.getPath());
+            List<BratEvent> links = spaceEvalDoc.getAllLinks()
+                    .stream().filter(x -> x.getType().equals(MOVELINK))
+                    .collect(Collectors.toList());
+            for (BratEvent link : links) {
+                Multimap<String, String> map = link.getRoleMap();
+                map.keySet().forEach(key -> {
+                    if (!key.equals(MOTION_SIGNAL_ID) && map.get(key).size() > 1) {
+                        role2set1.putIfAbsent(key, new ArrayList<>());
+                        role2set1.get(key).add(map.get(key).toString());
+                    }
+                });
+            }
+            links = spaceEvalDoc.getMergedLinks()
+                    .stream().filter(x -> x.getType().equals(MOVELINK))
+                    .collect(Collectors.toList());
+            for (BratEvent link : links) {
+                Multimap<String, String> map = link.getRoleMap();
+                map.keySet().forEach(key -> {
+                    if (!key.equals(MOTION_SIGNAL_ID) && map.get(key).size() > 1) {
+                        role2set2.putIfAbsent(key, new ArrayList<>());
+                        role2set2.get(key).add(map.get(key).toString());
+                    }
+                });
+            }
+        }
+        role2set1.forEach((x, y) -> {
+            System.out.println(x + " " + y.size());
+            System.out.println(x + " " + role2set2.get(x).size());
+        });
+    }
+
+
+//    public static void checkMotionClassConstraint(String srcDir) {
+//        List<File> files = FileUtil.listFiles(srcDir);
+//        Map<String, String> map = new HashMap<String, String>() {{
+//            put("MOVE", null);
+//            put("MOVE_")
+//        }}
+//        Map<String, Set<String>> map = new HashMap<String, Set<String>>(){{
+//
+//        }}
+//    }
+
     public static void main(String [] args) {
+        String allPath = "data/SpaceEval2015/raw";
+        String trainPath = "data/SpaceEval2015/raw_data/training++";
+        String goldPath = "data/SpaceEval2015/raw_data/gold++";
+
+
 //        SpaceEvalUtils.checkSentenceContainLink("data/SpaceEval2015/raw_data/training++");
 //        SpaceEvalUtils.checkSentenceContainLink("data/SpaceEval2015/raw_data/gold++");
 
@@ -994,16 +1254,36 @@ public class SpaceEvalUtils {
 //                "data/SpaceEval2015/analysis/test_referencePt.txt");
 
 //        SpaceEvalUtils.analyseRelType("data/SpaceEval2015/raw_data/training++",
-//                "data/SpaceEval2015/analysis/train_relType.txt");
+//                "data/SpaceEval2015/analysis/train_relTypes.txt");
 //
 //        SpaceEvalUtils.analyseRelType("data/SpaceEval2015/raw_data/gold++",
-//                "data/SpaceEval2015/analysis/test_relType.txt");
+//                "data/SpaceEval2015/analysis/test_relTypes.txt");
+//
+//        SpaceEvalUtils.analyseRelType("data/SpaceEval2015/raw",
+//                "data/SpaceEval2015/analysis/all_relTypes.txt");
 
-        SpaceEvalUtils.analyseNoTriggerRelType("data/SpaceEval2015/raw_data/training++",
-                "data/SpaceEval2015/analysis/train_relType_noTrigger.txt");
+//        SpaceEvalUtils.analyseMotionClass("data/SpaceEval2015/raw_data/training++",
+//                "data/SpaceEval2015/analysis/train_motion_class.txt");
+//
+//        SpaceEvalUtils.analyseMotionClass("data/SpaceEval2015/raw_data/gold++",
+//                "data/SpaceEval2015/analysis/test_motion_class.txt");
 
-        SpaceEvalUtils.analyseNoTriggerRelType("data/SpaceEval2015/raw_data/gold++",
-                "data/SpaceEval2015/analysis/test_relType_noTrigger.txt");
+//        SpaceEvalUtils.analyseNoTriggerRelType(trainPath,
+//                "data/SpaceEval2015/analysis/train_relType_noTrigger.txt");
 
+//        SpaceEvalUtils.analyseNoTriggerRelType(goldPath,
+//                "data/SpaceEval2015/analysis/test_relType_noTrigger.txt");
+
+//        SpaceEvalUtils.checkRelTypesBetweenLinksWithTheSameTrigger("data/SpaceEval2015/raw_data/training++");
+//        SpaceEvalUtils.checkRelTypesBetweenLinksWithTheSameTrigger("data/SpaceEval2015/raw_data/gold++");
+
+//        SpaceEvalUtils.analysisMoveLinkRoleNumber(trainPath);
+//        SpaceEvalUtils.analysisMoveLinkRoleNumber(goldPath);
+
+//        SpaceEvalUtils.statisticsElement(trainPath);
+//        SpaceEvalUtils.statisticsElement(goldPath);
+
+        SpaceEvalUtils.statisticsLink(trainPath);
+        SpaceEvalUtils.statisticsLink(goldPath);
     }
 }

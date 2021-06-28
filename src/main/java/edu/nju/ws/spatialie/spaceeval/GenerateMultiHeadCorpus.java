@@ -23,7 +23,8 @@ public class GenerateMultiHeadCorpus {
     static Set<String> acceptedLabels = null;
     static boolean onlyCoreRole = true;
     static boolean useRelType = false;
-
+    static boolean config1 = false;
+    static boolean useSignalSuffix=true;
 
 //    private static List<Triple<String, String, String>> getBidirectionalSPOTriples(List<BratEvent> links) {
 //        List<Triple<String, String, String>> triples = new ArrayList<>();
@@ -132,6 +133,9 @@ public class GenerateMultiHeadCorpus {
 
                         if (useRelType) {
                             String relType = link.getAttribute("relType").trim();
+                            if (relType.equals("NEXT TO")) {
+                                relType = "NEXT_TO";
+                            }
                             if (relType.isEmpty()) {
                                 System.out.println("relType为空！");
                             }
@@ -140,9 +144,14 @@ public class GenerateMultiHeadCorpus {
                     });
 
                 } else {
+                    // TODO: locatedIn -> QSLINK, OLINK
+//                    trajectors.forEach(trajector ->
+//                            landmarks.forEach(landmark ->
+//                                    triples.add(new ImmutableTriple<>(trajector, "locatedIn", landmark))));
+                    String relation = useRelType ? link.getAttribute("relType").trim() : link.getType();
                     trajectors.forEach(trajector ->
                             landmarks.forEach(landmark ->
-                                    triples.add(new ImmutableTriple<>(trajector, "locatedIn", landmark))));
+                                    triples.add(new ImmutableTriple<>(trajector, relation, landmark))));
                 }
             }
         }
@@ -199,11 +208,11 @@ public class GenerateMultiHeadCorpus {
 
     private static String lineFormat(int idx, String token, String relations, String heads, String label,
                                      String elementId, String depHead, String depLabel) {
-        int maxTokenLength = 15, maxRelationLength = 30;
-        token = StringUtils.rightPad(token, maxTokenLength);
+        int maxTokenLength = 15, maxRelationLength = 30; token = StringUtils.rightPad(token, maxTokenLength);
         label  = StringUtils.rightPad(label, 21);
         relations = StringUtils.rightPad(relations, maxRelationLength);
         heads = StringUtils.rightPad(heads, 20);
+
 //        depHead = StringUtils.right(depHead, 10);
 //        depLabel = StringUtils.right(depLabel, 10);
 //        isTrigger = StringUtils.rightPad(isTrigger, 5);
@@ -244,7 +253,7 @@ public class GenerateMultiHeadCorpus {
             for (List<Span> tokens: sentences) {
                 String sentenceText = tokens.stream().map(o->o.text).collect(Collectors.joining(" "));
 
-//                if (sentenceText.startsWith("The GPS ' said '"))
+//                if (sentenceText.startsWith("Ride for Climate"))
 //                    System.out.println("XXX");
 
                 int sentenceStart = tokens.get(0).start, sentenceEnd = tokens.get(tokens.size()-1).end;
@@ -296,7 +305,7 @@ public class GenerateMultiHeadCorpus {
 //                    System.out.println("1241245");
 //                }
 
-                if (noRelation && noSignal) {
+                if (noRelation && noSignal && !config1) {
                     continue;
                 }
 
@@ -323,7 +332,6 @@ public class GenerateMultiHeadCorpus {
 //                    coreNlpSen.forEach(x -> System.out.println(x.getText()));
 //                    System.out.println();
 //                }
-
 
 //                if (includeXmlInfo) {
 //                    lines.add(file.getName());
@@ -356,21 +364,20 @@ public class GenerateMultiHeadCorpus {
                     Integer depHead = dependencyHeads.get(i).first;
                     String depLabel = dependencyHeads.get(i).second;
 
-
-                    if (relations.get(i).contains("trajector_Q") || relations.get(i).contains("landmark_Q")) {
-                        for (int j=i; j < tokens.size();j++) {
-                            tokens.get(j).label = tokens.get(j).label + "_Q";
-                            if (j < tokens.size()-1 && !tokens.get(j+1).label.startsWith("I-")) break;
+                    if (useSignalSuffix) {
+                        if (relations.get(i).contains("trajector_Q") || relations.get(i).contains("landmark_Q")) {
+                            for (int j=i; j < tokens.size();j++) {
+                                tokens.get(j).label = tokens.get(j).label + "_Q";
+                                if (j < tokens.size()-1 && !tokens.get(j+1).label.startsWith("I-")) break;
+                            }
+                        }
+                        if (relations.get(i).contains("trajector_O") || relations.get(i).contains("landmark_O")) {
+                            for (int j=i; j < tokens.size();j++) {
+                                tokens.get(j).label = tokens.get(j).label + "_O";
+                                if (j < tokens.size()-1 && !tokens.get(j+1).label.startsWith("I-")) break;
+                            }
                         }
                     }
-                    if (relations.get(i).contains("trajector_O") || relations.get(i).contains("landmark_O")) {
-                        for (int j=i; j < tokens.size();j++) {
-                            tokens.get(j).label = tokens.get(j).label + "_O";
-                            if (j < tokens.size()-1 && !tokens.get(j+1).label.startsWith("I-")) break;
-                        }
-                    }
-
-
                     maxTokenLength = Math.max(token.text.length(), maxTokenLength);
                     maxRelationLength = Math.max(relationsStr.length(), maxRelationLength);
                     String line = lineFormat(i, token.text, relationsStr, headStr, token.label, token.id, depHead.toString(), depLabel);
@@ -398,7 +405,9 @@ public class GenerateMultiHeadCorpus {
     // 生成Multi-head selection格式的语料
     private static void run_config3(String srcDir, String targetFilePath,List<String> linkTypes, String mode,
                                     boolean includeXmlInfo,  boolean shuffle) {
-
+        useRelType = false;
+        useSignalSuffix=true;
+        config1 = false;
         List<String> lines;
         lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true, includeXmlInfo,shuffle);
         FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
@@ -413,27 +422,58 @@ public class GenerateMultiHeadCorpus {
 
 //        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, true, false, shuffle);
 //        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Tail/" + mode + ".txt", lines);
-
     }
+
+    private static void run_config3b(String srcDir, String targetFilePath,List<String> linkTypes, String mode,
+                                    boolean includeXmlInfo,  boolean shuffle) {
+        useRelType = true;
+        useSignalSuffix=true;
+        config1 = false;
+        List<String> lines;
+        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true, includeXmlInfo,shuffle);
+        FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
+        FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", lines);
+    }
+
+
+    private static void run_config1_joint_1(String srcDir, String targetFilePath,List<String> linkTypes, String mode,
+                                           boolean includeXmlInfo,  boolean shuffle) {
+        useRelType = true;
+        useSignalSuffix=true;
+        config1 = true;
+        List<String> lines;
+        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true, includeXmlInfo,shuffle);
+        FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
+        FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", lines);
+    }
+
+    private static void run_config1_joint_2(String srcDir, String targetFilePath,List<String> linkTypes, String mode,
+                                            boolean includeXmlInfo,  boolean shuffle) {
+        useRelType = true;
+        useSignalSuffix = false;
+        config1 = true;
+        List<String> lines;
+        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true, includeXmlInfo,shuffle);
+        FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
+        FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", lines);
+    }
+
 
     // 生成Multi-head selection格式的语料
     private static void run_config2(String srcDir, String targetFilePath,List<String> linkTypes, String mode,
                                     boolean includeXmlInfo,  boolean shuffle) {
-
+        useRelType = false;
+        useSignalSuffix=false;
+        config1 = false;
         List<String> lines;
         lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, false,true, includeXmlInfo,shuffle);
-        lines = lines.stream().map(line->line.replaceAll("SPATIAL_SIGNAL(_.)+\t", "SPATIAL_SIGNAL\t"))
-                .collect(Collectors.toList());
         FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
         FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", lines);
-
-
-        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, true,true, includeXmlInfo,shuffle);
-        lines = lines.stream().map(line->line.replaceAll("SPATIAL_SIGNAL(_.)+\t", "SPATIAL_SIGNAL\t"))
-                .collect(Collectors.toList());
-        FileUtil.createDir(targetFilePath + "/" + "Bi-AllLink-Head/");
-        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Head/" + mode + ".txt", lines);
-
+//        lines = getMultiHeadFormatLinkLines(srcDir, linkTypes, true,true, includeXmlInfo,shuffle);
+//        lines = lines.stream().map(line->line.replaceAll("SPATIAL_SIGNAL(_.)+\t", "SPATIAL_SIGNAL\t"))
+//                .collect(Collectors.toList());
+//        FileUtil.createDir(targetFilePath + "/" + "Bi-AllLink-Head/");
+//        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Head/" + mode + ".txt", lines);
     }
 
 
@@ -441,31 +481,34 @@ public class GenerateMultiHeadCorpus {
                                                   boolean includeXmlInfo,  boolean shuffle, boolean bidirectional) {
         List<String> predElementLines = FileUtil.readLines(elementPredPath);
         List<String> oriGoldLines = getMultiHeadFormatLinkLines(srcDir, linkTypes, bidirectional,true, includeXmlInfo,shuffle);
-        oriGoldLines = oriGoldLines.stream().map(line->line.replaceAll("SPATIAL_SIGNAL(_.)+\t", "SPATIAL_SIGNAL\t"))
-                .collect(Collectors.toList());
+//        oriGoldLines = oriGoldLines.stream().map(line->line.replaceAll("SPATIAL_SIGNAL(_.)+\t", "SPATIAL_SIGNAL\t"))
+//                .collect(Collectors.toList());
         List<String> newGoldLines = new ArrayList<>();
 
         List<List<String>> predGroups = CollectionUtils.split(predElementLines, "");
         List<List<String>> goldGroups = CollectionUtils.split(oriGoldLines, "");
         int idx = 0;
         for (List<String> goldGroup : goldGroups) {
+            String fileName = goldGroup.get(0);
+            goldGroup = goldGroup.subList(1, goldGroup.size());
             String goldSen = goldGroup.stream().map(x -> x.split("\\s+")[1]).collect(Collectors.joining(" "));
             do {
                 List<String> predGroup = predGroups.get(idx++);
                 if (goldGroup.size() != predGroup.size()) continue;
-                String predSen = predGroup.stream().map(x -> x.split(" ")[0]).collect(Collectors.joining(" "));
+                String predSen = predGroup.stream().map(x -> x.split("\t")[0]).collect(Collectors.joining(" "));
                 if (goldSen.equals(predSen)) {
                     for (int j = 0; j < goldGroup.size(); j++) {
                         String[] goldArr = goldGroup.get(j).split("\t");
-                        String[] predArr = predGroup.get(j).split(" ");
-                        String oriLabel = goldArr[goldArr.length - 2];
+                        String[] predArr = predGroup.get(j).split("\t");
+                        String oriLabel = goldArr[2];
                         String newLabel = predArr[predArr.length - 1];
-                        goldArr[goldArr.length - 2] = StringUtils.rightPad(newLabel, oriLabel.length());
+                        goldArr[2] = StringUtils.rightPad(newLabel, oriLabel.length());
                         goldGroup.set(j, String.join("\t", goldArr));
                     }
                     break;
                 }
             } while (true);
+            newGoldLines.add(fileName);
             newGoldLines.addAll(goldGroup);
             newGoldLines.add("");
         }
@@ -474,14 +517,16 @@ public class GenerateMultiHeadCorpus {
 
     private static void run_config1(String srcDir, String targetFilePath, String elementPredPath, List<String> linkTypes, String mode,
                                     boolean includeXmlInfo,  boolean shuffle) {
+        useRelType = true;
+        useSignalSuffix=false;
+        config1 = true;
         List<String> lines;
         lines = get_config1_lines(srcDir, elementPredPath, linkTypes, includeXmlInfo, shuffle, false);
         FileUtil.createDir(targetFilePath + "/" + "AllLink-Head/");
         FileUtil.writeFile(targetFilePath + "/" + "AllLink-Head/" + mode + ".txt", lines);
-
-        lines = get_config1_lines(srcDir, elementPredPath, linkTypes, includeXmlInfo, shuffle, true);
-        FileUtil.createDir(targetFilePath + "/" + "Bi-AllLink-Head/");
-        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Head/" + mode + ".txt", lines);
+//        lines = get_config1_lines(srcDir, elementPredPath, linkTypes, includeXmlInfo, shuffle, true);
+//        FileUtil.createDir(targetFilePath + "/" + "Bi-AllLink-Head/");
+//        FileUtil.writeFile(targetFilePath + "/" + "Bi-AllLink-Head/" + mode + ".txt", lines);
     }
 
 
@@ -505,7 +550,8 @@ public class GenerateMultiHeadCorpus {
 //        GenerateMultiHeadCorpus.run_config3(gold_path, "", linkTypes, "dev", false, false);
 //        GenerateMultiHeadCorpus.run_config3("", "", linkTypes, "test", false, false);
 //        System.exit(0);
-        SpaceEvalDoc.ignoreElementNotInLink = true;
+        //TODO: 注意此处
+//        SpaceEvalDoc.ignoreElementNotInLink = true;
 
         for (int i=0; i<2; i++) {
             onlyCoreRole = i > 0;
@@ -521,25 +567,25 @@ public class GenerateMultiHeadCorpus {
 //            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
 //            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
 //            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
-//
+
 //            SpaceEvalDoc.useCoreference = true;
 //            target_dir = "data/SpaceEval2015/processed_data/MHS_new/" + mode + "/configuration3";
 //            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
 //            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
 //            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
 //            SpaceEvalDoc.useCoreference = false;
-//
+
 //            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration3";
 //            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",true, false);
 //            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", true, false);
 //            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", true, false);
 
 
-            useRelType = true;
-            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration3b";
-            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",false, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", false, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
+//            useRelType = true;
+//            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration3b";
+//            GenerateMultiHeadCorpus.run_config3b(train_path, target_dir, linkTypes,"train",false, false);
+//            GenerateMultiHeadCorpus.run_config3b(gold_path, target_dir, linkTypes, "dev", false, false);
+//            GenerateMultiHeadCorpus.run_config3b(gold_path, target_dir, linkTypes, "test", false, false);
 
 //            SpaceEvalDoc.useCoreference = true;
 //            target_dir = "data/SpaceEval2015/processed_data/MHS_new/" + mode + "/configuration3b";
@@ -548,12 +594,23 @@ public class GenerateMultiHeadCorpus {
 //            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", false, false);
 //            SpaceEvalDoc.useCoreference = false;
 
-            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration3b";
-            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",true, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", true, false);
-            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", true, false);
-            useRelType = false;
+//            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration3b";
+//            GenerateMultiHeadCorpus.run_config3(train_path, target_dir, linkTypes,"train",true, false);
+//            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "dev", true, false);
+//            GenerateMultiHeadCorpus.run_config3(gold_path, target_dir, linkTypes, "test", true, false);
+
+
+//            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration1_1_1";
+//            GenerateMultiHeadCorpus.run_config1_joint_1(train_path, target_dir, linkTypes,"train",false, false);
+//            GenerateMultiHeadCorpus.run_config1_joint_1(gold_path, target_dir, linkTypes, "dev", false, false);
+//            GenerateMultiHeadCorpus.run_config1_joint_1(gold_path, target_dir, linkTypes, "test", false, false);
 //
+//
+//            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration1_1_2";
+//            GenerateMultiHeadCorpus.run_config1_joint_2(train_path, target_dir, linkTypes,"train",false, false);
+//            GenerateMultiHeadCorpus.run_config1_joint_2(gold_path, target_dir, linkTypes, "dev", false, false);
+//            GenerateMultiHeadCorpus.run_config1_joint_2(gold_path, target_dir, linkTypes, "test", false, false);
+
 //            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration2";
 //            GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",false, false);
 //            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "dev", false, false);
@@ -565,13 +622,20 @@ public class GenerateMultiHeadCorpus {
 //            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes, "test", true, false);
 //
 //
-//            String elementPredPath = "data/SpaceEval2015/processed_data/NER/config1/predict.txt";
-//            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration1_1";
-//
-//            GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",false, false);
+            String elementPredPath = "data/SpaceEval2015/processed_data/NER/config1/predict.txt";
+            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration1_pipeline";
+
+//            GenerateMultiHeadCorpus.run_config1_joint_2(train_path, target_dir, linkTypes,"train",false, false);
 //            GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"dev",false, false);
 //            GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"test",false, false);
-//
+
+            elementPredPath = "data/SpaceEval2015/processed_data/NER/config1b/predict.txt";
+            target_dir = "data/SpaceEval2015/processed_data/MHS/" + mode + "/configuration1b_pipeline";
+            GenerateMultiHeadCorpus.run_config1_joint_1(train_path, target_dir, linkTypes,"train",false, false);
+//            GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"dev",false, false);
+//            GenerateMultiHeadCorpus.run_config1(gold_path, target_dir, elementPredPath, linkTypes,"test",false, false);
+
+
 //            target_dir = "data/SpaceEval2015/processed_data/MHS_xml/" + mode + "/configuration1_1";
 //            GenerateMultiHeadCorpus.run_config2(train_path, target_dir, linkTypes,"train",true, false);
 //            GenerateMultiHeadCorpus.run_config2(gold_path, target_dir, linkTypes,"dev",true, false);

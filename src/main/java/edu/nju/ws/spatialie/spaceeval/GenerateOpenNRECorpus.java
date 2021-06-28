@@ -187,9 +187,9 @@ public class GenerateOpenNRECorpus {
             jsonObject.put("xmlfile",xmlFileName);
             head_entity.put("id",head.id);
             tail_entity.put("id",tail.id);
-            head_entity.put("semantic_type",head.semantic_type);
+            head_entity.put("semantic_type",head.getAttribute(SEMANTIC_TYPE));
             head_entity.put("label",head.label);
-            tail_entity.put("semantic_type",tail.semantic_type);
+            tail_entity.put("semantic_type",tail.getAttribute(SEMANTIC_TYPE));
             tail_entity.put("label", tail.label);
         }
         jsonObject.put("token", tokenList);
